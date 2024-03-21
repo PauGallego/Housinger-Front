@@ -1,10 +1,11 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
+		<h3>sdwndowndinwdiwn</h3>
 		<svg
 			class="astro-a"
 			width="495"
@@ -33,11 +34,34 @@ import Card from '../components/Card.astro';
 				</linearGradient>
 			</defs>
 		</svg>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions ">
-			To get started, open the directory <code>src/pages</code> in your project. <i class="icon-[material-symbols--arrow-back-ios-new]"></i> <span class="icon-[akar-icons--book] t"></span><br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
+		<h1>
+			Welcome to <span class="text-gradient">Astro</span><span
+				class="icon-[ion--accessibility]"></span>
+		</h1>
+		<p class="instructions">
+			To get started, open the directory <code>src/pages</code> in your project.
+			<i class="icon-[material-symbols--arrow-back-ios-new]"></i>
+			<span class="icon-[akar-icons--book] t"></span><br />
+			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message
+			above.
 		</p>
+		<p>Hola buenos dias que tal?</p>
+		<p class="font-mono">Hola buenos dias que tal?</p>
+		<div class="grid: 6/6">
+			<p>Hola buenos dias que tal?</p>
+			<p>adwdwwfwfwfwfwfwwfwfwfwfw</p>
+		</div>
+		<div class="grid grid-cols-4 gap-4">
+			<div>01</div>
+			<div>02</div>
+			<div>03</div>
+			<div>04</div>
+			<div>05</div>
+			<div>06</div>
+			<div>07</div>
+			<div>08</div>
+			<div>09</div>
+		</div>
 		<ul role="list" class="link-card-grid">
 			<Card
 				href="https://docs.astro.build/"
@@ -59,6 +83,7 @@ import Card from '../components/Card.astro';
 				title="Community"
 				body="Come say hi to our amazing Discord community. ❤️"
 			/>
+			<Card href="dwwdwdwd" title="Community" body="CJoooderr❤️" />
 		</ul>
 	</main>
 </Layout>
@@ -99,7 +124,10 @@ import Card from '../components/Card.astro';
 	.instructions {
 		margin-bottom: 2rem;
 		border: 1px solid rgba(var(--accent-light), 25%);
-		background: linear-gradient(rgba(var(--accent-dark), 66%), rgba(var(--accent-dark), 33%));
+		background: linear-gradient(
+			rgba(var(--accent-dark), 66%),
+			rgba(var(--accent-dark), 33%)
+		);
 		padding: 1.5rem;
 		border-radius: 8px;
 	}

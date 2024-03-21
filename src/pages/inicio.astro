@@ -1,0 +1,94 @@
+---
+import Layout from "../layouts/cabezera.astro";
+---
+
+<Layout title="Login" fondo="blue">
+    <main>
+        <div class="fondo-menu">
+            <div class="flex gap-10 font-bold justify-center">
+                <p>Mis reservas</p>
+                <p>Mis propiedades</p>
+                
+            </div>
+            <div class="flex justify-center">
+                <div class="buscador h-[46px] w-[376px] rounded-[50px] mt-[20px] mb-[20px] lg:h-[77px] lg:w-[714px]">
+                    <div class="flex justify-center items-center lg:mt-3 gap-2">
+                        <div>
+                            <p class="ml-5">Destino</p>
+                            <input type="text" class="h-[28px] w-[300px] lg:h-[30px] lg:w-[190px] pl-[20px] pr-[20px] caja" placeholder="Buscar vivienda" />
+                        </div>
+                        <div class="ddd"></div>
+                        <div class="ml-[20px] ede">
+                            <p>Fecha entrada</p>
+                            <button type="button" class="h-[28px] w-[300px] lg:h-[31px] lg:w-[155px] textos" onclick="">Introduce la fecha</button>
+                        </div>
+                        <div class="ddd"></div>
+                        <div class="ml-[20px] ede">
+                            <p class="">Fecha salida</p>
+                            <button type="button" class="h-[28px] w-[300px] lg:h-[31px] lg:w-[155px] textos" onclick="">Introduce la fecha</button>
+                        </div>
+                        <button class="boton-buscar flex justify-center items-center h-[28px] w-[30px] lg:h-[51px] lg:w-[53px] rounded-[50px]">
+                            <i class="icon-[ph--magnifying-glass-bold] text-fuchsia-50 lg:w-[26px] lg:h-[25px]"></i>
+                        </button>
+                    </div>
+                    <!-- Open the modal using ID.showModal() method -->
+<button class="btn" onclick="my_modal_2.showModal()">open modal</button>
+<dialog id="my_modal_2" class="modal">
+  <div class="modal-box">
+    <h3 class="font-bold text-lg">Hello!</h3>
+    <p class="py-4">Press ESC key or click outside to close</p>
+  </div>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        :root {
+            --primary: #576cbc;
+            --secondary: #0b2447;
+            --tertiary: #b1ddec;
+            --gris: #948e8e;
+            --star: #ffd910;
+            --menu: #a5d7e8;
+        }
+        .fondo-menu {
+            font-size: 16px;
+            background-color: var(--menu);
+        }
+
+        .buscador {
+            background-color: white;
+            border: 1px solid var(--gris);
+            box-shadow: 0px 2px 5px 0px var(--gris);
+        }
+
+        .boton-buscar {
+            background-color: var(--primary);
+        }
+
+        .caja {
+            border: none;
+            outline: none;
+        }
+
+        .ddd {
+            height: 40px;
+            border: 1px solid rgb(196, 194, 194);
+        }
+
+        .textos {
+            text-align: left;
+            color: var(--gris);
+        }
+
+        .ede:hover {
+            background-color: rgb(222, 213, 213);
+            border-radius: 10px;
+        }
+    </style>
+</Layout>

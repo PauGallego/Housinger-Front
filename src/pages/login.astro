@@ -1,0 +1,125 @@
+---
+import Layout from "../layouts/loginLS.astro";
+---
+
+<Layout title="Login">
+    <style>
+        :root {
+            --primary: #576cbc;
+            --secondary: #0b2447;
+            --tertiary: #b1ddec;
+            --blanco: #ffffff;
+        }
+
+        .fondo-primario {
+            background-color: var(--tertiary);
+        }
+
+        .fondo-secundario {
+            background-color: var(--blanco);
+        }
+
+        .titutlo-logo {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .texto-1 {
+            color: var(--primary);
+        }
+
+        .texto-2 {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .texto-3 {
+            color: var(--secondary);
+        }
+
+        .datos-insertar {
+            border-bottom: 1px solid var(--secondary);
+        }
+
+        .contenedor-input {
+            width: 200px;
+        }
+
+        .texto-recuperar {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .texto-crear {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /***** VERSION ESCRITORIO ****/
+        @media (min-width: 768px) {
+            .titutlo-logo {
+                color: var(--primary);
+                font-weight: bold;
+            }
+            .contenedor-input {
+                width: 300px;
+            }
+
+            .datos-insertar {
+                width: 275px;
+            }
+        }
+    </style>
+    <div class="flex justify-center items-center h-screen">
+        <div class="w-[95%] lg:w-[60%] md:w-[50%]">
+            <div
+                class="flex flex-col lg:flex-row items-center justify-center h-[60vh]"
+            >
+                <div
+                    class="fondo-primario flex flex-col items-center justify-center
+                h-[40%] lg:h-[100%] w-[100%] lg:w-[100%] rounded-t-xl lg:rounded-l-xl lg:rounded-tr-none"
+                >
+                    <img
+                        src="public/logo.png"
+                        class="logo-imagen h-[50%] lg:h-[30%]"
+                    />
+                    <h1 class="titutlo-logo text-[20px] lg:text-[64px] mt-6">
+                        HOUSINGER
+                    </h1>
+                </div>
+                <div
+                    class="fondo-secundario flex flex-col
+                h-[100%] lg:h-[100%] w-[100%] lg:w-[100%] lg:rounded-tr-xl lg:rounded-none rounded-bl-xl 
+                rounded-br-xl lg:rounded-br-xl">
+                    <h1 class="texto-1 text-[24px] lg:text-[36px] mt-6 ml-12">
+                        Hola!
+                    </h1>
+                    <h1 class="texto-2 text-[24px] lg:text-[36px] ml-12">
+                        Bienvenido
+                    </h1>
+                    <label
+                        class="texto-3 text-[20px] lg:text-[30px] mt-3 ml-16 lg:ml-20 mb-6"
+                        ><span style="color: var(--primary);">Acesso</span> de tu
+                        cuenta</label
+                    >
+                    <div class="ml-16 w-60 contenedor-input">
+                        <h1 class="">Usuario</h1>
+                        <input type="text" class="datos-insertar" />
+                        <br /><br />
+                        <h1>Contraseña</h1>
+                        <input type="text" class="datos-insertar" />
+                    </div>
+                    <label
+                        class="ml-16 lg:ml-32 lg:text-[20px] mt-10 texto-recuperar"
+                        >Recuperar contraseña</label
+                    >
+                    <button
+                        class="bg-[#576cbc] text-[20px] text-white w-52 lg:w-60 h-12 rounded-md ml-16 lg:ml-20 mt-6 lg:text-[32px]"
+                        >Login</button
+                    >
+                    <label class="texto-crear ml-16 mt-5 mb-10 lg:ml-40">Crear cuenta</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>
