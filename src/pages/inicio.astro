@@ -1,5 +1,8 @@
 ---
 import Layout from "../layouts/cabezera.astro";
+import Card from "../components/Propiedad.astro";
+import Caract from "../components/Caracteristica.astro";
+
 ---
 
 <Layout title="Login" fondo="blue">
@@ -20,12 +23,12 @@ import Layout from "../layouts/cabezera.astro";
                         <div class="raya esconde"></div>
                         <div class="ml-[20px] esconde">
                             <p>Fecha entrada</p>
-                            <button type="button" class="h-[28px] w-[300px] lg:h-[31px] lg:w-[155px] textos" onclick="">Introduce la fecha</button>
+                            <input type="date" class="lg:h-[30px] lg:w-[150px]">
                         </div>
                         <div class="raya esconde"></div>
                         <div class="ml-[20px] esconde">
                             <p class="">Fecha salida</p>
-                            <button type="button" class="h-[28px] w-[300px] lg:h-[31px] lg:w-[155px] textos" onclick="">Introduce la fecha</button>
+                            <input type="date" class="lg:h-[30px] lg:w-[150px]">
                         </div>
                         <div>
                             <button class="btn w-[310px] bg-white mt-[2px] esconde2" onclick="my_modal_3.showModal()" style="border: none;">Buscar destino y fechas</button>
@@ -47,7 +50,7 @@ import Layout from "../layouts/cabezera.astro";
                                 </div>
                             </dialog>                        
                         </div>
-                        <button class="boton-buscar flex justify-center items-center h-[28px] w-[30px] lg:h-[51px] lg:w-[53px] rounded-[50px]">
+                        <button class=" esconde boton-buscar flex justify-center items-center h-[28px] w-[30px] lg:h-[51px] lg:w-[53px] rounded-[50px]">
                             <i class="icon-[ph--magnifying-glass-bold] text-fuchsia-50 lg:w-[26px] lg:h-[25px]"></i>
                         </button>
                     </div>
@@ -55,23 +58,23 @@ import Layout from "../layouts/cabezera.astro";
             </div>
         </div>
         <div class="flex">
-            <button class="mt-5 ml-5">
-                <i class="icon-[fluent--beach-48-regular] w-[40px] h-[40px]"></i>
-                <p>Pie de playa</p>
-            </button>
-            <button class="mt-5 ml-5">
-                <i class="icon-[material-symbols-light--forest-outline] w-[40px] h-[40px]"></i>
-                <p>En el campo</p>
-            </button>
-            <button class="mt-5 ml-5">
-                <i class="icon-[mdi--waves] w-[40px] h-[40px]"></i>
-                <p>Frente al lago</p>
-            </button>
-            <button class="mt-5 ml-5">
-                <i class="icon-[si-glyph--mountain] w-[40px] h-[40px]"></i>
-                <p>Montaña</p>
-            </button>
-            <button class="botonFiltro filtro mt-10" onclick="my_modal_4.showModal()" style="border: none;">
+            <Caract 
+                icon="icon-[fluent--beach-48-regular]"
+                text="Pie de playa"
+            />
+            <Caract 
+                icon="icon-[material-symbols-light--forest-outline]"
+                text="Pie de playa"
+            />
+            <Caract 
+                icon="icon-[mdi--waves]"
+                text="Pie de playa"
+            />
+            <Caract 
+                icon="icon-[si-glyph--mountain]"
+                text="Pie de playa"
+            />
+            <button class="filtro mt-8" onclick="my_modal_4.showModal()" style="border: none;">
                 <i class="icon-[mage--filter] h-[25px] w-[25px]"></i>
             </button>
             <dialog id="my_modal_4" class="modal">
@@ -79,10 +82,35 @@ import Layout from "../layouts/cabezera.astro";
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    
                 </div>
             </dialog> 
         </div>
+        <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5">Recomendados</h1>
+        <Card
+            href="https://docs.astro.build/"
+            imageSrc="public/casa1.jpg"
+            title="Barcelona, España"
+            descrip = "Anfitrion: Maria"
+        />
+        <Card
+            href="https://docs.astro.build/"
+            imageSrc="public/casa1.jpg"
+            title="Barcelona, España"
+            descrip = "Anfitrion: Maria"
+        />
+        <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5">Mejor valorados</h1>
+        <Card
+            href="https://docs.astro.build/"
+            imageSrc="public/casa1.jpg"
+            title="Barcelona, España"
+            descrip = "Anfitrion: Maria"
+        />
+        <Card
+            href="https://docs.astro.build/"
+            imageSrc="public/casa1.jpg"
+            title="Barcelona, España"
+            descrip = "Anfitrion: Maria"
+        />
     </main>
 
     <style>
@@ -143,12 +171,6 @@ import Layout from "../layouts/cabezera.astro";
             justify-content: center;
             align-items: center;
             margin-left: 10px;
-        }
-
-        .botonFiltro {
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         @media screen and (max-width: 1023px) {

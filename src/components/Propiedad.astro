@@ -1,0 +1,43 @@
+---
+interface Props {
+    title: string;
+    href: string;
+    imageSrc: string;
+    descrip : string;
+}
+
+const { href, title, descrip, imageSrc } = Astro.props;
+---
+<div class="propiedad">
+    <a href={href}>
+        {imageSrc && <img src={imageSrc} />}
+        <h2 class="lugar">
+            {title}
+        </h2>
+        <h2 class="descripcion">
+            {descrip}
+        </h2>
+    </a>
+</div>
+
+<style>
+    img {
+        width: 90%;
+        height: auto; 
+        border-radius: 20px;
+    }
+
+    .lugar {
+        font-weight: bold;
+    }
+
+    .propiedad {
+        margin-left: 30px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .descripcion{
+        color: gray;
+    }
+</style>

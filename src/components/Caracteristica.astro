@@ -1,0 +1,17 @@
+---
+interface Props {
+    icon: string;
+    text: string;
+}
+
+const { icon, text } = Astro.props;
+---
+
+<button class="mt-5 ml-5">
+    {icon && <i class={icon + " w-[30px] h-[30px]"} />}
+    <h2 class="nombreFiltro text-[12px]">
+        {text}
+    </h2>
+</button>
+
+<style></style>
