@@ -11,39 +11,77 @@ import Layout from "../layouts/cabezera.astro";
                 
             </div>
             <div class="flex justify-center">
-                <div class="buscador h-[46px] w-[376px] rounded-[50px] mt-[20px] mb-[20px] lg:h-[77px] lg:w-[714px]">
+                <div class="buscador h-[55px] w-[376px] rounded-[50px] mt-[20px] mb-[20px] lg:h-[77px] lg:w-[714px]">
                     <div class="flex justify-center items-center lg:mt-3 gap-2">
-                        <div>
+                        <div class="esconde">
                             <p class="ml-5">Destino</p>
                             <input type="text" class="h-[28px] w-[300px] lg:h-[30px] lg:w-[190px] pl-[20px] pr-[20px] caja" placeholder="Buscar vivienda" />
                         </div>
-                        <div class="ddd"></div>
-                        <div class="ml-[20px] ede">
+                        <div class="raya esconde"></div>
+                        <div class="ml-[20px] esconde">
                             <p>Fecha entrada</p>
                             <button type="button" class="h-[28px] w-[300px] lg:h-[31px] lg:w-[155px] textos" onclick="">Introduce la fecha</button>
                         </div>
-                        <div class="ddd"></div>
-                        <div class="ml-[20px] ede">
+                        <div class="raya esconde"></div>
+                        <div class="ml-[20px] esconde">
                             <p class="">Fecha salida</p>
                             <button type="button" class="h-[28px] w-[300px] lg:h-[31px] lg:w-[155px] textos" onclick="">Introduce la fecha</button>
+                        </div>
+                        <div>
+                            <button class="btn w-[310px] bg-white mt-[2px] esconde2" onclick="my_modal_3.showModal()" style="border: none;">Buscar destino y fechas</button>
+                            <dialog id="my_modal_3" class="modal">
+                                <div class="modal-box">
+                                    <form method="dialog">
+                                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                    </form>
+                                    <h3 class="font-bold text-lg">¿Donde quieres ir?</h3>
+                                    <div class="buscador h-[55px] w-[376px] rounded-[50px] mt-[20px] mb-[20px] lg:h-[77px] lg:w-[714px]">
+                                        <input type="text" class="h-[28px] w-[300px] lg:h-[30px] lg:w-[190px] pl-[20px] pr-[20px] mt-[10px] ml-[10px] caja" placeholder="Buscar vivienda" />
+                                    </div>
+                                    <h3 class="font-bold text-lg">Fecha de entrada:</h3>
+                                    <input type="date" class="h-[48px] w-[380px] lg:h-[30px] lg:w-[190px] p-[8px] rounded-[30px] calendario">
+                                    <h3 class="font-bold text-lg mt-5">Fecha de salida:</h3>
+                                    <input type="date" class="h-[48px] w-[380px] lg:h-[30px] lg:w-[190px] p-[8px] rounded-[30px] calendario">
+                                    <br>
+                                    <button type="submit" class="botonBuscar text-white px-4 py-2 rounded-md mt-5">Buscar</button>
+                                </div>
+                            </dialog>                        
                         </div>
                         <button class="boton-buscar flex justify-center items-center h-[28px] w-[30px] lg:h-[51px] lg:w-[53px] rounded-[50px]">
                             <i class="icon-[ph--magnifying-glass-bold] text-fuchsia-50 lg:w-[26px] lg:h-[25px]"></i>
                         </button>
                     </div>
-                    <!-- Open the modal using ID.showModal() method -->
-<button class="btn" onclick="my_modal_2.showModal()">open modal</button>
-<dialog id="my_modal_2" class="modal">
-  <div class="modal-box">
-    <h3 class="font-bold text-lg">Hello!</h3>
-    <p class="py-4">Press ESC key or click outside to close</p>
-  </div>
-  <form method="dialog" class="modal-backdrop">
-    <button>close</button>
-  </form>
-</dialog>
                 </div>
             </div>
+        </div>
+        <div class="flex">
+            <button class="mt-5 ml-5">
+                <i class="icon-[fluent--beach-48-regular] w-[40px] h-[40px]"></i>
+                <p>Pie de playa</p>
+            </button>
+            <button class="mt-5 ml-5">
+                <i class="icon-[material-symbols-light--forest-outline] w-[40px] h-[40px]"></i>
+                <p>En el campo</p>
+            </button>
+            <button class="mt-5 ml-5">
+                <i class="icon-[mdi--waves] w-[40px] h-[40px]"></i>
+                <p>Frente al lago</p>
+            </button>
+            <button class="mt-5 ml-5">
+                <i class="icon-[si-glyph--mountain] w-[40px] h-[40px]"></i>
+                <p>Montaña</p>
+            </button>
+            <button class="botonFiltro filtro mt-10" onclick="my_modal_4.showModal()" style="border: none;">
+                <i class="icon-[mage--filter] h-[25px] w-[25px]"></i>
+            </button>
+            <dialog id="my_modal_4" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    
+                </div>
+            </dialog> 
         </div>
     </main>
 
@@ -76,7 +114,7 @@ import Layout from "../layouts/cabezera.astro";
             outline: none;
         }
 
-        .ddd {
+        .raya {
             height: 40px;
             border: 1px solid rgb(196, 194, 194);
         }
@@ -86,9 +124,43 @@ import Layout from "../layouts/cabezera.astro";
             color: var(--gris);
         }
 
-        .ede:hover {
-            background-color: rgb(222, 213, 213);
-            border-radius: 10px;
+        .botonBuscar {
+            background-color: var(--primary);
+        }
+
+        .calendario {
+            border: 1px solid #ccc; 
+            font-size: 14px;
+        }
+
+        .filtro {
+            border: 1px solid var(--gris);
+            box-shadow: 0px 2px 5px 0px var(--gris);
+            height: 35px;
+            width: 80px;
+            border-radius: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .botonFiltro {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @media screen and (max-width: 1023px) {
+        .esconde {
+            display: none;
+        }
+        }
+
+        @media screen and (min-width: 1024px){
+            .esconde2 {
+                display: none;
+            }
         }
     </style>
 </Layout>
