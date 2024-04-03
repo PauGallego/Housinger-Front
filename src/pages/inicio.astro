@@ -64,16 +64,39 @@ import Caract from "../components/Caracteristica.astro";
             />
             <Caract 
                 icon="icon-[material-symbols-light--forest-outline]"
-                text="Pie de playa"
+                text="En el campo"
             />
             <Caract 
                 icon="icon-[mdi--waves]"
-                text="Pie de playa"
+                text="Frente al lago"
             />
             <Caract 
                 icon="icon-[si-glyph--mountain]"
-                text="Pie de playa"
+                text="Montaña"
             />
+
+            <div class="esconde">
+                <Caract 
+                icon="icon-[game-icons--palm-tree]"
+                text="Tropical"
+                />
+                <Caract 
+                icon="icon-[mdi--home-silo]"
+                text="Granja"
+                />
+                <Caract 
+                icon="icon-[mdi--city-variant-outline]"
+                text="Ciudad"
+                />
+                <Caract 
+                icon="icon-[game-icons--wood-cabin]"
+                text="Cabaña"
+                />
+                <Caract 
+                icon="icon-[icon-park-solid--green-house]"
+                text="Casa arbol"
+                />
+            </div>
             <button class="filtro mt-8" onclick="my_modal_4.showModal()" style="border: none;">
                 <i class="icon-[mage--filter] h-[25px] w-[25px]"></i>
             </button>
@@ -85,7 +108,8 @@ import Caract from "../components/Caracteristica.astro";
                 </div>
             </dialog> 
         </div>
-        <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5">Recomendados</h1>
+        <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Recomendados</h1>
+        <div class="lg:flex lg:flex-wrap m-auto lg:ml-20">
         <Card
             href="https://docs.astro.build/"
             imageSrc="public/casa1.jpg"
@@ -98,7 +122,6 @@ import Caract from "../components/Caracteristica.astro";
             title="Barcelona, España"
             descrip = "Anfitrion: Maria"
         />
-        <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5">Mejor valorados</h1>
         <Card
             href="https://docs.astro.build/"
             imageSrc="public/casa1.jpg"
@@ -111,6 +134,34 @@ import Caract from "../components/Caracteristica.astro";
             title="Barcelona, España"
             descrip = "Anfitrion: Maria"
         />
+        <Card
+            href="https://docs.astro.build/"
+            imageSrc="public/casa1.jpg"
+            title="Barcelona, España"
+            descrip = "Anfitrion: Maria"
+        />
+        <Card
+            href="https://docs.astro.build/"
+            imageSrc="public/casa1.jpg"
+            title="Barcelona, España"
+            descrip = "Anfitrion: Maria"
+        />
+    </div>
+    <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5">Mejor valorados</h1>
+    <div class="lg:flex lg:flex-wrap">
+    <Card
+        href="https://docs.astro.build/"
+        imageSrc="public/casa1.jpg"
+        title="Barcelona, España"
+        descrip = "Anfitrion: Maria"
+    />
+    <Card
+        href="https://docs.astro.build/"
+        imageSrc="public/casa1.jpg"
+        title="Barcelona, España"
+        descrip = "Anfitrion: Maria"
+    />
+</div>
     </main>
 
     <style>
