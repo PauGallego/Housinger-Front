@@ -7,14 +7,13 @@ interface Props {
 const { icon, text } = Astro.props;
 ---
 
-<button class="mt-5 ml-5 lg:ml-12" onclick="cambiarColor()">
+<button class="mt-5 ml-5 lg:ml-12 caracteristica ">
     {icon && <i class={icon + " w-[30px] h-[30px] lg:w-[35px] lg:h-[35px] md:w-[40px] md:h-[40px]"} />}
     <h2 class="nombreFiltro text-[12px] lg:text-[15px] md:text-[16px]">
         {text}
     </h2>
 </button>
 <script>
-    function cambiarColor() {
-        document.body.style.backgroundColor = 'gray';
-    }
+
+
 </script>

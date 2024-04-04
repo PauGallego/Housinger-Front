@@ -2,6 +2,10 @@
 import Layout from "../layouts/cabezera.astro";
 import Card from "../components/Propiedad.astro";
 import Caract from "../components/Caracteristica.astro";
+import Prop from "../components/prop.jsx";
+
+
+
 
 ---
 
@@ -11,6 +15,7 @@ import Caract from "../components/Caracteristica.astro";
             <div class="flex gap-10 font-bold justify-center">
                 <p>Mis reservas</p>
                 <p>Mis propiedades</p>
+                
                 
             </div>
             <div class="flex justify-center">
@@ -130,72 +135,58 @@ import Caract from "../components/Caracteristica.astro";
                             icon="icon-[fluent--beach-48-regular]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                                 icon="icon-[material-symbols-light--forest-outline]"
                                 text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                                 icon="icon-[si-glyph--mountain]"
                                 text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                                 icon="icon-[mdi--waves]"
                                 text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[game-icons--palm-tree]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[mdi--home-silo]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[mdi--city-variant-outline]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[game-icons--wood-cabin]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[icon-park-solid--green-house]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[lucide--caravan]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[mdi--rv-truck]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[mingcute--snow-fill]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[game-icons--mountain-cave]"
                             text=""
                             />
-                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                             <Caract 
                             icon="icon-[streamline--sail-ship-solid]"
                             text=""
                             />
-                        <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
                         <br>
                         <button type="submit" class="botonBuscar text-white px-4 py-2 rounded-md mt-5 lg:ml-[45px]">Buscar</button>
                     </form>
@@ -204,43 +195,9 @@ import Caract from "../components/Caracteristica.astro";
             </dialog> 
         </div>
         <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Recomendados</h1>
-        <div class="lg:flex lg:flex-wrap m-auto lg:ml-20">
-        <Card
-            href="https://docs.astro.build/"
-            imageSrc="public/casa1.jpg"
-            title="Barcelona, España"
-            descrip = "Anfitrion: Maria"
-        />
-        <Card
-            href="https://docs.astro.build/"
-            imageSrc="public/casa1.jpg"
-            title="Barcelona, España"
-            descrip = "Anfitrion: Maria"
-        />
-        <Card
-            href="https://docs.astro.build/"
-            imageSrc="public/casa1.jpg"
-            title="Barcelona, España"
-            descrip = "Anfitrion: Maria"
-        />
-        <Card
-            href="https://docs.astro.build/"
-            imageSrc="public/casa1.jpg"
-            title="Barcelona, España"
-            descrip = "Anfitrion: Maria"
-        />
-        <Card
-            href="https://docs.astro.build/"
-            imageSrc="public/casa1.jpg"
-            title="Barcelona, España"
-            descrip = "Anfitrion: Maria"
-        />
-        <Card
-            href="https://docs.astro.build/"
-            imageSrc="public/casa1.jpg"
-            title="Barcelona, España"
-            descrip = "Anfitrion: Maria"
-        />
+        <div class="lg:flex lg:flex-wrap m-auto lg:ml-20" id="casitas">
+        
+            
     </div>
     <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h1>
     <div class="lg:flex lg:flex-wrap m-auto lg:ml-20">
@@ -258,6 +215,28 @@ import Caract from "../components/Caracteristica.astro";
     />
     </div>
     </main>
+
+    <script>
+        
+        import React from 'react';
+import ReactDOM from 'react-dom';
+import Prop from '../components/prop.jsx';
+
+// Función para agregar el componente Prop al cuerpo del documento
+function agregarComponenteProp() {
+    // Creamos un div que actuará como contenedor para el componente Prop
+    const contenedor = document.createElement('div');
+
+    // Renderizamos el componente Prop dentro del contenedor
+
+    // Agregamos el contenedor (con el componente Prop dentro) al cuerpo del documento
+    document.body.appendChild(contenedor);
+}
+
+// Llamamos a la función para agregar el componente Prop al cuerpo del documento
+agregarComponenteProp();
+
+    </script>
 
     <style>
         :root {
