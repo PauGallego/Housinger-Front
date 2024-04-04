@@ -22,25 +22,60 @@ const Prop = ({ url }) => {
         return <div>Loading...</div>;
     }
 
-    return (
-        <div class="lg:flex lg:flex-wrap m-auto lg:ml-20">
-        
-            {propertyData.map(property => (
-                <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]">
-                <a key={property.id} href={property.propertyId}>
-                    {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
-                    <h2 className="lugar">
-                        {property.address}
-                    </h2>
-                    <h2 className="descripcion">
-                        {property.ownerName}
-                    </h2>
-                </a>
+    let premium = propertyData.filter(property => property.premium === true);
+
+    
+
+    if (premium.length > 0) {
+        return (
+            <div>
+                <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Recomendados</h2>
+    
+                <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
+                    {premium.map(property => (
+                        <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={property.id}>
+                            <a href={property.propertyId}>
+                                {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
+                                <h2 className="lugar">{property.address}</h2>
+                                <h2 className="descripcion">{property.ownerName}</h2>
+                            </a>
+                        </div>
+                    ))}
                 </div>
-            ))}
-      
-        </div>
-    );
+    
+                <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h2>
+                <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
+                    {propertyData.map(property => (
+                        <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={property.id}>
+                            <a href={property.propertyId}>
+                                {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
+                                <h2 className="lugar">{property.address}</h2>
+                                <h2 className="descripcion">{property.ownerName}</h2>
+                            </a>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    } else {
+        return (
+            <div>
+                <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h2>
+    
+                <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
+                    {propertyData.map(property => (
+                        <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={property.id}>
+                            <a href={property.propertyId}>
+                                {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
+                                <h2 className="lugar">{property.address}</h2>
+                                <h2 className="descripcion">{property.ownerName}</h2>
+                            </a>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
 };
 
 export default Prop;
