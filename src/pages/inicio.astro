@@ -2,9 +2,9 @@
 import Layout from "../layouts/cabezera.astro";
 import Card from "../components/Propiedad.astro";
 import Caract from "../components/Caracteristica.astro";
-import Prop from "../components/prop.jsx";
 
-
+const response = await fetch('http://localhost:8081/v1/propertyCharacteristics/get/all');
+const data = await response.json();
 
 
 ---
@@ -15,7 +15,6 @@ import Prop from "../components/prop.jsx";
             <div class="flex gap-10 font-bold justify-center">
                 <p>Mis reservas</p>
                 <p>Mis propiedades</p>
-                
                 
             </div>
             <div class="flex justify-center">
@@ -195,8 +194,17 @@ import Prop from "../components/prop.jsx";
             </dialog> 
         </div>
         <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Recomendados</h1>
-        <div class="lg:flex lg:flex-wrap m-auto lg:ml-20" id="casitas">
-        
+        <div class="lg:flex lg:flex-wrap m-auto lg:ml-20">
+            {
+                data.map((casa) => (
+                    <Card
+                        href={casa.propertyId}
+                        imageSrc="public/casa1.jpg"
+                        title={casa.address}  
+                        descrip={casa.ownerName}
+                    />
+                ))
+            }
             
     </div>
     <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h1>
@@ -217,25 +225,15 @@ import Prop from "../components/prop.jsx";
     </main>
 
     <script>
-        
-        import React from 'react';
-import ReactDOM from 'react-dom';
-import Prop from '../components/prop.jsx';
+        let characteristics = document.querySelectorAll('.caracteristica');
 
-// Función para agregar el componente Prop al cuerpo del documento
-function agregarComponenteProp() {
-    // Creamos un div que actuará como contenedor para el componente Prop
-    const contenedor = document.createElement('div');
-
-    // Renderizamos el componente Prop dentro del contenedor
-
-    // Agregamos el contenedor (con el componente Prop dentro) al cuerpo del documento
-    document.body.appendChild(contenedor);
-}
-
-// Llamamos a la función para agregar el componente Prop al cuerpo del documento
-agregarComponenteProp();
-
+        characteristics.forEach((characteristic) => {
+            characteristic.addEventListener('click', () => {
+                characteristic.classList.toggle('aaa');
+                characteristic.classList.toggle('rounded-lg');
+                characteristic.classList.toggle('text-white');
+            });
+        });
     </script>
 
     <style>
@@ -246,6 +244,9 @@ agregarComponenteProp();
             --gris: #948e8e;
             --star: #ffd910;
             --menu: #a5d7e8;
+        }
+        .bg-secondary {
+        background-color: var(--gris) !important;
         }
         .ddd {
             display: flex;
