@@ -57,7 +57,7 @@ import Caract from "../components/Caracteristica.astro";
                 </div>
             </div>
         </div>
-        <div class="flex">
+        <div class="flex justify-center lg:flex-wrap">
             <Caract 
                 icon="icon-[fluent--beach-48-regular]"
                 text="Pie de playa"
@@ -74,7 +74,6 @@ import Caract from "../components/Caracteristica.astro";
                 icon="icon-[si-glyph--mountain]"
                 text="Montaña"
             />
-
             <div class="esconde">
                 <Caract 
                 icon="icon-[game-icons--palm-tree]"
@@ -97,15 +96,111 @@ import Caract from "../components/Caracteristica.astro";
                 text="Casa arbol"
                 />
             </div>
+            <div class="esconde3">
+                <Caract 
+                icon="icon-[lucide--caravan]"
+                text="Caravana"
+                />
+                <Caract 
+                icon="icon-[mdi--rv-truck]"
+                text="Auto caravan"
+                />
+                <Caract 
+                icon="icon-[mingcute--snow-fill]"
+                text="Zonas nevadas"
+                />
+                <Caract 
+                icon="icon-[game-icons--mountain-cave]"
+                text="Cueva"
+                />
+                <Caract 
+                icon="icon-[streamline--sail-ship-solid]"
+                text="Barco"
+                />
+            </div>
             <button class="filtro mt-8" onclick="my_modal_4.showModal()" style="border: none;">
                 <i class="icon-[mage--filter] h-[25px] w-[25px]"></i>
             </button>
             <dialog id="my_modal_4" class="modal">
-                <div class="modal-box">
+                <div class="modal-box" style="display: flex; flex-direction: column;">
                     <form method="dialog">
                         <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                        <h1 class="font-bold text-[20px] lg:ml-[45px]">¿Qué buscas?</h1>
+                            <Caract 
+                            icon="icon-[fluent--beach-48-regular]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                                icon="icon-[material-symbols-light--forest-outline]"
+                                text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                                icon="icon-[si-glyph--mountain]"
+                                text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                                icon="icon-[mdi--waves]"
+                                text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[game-icons--palm-tree]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[mdi--home-silo]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[mdi--city-variant-outline]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[game-icons--wood-cabin]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[icon-park-solid--green-house]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[lucide--caravan]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[mdi--rv-truck]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[mingcute--snow-fill]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[game-icons--mountain-cave]"
+                            text=""
+                            />
+                            <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                            <Caract 
+                            icon="icon-[streamline--sail-ship-solid]"
+                            text=""
+                            />
+                        <input type="checkbox" class="w-[20px] h-[20px] rounded-[4px]">
+                        <br>
+                        <button type="submit" class="botonBuscar text-white px-4 py-2 rounded-md mt-5 lg:ml-[45px]">Buscar</button>
                     </form>
                 </div>
+                
             </dialog> 
         </div>
         <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Recomendados</h1>
@@ -147,9 +242,9 @@ import Caract from "../components/Caracteristica.astro";
             descrip = "Anfitrion: Maria"
         />
     </div>
-    <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5">Mejor valorados</h1>
-    <div class="lg:flex lg:flex-wrap">
-    <Card
+    <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h1>
+    <div class="lg:flex lg:flex-wrap m-auto lg:ml-20">
+        <Card
         href="https://docs.astro.build/"
         imageSrc="public/casa1.jpg"
         title="Barcelona, España"
@@ -161,7 +256,7 @@ import Caract from "../components/Caracteristica.astro";
         title="Barcelona, España"
         descrip = "Anfitrion: Maria"
     />
-</div>
+    </div>
     </main>
 
     <style>
@@ -172,6 +267,10 @@ import Caract from "../components/Caracteristica.astro";
             --gris: #948e8e;
             --star: #ffd910;
             --menu: #a5d7e8;
+        }
+        .ddd {
+            display: flex;
+            flex-direction: column;
         }
         .fondo-menu {
             font-size: 16px;
@@ -232,6 +331,12 @@ import Caract from "../components/Caracteristica.astro";
 
         @media screen and (min-width: 1024px){
             .esconde2 {
+                display: none;
+            }
+        }
+
+        @media screen and (max-width: 1824px){
+            .esconde3 {
                 display: none;
             }
         }
