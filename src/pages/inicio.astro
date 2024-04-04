@@ -2,10 +2,7 @@
 import Layout from "../layouts/cabezera.astro";
 import Card from "../components/Propiedad.astro";
 import Caract from "../components/Caracteristica.astro";
-
-const response = await fetch('http://localhost:8081/v1/propertyCharacteristics/get/all');
-const data = await response.json();
-
+import Prop from "../components/react/Prop.jsx";
 
 ---
 
@@ -194,19 +191,10 @@ const data = await response.json();
             </dialog> 
         </div>
         <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Recomendados</h1>
-        <div class="lg:flex lg:flex-wrap m-auto lg:ml-20">
-            {
-                data.map((casa) => (
-                    <Card
-                        href={casa.propertyId}
-                        imageSrc="public/casa1.jpg"
-                        title={casa.address}  
-                        descrip={casa.ownerName}
-                    />
-                ))
-            }
+   
+          <Prop url="http://localhost:8081/v1/propertyCharacteristics/get/all" client:only="svelte" />
             
-    </div>
+
     <h1 class="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h1>
     <div class="lg:flex lg:flex-wrap m-auto lg:ml-20">
         <Card
