@@ -3,6 +3,7 @@ import Layout from "../layouts/cabezera.astro";
 import Card from "../components/Propiedad.astro";
 import Caract from "../components/Caracteristica.astro";
 import Prop from "../components/react/Prop.jsx";
+import Char from "../components/react/Char.jsx";
 
 ---
 
@@ -58,138 +59,7 @@ import Prop from "../components/react/Prop.jsx";
                 </div>
             </div>
         </div>
-        <div class="flex justify-center lg:flex-wrap">
-            <Caract 
-                icon="icon-[fluent--beach-48-regular]"
-                text="Pie de playa"
-            />
-            <Caract 
-                icon="icon-[material-symbols-light--forest-outline]"
-                text="En el campo"
-            />
-            <Caract 
-                icon="icon-[mdi--waves]"
-                text="Frente al lago"
-            />
-            <Caract 
-                icon="icon-[si-glyph--mountain]"
-                text="Montaña"
-            />
-            <div class="esconde">
-                <Caract 
-                icon="icon-[game-icons--palm-tree]"
-                text="Tropical"
-                />
-                <Caract 
-                icon="icon-[mdi--home-silo]"
-                text="Granja"
-                />
-                <Caract 
-                icon="icon-[mdi--city-variant-outline]"
-                text="Ciudad"
-                />
-                <Caract 
-                icon="icon-[game-icons--wood-cabin]"
-                text="Cabaña"
-                />
-                <Caract 
-                icon="icon-[icon-park-solid--green-house]"
-                text="Casa arbol"
-                />
-            </div>
-            <div class="esconde3">
-                <Caract 
-                icon="icon-[lucide--caravan]"
-                text="Caravana"
-                />
-                <Caract 
-                icon="icon-[mdi--rv-truck]"
-                text="Auto caravan"
-                />
-                <Caract 
-                icon="icon-[mingcute--snow-fill]"
-                text="Zonas nevadas"
-                />
-                <Caract 
-                icon="icon-[game-icons--mountain-cave]"
-                text="Cueva"
-                />
-                <Caract 
-                icon="icon-[streamline--sail-ship-solid]"
-                text="Barco"
-                />
-            </div>
-            <button class="filtro mt-8" onclick="my_modal_4.showModal()" style="border: none;">
-                <i class="icon-[mage--filter] h-[25px] w-[25px]"></i>
-            </button>
-            <dialog id="my_modal_4" class="modal">
-                <div class="modal-box" style="display: flex;">
-                    <form method="dialog">
-                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
-                    <h1 class="font-bold text-[20px] lg:ml-[45px]">¿Qué buscas?</h1>
-                            <Caract 
-                            icon="icon-[fluent--beach-48-regular]"
-                            text=""
-                            />
-                            <Caract 
-                                icon="icon-[material-symbols-light--forest-outline]"
-                                text=""
-                            />
-                            <Caract 
-                                icon="icon-[si-glyph--mountain]"
-                                text=""
-                            />
-                            <Caract 
-                                icon="icon-[mdi--waves]"
-                                text=""
-                            />
-                            <Caract 
-                            icon="icon-[game-icons--palm-tree]"
-                            text=""
-                            />
-                            <Caract 
-                            icon="icon-[mdi--home-silo]"
-                            text=""
-                            />
-                            <Caract 
-                            icon="icon-[mdi--city-variant-outline]"
-                            text=""
-                            />
-                            <Caract 
-                            icon="icon-[game-icons--wood-cabin]"
-                            text=""
-                            />
-                            <Caract 
-                            icon="icon-[icon-park-solid--green-house]"
-                            text=""
-                            />
-                            <Caract 
-                            icon="icon-[lucide--caravan]"
-                            text=""
-                            />
-                            <Caract 
-                            icon="icon-[mdi--rv-truck]"
-                            text=""
-                            />
-                            <Caract 
-                            icon="icon-[mingcute--snow-fill]"
-                            text=""
-                            />
-                            <Caract 
-                            icon="icon-[game-icons--mountain-cave]"
-                            text=""
-                            />
-                            <Caract 
-                            icon="icon-[streamline--sail-ship-solid]"
-                            text=""
-                            />
-                        <br>
-                        <button type="submit" class="botonBuscar text-white px-4 py-2 rounded-md mt-5 lg:ml-[45px]">Buscar</button>
-                </div>
-                
-            </dialog> 
-        </div>
+        <Char url="http://localhost:8081/v1/characteristic/get/all" client:only="svelte" />
         <Prop url="http://localhost:8081/v1/propertyCharacteristics/get/all" client:only="svelte" />
 
     

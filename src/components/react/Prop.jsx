@@ -9,7 +9,6 @@ const Prop = ({ url }) => {
                 const response = await fetch(url);
                 const data = await response.json();
                 setPropertyData(data);
-                console.log('Property data:', data);
             } catch (error) {
                 console.error('Error fetching property data:', error);
             }
@@ -32,7 +31,7 @@ const Prop = ({ url }) => {
     
                 <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
                     {premium.map(property => (
-                        <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={property.id}>
+                        <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={property.id + "PropId1"}>
                             <a href={property.propertyId}>
                                 {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
                                 <h2 className="lugar">{property.address}</h2>
@@ -45,7 +44,7 @@ const Prop = ({ url }) => {
                 <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h2>
                 <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
                     {nopremium.map(property => (
-                        <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={property.id}>
+                        <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={property.id + "PropId2"}>
                             <a href={property.propertyId}>
                                 {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
                                 <h2 className="lugar">{property.address}</h2>
@@ -63,7 +62,7 @@ const Prop = ({ url }) => {
     
                 <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
                     {propertyData.map(property => (
-                        <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={property.id}>
+                        <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={property.id + "PropId3"}>
                             <a href={property.propertyId}>
                                 {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
                                 <h2 className="lugar">{property.address}</h2>
