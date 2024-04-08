@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@iconify/json": "^2.2.188",
+    "@iconify/react": "^4.1.1",
     "@iconify/tailwind": "^0.1.4",
     "daisyui": "^4.7.3"
   }

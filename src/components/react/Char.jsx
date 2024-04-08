@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Icon } from '@iconify/react';
 
 const Char = ({ url }) => {
     const [propertyData, setPropertyData] = useState(null);
@@ -29,6 +30,7 @@ const Char = ({ url }) => {
             {propertyData.map(char => (
                 <button key={char.id} className="mt-5 ml-5 lg:ml-12 caracteristica w-30 h-20 m-5">
                     {char.icon && <i className={char.icon + " w-30 h-30 lg:w-35 lg:h-35 md:w-40 md:h-40"} id={char.id + "CharId"} />}
+                    <Icon icon="mdi:access-point" />
 
                     <h2 className="nombreFiltro text-12 lg:text-15 md:text-16">
                         {char.name}
