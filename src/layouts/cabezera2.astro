@@ -1,0 +1,138 @@
+---
+interface Props {
+    title: string;
+    fondo: string;
+}
+
+const { title, fondo } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <header>
+            <div class="fondo" style={{ "--colorFondo": fondo }}>
+                <div
+                    class="flex justify-between items-center pt-10 lg:ml-20 md:ml-20"
+                >
+                    <div class="flex lg:pl-40">
+                        <img
+                            alt="Logo de Housinger"
+                            src="public/logo.png"
+                            class="h-[40px] lg:h-[62px] md:h-[52px] ml-2 mt-5"
+                        />
+                        <div
+                            class="pt-10 pl-2 cabecera-titulo lg:text-[20px] lg:pt-[50px]"
+                        >
+                            HOUSINGER
+                        </div>
+                    </div>
+                    <div
+                        class="flex space-x-2 mt-10 lg:mr-20 md:mr-20 lg:pr-40"
+                    >
+                        <div class="redondo">
+                            <button
+                                class="w-[38px] h-[36px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]"
+                                ><i
+                                    class="mt-2 icon-[mdi--chat] w-[20px] h-[20px] lg:w-[30px] lg:h-[30px] md:w-[30px] md:h-[30px] text-fuchsia-50"
+                                ></i></button
+                            >
+                        </div>
+                        <div class="redondo">
+                            <button
+                                class="w-[38px] h-[36px] lg:w-[48px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]"
+                                ><i
+                                    class="mt-2 icon-[solar--user-bold] w-[20px] h-[20px] lg:w-[35px] lg:h-[35px] md:w-[30px] md:h-[30px] lg:mt-0 text-fuchsia-50"
+                                ></i></button
+                            >
+                        </div>
+                        <div class="redondo-premiun">
+                            <button
+                                class="w-[38px] h-[36px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]"
+                                ><i
+                                    class="mt-2 icon-[mdi--crown] w-[20px] h-[20px] lg:w-[35px] lg:h-[35px] md:w-[30px] md:h-[30px] lg:mt-1 text-fuchsia-50"
+                                ></i></button
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main>
+            <slot />
+        </main>
+    </body>
+</html>
+
+<style is:global>
+    @import url("https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap");
+    :root {
+        --primary: #576cbc;
+        --secondary: #0b2447;
+        --tertiary: #b1ddec;
+        --gris: #948e8e;
+        --star: #ffd910;
+        --menu: #a5d7e8;
+    }
+    body,
+    html {
+        font-family: "Karma", serif;
+        margin: 0;
+        padding: 0;
+        background-color: #fafafa;
+    }
+
+    input {
+        background-color: #ffffff;
+    }
+
+    i{
+        color: black;
+    }
+
+    h2{
+        color: black;
+    }
+
+    p{
+        color: black;
+    }
+
+    .cabecera-titulo {
+        color: var(--primary);
+        font-weight: bold;
+    }
+
+    .redondo {
+        background-color: var(--primary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .redondo-premiun {
+        background-color: var(--star);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+    }
+
+    .fondo {
+        background-color: #ffffff;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        padding: 30px;
+    }
+</style>

@@ -1,0 +1,91 @@
+---
+import Layout from "../layouts/cabezera2.astro";
+---
+<Layout title="Crear cuenta" fondo="white">
+    <main>
+        <div class="lg:flex lg:justify-center">
+            <div class="lg:mr-8 lg:mb-0 mb-8">
+                <div class="contedor-imagen flex justify-center items-center rounded-[20px] w-[250px] h-[230px]
+                ml-[20%] lg:ml-[50%] md:ml-[35%] lg:mt-[90px]">
+                    <div>
+                        <i class="icon-[mdi--plus]"></i>
+                        <br />
+                        <p>foto de cuenta</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:w-[60%] w-[100%] md:ml-[7%]">
+                <h2 class="mt-4 mb-4">Crear cuenta</h2>
+                <h2 class="mb-4">Información</h2>
+                <div class="lg:flex lg:gap-[30px]">
+                    <div class="lg:w-[43%]">
+                        <input type="text" placeholder="Nombre" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1" />
+                        <input type="text" placeholder="Correo" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1" />
+                        <input type="text" placeholder="Contraseña" class="input-style lg:w-full lg:h-[20%] w-[80%]" />
+                    </div>
+                    <div class="lg:w-[43%]">
+                        <input type="text" placeholder="Apellido" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1" />
+                        <input type="text" placeholder="DNI" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1" />
+                        <input type="text" placeholder="Confirmar contraseña" class="input-style lg:w-full lg:h-[20%] w-[80%]" />
+                    </div>
+                </div>
+                
+                <button class="ml-[10%] w-[80%] h-[30px] lg:w-[43%] lg:ml-[3.4%] md:ml-[5%] lg:h-[40px]">Guardar cuenta</button>
+            </div>
+        </div>
+    </main>
+
+    <style>
+        body,
+        html {
+            background-color: #ffffff;
+        }
+        .contedor-imagen {
+            border: 3px solid #948e8e;
+        }
+
+        button {
+            background-color: #576cbc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 50px;
+        }
+
+        input {
+            border: 2px solid #948e8e;
+            border-radius: 5px;
+            height: 35px;
+            margin-bottom: 20px;
+        }
+
+        .input-style {
+            margin-left: 40px;
+        }
+
+        p {
+            color: #576cbc;
+        }
+
+        h2 {
+            margin-left: 40px;
+            margin-top: 40px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .contedor-imagen > div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        i {
+            height: 70px;
+            width: 70px;
+            color: #576cbc;
+        }
+    </style>
+</Layout>
+
