@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/loginLS.astro";
 ---
+
 <Layout title="Login">
     <style>
         :root {
@@ -8,6 +9,15 @@ import Layout from "../layouts/loginLS.astro";
             --secondary: #0b2447;
             --tertiary: #b1ddec;
             --blanco: #ffffff;
+        }
+
+        body,
+        html {
+            background-color: var(--secondary);
+        }
+
+        input {
+            background-color: var(--blanco);
         }
 
         .fondo-primario {
@@ -49,6 +59,30 @@ import Layout from "../layouts/loginLS.astro";
             font-weight: bold;
         }
 
+        .texto-recuperar:hover {
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        .boton-login {
+            background-color: var(--primary);
+        }
+
+        .boton-login:hover {
+            cursor: pointer;
+            background-color: var(--secondary);
+        }
+
+        .crear-cuenta {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .crear-cuenta:hover {
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
         .texto-crear {
             color: var(--primary);
             font-weight: bold;
@@ -88,8 +122,9 @@ import Layout from "../layouts/loginLS.astro";
                 </div>
                 <div
                     class="fondo-secundario flex flex-col
-                h-[100%] lg:h-[100%] w-[100%] lg:w-[100%] lg:rounded-tr-xl lg:rounded-none rounded-bl-xl 
-                rounded-br-xl lg:rounded-br-xl">
+                h-[100%] lg:h-[100%] w-[100%] lg:w-[100%] lg:rounded-tr-xl lg:rounded-none rounded-bl-xl
+                rounded-br-xl lg:rounded-br-xl"
+                >
                     <h1 class="texto-1 text-[24px] lg:text-[36px] mt-6 ml-12">
                         Hola!
                     </h1>
@@ -103,59 +138,83 @@ import Layout from "../layouts/loginLS.astro";
                     >
                     <div class="ml-16 w-60 contenedor-input">
                         <h1 class="">Usuario</h1>
-                        <input type="text" class="datos-insertar"  id="user"/>
+                        <input type="text" class="datos-insertar" id="user" />
                         <br /><br />
                         <h1>Contraseña</h1>
                         <input type="password" class="datos-insertar" id="pass"/>
                     </div>
-                    <label
-                        class="ml-16 lg:ml-32 lg:text-[20px] mt-10 texto-recuperar"
-                        >Recuperar contraseña</label
-                    >
                     <button
-                        class="bg-[#576cbc] text-[20px] text-white w-52 lg:w-60 h-12 rounded-md ml-16 lg:ml-20 mt-6 lg:text-[32px]" id="loginButton"
-                        >Login</button
+                        onclick="my_modal_1.showModal()"
+                        class=" lg:text-[20px] lg:ml-[90px] mt-10 texto-recuperar w-[290px]"
+                        >Recuperar contraseña</button
                     >
-                    <label class="texto-crear ml-16 mt-5 mb-10 lg:ml-40">Crear cuenta</label>
+                    <!-- Open the modal using ID.showModal() method -->
+                    <dialog id="my_modal_1" class="modal">
+                        <div class="modal-box">
+                            <h3 class="font-bold text-lg">Cambiar contraseña</h3>
+                            <br>
+                            <input type="text" class="datos-insertar" id="user" placeholder="Usuario" />
+                            <br><br><br>
+                            <input type="password" class="datos-insertar" id="pass" placeholder="Nueva contraseña"/>
+                            <br><br>
+                            <button class="bg-[#576cbc] text-[20px] h-10 w-20 text-white rounded-md">Cambiar</button>
+                            <div class="modal-action">
+                                <form method="dialog">
+                                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
+                    <button
+                        class="bg-[#576cbc] text-[20px] text-white w-52 lg:w-60 h-12 rounded-md ml-16 lg:ml-20 mt-6 lg:text-[32px] boton-login"
+                        id="loginButton">Login</button
+                    >
+                    <label class="texto-crear ml-16 mt-5 mb-10 lg:ml-40 lg:text-[20px] crear-cuenta" id="crearCuenta">Crear cuenta</label>
                 </div>
             </div>
         </div>
     </div>
 
+    <script>
+        async function loginUser() {
+            let username = document.getElementById("user");
+            let password = document.getElementById("pass");
+            let requestData = {
+                username: username.value,
+                password: password.value,
+            };
 
-<script>
-    async function loginUser() {
-        let username = document.getElementById('user');
-        let password = document.getElementById('pass');
-        let requestData = {
-            username: username.value,
-            password: password.value
-        };
+            try {
+                let response = await fetch(
+                    "http://localhost:8081/v1/auth/sign-in",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(requestData),
+                    },
+                );
 
-        try {
-            let response = await fetch('http://localhost:8081/v1/auth/sign-in', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(requestData)
-            });
-
-            if (response.ok) {
-                alert('¡Inicio de sesión exitoso!');
-            } else {
-                alert('¡Error en el inicio de sesión!');
+                if (response.ok) {
+                    alert("¡Inicio de sesión exitoso!");
+                } else {
+                    alert("¡Error en el inicio de sesión!");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("¡Error en el inicio de sesión!");
             }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('¡Error en el inicio de sesión!');
         }
-    }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('loginButton').addEventListener('click', loginUser);
-    });
-</script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document
+                .getElementById("loginButton")
+                .addEventListener("click", loginUser);
+        });
+
+        document.getElementById("crearCuenta").addEventListener("click", function() {
+            window.location.href = "http://localhost:4321/register";
+        });
+    </script>
 </Layout>
-
-
