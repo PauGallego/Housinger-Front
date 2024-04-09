@@ -25,22 +25,43 @@ const Char = ({ url }) => {
 
     return (
         <div className="flex justify-center lg:flex-wrap">
-            <h2 className="font-bold text-20 ml-5 mt-5 mb-5 lg:ml-95">Recomendados</h2>
 
             {propertyData.map(char => (
-                <button key={char.id} className="mt-5 ml-5 lg:ml-12 caracteristica w-30 h-20 m-5">
-
-                    <Icon icon={char.icon}  id={char.id + "CharId"}/>
-
+                <button key={char.id} className="mt-5 ml-5 lg:ml-12 caracteristica w-30 h-20 m-5 flex flex-col	items-center">
+                    <Icon icon={char.icon} id={char.id + "CharId"} className="h-9 w-9" />
                     <h2 className="nombreFiltro text-12 lg:text-15 md:text-16">
                         {char.name}
                     </h2>
                 </button>
-
             ))}
+
+            <div className='mt-5'>
+                <button className="btn shadow border-2 border-gray-400 w-20" onClick={() => my_modal_4.showModal()}>
+                    <i className="icon-[mage--filter] h-[25px] w-[25px] "></i>
+                </button>
+                <dialog id="my_modal_4" className="modal">
+                    <div className="modal-box w-11/12 max-w-5xl">
+                        <h3 className="font-bold text-lg">¿Que buscamos?</h3>
+                        {propertyData.map(char => (
+                            <button key={char.id} className="">
+                                <Icon icon={char.icon} id={char.id + "CharId"} className="h-7 w-7" />
+                                <h2 className="nombreFiltro text-12 lg:text-15 md:text-16">
+                                    {char.name}
+                                </h2>
+                            </button>
+                        ))}
+                        <div className="modal-action">
+                            <form method="dialog">
+                                <button className="btn">Cerrar</button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
+            </div>
         </div>
     );
 };
+
 
 /*
     <button className="filtro mt-8" onclick="my_modal_4.showModal()" style="border: none;">
