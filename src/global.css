@@ -1,0 +1,15 @@
+.boton-filtro {
+    background-color: #576cbc;
+    color: white;
+    width: 100px;
+    height: 60px;
+    border-radius: 5px;
+}
+
+.nombreFiltro-activo {
+    color: white;
+}
+
+.boton-modal {
+    background-color: red;
+}

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
+import '../../global.css';
 
 const Char = ({ url }) => {
     const [propertyData, setPropertyData] = useState(null);
+    const [numIcons, setNumIcons] = useState(12);
+    const [activeButtons, setActiveButtons] = useState(new Set());
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,37 +22,72 @@ const Char = ({ url }) => {
         fetchData();
     }, [url]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 790) {
+                setNumIcons(3);
+            } else if (window.innerWidth < 1708) {
+                setNumIcons(6);
+            } else {
+                setNumIcons(12);
+            }
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     if (!propertyData) {
         return <div>Loading...</div>;
     }
+    const limitedData = propertyData.slice(0, numIcons);
+
+    // CAMBIA EL COLOR DEL BOTON AL HACER CLICK
+    const handleButtonClick = (index) => {
+        const newActiveButtons = new Set(activeButtons);
+        if (newActiveButtons.has(index)) {
+            newActiveButtons.delete(index);
+        } else {
+            newActiveButtons.add(index);
+        }
+        setActiveButtons(newActiveButtons);
+    };
 
     return (
         <div className="flex justify-center lg:flex-wrap">
-
-            {propertyData.map(char => (
-                <button key={char.id} className="mt-5 ml-5 lg:ml-12 caracteristica w-30 h-20 m-5 flex flex-col	items-center">
+            {limitedData.map((char, index) => (
+                <button 
+                    key={char.id} 
+                    className={`mt-5 ml-5 lg:ml-5 caracteristica w-30 h-20 m-5 flex flex-col items-center ${index >= numIcons - 1 ? 'hide-on-mobile' : ''} ${activeButtons.has(index) ? 'boton-filtro' : ''}`} 
+                    onClick={() => handleButtonClick(index)}
+                >
                     <Icon icon={char.icon} id={char.id + "CharId"} className="h-9 w-9" />
-                    <h2 className="nombreFiltro text-12 lg:text-15 md:text-16">
+                    <h2 className={`nombreFiltro text-12 lg:text-15 md:text-16 ${activeButtons.has(index) ? 'nombreFiltro-activo' : ''}`}>
                         {char.name}
                     </h2>
                 </button>
             ))}
 
+            {/* MODAL DE LOS FILTROS */}
             <div className='mt-5'>
-                <button className="btn shadow border-2 border-gray-400 w-20" onClick={() => my_modal_4.showModal()}>
-                    <i className="icon-[mage--filter] h-[25px] w-[25px] "></i>
+                <button className="btn-[#ffff] shadow border-2 border-gray-400 w-20 rounded-[20px] mt-2" onClick={() => my_modal_4.showModal()}>
+                    <i className="icon-[mage--filter] h-[25px] w-[25px] mt-1 "></i>
                 </button>
                 <dialog id="my_modal_4" className="modal">
                     <div className="modal-box w-11/12 max-w-5xl">
-                        <h3 className="font-bold text-lg">¿Que buscamos?</h3>
-                        {propertyData.map(char => (
-                            <button key={char.id} className="">
-                                <Icon icon={char.icon} id={char.id + "CharId"} className="h-7 w-7" />
-                                <h2 className="nombreFiltro text-12 lg:text-15 md:text-16">
-                                    {char.name}
-                                </h2>
-                            </button>
-                        ))}
+                        <h3 className="font-bold text-[20px] mb-10">¿Qué buscamos?</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            {propertyData.map(char => (
+                                <button key={char.id} className="flex items-center">
+                                    <Icon icon={char.icon} id={char.id + "CharId"} className="h-10 w-10" />
+                                    <h2 className="text-12 lg:text-15 md:text-16 ml-2">
+                                        {char.name}
+                                    </h2>
+                                </button>
+                            ))}
+                        </div>
                         <div className="modal-action">
                             <form method="dialog">
                                 <button className="btn">Cerrar</button>
@@ -62,30 +100,4 @@ const Char = ({ url }) => {
     );
 };
 
-
-/*
-    <button className="filtro mt-8" onclick="my_modal_4.showModal()" style="border: none;">
-                <i className="icon-[mage--filter] h-[25px] w-[25px] "></i>
-            </button>
-            <dialog id="my_modal_4" className="modal">
-                <div className="modal-box" style="display: flex;">
-                    <form method="dialog">
-                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                    </form>
-                    <h1 className="font-bold text-[20px] lg:ml-[45px]">¿Qué buscas?</h1>
-                    {propertyData.map(char => (
-                        <button key={char.id} className="mt-5 ml-5 lg:ml-12 caracteristica w-30 h-20 m-5">
-                            {char.icon && <i className={char.icon + " w-30 h-30 lg:w-35 lg:h-35 md:w-40 md:h-40"} id={char.id + "CharId"} />}
-
-                            <h2 className="nombreFiltro text-12 lg:text-15 md:text-16">
-                                {char.name}
-                            </h2>
-                        </button>
-
-                    ))}
-                    <button type="submit" className="botonBuscar text-white px-4 py-2 rounded-md mt-5 lg:ml-[45px]">Buscar</button>
-                </div>
-
-            </dialog>
-*/
 export default Char;
