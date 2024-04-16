@@ -6,6 +6,7 @@ const Char = ({ url }) => {
     const [propertyData, setPropertyData] = useState(null);
     const [numIcons, setNumIcons] = useState(12);
     const [activeButtons, setActiveButtons] = useState(new Set());
+    const [selectedItems, setSelectedItems] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,8 +33,9 @@ const Char = ({ url }) => {
                 setNumIcons(12);
             }
         };
-        window.addEventListener('resize', handleResize);
 
+        handleResize();
+        window.addEventListener('resize', handleResize);
         return () => {
             window.removeEventListener('resize', handleResize);
         };
@@ -44,13 +46,15 @@ const Char = ({ url }) => {
     }
     const limitedData = propertyData.slice(0, numIcons);
 
-    // CAMBIA EL COLOR DEL BOTON AL HACER CLICK
-    const handleButtonClick = (index) => {
+    // CAMBIA EL COLOR DEL BOTON AL HACER CLICK Y GUARDA EL ELEMENTO SELECCIONADO
+    const handleButtonClick = (index, id) => {
         const newActiveButtons = new Set(activeButtons);
         if (newActiveButtons.has(index)) {
             newActiveButtons.delete(index);
+            setSelectedItems(selectedItems.filter(item => item.id !== id));
         } else {
             newActiveButtons.add(index);
+            setSelectedItems([...selectedItems, { id, name: propertyData[index].name }]);
         }
         setActiveButtons(newActiveButtons);
     };
@@ -58,10 +62,11 @@ const Char = ({ url }) => {
     return (
         <div className="flex justify-center lg:flex-wrap">
             {limitedData.map((char, index) => (
-                <button 
-                    key={char.id} 
-                    className={`mt-5 ml-5 lg:ml-5 caracteristica w-30 h-20 m-5 flex flex-col items-center ${index >= numIcons - 1 ? 'hide-on-mobile' : ''} ${activeButtons.has(index) ? 'boton-filtro' : ''}`} 
-                    onClick={() => handleButtonClick(index)}
+                <button
+                    key={char.id}
+                    className={`mt-5 ml-5 lg:ml-5 caracteristica AAA m-5 flex flex-col items-center ${index >= numIcons - 1 ? 'hide-on-mobile' : ''} ${activeButtons.has(index) ? 'boton-filtro' : ''}`}
+                    onClick={() => handleButtonClick(index, char.id)}
+                    style={{ backgroundColor: activeButtons.has(index) ? '#576cbc' : '#ffffff' }}
                 >
                     <Icon icon={char.icon} id={char.id + "CharId"} className="h-9 w-9" />
                     <h2 className={`nombreFiltro text-12 lg:text-15 md:text-16 ${activeButtons.has(index) ? 'nombreFiltro-activo' : ''}`}>
@@ -79,10 +84,15 @@ const Char = ({ url }) => {
                     <div className="modal-box w-11/12 max-w-5xl">
                         <h3 className="font-bold text-[20px] mb-10">¿Qué buscamos?</h3>
                         <div className="grid grid-cols-2 gap-4">
-                            {propertyData.map(char => (
-                                <button key={char.id} className="flex items-center">
+                            {propertyData.map((char, index) => (
+                                <button
+                                    key={char.id}
+                                    className={`flex items-center ${activeButtons.has(index) ? 'boton-filtro2' : ''}`}
+                                    onClick={() => handleButtonClick(index, char.id)}
+                                    style={{ backgroundColor: activeButtons.has(index) ? '#576cbc' : '#ffffff' }}
+                                >
                                     <Icon icon={char.icon} id={char.id + "CharId"} className="h-10 w-10" />
-                                    <h2 className="text-12 lg:text-15 md:text-16 ml-2">
+                                    <h2 className={`nombreFiltro text-12 lg:text-15 md:text-16 ${activeButtons.has(index) ? 'nombreFiltro-activo' : ''}`}>
                                         {char.name}
                                     </h2>
                                 </button>
@@ -95,6 +105,16 @@ const Char = ({ url }) => {
                         </div>
                     </div>
                 </dialog>
+            </div>
+
+            {/* ARRAY LIST, MUESTRA LAS SELCIONADAS "selectedItems" ES EL ARRAY*/}
+            <div>
+                <ul>
+                    {/* MUESTRA DE QUE VA EL ARRAY*/}
+                    {selectedItems.map(item => (
+                        <li key={item.id}>{item.name}</li>
+                    ))}
+                </ul>
             </div>
         </div>
     );
