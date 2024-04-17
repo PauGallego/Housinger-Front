@@ -42,8 +42,13 @@ const Char = ({ url }) => {
     }, []);
 
     if (!propertyData) {
-        return <div>Loading...</div>;
+        return (
+            <div className="loading-container">
+                <img src="../../cargar.gif" alt="Cargando..." />
+            </div>
+        );
     }
+    
     const limitedData = propertyData.slice(0, numIcons);
 
     // CAMBIA EL COLOR DEL BOTON AL HACER CLICK Y GUARDA EL ELEMENTO SELECCIONADO

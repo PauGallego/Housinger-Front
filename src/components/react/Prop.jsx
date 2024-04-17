@@ -18,7 +18,7 @@ const Prop = ({ url }) => {
     }, [url]);
 
     if (!propertyData) {
-        return <div>Loading...</div>;
+        return <div></div>;
     }
 
     let premium = propertyData.filter(property => property.premium === true);
