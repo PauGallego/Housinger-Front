@@ -58,21 +58,26 @@ const Char = ({ url }) => {
 
     const handleButtonClick = (index, id) => {
         const newActiveButtons = new Set(activeButtons);
+        let updatedSelectedItems = [...selectedItems];
+    
         if (newActiveButtons.has(index)) {
             newActiveButtons.delete(index);
-            setSelectedItems(selectedItems.filter(item => item.id !== id));
+            updatedSelectedItems = selectedItems.filter(item => item.id !== id);
         } else {
             newActiveButtons.add(index);
-            setSelectedItems([...selectedItems, { id, name: propertyData[index].name }]);
+            updatedSelectedItems.push({ id, name: propertyData[index].name });
         }
-        setActiveButtons(newActiveButtons);
-      
-        setUrlTemp("http://localhost:8081/v1/propertyCharacteristics/get");
-   
-
-
     
+        setActiveButtons(newActiveButtons);
+        setSelectedItems(updatedSelectedItems);
+        
+        if (updatedSelectedItems.length === 0) {
+            setUrlTemp("http://localhost:8081/v1/propertyCharacteristics/get/all");
+        } else {
+            setUrlTemp("http://localhost:8081/v1/propertyCharacteristics/get");
+        }
     };
+    
 
     return (
 
