@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import '../../global.css';
+import Prop from './Prop.jsx';
 
 const Char = ({ url }) => {
     const [propertyData, setPropertyData] = useState(null);
@@ -14,7 +15,6 @@ const Char = ({ url }) => {
                 const response = await fetch(url);
                 const data = await response.json();
                 setPropertyData(data);
-                console.log('Property data:', data);
             } catch (error) {
                 console.error('Error fetching property data:', error);
             }
@@ -48,10 +48,9 @@ const Char = ({ url }) => {
             </div>
         );
     }
-    
+
     const limitedData = propertyData.slice(0, numIcons);
 
-    // CAMBIA EL COLOR DEL BOTON AL HACER CLICK Y GUARDA EL ELEMENTO SELECCIONADO
     const handleButtonClick = (index, id) => {
         const newActiveButtons = new Set(activeButtons);
         if (newActiveButtons.has(index)) {
@@ -65,6 +64,8 @@ const Char = ({ url }) => {
     };
 
     return (
+
+        <div>
         <div className="flex justify-center lg:flex-wrap">
             {limitedData.map((char, index) => (
                 <button
@@ -80,9 +81,8 @@ const Char = ({ url }) => {
                 </button>
             ))}
 
-            {/* MODAL DE LOS FILTROS */}
             <div className='mt-5'>
-                <button className="btn-[#ffff] shadow border-2 border-gray-400 w-20 rounded-[20px] mt-2" onClick={() => my_modal_4.showModal()}>
+                <button className="btn-[#ffff] shadow border-2 border-gray-400 w-20 rounded-[20px] mt-2" onClick={() => document.getElementById('my_modal_4').showModal()}>
                     <i className="icon-[mage--filter] h-[25px] w-[25px] mt-1 "></i>
                 </button>
                 <dialog id="my_modal_4" className="modal">
@@ -104,23 +104,23 @@ const Char = ({ url }) => {
                             ))}
                         </div>
                         <div className="modal-action">
-                            <form method="dialog">
-                                <button className="btn">Cerrar</button>
-                            </form>
+                            <button className="btn" onClick={() => document.getElementById('my_modal_4').close()}>Cerrar</button>
                         </div>
                     </div>
                 </dialog>
             </div>
 
-            {/* ARRAY LIST, MUESTRA LAS SELCIONADAS "selectedItems" ES EL ARRAY*/}
             <div>
                 <ul>
-                    {/* MUESTRA DE QUE VA EL ARRAY*/}
-                    {/* {selectedItems.map(item => (
+                    {/* Aquí puedes mostrar los elementos seleccionados */}
+                    {selectedItems.map(item => (
                         <li key={item.id}>{item.name}</li>
-                    ))} */}
+                    ))}
                 </ul>
             </div>
+        </div>
+
+        <Prop url="http://localhost:8081/v1/propertyCharacteristics/get/all" client:only="svelte" />
         </div>
     );
 };

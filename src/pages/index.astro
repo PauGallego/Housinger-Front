@@ -4,6 +4,7 @@ import Card from "../components/Propiedad.astro";
 import Caract from "../components/Caracteristica.astro";
 import Prop from "../components/react/Prop.jsx";
 import Char from "../components/react/Char.jsx";
+import Ayuda from "../components/react/ayuda.jsx";
 
 ---
 
@@ -59,30 +60,11 @@ import Char from "../components/react/Char.jsx";
             </div>
         </div>
         <Char url="http://localhost:8081/v1/characteristic/get/all" client:only="svelte" />
-        <Prop url="http://localhost:8081/v1/propertyCharacteristics/get/all" client:only="svelte" />
     </div>
     </main>
 
     <script>
-        let characteristics = document.querySelectorAll('.caracteristica');
-        let buscador = document.getElementById('buscador-destino') as HTMLInputElement;
-        let fechaEntrada = document.getElementById('fecha-entrada');
-        let fechaSalida = document.getElementById('fecha-salida');
 
-        let baseURL = "http://localhost:8081/v1/";
-
-        characteristics.forEach((characteristic) => {
-            characteristic.addEventListener('click', () => {
-                characteristic.classList.toggle('bg-[#576cbc]');
-                characteristic.classList.toggle('rounded-lg');
-                characteristic.classList.toggle('text-white');
-            });
-        });
-
-        buscador.addEventListener('keyup', () => {
-            let searchValue = buscador.value.trim();
-            console.log(searchValue);
-        });
     </script>
 
     <style>
