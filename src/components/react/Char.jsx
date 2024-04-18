@@ -5,11 +5,16 @@ import Prop from './Prop.jsx';
 
 const Char = ({ url }) => {
     const [propertyData, setPropertyData] = useState(null);
+    const [urlTemp, setUrlTemp] = useState(null);
     const [numIcons, setNumIcons] = useState(12);
     const [activeButtons, setActiveButtons] = useState(new Set());
     const [selectedItems, setSelectedItems] = useState([]);
+    const [refresh, setRefresh] = useState(false); 
+
 
     useEffect(() => {
+
+        setUrlTemp("http://localhost:8081/v1/propertyCharacteristics/get/all");
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
@@ -61,6 +66,12 @@ const Char = ({ url }) => {
             setSelectedItems([...selectedItems, { id, name: propertyData[index].name }]);
         }
         setActiveButtons(newActiveButtons);
+      
+        setUrlTemp("http://localhost:8081/v1/propertyCharacteristics/get");
+   
+
+
+    
     };
 
     return (
@@ -120,7 +131,8 @@ const Char = ({ url }) => {
             </div>
         </div>
 
-        <Prop url="http://localhost:8081/v1/propertyCharacteristics/get/all" client:only="svelte" />
+        <Prop url={urlTemp} caracteristicas={selectedItems} client:only="svelte" />
+
         </div>
     );
 };

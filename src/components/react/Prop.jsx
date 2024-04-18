@@ -1,22 +1,49 @@
 import React, { useState, useEffect } from 'react';
 
-const Prop = ({ url }) => {
+const Prop = ({ url, caracteristicas }) => {
     const [propertyData, setPropertyData] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-                setPropertyData(data);
-            } catch (error) {
-                console.error('Error fetching property data:', error);
-            }
-        };
+        
 
-        fetchData();
-    }, [url]);
+        if (caracteristicas.length == 0) {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    setPropertyData(data);
 
+                    console.log(url);
+                } catch (error) {
+                    console.error('Error fetching property data:', error);
+                }
+            };
+
+            fetchData();
+        } else {
+            
+                    
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            characteristics: caracteristicas.map(item => item.id)
+                        })
+                    });
+                    const data = await response.json();
+                    setPropertyData(data);
+                } catch (error) {
+                    console.error('Error fetching property data:', error);
+                }
+            };
+    
+            fetchData();
+        }
+    }, [url, caracteristicas]);
     if (!propertyData) {
         return <div></div>;
     }
