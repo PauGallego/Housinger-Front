@@ -116,9 +116,9 @@ const Char = ({ url }) => {
             <div>
                 <ul>
                     {/* MUESTRA DE QUE VA EL ARRAY*/}
-                    {selectedItems.map(item => (
+                    {/* {selectedItems.map(item => (
                         <li key={item.id}>{item.name}</li>
-                    ))}
+                    ))} */}
                 </ul>
             </div>
         </div>

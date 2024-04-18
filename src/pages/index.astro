@@ -19,17 +19,17 @@ import Char from "../components/react/Char.jsx";
                     <div class="flex justify-center items-center lg:mt-3 gap-2">
                         <div class="esconde">
                             <p class="ml-5">Destino</p>
-                            <input type="text" class="h-[28px] w-[300px] lg:h-[30px] lg:w-[190px] pl-[20px] pr-[20px] caja" placeholder="Buscar vivienda" />
+                            <input id="buscador-destino" type="text" class="h-[28px] w-[300px] lg:h-[30px] lg:w-[190px] pl-[20px] pr-[20px] caja" placeholder="Buscar vivienda" />
                         </div>
                         <div class="raya esconde"></div>
                         <div class="ml-[20px] esconde">
                             <p>Fecha entrada</p>
-                            <input type="date" class="lg:h-[30px] lg:w-[150px]">
+                            <input id="fecha-entrada" type="date" class="lg:h-[30px] lg:w-[150px]">
                         </div>
                         <div class="raya esconde"></div>
                         <div class="ml-[20px] esconde">
                             <p class="">Fecha salida</p>
-                            <input type="date" class="lg:h-[30px] lg:w-[150px]">
+                            <input id="fecha-salida" type="date" class="lg:h-[30px] lg:w-[150px]">
                         </div>
                         <div>
                             <button class="btn w-[310px] bg-white mt-[2px] esconde2" onclick="my_modal_3.showModal()" style="border: none;">Buscar destino y fechas</button>
@@ -65,6 +65,11 @@ import Char from "../components/react/Char.jsx";
 
     <script>
         let characteristics = document.querySelectorAll('.caracteristica');
+        let buscador = document.getElementById('buscador-destino');
+        let fechaEntrada = document.getElementById('fecha-entrada');
+        let fechaSalida = document.getElementById('fecha-salida');
+
+        let baseURL = "http://localhost:8081/v1/";
 
         characteristics.forEach((characteristic) => {
             characteristic.addEventListener('click', () => {
@@ -72,6 +77,10 @@ import Char from "../components/react/Char.jsx";
                 characteristic.classList.toggle('rounded-lg');
                 characteristic.classList.toggle('text-white');
             });
+        });
+
+        buscador.addEventListener('keyup', () => {
+            let searchValue = buscador.value.trim();
         });
     </script>
 
