@@ -6,9 +6,14 @@ import Prop from "../components/react/Prop.jsx";
 import Char from "../components/react/Char.jsx";
 import { API_BASE_URL } from '../astro.config.js';
 
+let locationv;
+let startdatev;
+let enddatev;
+
 ---
 
 <Layout title="Login" fondo="blue">
+
     <main>
         <div class="fondo-menu">
             <div class="flex gap-10 font-bold justify-center">
@@ -41,12 +46,12 @@ import { API_BASE_URL } from '../astro.config.js';
                                     </form>
                                     <h3 class="font-bold text-lg">¿Donde quieres ir?</h3>
                                     <div class="buscador h-[55px] w-[376px] rounded-[50px] mt-[20px] mb-[20px] lg:h-[77px] lg:w-[714px]">
-                                        <input type="text" class="h-[28px] w-[300px] lg:h-[30px] lg:w-[190px] pl-[20px] pr-[20px] mt-[10px] ml-[10px] caja" placeholder="Buscar vivienda" />
+                                        <input type="text" id="locationfield" class="h-[28px] w-[300px] lg:h-[30px] lg:w-[190px] pl-[20px] pr-[20px] mt-[10px] ml-[10px] caja" placeholder="Buscar vivienda" />
                                     </div>
                                     <h3 class="font-bold text-lg">Fecha de entrada:</h3>
-                                    <input type="date" class="h-[48px] w-[380px] lg:h-[30px] lg:w-[190px] p-[8px] rounded-[30px] calendario">
+                                    <input type="date" id="startfield" class="h-[48px] w-[380px] lg:h-[30px] lg:w-[190px] p-[8px] rounded-[30px] calendario">
                                     <h3 class="font-bold text-lg mt-5">Fecha de salida:</h3>
-                                    <input type="date" class="h-[48px] w-[380px] lg:h-[30px] lg:w-[190px] p-[8px] rounded-[30px] calendario">
+                                    <input type="date" id="endfield" class="h-[48px] w-[380px] lg:h-[30px] lg:w-[190px] p-[8px] rounded-[30px] calendario">
                                     <br>
                                     <button type="submit" class="botonBuscar text-white px-4 py-2 rounded-md mt-5">Buscar</button>
                                 </div>
@@ -60,16 +65,14 @@ import { API_BASE_URL } from '../astro.config.js';
             </div>
         </div>
         <div class="h-screen">
-            <Char url=`${API_BASE_URL}/v1/characteristic/get/all` client:only="svelte" />
+            <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} location={`${locationv}`} startDate={`${startdatev}`} endDate={`${enddatev}`} client:only="svelte" />
+
         </div>
         
 
     </div>
     </main>
 
-    <script>
-
-    </script>
 
     <style>
         :root {

@@ -5,13 +5,16 @@ import '../../global.css';
 import { API_BASE_URL } from '../../astro.config.js';
 import Prop from './Prop.jsx';
 
-const Char = ({ url }) => {
+const Char = ({ url, location, startDate, endDate }) => {
     const [propertyData, setPropertyData] = useState(null);
     const [urlTemp, setUrlTemp] = useState(null);
     const [numIcons, setNumIcons] = useState(12);
     const [activeButtons, setActiveButtons] = useState(new Set());
     const [selectedItems, setSelectedItems] = useState([]);
     const [refresh, setRefresh] = useState(false); 
+
+
+    console.log('Char.jsx', url, location, startDate, endDate);
 
 
     useEffect(() => {
@@ -28,7 +31,7 @@ const Char = ({ url }) => {
         };
 
         fetchData();
-    }, [url]);
+    }, [url, location, startDate, endDate]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -50,7 +53,9 @@ const Char = ({ url }) => {
 
     if (!propertyData) {
         return (
-          <div></div>
+            <div className="loading-container ">
+                <img src="../../cargar.gif" alt="Cargando..." />
+            </div>
         );
     }
 
