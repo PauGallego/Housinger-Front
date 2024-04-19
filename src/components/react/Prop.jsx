@@ -3,7 +3,11 @@ import React, { useState, useEffect } from 'react';
 const Prop = ({ url, caracteristicas }) => {
     const [propertyData, setPropertyData] = useState(null);
 
+ 
     useEffect(() => {
+
+        setPropertyData(null);
+
         const fetchData = async () => {
             try {
                 let response;
@@ -31,7 +35,11 @@ const Prop = ({ url, caracteristicas }) => {
     }, [url, caracteristicas]);
 
     if (!propertyData) {
-        return 
+        return (
+            <div className="loading-container ">
+                <img src="../../cargar.gif" alt="Cargando..." />
+            </div>
+        );
     }
 
     return (

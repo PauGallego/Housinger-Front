@@ -50,9 +50,7 @@ const Char = ({ url }) => {
 
     if (!propertyData) {
         return (
-            <div className="loading-container">
-                <img src="../../cargar.gif" alt="Cargando..." />
-            </div>
+          <div></div>
         );
     }
 
@@ -102,13 +100,13 @@ const Char = ({ url }) => {
                     <i className="icon-[mage--filter] h-[25px] w-[25px] mt-1 "></i>
                 </button>
                 <dialog id="my_modal_4" className="modal">
-                    <div className="modal-box w-11/12 max-w-5xl">
+                    <div className="modal-box ">
                         <h3 className="font-bold text-[20px] mb-10">¿Qué buscamos?</h3>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 gap-2">
                             {propertyData.map((char, index) => (
                                 <button
                                     key={char.id}
-                                    className={`flex items-center ${activeButtons.has(index) ? 'boton-filtro2' : ''}`}
+                                    className={`flex items-center ${activeButtons.has(index) ? 'boton-filtro2' : 'boton-filtro3'}`}
                                     onClick={() => handleButtonClick(index, char.id)}
                                     style={{ backgroundColor: activeButtons.has(index) ? '#576cbc' : '#ffffff' }}
                                 >
@@ -124,15 +122,6 @@ const Char = ({ url }) => {
                         </div>
                     </div>
                 </dialog>
-            </div>
-
-            <div>
-                <ul>
-                    {/* Aquí puedes mostrar los elementos seleccionados */}
-                    {selectedItems.map(item => (
-                        <li key={item.id}>{item.name}</li>
-                    ))}
-                </ul>
             </div>
         </div>
 

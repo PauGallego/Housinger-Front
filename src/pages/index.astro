@@ -59,7 +59,10 @@ import { API_BASE_URL } from '../astro.config.js';
                 </div>
             </div>
         </div>
-        <Char url=`${API_BASE_URL}/v1/characteristic/get/all` client:only="svelte" />
+        <div class="h-screen">
+            <Char url=`${API_BASE_URL}/v1/characteristic/get/all` client:only="svelte" />
+        </div>
+        
 
     </div>
     </main>
