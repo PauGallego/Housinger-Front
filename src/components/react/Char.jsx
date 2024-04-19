@@ -123,7 +123,7 @@ const Char = ({ url, location, startDate, endDate }) => {
                             ))}
                         </div>
                         <div className="modal-action">
-                            <button className="btn" onClick={() => document.getElementById('my_modal_4').close()}>Cerrar</button>
+                            <button className="btn cerrar" onClick={() => document.getElementById('my_modal_4').close()}>Cerrar</button>
                         </div>
                     </div>
                 </dialog>

@@ -48,3 +48,21 @@ body, html {
 .lugar {
     font-weight: bold;
 }
+
+.modal-box {
+    background-color: white;
+}
+
+h3 {
+    color: black;
+}
+
+.cerrar {
+    background-color: #576cbc;
+    color: white;
+    border: none;
+}
+
+.cerrar:hover {
+    background-color: #3f4e7f;
+}

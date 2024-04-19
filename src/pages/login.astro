@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/loginLS.astro";
+import '../global.css';
 ---
 
 <Layout title="Login">
@@ -152,10 +153,8 @@ import Layout from "../layouts/loginLS.astro";
                         <div class="modal-box">
                             <h3 class="font-bold text-lg">Cambiar contraseña</h3>
                             <br>
-                            <input type="text" class="datos-insertar" id="user" placeholder="Usuario" />
+                            <input type="text" class="datos-insertar" id="user" placeholder="Correo electronico" />
                             <br><br><br>
-                            <input type="password" class="datos-insertar" id="pass" placeholder="Nueva contraseña"/>
-                            <br><br>
                             <button class="bg-[#576cbc] text-[20px] h-10 w-20 text-white rounded-md">Cambiar</button>
                             <div class="modal-action">
                                 <form method="dialog">
