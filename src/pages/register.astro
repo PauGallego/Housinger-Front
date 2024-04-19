@@ -36,7 +36,7 @@ import Layout from "../layouts/cabezera2.astro";
         </div>
     </main>
     <script>
-
+        import { API_BASE_URL } from '../astro.config.js';
         let uploadedFile = null;
 
         function handleFileSelect(event) {
@@ -88,7 +88,7 @@ import Layout from "../layouts/cabezera2.astro";
             };
     
             try {
-                let response = await fetch('http://localhost:8081/v1/auth/sign-up', {
+                let response = await fetch(`${API_BASE_URL}/v1/auth/sign-up`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ import Layout from "../layouts/cabezera2.astro";
                     formData.append('file', uploadedFile);
 
                     try {
-                let pictureResponse = await fetch(`http://localhost:8081/v1/fileCustomer/upload/${customerId}`, {
+                let pictureResponse = await fetch(`${API_BASE_URL}/v1/fileCustomer/upload/${customerId}`, {
                     method: 'POST',
                     body: formData 
                 });

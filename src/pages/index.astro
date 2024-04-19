@@ -4,6 +4,7 @@ import Card from "../components/Propiedad.astro";
 import Caract from "../components/Caracteristica.astro";
 import Prop from "../components/react/Prop.jsx";
 import Char from "../components/react/Char.jsx";
+import { API_BASE_URL } from '../astro.config.js';
 
 ---
 
@@ -58,7 +59,7 @@ import Char from "../components/react/Char.jsx";
                 </div>
             </div>
         </div>
-        <Char url="http://localhost:8081/v1/characteristic/get/all" client:only="svelte" />
+        <Char url=`${API_BASE_URL}/v1/characteristic/get/all` client:only="svelte" />
 
     </div>
     </main>

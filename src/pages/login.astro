@@ -175,6 +175,8 @@ import Layout from "../layouts/loginLS.astro";
     </div>
 
     <script>
+        import { API_BASE_URL2 } from '../astro.config.js';
+        import { API_BASE_URL } from '../astro.config.js';
         async function loginUser() {
             let username = document.getElementById("user");
             let password = document.getElementById("pass");
@@ -185,7 +187,7 @@ import Layout from "../layouts/loginLS.astro";
 
             try {
                 let response = await fetch(
-                    "http://localhost:8081/v1/auth/sign-in",
+                    `${API_BASE_URL}/v1/auth/sign-in`,
                     {
                         method: "POST",
                         headers: {
@@ -213,7 +215,7 @@ import Layout from "../layouts/loginLS.astro";
         });
 
         document.getElementById("crearCuenta").addEventListener("click", function() {
-            window.location.href = "http://localhost:4321/register";
+            window.location.href = `${API_BASE_URL2}/register`;
         });
     </script>
 </Layout>

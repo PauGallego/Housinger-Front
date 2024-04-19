@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import '../../global.css';
+//URL GLOABAL AÑADIR SIEMPRE
+import { API_BASE_URL } from '../../astro.config.js';
 import Prop from './Prop.jsx';
 
 const Char = ({ url }) => {
@@ -13,8 +15,8 @@ const Char = ({ url }) => {
 
 
     useEffect(() => {
-
-        setUrlTemp("http://localhost:8081/v1/propertyCharacteristics/get/all");
+        // URL GLOABAL
+        setUrlTemp(`${API_BASE_URL}/v1/propertyCharacteristics/get/all`);
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
@@ -72,15 +74,13 @@ const Char = ({ url }) => {
         setSelectedItems(updatedSelectedItems);
         
         if (updatedSelectedItems.length === 0) {
-            setUrlTemp("http://localhost:8081/v1/propertyCharacteristics/get/all");
+            setUrlTemp(`${API_BASE_URL}/v1/propertyCharacteristics/get/all`);
         } else {
-            setUrlTemp("http://localhost:8081/v1/propertyCharacteristics/get");
+            setUrlTemp(`${API_BASE_URL}/v1/propertyCharacteristics/get`);
         }
     };
     
-
     return (
-
         <div>
         <div className="flex justify-center lg:flex-wrap">
             {limitedData.map((char, index) => (
