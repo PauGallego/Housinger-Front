@@ -1,33 +1,34 @@
 ---
 import Layout from "../layouts/cabezera2.astro";
 ---
+
 <Layout title="Crear cuenta" fondo="white">
     <main>
         <div class="lg:flex lg:justify-center">
             <div class="lg:mr-8 lg:mb-0 mb-8">
-                <div class="contedor-imagen flex justify-center items-center rounded-[20px] w-[250px] h-[230px]
-                ml-[20%] lg:ml-[50%] md:ml-[35%] lg:mt-[90px]" id="uploadfile">
-                <div id="upload-content">
-                    <i class="icon-[mdi--plus]"></i>
-                    <br />
-                    <p>foto de cuenta</p>
+                <div class="contedor-imagen flex justify-center items-center rounded-[20px] w-[250px] h-[230px] ml-[20%] lg:ml-[50%] md:ml-[35%] lg:mt-[90px]" id="uploadfile">
+                    <div id="upload-content">
+                        <i class="icon-[mdi--plus]"></i>
+                        <br />
+                        <p>foto de cuenta</p>
+                    </div>
                 </div>
-            </div>
             </div>
             <div class="lg:w-[60%] w-[100%] md:ml-[7%]">
                 <h2 class="mt-4 mb-4">Crear cuenta</h2>
                 <h2 class="mb-4">Información</h2>
                 <div class="lg:flex lg:gap-[30px]">
                     <div class="lg:w-[43%]">
-                        <input type="text" id="name" placeholder="Nombre" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1" />
-                        <input type="text" id="mail" placeholder="Correo" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1" />
-                        <input type="text" id="pass" placeholder="Contraseña" class="input-style lg:w-full lg:h-[20%] w-[80%]" />
-                        <input type="text" id="user" placeholder="Usuario" class="input-style lg:w-full lg:h-[20%] w-[80%]" />
+                        <input type="text" id="name" placeholder="Nombre" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1"/>
+                        <input type="text" id="mail" placeholder="Correo" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1"/>
+                        <input type="text" id="pass" placeholder="Contraseña" class="input-style lg:w-full lg:h-[20%] w-[80%]"/>
+                        <input type="text" id="user" placeholder="Usuario" class="input-style lg:w-full lg:h-[20%] w-[80%]"/>
                     </div>
                     <div class="lg:w-[43%]">
-                        <input type="text" id="surname" placeholder="Apellido" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1" />
-                        <input type="text" id="dni" placeholder="DNI" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1" />
-                        <input type="text" id="pass2" placeholder="Confirmar contraseña" class="input-style lg:w-full lg:h-[20%] w-[80%]" />
+                        <input type="text" id="surname" placeholder="Apellido" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1"/>
+                        <input
+                            type="text" id="dni" placeholder="DNI" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1"/>
+                        <input type="text" id="pass2" placeholder="Confirmar contraseña" class="input-style lg:w-full lg:h-[20%] w-[80%]"/>
                         <button id="register" class="input-style ml-[10%] lg:w-full lg:h-[15%] lg:ml-[3.4%] md:ml-[5%]">Guardar cuenta</button>
                     </div>
                 </div>
@@ -35,47 +36,102 @@ import Layout from "../layouts/cabezera2.astro";
         </div>
     </main>
     <script>
-        import { API_BASE_URL } from '../astro.config.js';
+        import { API_BASE_URL } from "../astro.config.js";
         let uploadedFile = null;
 
         function handleFileSelect(event) {
-                const file = event.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        document.getElementById('upload-content').innerHTML = `
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("upload-content").innerHTML = `
                             <img src="${e.target.result}" alt="uploaded-image" style="max-width: 100%; max-height: 100%;">
                         `;
-                    };
-                    reader.readAsDataURL(file);
-                    window.uploadedFile = file; 
-                    uploadedFile = file;
-                }
+                };
+                reader.readAsDataURL(file);
+                window.uploadedFile = file;
+                uploadedFile = file;
             }
+        }
 
-            document.getElementById('uploadfile').addEventListener('click', function () {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/*'; 
-                input.style.display = 'none';
-                input.addEventListener('change', handleFileSelect);
+        document
+            .getElementById("uploadfile")
+            .addEventListener("click", function () {
+                const input = document.createElement("input");
+                input.type = "file";
+                input.accept = "image/*";
+                input.style.display = "none";
+                input.addEventListener("change", handleFileSelect);
                 document.body.appendChild(input);
                 input.click();
                 document.body.removeChild(input);
             });
 
-
-
         async function registerUser() {
-            let username = document.getElementById('user');
-            let password = document.getElementById('pass');
-            let name = document.getElementById('name');
-            let surname = document.getElementById('surname');
-            let mail = document.getElementById('mail');
-            let dni = document.getElementById('dni');
-            let pass2 = document.getElementById('pass2');
-            let uploadfile = document.getElementById('uploadfile');
-            
+            let username = document.getElementById("user");
+            let password = document.getElementById("pass");
+            let name = document.getElementById("name");
+            let surname = document.getElementById("surname");
+            let mail = document.getElementById("mail");
+            let dni = document.getElementById("dni");
+            let pass2 = document.getElementById("pass2");
+            let uploadfile = document.getElementById("uploadfile");
+
+            //CONTROL DE ERRORES
+            if (name.value[0] !== name.value[0].toUpperCase() || surname.value[0] !== surname.value[0].toUpperCase()) {
+                alert("El nombre y apellido deben comenzar con mayúscula.");
+                name.classList.add("campo-invalido");
+                surname.classList.add("campo-invalido");
+                return;
+            } else {
+                name.classList.remove("campo-invalido");
+                surname.classList.remove    ("campo-invalido");
+            }
+
+            if (dni.value.length !== 9) {
+                alert("El DNI debe tener 9 caracteres.");
+                dni.classList.add("campo-invalido");
+                return;
+            } else {
+                dni.classList.remove("campo-invalido");
+            }
+
+            if (password.value !== pass2.value) {
+                alert("Las contraseñas no coinciden.");
+                password.classList.add("campo-invalido");
+                pass2.classList.add("campo-invalido");
+                return;
+            } else {
+                password.classList.remove("campo-invalido");
+                pass2.classList.remove("campo-invalido");
+            }
+
+            if (uploadedFile === null) {
+                alert("Debe subir una foto de perfil.");
+                uploadfile.classList.add("campo-invalido");
+                return;
+            } else {
+                uploadfile.classList.remove("campo-invalido");
+            }
+
+            if (mail !== null) {
+                if (!mail.value.includes("@") || !mail.value.includes(".")) {
+                    alert("El correo no es válido.");
+                    mail.classList.add("campo-invalido");
+                    return;
+                } else {
+                    mail.classList.remove("campo-invalido");
+                }
+            }
+
+            if (username.value.length < 6) {
+                alert("El usuario debe tener al menos 6 caracteres.");
+                username.classList.add("campo-invalido");
+                return;
+            } else {
+                username.classList.remove("campo-invalido");
+            }
+
             let requestData = {
                 username: username.value,
                 password: password.value,
@@ -83,58 +139,58 @@ import Layout from "../layouts/cabezera2.astro";
                 surname: surname.value,
                 mail: mail.value,
                 dni: dni.value,
-                picture: uploadedFile.name
+                picture: uploadedFile.name,
             };
-    
+
             try {
                 let response = await fetch(`${API_BASE_URL}/v1/auth/sign-up`, {
-                    method: 'POST',
+                    method: "POST",
                     headers: {
-                        'Content-Type': 'application/json'
+                        "Content-Type": "application/json",
                     },
-                    body: JSON.stringify(requestData)
+                    body: JSON.stringify(requestData),
                 });
-    
+
                 if (response.ok) {
+                    const responseData = await response.json();
+                    const customerId = responseData.customerEntity.id;
 
-                    const responseData = await response.json(); 
-                    const customerId = responseData.customerEntity.id; 
-
-                    alert('¡Cuenta creada con éxito!');
+                    alert("¡Cuenta creada con éxito!");
 
                     let formData = new FormData();
-                    formData.append('file', uploadedFile);
+                    formData.append("file", uploadedFile);
 
                     try {
-                let pictureResponse = await fetch(`${API_BASE_URL}/v1/fileCustomer/upload/${customerId}`, {
-                    method: 'POST',
-                    body: formData 
-                });
+                        let pictureResponse = await fetch(
+                            `${API_BASE_URL}/v1/fileCustomer/upload/${customerId}`,
+                            {
+                                method: "POST",
+                                body: formData,
+                            },
+                        );
 
-                if (pictureResponse.ok) {
-                    alert('¡Foto de perfil subida con éxito!');
+                        if (pictureResponse.ok) {
+                            alert("¡Foto de perfil subida con éxito!");
+                        } else {
+                            alert("¡Error al subir foto de perfil!");
+                        }
+                    } catch (error) {
+                        console.error("Error al subir foto de perfil:", error);
+                        alert("¡Error al subir foto de perfil!");
+                    }
                 } else {
-                    alert('¡Error al subir foto de perfil!');
+                    alert("¡Error al crear cuenta!");
                 }
             } catch (error) {
-                console.error('Error al subir foto de perfil:', error);
-                alert('¡Error al subir foto de perfil!');
-            }
-
-
-
-
-                } else {
-                    alert('¡Error al crear cuenta!');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('¡Error al crear cuenta!');
+                console.error("Error:", error);
+                alert("¡Error al crear cuenta!");
             }
         }
-    
-        document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('register').addEventListener('click', registerUser);
+
+        document.addEventListener("DOMContentLoaded", function () {
+            document
+                .getElementById("register")
+                .addEventListener("click", registerUser);
         });
     </script>
     <style>
@@ -188,6 +244,9 @@ import Layout from "../layouts/cabezera2.astro";
             width: 70px;
             color: #576cbc;
         }
+
+        .campo-invalido {
+            border-color: red;
+        }
     </style>
 </Layout>
-
