@@ -5,7 +5,7 @@ import '../../global.css';
 import { API_BASE_URL } from '../../astro.config.js';
 import Prop from './Prop.jsx';
 
-const Char = ({ url, location, startDate, endDate }) => {
+const Char = ({ url }) => {
     const [propertyData, setPropertyData] = useState(null);
     const [urlTemp, setUrlTemp] = useState(null);
     const [numIcons, setNumIcons] = useState(12);
@@ -14,11 +14,18 @@ const Char = ({ url, location, startDate, endDate }) => {
     const [refresh, setRefresh] = useState(false); 
 
 
-    console.log('Char.jsx', url, location, startDate, endDate);
+    let urlParams = new URLSearchParams(window.location.search);
+    let startDatev = urlParams.get('startDate');
+    let endDatev = urlParams.get('endDate');
+    let locationv = urlParams.get('destination');
+
+
+    console.log('Char.jsx', window.location.href, locationv, startDatev, endDatev);
+
 
 
     useEffect(() => {
-        // URL GLOABAL
+    
         setUrlTemp(`${API_BASE_URL}/v1/propertyCharacteristics/get/all`);
         const fetchData = async () => {
             try {
@@ -31,7 +38,7 @@ const Char = ({ url, location, startDate, endDate }) => {
         };
 
         fetchData();
-    }, [url, location, startDate, endDate]);
+    }, [url]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -62,6 +69,7 @@ const Char = ({ url, location, startDate, endDate }) => {
     const limitedData = propertyData.slice(0, numIcons);
 
     const handleButtonClick = (index, id) => {
+
         const newActiveButtons = new Set(activeButtons);
         let updatedSelectedItems = [...selectedItems];
     

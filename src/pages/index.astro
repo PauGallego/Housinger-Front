@@ -1,18 +1,13 @@
 ---
 import Layout from "../layouts/cabezera.astro";
-import Card from "../components/Propiedad.astro";
-import Caract from "../components/Caracteristica.astro";
-import Prop from "../components/react/Prop.jsx";
 import Char from "../components/react/Char.jsx";
 import { API_BASE_URL } from '../astro.config.js';
 
-let locationv;
-let startdatev;
-let enddatev;
 
 ---
 
 <Layout title="Housinger" fondo="blue">
+
     <main>
         <div class="fondo-menu">
             <div class="flex gap-10 font-bold justify-center">
@@ -56,7 +51,7 @@ let enddatev;
                                 </div>
                             </dialog>                        
                         </div>
-                        <button class=" esconde boton-buscar flex justify-center items-center h-[28px] w-[30px] lg:h-[51px] lg:w-[53px] rounded-[50px]">
+                        <button class=" esconde boton-buscar flex justify-center items-center h-[28px] w-[30px] lg:h-[51px] lg:w-[53px] rounded-[50px]" id="botonbuscar">
                             <i class="icon-[ph--magnifying-glass-bold] text-fuchsia-50 lg:w-[26px] lg:h-[25px]"></i>
                         </button>
                     </div>
@@ -64,10 +59,43 @@ let enddatev;
             </div>
         </div>
         <div class="h-screen">
-            <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} location={`${locationv}`} startDate={`${startdatev}`} endDate={`${enddatev}`} client:only="svelte" />
-        </div>
+            <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} client:only="svelte" />
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const locationInput = document.getElementById('buscador-destino');
+    const startDateInput = document.getElementById('fecha-entrada');
+    const endDateInput = document.getElementById('fecha-salida');
+    const botonBuscar = document.getElementById('botonbuscar');
+
+    botonBuscar.addEventListener('click', () => {
+ 
+        const destination = locationInput.value;
+        const startDate = startDateInput.value;
+        const endDate = endDateInput.value;
+
+        const baseURL = window.location.href.split('?')[0]; // Get current URL without query parameters
+        const queryParams = new URLSearchParams();
+        queryParams.set('destination', destination);
+        queryParams.set('startDate', startDate);
+        queryParams.set('endDate', endDate);
+        const updatedURL = `${baseURL}?${queryParams.toString()}`;
+
+        window.history.pushState({ path: updatedURL }, '', updatedURL);
+
+        window.location.reload();
+
+    });
+});
+    </script>
+    
+    
+    
+    
+    
+    
     </main>
+    
 
     <style>
         :root {
