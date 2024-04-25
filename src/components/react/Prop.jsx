@@ -64,6 +64,8 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, 
                 }
                 const data = await response.json();
                 setPropertyData2(data);
+
+
             } catch (error) {
                 console.error('Error fetching property data:', error);
             }
@@ -106,20 +108,11 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, 
     let propiedadesFiltradas = [];
 
     if (propertyData != null && propertyData2 != null && propertyData3 != null && propertyData.length > 0 && propertyData2.length > 0 && propertyData3.length > 0){
-        console.log("Propiedades 1:");
-        console.log(propertyData);
-        console.log("Propiedades 2:");
-        console.log(propertyData2);
-        console.log("Propiedades 3:");
-        console.log(propertyData3);
     
         propiedadesFiltradas = propertyData.filter(value =>
             propertyData2.some(obj => JSON.stringify(obj) === JSON.stringify(value)) &&
             propertyData3.some(obj => JSON.stringify(obj) === JSON.stringify(value))
         );
-
-        console.log("Propiedades filtradas:");
-        console.log(propiedadesFiltradas);
     
     }
     
