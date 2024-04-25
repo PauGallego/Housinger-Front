@@ -1,9 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
-const Prop = ({ url, caracteristicas }) => {
+const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, location}) => {
     const [propertyData, setPropertyData] = useState(null);
+    const [propertyData2, setPropertyData2] = useState(null);
+    const [propertyData3, setPropertyData3] = useState(null);
 
- 
+
+    if(startDate == null){
+        startDate = "";
+    }
+    if(endDate == null){
+        endDate = "";
+    }
+
+    if(location == null){
+        location = "";
+    }
+
     useEffect(() => {
 
         setPropertyData(null);
@@ -11,8 +24,8 @@ const Prop = ({ url, caracteristicas }) => {
         const fetchData = async () => {
             try {
                 let response;
-                if (caracteristicas.length === 0) {
-                    response = await fetch(url);
+                if (caracteristicas.length == 0) {
+                    response = await fetch(urlbase);
                 } else {
                     response = await fetch(url, {
                         method: 'POST',
@@ -31,10 +44,88 @@ const Prop = ({ url, caracteristicas }) => {
             }
         };
 
-        fetchData();
-    }, [url, caracteristicas]);
 
-    if (!propertyData) {
+        const fetchData2 = async () => {
+            try {
+                let response;
+                if (startDate.length == 0 || endDate.length == 0) {
+                    response = await fetch(urlbase);
+                } else {
+                    response = await fetch(url2, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            startDate: startDate,
+                            endDate: endDate,
+                        })
+                    });
+                }
+                const data = await response.json();
+                setPropertyData2(data);
+            } catch (error) {
+                console.error('Error fetching property data:', error);
+            }
+        }
+
+        const fetchData3 = async () => {
+            try {
+                let response;
+                if (location.length == 0) {
+                    response = await fetch(urlbase);
+                } else {
+                    response = await fetch(url3, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            location: location
+                        })
+                    });
+                }
+                const data = await response.json();
+                setPropertyData3(data);
+            } catch (error) {
+                console.error('Error fetching property data:', error);
+            }
+        }
+ 
+        fetchData();
+        fetchData2();
+        fetchData3();
+
+
+       
+        
+
+
+    }, [urlbase, url,url2, url3, caracteristicas, startDate, endDate, location]);
+
+    let propiedadesFiltradas = [];
+
+    if (propertyData != null && propertyData2 != null && propertyData3 != null && propertyData.length > 0 && propertyData2.length > 0 && propertyData3.length > 0){
+        console.log("Propiedades 1:");
+        console.log(propertyData);
+        console.log("Propiedades 2:");
+        console.log(propertyData2);
+        console.log("Propiedades 3:");
+        console.log(propertyData3);
+    
+        propiedadesFiltradas = propertyData.filter(value =>
+            propertyData2.some(obj => JSON.stringify(obj) === JSON.stringify(value)) &&
+            propertyData3.some(obj => JSON.stringify(obj) === JSON.stringify(value))
+        );
+
+        console.log("Propiedades filtradas:");
+        console.log(propiedadesFiltradas);
+    
+    }
+    
+
+
+    if (!propertyData || !propertyData2 || !propertyData3) {
         return (
             <div className="loading-container ">
                 <img src="../../cargar.gif" alt="Cargando..." />
@@ -44,11 +135,11 @@ const Prop = ({ url, caracteristicas }) => {
 
     return (
         <div>
-            {propertyData && propertyData.length > 0 ? (
+            {propiedadesFiltradas && propiedadesFiltradas.length > 0 ? (
                 <div>
                     <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Recomendados</h2>
                     <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
-                        {propertyData.map((property, index) => (
+                        {propiedadesFiltradas.map((property, index) => (
                             <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={`prop_${property.id || index}_Premium`}>
                                 <a href={property.propertyId}>
                                     {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
@@ -61,7 +152,7 @@ const Prop = ({ url, caracteristicas }) => {
 
                     <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h2>
                     <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
-                        {propertyData.map((property, index) => (
+                        {propiedadesFiltradas.map((property, index) => (
                             <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={`prop_${property.id || index}_NoPremium`}>
                                 <a href={property.propertyId}>
                                     {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}

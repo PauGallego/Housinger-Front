@@ -19,8 +19,11 @@ const Char = ({ url }) => {
     let endDatev = urlParams.get('endDate');
     let locationv = urlParams.get('destination');
 
+    let urlbase= `${API_BASE_URL}/v1/propertyCharacteristics/get/all`;
+    let url1 = `${API_BASE_URL}/v1/propertyCharacteristics/get`;
+    let url2 = `${API_BASE_URL}/v1/propertyCalendar/get`;
+    let url3 = `${API_BASE_URL}/v1/propertyLocation/get`;
 
-    console.log('Char.jsx', window.location.href, locationv, startDatev, endDatev);
 
 
 
@@ -84,7 +87,7 @@ const Char = ({ url }) => {
         setActiveButtons(newActiveButtons);
         setSelectedItems(updatedSelectedItems);
         
-        if (updatedSelectedItems.length === 0) {
+        if (updatedSelectedItems.length == 0) {
             setUrlTemp(`${API_BASE_URL}/v1/propertyCharacteristics/get/all`);
         } else {
             setUrlTemp(`${API_BASE_URL}/v1/propertyCharacteristics/get`);
@@ -138,7 +141,7 @@ const Char = ({ url }) => {
             </div>
         </div>
 
-        <Prop url={urlTemp} caracteristicas={selectedItems} client:only="svelte" />
+        <Prop urlbase={urlbase} url={url1} url2={url2} url3={url3} caracteristicas={selectedItems} startDate={startDatev} endDate={endDatev} location={locationv} client:only="svelte" />
 
         </div>
     );
