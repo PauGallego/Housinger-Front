@@ -87,9 +87,29 @@ import { API_BASE_URL } from '../astro.config.js';
 
     });
 });
+
+    //Si existen query parameters, los añadimos a los inputs
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const destination = urlParams.get('destination');
+        const startDate = urlParams.get('startDate');
+        const endDate = urlParams.get('endDate');
+
+        if (destination) {
+            document.getElementById('buscador-destino').value = destination;
+        }
+
+        if (startDate) {
+            document.getElementById('fecha-entrada').value = startDate;
+        }
+
+        if (endDate) {
+            document.getElementById('fecha-salida').value = endDate;
+        }
+    });
     </script>
     
-    
+
     
     
     
