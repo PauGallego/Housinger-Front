@@ -1,6 +1,76 @@
 ---
-import Layout from "../layouts/cabezera.astro";
+import Layout from "../layouts/cabezera3.astro";
 import Char from "../components/react/Char.jsx";
-import { API_BASE_URL } from '../astro.config.js';
+import { API_BASE_URL } from "../astro.config.js";
 ---
 
+<Layout title="Housinger" fondo="blue">
+    <main class="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
+        <div class="flex mt-5 lg:mt-10 gap-2">
+            <i class="icon-[ion--location-sharp] icon-blue h-7 w-7"></i>
+            <input class="w-[350px] boton-direcion rounded-[5px] md:w-[350px] lg:w-[550px] font-bold" type="text" placeholder="direcion" />
+        </div>
+        <!--IMAGEN COLUMA IZQUIERDA --> 
+        <div class="flex gap-5 justify-center items-center">
+            <div class="hidden lg:flex justify-center items-center gap-2 flex-col">
+                <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
+                <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
+            </div>
+        <!--IMAGEN CENTRAL -->                
+        <div class="flex justify-center items-center">
+            <img class="mt-10 rounded-[10px] h-[auto] w-[auto] lg:h-[300px] lg:w-[auto]" src="../../casa1.jpg" alt="imagen-propiedad" />
+        </div>
+        <!--IMAGEN COLUMA DERECHA --> 
+        <div class="hidden lg:flex justify-center items-center gap-2 flex-col">
+            <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
+            <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
+        </div>
+    </div>
+        <!--IMAGEN PIE --> 
+        <div class="flex justify-center items-center gap-[10px] lg:gap-[35px]">
+            <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
+            <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
+            <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
+            <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]  hidden lg:block" src="../../casa1.jpg" alt="imagen-propiedad" />
+        </div>
+    </main>
+
+    <style>
+        :root {
+            --primary: #576cbc;
+            --secondary: #0b2447;
+            --tertiary: #b1ddec;
+            --gris: #948e8e;
+            --star: #ffd910;
+            --menu: #a5d7e8;
+        }
+        .bg-secondary {
+            background-color: var(--gris) !important;
+        }
+
+        .boton-direcion {
+            border: 1px solid var(--gris);
+        }
+        body,
+        html {
+            background-color: #ffff;
+        }
+        .icon-blue {
+            color: var(--primary);
+        }
+
+        @media screen and (max-width: 390px) {
+            .prpiedad-foto-1 {
+            height: 80px;
+            width: auto;
+        }
+        }
+
+        @media screen and (width: 768px) {
+            .prpiedad-foto-1 {
+            height: 120px;
+            width: auto;
+        }
+        }
+    </style>
+</Layout>
