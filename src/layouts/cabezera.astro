@@ -4,7 +4,7 @@ interface Props {
     fondo: string;
 }
 
-import { API_BASE_URL2 } from '../astro.config.js';
+import { API_BASE_URL2 } from "../astro.config.js";
 
 const { title, fondo } = Astro.props;
 ---
@@ -22,16 +22,26 @@ const { title, fondo } = Astro.props;
     <body>
         <header>
             <div class="fondo" style={{ "--colorFondo": fondo }}>
-                <div class="flex justify-between items-center pt-10 lg:ml-20 md:ml-20">
+                <div
+                    class="flex justify-between items-center pt-10 lg:ml-20 md:ml-20"
+                >
                     <a href=`${API_BASE_URL2}`>
-                    <div class="flex lg:pl-40">
-                        <img alt="Logo de Housinger" src="public/logo.png" class="h-[40px] lg:h-[62px] md:h-[52px] ml-2 mt-5"/>
-                        <div class="pt-10 pl-2 cabecera-titulo lg:text-[20px] lg:pt-[50px]">
-                            HOUSINGER
+                        <div class="flex lg:pl-40">
+                            <img
+                                alt="Logo de Housinger"
+                                src="public/logo.png"
+                                class="h-[40px] lg:h-[62px] md:h-[52px] ml-2 mt-5"
+                            />
+                            <div
+                                class="pt-10 pl-2 cabecera-titulo lg:text-[20px] lg:pt-[50px]"
+                            >
+                                HOUSINGER
+                            </div>
                         </div>
-                    </div>
                     </a>
-                    <div class="flex space-x-2 mt-10 lg:mr-20 md:mr-20 lg:pr-40">
+                    <div
+                        class="flex space-x-2 mt-10 lg:mr-20 md:mr-20 lg:pr-40"
+                    >
                         <div class="redondo">
                             <button
                                 class="w-[38px] h-[36px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]"
@@ -42,22 +52,46 @@ const { title, fondo } = Astro.props;
                         </div>
                         <div class="redondo">
                             <a href=`${API_BASE_URL2}/login`>
-                                <button class="w-[38px] h-[36px] lg:w-[48px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]">
-                                    <i class="mt-2 icon-[solar--user-bold] w-[20px] h-[20px] lg:w-[35px] lg:h-[35px] md:w-[30px] md:h-[30px] lg:mt-0 text-fuchsia-50"></i>
+                                <button
+                                    class="w-[38px] h-[36px] lg:w-[48px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]"
+                                >
+                                    <i
+                                        class="mt-2 icon-[solar--user-bold] w-[20px] h-[20px] lg:w-[35px] lg:h-[35px] md:w-[30px] md:h-[30px] lg:mt-0 text-fuchsia-50"
+                                    ></i>
                                 </button>
                             </a>
                         </div>
-                        
+
                         <div class="redondo-premiun">
-                            <button
-                                class="w-[38px] h-[36px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]"
-                                ><i
-                                    class="mt-2 icon-[mdi--crown] w-[20px] h-[20px] lg:w-[35px] lg:h-[35px] md:w-[30px] md:h-[30px] lg:mt-1 text-fuchsia-50"
+                            <button  onclick="my_modal_1.showModal()" 
+                            class="w-[38px] h-[36px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]"><i
+                            class="mt-2 icon-[mdi--crown] w-[20px] h-[20px] lg:w-[35px] lg:h-[35px] md:w-[30px] md:h-[30px] lg:mt-1 text-fuchsia-50"
                                 ></i></button
                             >
                         </div>
                     </div>
                 </div>
+                <dialog id="my_modal_1" class="modal" >
+                    <div class="amarillo p-[30px] ">
+                        <div class="preimun-caja h-[300px] w-[300px] flex justify-center items-center flex-col">
+                            <button 
+                            class=" flex justify-center items-center w-[70px] h-[70px] lg:w-[80px] lg:h-[80px] md:w-[57px] md:h-[53px] boton-nes"><i
+                            class=" icon-[mdi--crown] w-[40px] h-[40px] lg:w-[50px] lg:h-[50px] lg:mt-1 text-fuchsia-50"></i>
+                            </button>
+                            <div class="mt-5">
+                                <h2 class="text-left">+Mayor visulacizacion en tus casas</h2>
+                                <h2 class="text-left">+Sin anuncios</h2>
+                                <h2 class="text-left">+Apoyar a los creadores</h2>
+                            </div>
+                            <button class="mt-5 p-[8px] rounded-[10px] contratar-premiun">Contratar premiun</button>
+                        </div>
+                        <div class="modal-action">
+                            <form method="dialog">
+                                <button class="btn cerramos">Cerrar</button>
+                            </form>
+                        </div>
+                    </div>
+                </dialog>
             </div>
         </header>
         <main>
@@ -84,19 +118,51 @@ const { title, fondo } = Astro.props;
         background-color: #fafafa;
     }
 
+    .cerramos {
+        background-color: white;
+        border: none;
+        color: black;
+    }
+
+    .cerramos:hover {
+        background-color: var(--primary);
+        color: white;
+    }
+
+    .boton-nes{
+        background-color: var(--star);
+        padding: 10px;
+        border-radius: 50px;
+    }
+
+    .contratar-premiun {
+        background-color: var(--primary);
+        color: white;
+    }
+
     input {
         background-color: #ffffff;
     }
 
-    i{
+    .amarillo {
+        background-color: var(--star);
+        border-radius: 10px;
+    }
+
+    .preimun-caja {
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    i {
         color: black;
     }
 
-    h2{
+    h2 {
         color: black;
     }
 
-    p{
+    p {
         color: black;
     }
 
