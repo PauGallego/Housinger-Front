@@ -25,8 +25,8 @@ const ChatRoom = () => {
     }, [userData.receiverId, userData.senderId]);
 
 
-// Function to load chat history
-const fetchData = async () => {
+   // Función para cargar el historial de chat
+   const fetchData = async () => {
     try {
         const sentResponse = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
         const sentData = await sentResponse.json();
@@ -34,27 +34,15 @@ const fetchData = async () => {
         const receivedResponse = await fetch(`${API_BASE_URL}/v1/chat/getReceived/${userData.senderId}`);
         const receivedData = await receivedResponse.json();
 
-
+        // Combinar mensajes enviados y recibidos
         const allMessages = sentData.concat(receivedData);
 
-        console.log("Array mezclado:", allMessages);
-
-
+        // Ordenar los mensajes por fecha utilizando date-fns parse
         allMessages.sort((a, b) => {
-  
-            const dateAString = a.date.replace("CEST", "").split(" ").slice(0, -1).join(" ").trim();
-            const dateBString = b.date.replace("CEST", "").split(" ").slice(0, -1).join(" ").trim();
-
-            const dateA = parse(dateAString, "EEE MMM dd HH:mm:ss", new Date());
-            const dateB = parse(dateBString, "EEE MMM dd HH:mm:ss", new Date());
-
+            const dateA = parse(a.date, "dd/MM/yyyy, HH:mm:ss", new Date());
+            const dateB = parse(b.date, "dd/MM/yyyy, HH:mm:ss", new Date());
             return dateA - dateB;
         });
-
-        // Obtener las fechas después de ordenar
-        const datesAfterSorting = allMessages.map(message => parse(message.date.replace("CEST", "").split(" ").slice(0, -1).join(" ").trim(), "EEE MMM dd HH:mm:ss", new Date()));
-
-        console.log("Fechas después de ordenar:", datesAfterSorting);
 
         // Establecer los mensajes ordenados en privateChats
         setPrivateChats(allMessages);
@@ -91,9 +79,9 @@ const fetchData = async () => {
         const receivedMessage = {
             senderId: payloadData.senderId,
             message: payloadData.message,
-            date: new Date().toLocaleTimeString()
+            date: new Date().toLocaleString() // Formatear la fecha actual
         };
-
+    
         setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
     }
 
@@ -108,11 +96,17 @@ const fetchData = async () => {
 
     const sendPrivateValue = () => {
         if (stompClient && userData.message.trim() !== "") {
+
+
+            const currentDate = new Date();
+            const formattedDate = currentDate.toLocaleString(); 
+        
+
             var chatMessage = {
                 senderId: userData.senderId,
                 receiverId: userData.receiverId,
                 message: userData.message,
-                date: new Date().toLocaleTimeString(), 
+                date: formattedDate , 
                 status: "MESSAGE"
             };
             
