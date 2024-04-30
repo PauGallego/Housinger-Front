@@ -9,8 +9,8 @@ const ChatRoom = () => {
     const [publicChats, setPublicChats] = useState([]); 
     const [tab, setTab] = useState("CHATROOM");
     const [userData, setUserData] = useState({
-        username: '',
-        receivername: '',
+        senderId: '',
+        receiverId: '',
         connected: false,
         message: ''
     });
@@ -22,19 +22,20 @@ const ChatRoom = () => {
     const connect = () => {
         let Sock = new SockJS('http://localhost:8081/ws');
         stompClient = over(Sock);
-        stompClient.connect({}, onConnected, onError);
+        stompClient.connect({sender: userData.senderId, receiver: userData.receiverId}, onConnected, onError);
     }
 
     const onConnected = () => {
         setUserData({...userData, "connected": true});
         stompClient.subscribe('/chatroom/public', onMessageReceived);
-        stompClient.subscribe('/user/'+userData.username+'/private', onPrivateMessage);
+        stompClient.subscribe('/user/'+userData.senderId+'/private', onPrivateMessage);
         userJoin();
     }
 
     const userJoin = () => {
         var chatMessage = {
-            senderName: userData.username,
+            senderId: userData.senderId,
+            receiverId: userData.receiverId,
             status: "JOIN"
         };
         stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
@@ -44,8 +45,8 @@ const ChatRoom = () => {
         var payloadData = JSON.parse(payload.body);
         switch(payloadData.status) {
             case "JOIN":
-                if (!privateChats.get(payloadData.senderName)) {
-                    privateChats.set(payloadData.senderName,[]);
+                if (!privateChats.get(payloadData.senderId)) {
+                    privateChats.set(payloadData.senderId,[]);
                     setPrivateChats(new Map(privateChats));
                 }
                 break;
@@ -58,13 +59,13 @@ const ChatRoom = () => {
     
     const onPrivateMessage = (payload) => {
         var payloadData = JSON.parse(payload.body);
-        if (privateChats.get(payloadData.senderName)) {
-            privateChats.get(payloadData.senderName).push(payloadData);
+        if (privateChats.get(payloadData.senderId)) {
+            privateChats.get(payloadData.senderId).push(payloadData);
             setPrivateChats(new Map(privateChats));
         } else {
             let list = [];
             list.push(payloadData);
-            privateChats.set(payloadData.senderName, list);
+            privateChats.set(payloadData.senderId, list);
             setPrivateChats(new Map(privateChats));
         }
     }
@@ -81,7 +82,8 @@ const ChatRoom = () => {
     const sendValue = () => {
         if (stompClient) {
             var chatMessage = {
-                senderName: userData.username,
+                senderId: userData.senderId,
+                receiverId: userData.receiverId,
                 message: userData.message,
                 status: "MESSAGE"
             };
@@ -90,28 +92,38 @@ const ChatRoom = () => {
             setUserData({...userData, "message": ""});
         }
     }
-
     const sendPrivateValue = () => {
-        if (stompClient) {
+        if (stompClient && tab !== "CHATROOM") {
+         
             var chatMessage = {
-                senderName: userData.username,
-                receiverName: tab,
+                senderId: userData.senderId,
+                receiverId: userData.receiverId,
                 message: userData.message,
                 status: "MESSAGE"
             };
-          
-            if (userData.username !== tab) {
+            
+            // Actualiza la lista de chats privados solo si el destinatario no es el remitente
+            if (userData.senderId !== tab) {
                 privateChats.get(tab).push(chatMessage);
                 setPrivateChats(new Map(privateChats));
             }
+            
+            // Envía el mensaje privado al servidor
             stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-            setUserData({...userData, "message": ""});
+                setUserData({...userData, "message": ""});
+          
         }
     }
+    
 
-    const handleUsername = (event) => {
+    const handleSenderId = (event) => {
         const {value} = event.target;
-        setUserData({...userData, "username": value});
+        setUserData({...userData, "senderId": value});
+    }
+
+    const handleReceiverId = (event) => {
+        const {value} = event.target;
+        setUserData({...userData, "receiverId": value});
     }
 
     const registerUser = () => {
@@ -126,8 +138,8 @@ const ChatRoom = () => {
                     <div className="member-list">
                         <ul>
                             <li onClick={() => setTab("CHATROOM")} className={`member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
-                            {[...privateChats.keys()].map((name, index) => (
-                                <li onClick={() => setTab(name)} className={`member ${tab === name && "active"}`} key={index}>{name}</li>
+                            {[...privateChats.keys()].map((id, index) => (
+                                <li onClick={() => setTab(id)} className={`member ${tab === id && "active"}`} key={index}>{id}</li>
                             ))}
                         </ul>
                     </div>
@@ -135,10 +147,10 @@ const ChatRoom = () => {
                         <div className="chat-content">
                             <ul className="chat-messages">
                                 {publicChats.map((chat, index) => (
-                                    <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                        {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                                    <li className={`message ${chat.senderId === userData.senderId && "self"}`} key={index}>
+                                        {chat.senderId !== userData.senderId && <div className="avatar">{chat.senderId}</div>}
                                         <div className="message-data">{chat.message}</div>
-                                        {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                        {chat.senderId === userData.senderId && <div className="avatar self">{chat.senderId}</div>}
                                     </li>
                                 ))}
                             </ul>
@@ -153,10 +165,10 @@ const ChatRoom = () => {
                         <div className="chat-content">
                             <ul className="chat-messages">
                                 {[...privateChats.get(tab)].map((chat, index) => (
-                                    <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                        {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
+                                    <li className={`message ${chat.senderId === userData.senderId && "self"}`} key={index}>
+                                        {chat.senderId !== userData.senderId && <div className="avatar">{chat.senderId}</div>}
                                         <div className="message-data">{chat.message}</div>
-                                        {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                        {chat.senderId === userData.senderId && <div className="avatar self">{chat.senderId}</div>}
                                     </li>
                                 ))}
                             </ul>
@@ -171,22 +183,25 @@ const ChatRoom = () => {
             ) : (
                 <div className="register">
                     <input
-                        id="user-name"
-                        placeholder="Enter your name"
-                        name="userName"
-                        value={userData.username}
-                        onChange={handleUsername}
+                        id="user-id"
+                        placeholder="Enter your ID"
+                        name="userId"
+                        value={userData.senderId}
+                        onChange={handleSenderId}
+                        margin="normal"
+                    />
+                    <input
+                        id="receiver-id"
+                        placeholder="Enter receiver's ID"
+                        name="receiverId"
+                        value={userData.receiverId}
+                        onChange={handleReceiverId}
                         margin="normal"
                     />
                     <button type="button" onClick={registerUser}>Connect</button> 
                 </div>
             )}
-
-
-
-
-            
-            <style>{`
+               <style>{`
               
               body {
                 margin: 0;
