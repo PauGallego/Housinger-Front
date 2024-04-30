@@ -3,6 +3,8 @@ import { over } from 'stompjs';
 import SockJS from "sockjs-client/dist/sockjs";
 import { API_BASE_URL } from '../../astro.config.js';
 import './ChatRoom.css';
+// Importar la función parse de date-fns
+import { parse } from 'date-fns';
 
 var stompClient = null;
 
@@ -18,8 +20,50 @@ const ChatRoom = () => {
     useEffect(() => {
         if (userData.receiverId && userData.senderId) {
             connect();
+            fetchData(); // Load chat history when senderId and receiverId are set
         }
     }, [userData.receiverId, userData.senderId]);
+
+
+// Function to load chat history
+const fetchData = async () => {
+    try {
+        const sentResponse = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
+        const sentData = await sentResponse.json();
+
+        const receivedResponse = await fetch(`${API_BASE_URL}/v1/chat/getReceived/${userData.senderId}`);
+        const receivedData = await receivedResponse.json();
+
+
+        const allMessages = sentData.concat(receivedData);
+
+        console.log("Array mezclado:", allMessages);
+
+
+        allMessages.sort((a, b) => {
+  
+            const dateAString = a.date.replace("CEST", "").split(" ").slice(0, -1).join(" ").trim();
+            const dateBString = b.date.replace("CEST", "").split(" ").slice(0, -1).join(" ").trim();
+
+            const dateA = parse(dateAString, "EEE MMM dd HH:mm:ss", new Date());
+            const dateB = parse(dateBString, "EEE MMM dd HH:mm:ss", new Date());
+
+            return dateA - dateB;
+        });
+
+        // Obtener las fechas después de ordenar
+        const datesAfterSorting = allMessages.map(message => parse(message.date.replace("CEST", "").split(" ").slice(0, -1).join(" ").trim(), "EEE MMM dd HH:mm:ss", new Date()));
+
+        console.log("Fechas después de ordenar:", datesAfterSorting);
+
+        // Establecer los mensajes ordenados en privateChats
+        setPrivateChats(allMessages);
+    } catch (error) {
+        console.error('Error loading chat history:', error);
+    }
+};
+
+
 
     const connect = () => {
         let Sock = new SockJS(`${API_BASE_URL}/ws`);
@@ -50,7 +94,6 @@ const ChatRoom = () => {
             date: new Date().toLocaleTimeString()
         };
 
-        // Agregar el nuevo mensaje al final del array
         setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
     }
 
@@ -73,13 +116,10 @@ const ChatRoom = () => {
                 status: "MESSAGE"
             };
             
-            // Limpiamos el campo de mensaje antes de enviar
             setUserData({ ...userData, "message": "" });
             
-            // Enviamos el mensaje
             stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
             
-            // Agregamos nuestro mensaje al final del array para mostrarlo
             setPrivateChats(prevPrivateChats => [...prevPrivateChats, chatMessage]);
         }
     }
