@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { over } from 'stompjs';
 import SockJS from "sockjs-client/dist/sockjs";
+//URL GLOABAL AÑADIR SIEMPRE
+import { API_BASE_URL } from '../../astro.config.js';
 
 var stompClient = null;
 
@@ -20,7 +22,7 @@ const ChatRoom = () => {
     }, [userData]);
 
     const connect = () => {
-        let Sock = new SockJS('http://localhost:8081/ws');
+        let Sock = new SockJS(`${API_BASE_URL}/ws`);
         stompClient = over(Sock);
         stompClient.connect({sender: userData.senderId, receiver: userData.receiverId}, onConnected, onError);
     }
