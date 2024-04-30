@@ -6,9 +6,10 @@ import { API_BASE_URL } from "../astro.config.js";
 
 <Layout title="Housinger" fondo="blue">
     <main class="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
-        <div class="flex mt-5 lg:mt-10 gap-2">
+        <!--Dirrecion --> 
+        <div class="flex mt-5 lg:mt-10 gap-2 lg:ml-[245px]">
             <i class="icon-[ion--location-sharp] icon-blue h-7 w-7"></i>
-            <input class="w-[350px] boton-direcion rounded-[5px] md:w-[350px] lg:w-[550px] font-bold" type="text" placeholder="direcion" />
+            <input class="w-[350px] boton-direcion rounded-[5px] md:w-[350px] lg:w-[550px] font-bold" type="text" placeholder="Dirrecion" />
         </div>
         <!--IMAGEN COLUMA IZQUIERDA --> 
         <div class="flex gap-5 justify-center items-center">
@@ -32,6 +33,11 @@ import { API_BASE_URL } from "../astro.config.js";
             <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
             <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
             <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]  hidden lg:block" src="../../casa1.jpg" alt="imagen-propiedad" />
+        </div>
+
+        <!--DESCRIPCION -->
+        <div class="lg:ml-[240px] mt-10">
+            <textarea class="p-2 descripcion w-full lg:w-[79%] h-30" placeholder="Caracteristicas"></textarea>
         </div>
     </main>
 
@@ -59,6 +65,12 @@ import { API_BASE_URL } from "../astro.config.js";
             color: var(--primary);
         }
 
+        .descripcion {
+            border: 1px solid var(--gris);
+            border-radius: 5px;
+        }
+
+        /* MOBIL */
         @media screen and (max-width: 390px) {
             .prpiedad-foto-1 {
             height: 80px;
@@ -66,6 +78,7 @@ import { API_BASE_URL } from "../astro.config.js";
         }
         }
 
+        /* TABLET */
         @media screen and (width: 768px) {
             .prpiedad-foto-1 {
             height: 120px;
