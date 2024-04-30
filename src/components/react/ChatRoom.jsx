@@ -3,7 +3,6 @@ import { over } from 'stompjs';
 import SockJS from "sockjs-client/dist/sockjs";
 import { API_BASE_URL } from '../../astro.config.js';
 import './ChatRoom.css';
-// Importar la función parse de date-fns
 import { parse } from 'date-fns';
 
 var stompClient = null;
@@ -16,54 +15,52 @@ const ChatRoom = () => {
         connected: false,
         message: ''
     });
+    const [connecting, setConnecting] = useState(false); // State to track connection intent
 
     useEffect(() => {
-        if (userData.receiverId && userData.senderId) {
+        if (userData.receiverId && userData.senderId && connecting) {
             connect();
-            fetchData(); // Load chat history when senderId and receiverId are set
+            fetchData(); // Load chat history when senderId, receiverId, and connecting state are set
         }
-    }, [userData.receiverId, userData.senderId]);
+    }, [userData.receiverId, userData.senderId, connecting]);
 
+    // Función para cargar el historial de chat
+    const fetchData = async () => {
+        try {
+            const sentResponse = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
+            const sentData = await sentResponse.json();
 
-   // Función para cargar el historial de chat
-   const fetchData = async () => {
-    try {
-        const sentResponse = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
-        const sentData = await sentResponse.json();
+            const receivedResponse = await fetch(`${API_BASE_URL}/v1/chat/getReceived/${userData.senderId}`);
+            const receivedData = await receivedResponse.json();
 
-        const receivedResponse = await fetch(`${API_BASE_URL}/v1/chat/getReceived/${userData.senderId}`);
-        const receivedData = await receivedResponse.json();
+            // Combinar mensajes enviados y recibidos
+            const allMessages = sentData.concat(receivedData);
 
-        // Combinar mensajes enviados y recibidos
-        const allMessages = sentData.concat(receivedData);
+            // Ordenar los mensajes por fecha utilizando date-fns parse
+            allMessages.sort((a, b) => {
+                const dateA = parse(a.date, "dd/MM/yyyy, HH:mm:ss", new Date());
+                const dateB = parse(b.date, "dd/MM/yyyy, HH:mm:ss", new Date());
+                return dateA - dateB;
+            });
 
-        // Ordenar los mensajes por fecha utilizando date-fns parse
-        allMessages.sort((a, b) => {
-            const dateA = parse(a.date, "dd/MM/yyyy, HH:mm:ss", new Date());
-            const dateB = parse(b.date, "dd/MM/yyyy, HH:mm:ss", new Date());
-            return dateA - dateB;
-        });
-
-        // Establecer los mensajes ordenados en privateChats
-        setPrivateChats(allMessages);
-    } catch (error) {
-        console.error('Error loading chat history:', error);
-    }
-};
-
-
+            // Establecer los mensajes ordenados en privateChats
+            setPrivateChats(allMessages);
+        } catch (error) {
+            console.error('Error loading chat history:', error);
+        }
+    };
 
     const connect = () => {
         let Sock = new SockJS(`${API_BASE_URL}/ws`);
         stompClient = over(Sock);
         stompClient.connect({ sender: userData.senderId, receiver: userData.receiverId }, onConnected, onError);
-    }
+    };
 
     const onConnected = () => {
         setUserData({ ...userData, connected: true });
         stompClient.subscribe('/user/' + userData.senderId + '/private', onPrivateMessage);
         userJoin();
-    }
+    };
 
     const userJoin = () => {
         var chatMessage = {
@@ -72,7 +69,7 @@ const ChatRoom = () => {
             status: "JOIN"
         };
         stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-    }
+    };
     
     const onPrivateMessage = (payload) => {
         var payloadData = JSON.parse(payload.body);
@@ -83,24 +80,22 @@ const ChatRoom = () => {
         };
     
         setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
-    }
+    };
 
     const onError = (err) => {
         console.log(err);
-    }
+    };
 
     const handleMessage = (event) => {
         const { value } = event.target;
         setUserData({ ...userData, "message": value });
-    }
+    };
 
     const sendPrivateValue = () => {
         if (stompClient && userData.message.trim() !== "") {
 
-
             const currentDate = new Date();
             const formattedDate = currentDate.toLocaleString(); 
-        
 
             var chatMessage = {
                 senderId: userData.senderId,
@@ -116,16 +111,15 @@ const ChatRoom = () => {
             
             setPrivateChats(prevPrivateChats => [...prevPrivateChats, chatMessage]);
         }
-    }
+    };
   
-
     const handleSenderId = (event) => {
         const { value } = event.target;
         setUserData((prevUserData) => ({
             ...prevUserData,
             senderId: value
         }));
-    }
+    };
 
     const handleReceiverId = (event) => {
         const { value } = event.target;
@@ -133,7 +127,11 @@ const ChatRoom = () => {
             ...prevUserData,
             receiverId: value
         }));
-    }
+    };
+
+    const handleConnectClick = () => {
+        setConnecting(true); // Set connecting state to true when the connect button is clicked
+    };
 
     return (
         <div className="chat-room">
@@ -177,11 +175,11 @@ const ChatRoom = () => {
                         onChange={handleReceiverId}
                         margin="normal"
                     />
-                    <button type="button" onClick={connect}>Connect</button> 
+                    <button type="button" onClick={handleConnectClick}>Connect</button> 
                 </div>
             )}
         </div>
     );
-}
+};
 
 export default ChatRoom;
