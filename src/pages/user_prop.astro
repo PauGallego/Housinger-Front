@@ -113,11 +113,52 @@ import { API_BASE_URL } from "../astro.config.js";
     <!-- BARRA VERTICAL -->
     <div class="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[100px]"></div>
     <!-- CALENDARIO -->
-</div>
-    <div class="mt-10 lg:mt-5">
-        <Calen />
+    </div>
+        <div class="mt-10 lg:mt-5">
+            <Calen />
+        </div>
+    </div>
+    <!-- CAMAS -->
+    <div class="lg:flex lg:gap-[100px]">
+    <div class="contendor-camas mt-10 lg:ml-[230px]">
+        <h2 class="font-bold">¿Donde dormimos?</h2>
+        <div class="flex gap-5">
+            <div class="mt-5 flex gap-2">
+                <i class="icon-[material-symbols--bed-outline] h-[30px] w-[30px]"></i>
+                <label class="mt-2">1 cama doble</label>
+            </div>
+            <div class="mt-5 flex gap-2">
+                <i class="icon-[material-symbols--bed-outline] h-[30px] w-[30px]"></i>
+                <label class="mt-2">1 cama doble</label>
+            </div>
+        </div>
+        <div class="flex gap-5">
+            <div class="mt-5 flex gap-2">
+                <i class="icon-[material-symbols--bed-outline] h-[30px] w-[30px]"></i>
+                <label class="mt-2">1 cama doble</label>
+            </div>
+            <div class="mt-5 flex gap-2">
+                <i class="icon-[material-symbols--bed-outline] h-[30px] w-[30px]"></i>
+                <label class="mt-2">1 cama doble</label>
+            </div>
+        </div>
+        <div>
+            <button class="boton-anadir-cama mt-5 w-7 h-7">+</button>
+            <label>Añadir cama</label>
+        </div>
+    </div>
+    <!-- PREMIUN -->
+    <div class="mt-10 mr-50 lg:mt-[100px]">
+        <div class="flex flex-col items-center">
+            <p class="text-center font-bold	premiun-texto">HOUNSINGER</p>
+            <p class="text-center font-bold	premiun-texto">PREMIUN VERIFICADO</p>
+            <div class="h-10 w-10 bola-premiun flex items-center justify-center">
+                <i class="icon-[mdi--crown] corono"></i>
+            </div>
+        </div>
     </div>
 </div>
+
 <div class="mb-20"></div>
 
 </main>
@@ -137,7 +178,7 @@ import { API_BASE_URL } from "../astro.config.js";
         .imagen-optima{
             object-fit: cover; 
         }
-
+        
         .boton-direcion {
             border: 1px solid var(--gris);
         }
@@ -165,6 +206,29 @@ import { API_BASE_URL } from "../astro.config.js";
             padding: 5px;
             border-radius: 5px;
             box-shadow: 0px 5px 5px 0px var(--gris);
+        }
+
+        .boton-anadir-cama {
+            background-color: var(--primary);
+            border-radius: 50px;
+            box-shadow: 0px 5px 5px 0px var(--gris);
+            color: white;
+            font-size: 20px
+        }
+
+        .bola-premiun {
+            background-color: var(--star);
+            border-radius: 50px;
+        }
+
+        .corono {
+            color: white;
+            font-size: 30px;
+        }
+
+        .premiun-texto {
+            color: var(--primary);
+            font-size: 20px;
         }
 
         /* MOBIL */
@@ -206,6 +270,10 @@ import { API_BASE_URL } from "../astro.config.js";
 
             .contendor-caracteritica {
             margin-left: 0px;
+            }
+
+            .contendor-camas{
+                margin-left: 0px;
             }
         }
 </style>
