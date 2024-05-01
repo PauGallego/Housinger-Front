@@ -24,31 +24,27 @@ const ChatRoom = () => {
         }
     }, [userData.receiverId, userData.senderId, connecting]);
 
-    // Función para cargar el historial de chat
+   // Función para cargar el historial de chat
     const fetchData = async () => {
         try {
-            const sentResponse = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
-            const sentData = await sentResponse.json();
-
-            const receivedResponse = await fetch(`${API_BASE_URL}/v1/chat/getReceived/${userData.senderId}`);
-            const receivedData = await receivedResponse.json();
-
-            // Combinar mensajes enviados y recibidos
-            const allMessages = sentData.concat(receivedData);
+            // Obtener mensajes enviados y recibidos entre dos usuarios
+            const response = await fetch(`${API_BASE_URL}/v1/chat/getChat/${userData.senderId}/${userData.receiverId}`);
+            const data = await response.json();
 
             // Ordenar los mensajes por fecha utilizando date-fns parse
-            allMessages.sort((a, b) => {
+            data.sort((a, b) => {
                 const dateA = parse(a.date, "dd/MM/yyyy, HH:mm:ss", new Date());
                 const dateB = parse(b.date, "dd/MM/yyyy, HH:mm:ss", new Date());
                 return dateA - dateB;
             });
 
             // Establecer los mensajes ordenados en privateChats
-            setPrivateChats(allMessages);
+            setPrivateChats(data);
         } catch (error) {
             console.error('Error loading chat history:', error);
         }
     };
+
 
     const connect = () => {
         let Sock = new SockJS(`${API_BASE_URL}/ws`);
