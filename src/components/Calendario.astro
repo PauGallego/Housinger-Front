@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Calendario</title>
+        <style>
+
+            .calendar {
+                max-width: 600px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .month {
+                font-size: 24px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                color: green; 
+            }
+
+            .dropdown {
+                margin-bottom: 10px;
+            }
+
+            .dropdown select {
+                padding: 5px;
+                font-size: 16px;
+                border-radius: 5px;
+                width: 200px;
+                background-color: #efefef;
+                border: none;
+                height: 50px;
+                font-weight: bold;
+            }
+
+            .days {
+                display: grid;
+                grid-template-columns: repeat(7, 1fr);
+            }
+
+            .day {
+                padding: 10px;
+                cursor: pointer;
+            }
+            
+            .placeholder {
+                visibility: hidden;
+            }
+
+            .contendor-calendario {
+                width: 100%;
+            }
+            
+            @media screen and (width: 768px) {
+                .contendor-calendario {
+                width: 75%;
+            }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="contendor-calendario">
+            <div class="calendar">
+                <div class="dropdown flex gap-2">
+                    <select id="monthSelect">
+                        <option value="0">Enero</option>
+                        <option value="1">Febrero</option>
+                        <option value="2">Marzo</option>
+                        <option value="3">Abril</option>
+                        <option value="4">Mayo</option>
+                        <option value="5">Junio</option>
+                        <option value="6">Julio</option>
+                        <option value="7">Agosto</option>
+                        <option value="8">Septiembre</option>
+                        <option value="9">Octubre</option>
+                        <option value="10">Noviembre</option>
+                        <option value="11">Diciembre</option>
+                    </select>
+                    <select id="yearSelect"></select>
+                </div>
+                <div class="days" id="days"></div>
+            </div>
+        </div>
+
+        <script>
+            const monthElement = document.getElementById("month");
+            const daysElement = document.getElementById("days");
+            const monthSelect = document.getElementById("monthSelect");
+            const yearSelect = document.getElementById("yearSelect");
+
+            let currentDate = new Date();
+
+            function renderCalendar() {
+                let monthIndex = parseInt(monthSelect.value);
+                let year = parseInt(yearSelect.value);
+
+                // Validar si el año seleccionado es menor que 2024
+                if (year < 2024) {
+                    year = 2024;
+                    yearSelect.value = 2024;
+                }
+
+                // Validar si el año seleccionado es 2024 y el mes seleccionado es antes de mayo
+                if (year === 2024 && monthIndex < 4) {
+                    monthIndex = 4;
+                    monthSelect.value = 4;
+                }
+
+                currentDate = new Date(year, monthIndex, 1);
+
+                const month = currentDate.toLocaleString("default", {
+                    month: "long",
+                });
+                const firstDayOfMonth = new Date(year, monthIndex, 1);
+                const lastDayOfMonth = new Date(year, monthIndex + 1, 0);
+                const numDaysInMonth = lastDayOfMonth.getDate();
+                let startingDayOfWeek = firstDayOfMonth.getDay();
+
+                // Ajustar para que el calendario empiece desde el lunes
+                if (startingDayOfWeek === 0) {
+                    startingDayOfWeek = 7; 
+                }
+
+                daysElement.innerHTML = "";
+
+                const dayNames = [
+                    "Lun",
+                    "Mar",
+                    "Mié",
+                    "Jue",
+                    "Vie",
+                    "Sáb",
+                    "Dom",
+                ];
+
+                // Agregar los nombres de los días de la semana
+                for (let i = 0; i < 7; i++) {
+                    const dayNameElement = document.createElement("div");
+                    dayNameElement.classList.add("day", "day-name");
+                    dayNameElement.textContent = dayNames[i];
+                    daysElement.appendChild(dayNameElement);
+                }
+
+                for (let i = 0; i < startingDayOfWeek - 1; i++) {
+                    const placeholder = document.createElement("div");
+                    placeholder.classList.add("day", "placeholder");
+                    daysElement.appendChild(placeholder);
+                }
+
+                for (let day = 1; day <= numDaysInMonth; day++) {
+                    const dayElement = document.createElement("div");
+                    dayElement.classList.add("day");
+                    dayElement.textContent = day;
+                    dayElement.addEventListener("click", () => {
+                        dayElement.classList.toggle("selected");
+                        if (dayElement.classList.contains("selected")) {
+                            dayElement.style.color = "white";
+                            dayElement.style.backgroundColor = "green";
+                        } else {
+                            dayElement.style.color = "";
+                            dayElement.style.backgroundColor = "";
+                        }
+                    });
+                    daysElement.appendChild(dayElement);
+                }
+            }
+
+            function populateYearSelect() {
+                const currentYear = new Date().getFullYear();
+                for (let year = currentYear; year <= currentYear + 10; year++) {
+                    const option = document.createElement("option");
+                    option.value = year;
+                    option.textContent = year;
+                    yearSelect.appendChild(option);
+                }
+            }
+
+            populateYearSelect();
+            renderCalendar();
+
+            monthSelect.addEventListener("change", renderCalendar);
+            yearSelect.addEventListener("change", renderCalendar);
+        </script>
+    </body>
+</html>

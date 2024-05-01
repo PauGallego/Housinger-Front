@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/cabezera3.astro";
-import Char from "../components/react/Char.jsx";
+import Calen from "../components/Calendario.astro";
 import { API_BASE_URL } from "../astro.config.js";
 ---
 
@@ -34,7 +34,6 @@ import { API_BASE_URL } from "../astro.config.js";
             <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
             <img class="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]  hidden lg:block" src="../../casa1.jpg" alt="imagen-propiedad" />
         </div>
-
         <!--DESCRIPCION -->
         <div class="lg:ml-[240px] mt-10 contendor-descripcion">
             <textarea class="p-2 descripcion w-full lg:w-[79%] h-30" placeholder="Caracteristicas"></textarea>
@@ -70,6 +69,7 @@ import { API_BASE_URL } from "../astro.config.js";
     </div>
     <!-- CARACTERITICAS -->
     <h2 class="font-bold text-lg lg:ml-[235px] texto-que-hay">¿Que hay en la vivienda?</h2>
+    <div class="lg:flex lg:gap-20 md:gap-0">
     <div class="flex items-center">
     <div class="lg:ml-[235px] contendor-caracteritica mt-5">
         <div class="flex gap-10">
@@ -111,17 +111,18 @@ import { API_BASE_URL } from "../astro.config.js";
         <button class="mt-10 boton-modal lg:w-40">Mostrar más</button>
     </div>
     <!-- BARRA VERTICAL -->
-    <div class="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[240px]"></div>
+    <div class="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[100px]"></div>
     <!-- CALENDARIO -->
-    <div>
-        
+</div>
+    <div class="mt-10 lg:mt-5">
+        <Calen />
     </div>
 </div>
-    <div class="mb-20"></div>
+<div class="mb-20"></div>
 
 </main>
 
-    <style>
+<style>
         :root {
             --primary: #576cbc;
             --secondary: #0b2447;
@@ -207,5 +208,5 @@ import { API_BASE_URL } from "../astro.config.js";
             margin-left: 0px;
             }
         }
-    </style>
+</style>
 </Layout>
