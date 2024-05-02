@@ -30,9 +30,17 @@ const ChatRoom = () => {
 
     useEffect(() => {
         if (userData.receiverId && userData.senderId && userData.connected) {
-            fetchData();
+            fetchCustomerData(); 
         }
-    }, [userData.receiverId, userData.senderId, userData.connected, loadedConversations]);
+    }, [userData.receiverId, userData.senderId, userData.connected]);
+    
+    useEffect(() => {
+        if (customerData.receiverId && customerData.senderId) {
+            fetchData(); 
+        }
+    }, [customerData.receiverId, customerData.senderId]);
+    
+    
 
     const fetchCustomerData = async () => {
         try {
@@ -58,21 +66,23 @@ const ChatRoom = () => {
         }
     };
     
-    const fetchData = async () => {
+   const fetchData = async () => {
         try {
+            await fetchCustomerData(); 
+
             const response2 = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
             const data2 = await response2.json();
             
             const uniqueReceiverIds = [...new Set(data2.map(message => message.receiverId))];
-    
+
             const isCurrentReceiverLoaded = loadedConversations.includes(userData.receiverId);
-    
+
             let buttons = uniqueReceiverIds.map(receiverId => (
                 <button key={receiverId} onClick={() => handleReceiverChange(receiverId)}>
                     Chat with {receiverId}
                 </button>
             ));
-    
+
             if (!isCurrentReceiverLoaded && !uniqueReceiverIds.includes(userData.receiverId)) {
                 buttons.push(
                     <button key={`currentReceiver_${userData.receiverId}`} onClick={() => handleReceiverChange(userData.receiverId)}>
@@ -80,20 +90,18 @@ const ChatRoom = () => {
                     </button>
                 );
             }
-    
+
             buttons = buttons.filter((button, index) => {
                 return buttons.findIndex(btn => btn.key === button.key) === index;
             });
-    
+
             setReceiverButtons(buttons);
-
-            fetchCustomerData();
-
 
         } catch (error) {
             console.error('Error loading chat history:', error);
         }
     };
+
 
     const loadChatHistory = async (senderId, receiverId) => {
         try {
@@ -145,12 +153,17 @@ const ChatRoom = () => {
         var payloadData = JSON.parse(payload.body);
         const receivedMessage = {
             senderId: payloadData.senderId,
+            senderName: payloadData.senderName,
+            senderSurname: payloadData.senderSurname,
+            receiverName: payloadData.receiverName,
+            receiverSurname: payloadData.receiverSurname,
             message: payloadData.message,
             date: new Date().toLocaleString('es-ES', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false })
         };
     
         setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
     };
+    
     
     const onError = (err) => {
         console.log(err);
@@ -168,6 +181,10 @@ const ChatRoom = () => {
             var chatMessage = {
                 senderId: userData.senderId,
                 receiverId: userData.receiverId,
+                senderName: customerData.senderName,
+                senderSurname: customerData.senderSurname,
+                receiverName: customerData.receiverName,
+                receiverSurname: customerData.receiverSurname,
                 message: userData.message,
                 date: formattedDate , 
                 status: "MESSAGE"
@@ -218,12 +235,12 @@ const ChatRoom = () => {
             {userData.connected ? (
                 <div className="chat-container">
                     <div className="chat-header">
-                        Chat with {userData.receiverId}
+                        Chat with {customerData.receiverName} {customerData.receiverSurname}
                     </div>
                     <div className="chat-messages">
                         {privateChats.map((message, index) => (
                             <div key={index} className={message.senderId === userData.senderId ? "sent-message" : "received-message"}>
-                                {message.senderId} at {message.date}: {message.message}
+                                <span>{message.senderName} {message.senderSurname}</span> at {message.date}: {message.message}
                             </div>
                         ))}
                     </div>
