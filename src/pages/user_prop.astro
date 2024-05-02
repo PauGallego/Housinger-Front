@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/cabezera3.astro";
 import Calen from "../components/Calendario.astro";
+import Resen from "../components/Resena.astro";
 import { API_BASE_URL } from "../astro.config.js";
 ---
 
@@ -119,9 +120,9 @@ import { API_BASE_URL } from "../astro.config.js";
         </div>
     </div>
     <!-- CAMAS -->
-    <div class="lg:flex lg:gap-[100px]">
+    <div class="lg:flex lg:gap-[200px] contneder-cama-premiun">
     <div class="contendor-camas mt-10 lg:ml-[230px]">
-        <h2 class="font-bold">¿Donde dormimos?</h2>
+        <h2 class="font-bold text-lg texto-que-hay">¿Donde dormimos?</h2>
         <div class="flex gap-5">
             <div class="mt-5 flex gap-2">
                 <i class="icon-[material-symbols--bed-outline] h-[30px] w-[30px]"></i>
@@ -148,7 +149,7 @@ import { API_BASE_URL } from "../astro.config.js";
         </div>
     </div>
     <!-- PREMIUN -->
-    <div class="mt-10 mr-50 lg:mt-[100px]">
+    <div class="mt-10 lg:mt-[100px]">
         <div class="flex flex-col items-center">
             <p class="text-center font-bold	premiun-texto">HOUNSINGER</p>
             <p class="text-center font-bold	premiun-texto">PREMIUN VERIFICADO</p>
@@ -158,6 +159,8 @@ import { API_BASE_URL } from "../astro.config.js";
         </div>
     </div>
 </div>
+<!-- RESEÑAS -->
+<Resen />
 
 <div class="mb-20"></div>
 
@@ -273,6 +276,18 @@ import { API_BASE_URL } from "../astro.config.js";
             }
 
             .contendor-camas{
+                margin-left: 0px;
+            }
+
+            .contneder-cama-premiun{
+                gap: 180px;
+            }
+
+            .contendor-resenas {
+                margin-left: 0px;
+            }
+
+            .ajustar {
                 margin-left: 0px;
             }
         }
