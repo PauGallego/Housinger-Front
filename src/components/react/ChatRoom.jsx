@@ -62,12 +62,18 @@ const ChatRoom = () => {
         try {
             const response = await fetch(`${API_BASE_URL}/v1/chat/getChat/${senderId}/${receiverId}`);
             const data = await response.json();
+
+
+            console.log("data", data)
     
             data.sort((a, b) => {
                 const dateA = parse(a.date, "dd/MM/yyyy, HH:mm:ss", new Date());
                 const dateB = parse(b.date, "dd/MM/yyyy, HH:mm:ss", new Date());
                 return dateA - dateB;
             });
+
+            console.log("data filtrada", data)
+    
     
             setPrivateChats(data);
     
@@ -110,11 +116,13 @@ const ChatRoom = () => {
         const receivedMessage = {
             senderId: payloadData.senderId,
             message: payloadData.message,
-            date: new Date().toLocaleString()
+            date: new Date().toLocaleString('es-ES', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false })
         };
-
+    
         setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
     };
+    
+    
 
     const onError = (err) => {
         console.log(err);
@@ -127,10 +135,9 @@ const ChatRoom = () => {
 
     const sendPrivateValue = () => {
         if (stompClient && userData.message.trim() !== "") {
-
+    
             const currentDate = new Date();
-            const formattedDate = currentDate.toLocaleString(); 
-
+            const formattedDate = currentDate.toLocaleString('es-ES'); 
             var chatMessage = {
                 senderId: userData.senderId,
                 receiverId: userData.receiverId,
@@ -146,6 +153,7 @@ const ChatRoom = () => {
             setPrivateChats(prevPrivateChats => [...prevPrivateChats, chatMessage]);
         }
     };
+    
   
     const handleSenderId = (event) => {
         const { value } = event.target;
