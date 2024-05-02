@@ -75,20 +75,7 @@
 <div class="contendor-calendario mb-10">
     <div class="calendar">
         <div class="dropdown flex gap-2">
-            <select id="monthSelect">
-                <option value="0">Enero</option>
-                <option value="1">Febrero</option>
-                <option value="2">Marzo</option>
-                <option value="3">Abril</option>
-                <option value="4">Mayo</option>
-                <option value="5">Junio</option>
-                <option value="6">Julio</option>
-                <option value="7">Agosto</option>
-                <option value="8">Septiembre</option>
-                <option value="9">Octubre</option>
-                <option value="10">Noviembre</option>
-                <option value="11">Diciembre</option>
-            </select>
+            <select id="monthSelect"></select>
             <select id="yearSelect"></select>
         </div>
         <div class="days" id="days"></div>
@@ -197,6 +184,20 @@
         }
     }
 
+    function populateMonthSelect() {
+        const currentMonth = new Date().getMonth();
+        for (let month = 0; month < 12; month++) {
+            const option = document.createElement("option");
+            option.value = month;
+            option.textContent = new Date(0, month).toLocaleString("default", { month: "long" });
+            if (month === currentMonth) {
+                option.selected = true;
+            }
+            monthSelect.appendChild(option);
+        }
+    }
+
+    populateMonthSelect();
     populateYearSelect();
     renderCalendar();
 
