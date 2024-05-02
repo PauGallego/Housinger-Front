@@ -14,66 +14,71 @@ const ChatRoom = () => {
         connected: false,
         message: ''
     });
-    const [receiverButtons, setReceiverButtons] = useState(null); // State to hold receiver buttons
-    const [loadedConversations, setLoadedConversations] = useState([]); // State to keep track of loaded conversations
+    const [receiverButtons, setReceiverButtons] = useState(null);
+    const [loadedConversations, setLoadedConversations] = useState([]);
 
     useEffect(() => {
         if (userData.receiverId && userData.senderId && userData.connected) {
-            fetchData(); // Load chat history when senderId, receiverId, and connected state are set
+            fetchData();
         }
-    }, [userData.receiverId, userData.senderId, userData.connected]);
+    }, [userData.receiverId, userData.senderId, userData.connected, loadedConversations]);
+    
 
-    // Función para cargar el historial de chat
     const fetchData = async () => {
         try {
-            // Obtener mensajes enviados por el usuario para recuperar cuantas receiver ids diferentes obtenemos para hacer botones con cada una de las conversaciones previas
             const response2 = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
             const data2 = await response2.json();
             
-            // Obtener las IDs únicas de los receptores de los mensajes enviados por el usuario
             const uniqueReceiverIds = [...new Set(data2.map(message => message.receiverId))];
-
-            // Crear botones para cada receptor
-            const buttons = uniqueReceiverIds.map(receiverId => (
+    
+            const isCurrentReceiverLoaded = loadedConversations.includes(userData.receiverId);
+    
+            let buttons = uniqueReceiverIds.map(receiverId => (
                 <button key={receiverId} onClick={() => handleReceiverChange(receiverId)}>
                     Chat with {receiverId}
                 </button>
             ));
-
-            // Establecer los botones en el estado
+    
+            if (!isCurrentReceiverLoaded && !uniqueReceiverIds.includes(userData.receiverId)) {
+                buttons.push(
+                    <button key={`currentReceiver_${userData.receiverId}`} onClick={() => handleReceiverChange(userData.receiverId)}>
+                        Chat with {userData.receiverId}
+                    </button>
+                );
+            }
+    
+            buttons = buttons.filter((button, index) => {
+                return buttons.findIndex(btn => btn.key === button.key) === index;
+            });
+    
             setReceiverButtons(buttons);
         } catch (error) {
             console.error('Error loading chat history:', error);
         }
     };
-
-    // Función para cargar el historial de chat entre el usuario actual y un receptor específico
+    
+    
     const loadChatHistory = async (senderId, receiverId) => {
         try {
-            // Verificar si esta conversación ya ha sido cargada previamente
-            if (loadedConversations.includes(receiverId)) {
-                return;
-            }
-
             const response = await fetch(`${API_BASE_URL}/v1/chat/getChat/${senderId}/${receiverId}`);
             const data = await response.json();
-
-            // Ordenar los mensajes por fecha utilizando date-fns parse
+    
             data.sort((a, b) => {
                 const dateA = parse(a.date, "dd/MM/yyyy, HH:mm:ss", new Date());
                 const dateB = parse(b.date, "dd/MM/yyyy, HH:mm:ss", new Date());
                 return dateA - dateB;
             });
-
-            // Establecer los mensajes ordenados en privateChats
+    
             setPrivateChats(data);
-
-            // Agregar el receptorId a las conversaciones cargadas
-            setLoadedConversations(prevConversations => [...prevConversations, receiverId]);
+    
+            if (!loadedConversations.includes(receiverId)) {
+                setLoadedConversations(prevConversations => [...prevConversations, receiverId]);
+            }
         } catch (error) {
             console.error('Error loading chat history:', error);
         }
     };
+    
 
     const connect = () => {
         let Sock = new SockJS(`${API_BASE_URL}/ws`);
@@ -105,7 +110,7 @@ const ChatRoom = () => {
         const receivedMessage = {
             senderId: payloadData.senderId,
             message: payloadData.message,
-            date: new Date().toLocaleString() // Formatear la fecha actual
+            date: new Date().toLocaleString()
         };
 
         setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
@@ -160,7 +165,7 @@ const ChatRoom = () => {
 
     const handleConnectClick = () => {
         if (userData.senderId && userData.receiverId) {
-            connect(); // Connect only if senderId and receiverId are set
+            connect();
         }
     };
 
@@ -170,7 +175,10 @@ const ChatRoom = () => {
             receiverId: receiverId
         }));
         loadChatHistory(userData.senderId, receiverId); 
+    
+        setPrivateChats([]);
     };
+    
 
 
     return (
