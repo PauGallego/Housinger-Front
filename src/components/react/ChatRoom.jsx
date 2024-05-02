@@ -14,6 +14,17 @@ const ChatRoom = () => {
         connected: false,
         message: ''
     });
+    const [customerData, setCustomerData] = useState({
+        senderName: '',
+        senderId: '',
+        receiverName: '',
+        receiverId: '',
+        senderSurname: '',
+        receiverSurname: '',
+        senderFoto: '',
+        receiverFoto: ''
+    });
+
     const [receiverButtons, setReceiverButtons] = useState(null);
     const [loadedConversations, setLoadedConversations] = useState([]);
 
@@ -22,8 +33,31 @@ const ChatRoom = () => {
             fetchData();
         }
     }, [userData.receiverId, userData.senderId, userData.connected, loadedConversations]);
-    
 
+    const fetchCustomerData = async () => {
+        try {
+            const response1 = await fetch(`${API_BASE_URL}/v1/customer/get/${userData.receiverId}`);
+            const data1 = await response1.json();
+    
+            const response2 = await fetch(`${API_BASE_URL}/v1/customer/get/${userData.senderId}`);
+            const data2 = await response2.json();
+    
+            setCustomerData({
+                receiverName: data1.name,
+                receiverSurname: data1.surname,
+                receiverFoto: data1.picture,
+                senderName: data2.name,
+                senderSurname: data2.surname,
+                senderFoto: data2.picture,
+                receiverId: userData.receiverId,
+                senderId: userData.senderId
+            });
+
+        } catch (error) {
+            console.error('Error loading customer data:', error);
+        }
+    };
+    
     const fetchData = async () => {
         try {
             const response2 = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
@@ -52,19 +86,19 @@ const ChatRoom = () => {
             });
     
             setReceiverButtons(buttons);
+
+            fetchCustomerData();
+
+
         } catch (error) {
             console.error('Error loading chat history:', error);
         }
     };
-    
-    
+
     const loadChatHistory = async (senderId, receiverId) => {
         try {
             const response = await fetch(`${API_BASE_URL}/v1/chat/getChat/${senderId}/${receiverId}`);
             const data = await response.json();
-
-
-            console.log("data", data)
     
             data.sort((a, b) => {
                 const dateA = parse(a.date, "dd/MM/yyyy, HH:mm:ss", new Date());
@@ -72,8 +106,6 @@ const ChatRoom = () => {
                 return dateA - dateB;
             });
 
-            console.log("data filtrada", data)
-    
     
             setPrivateChats(data);
     
@@ -84,7 +116,6 @@ const ChatRoom = () => {
             console.error('Error loading chat history:', error);
         }
     };
-    
 
     const connect = () => {
         let Sock = new SockJS(`${API_BASE_URL}/ws`);
@@ -100,7 +131,6 @@ const ChatRoom = () => {
             handleReceiverChange(userData.receiverId); 
         }
     };
-    
 
     const userJoin = () => {
         var chatMessage = {
@@ -110,7 +140,7 @@ const ChatRoom = () => {
         };
         stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
     };
-    
+
     const onPrivateMessage = (payload) => {
         var payloadData = JSON.parse(payload.body);
         const receivedMessage = {
@@ -122,8 +152,6 @@ const ChatRoom = () => {
         setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
     };
     
-    
-
     const onError = (err) => {
         console.log(err);
     };
@@ -135,7 +163,6 @@ const ChatRoom = () => {
 
     const sendPrivateValue = () => {
         if (stompClient && userData.message.trim() !== "") {
-    
             const currentDate = new Date();
             const formattedDate = currentDate.toLocaleString('es-ES'); 
             var chatMessage = {
@@ -154,7 +181,6 @@ const ChatRoom = () => {
         }
     };
     
-  
     const handleSenderId = (event) => {
         const { value } = event.target;
         setUserData((prevUserData) => ({
@@ -187,8 +213,6 @@ const ChatRoom = () => {
         setPrivateChats([]);
     };
     
-
-
     return (
         <div className="chat-room">
             {userData.connected ? (
