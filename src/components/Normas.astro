@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .botonNorma {
+            background-color: #576cbc;
+            color: white;
+            padding: 5px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            width: 255px;
+        }
+
+        .politica {
+            width: 300px;
+        }
+
+        @media screen and (width: 1440px) {
+            .ajustar {
+                margin-left: 0px;
+            }
+        }
+
+        .normaContainer {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .normaText {
+            border: 1px solid #576cbc;
+            border-radius: 5px;
+            padding: 5px;
+            margin-right: 10px;
+            flex-grow: 1;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h2 class="ajustar font-bold text-lg mt-10 lg:ml-[200px]">Qué debes saber</h2>
+    <div class="lg:flex lg:ml-[200px] ajustar gap-20">
+        <!-- Normas de la casa -->
+        <div>
+            <h2 class="font-bold text-lg mt-5">Normas de la casa</h2>
+            <div id="container"></div>
+            <button id="nuevaNorma" class="botonNorma">Añadir norma</button>
+        </div>
+
+        <!-- Seguridad en el hogar -->
+        <div>
+            <h2 class="font-bold text-lg mt-5">Seguridad en el hogar</h2>
+            <div id="seguridadContainer">
+                <input type="checkbox" id="alarma"><label for="alarma">Alarma</label><br>
+                <input type="checkbox" id="camaras"><label for="camaras">Cámaras de seguridad</label><br>
+                <input type="checkbox" id="cerco"><label for="cerco">Cerco eléctrico</label><br>
+                <input type="checkbox" id="luces"><label for="luces">Luces de movimiento</label><br>
+                <input type="checkbox" id="rejas"><label for="rejas">Rejas en ventanas</label><br>
+                <input type="checkbox" id="sensores"><label for="sensores">Sensores de movimiento</label><br>
+                <input type="checkbox" id="vigilancia"><label for="vigilancia">Vigilancia 24/7</label><br>
+            </div>
+        </div>
+
+        <!-- Políticas de intercambio de casa -->
+        <div>
+            <h2 class="font-bold text-lg mt-5">Politicas de intercambio de casa</h2>
+            <p class="politica">Ofrecemos una política de cancelación completa del anfitrión en Housinger. Cancela tu intercambio sin penalización por cualquier imprevisto. Para saber más informacion clica al boton “Mostrar más” para saber nuestras politicas de intercambio.</p>
+            <button class="btn" onclick="my_modal_5.showModal()">Mostrar más</button>
+            <dialog id="my_modal_5" class="modal">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Politicas de intercambio de casa</h3>
+                <p class="py-4">En Housinger, entendemos que los planes pueden cambiar en cualquier momento debido a circunstancias imprevistas. Es por eso que ofrecemos una política de cancelación completa del anfitrión. Ya sea que surja un compromiso repentino, un cambio en tus planes de viaje o cualquier otro imprevisto, puedes cancelar tu intercambio sin penalización alguna.
+                    Nuestra prioridad es brindarte flexibilidad y tranquilidad durante tu experiencia de intercambio en Housinger. Queremos que te sientas seguro al reservar con nosotros, sabiendo que estamos aquí para respaldarte en caso de que necesites realizar cambios en tu reserva.                    
+                <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">Cerrar</button>
+                </form>
+                </div>
+            </div>
+            </dialog>
+        </div>
+    </div>
+    <script>
+        let botonNorma = document.getElementById('nuevaNorma');
+        let container = document.getElementById('container');
+        
+        botonNorma.addEventListener('click', () => {
+            console.log('click');
+            let normaContainer = document.createElement('div');
+            normaContainer.setAttribute('class', 'normaContainer');
+
+            let nuevaNorma = document.createElement('input');
+            nuevaNorma.setAttribute('type', 'text');
+            nuevaNorma.setAttribute('class', 'normaText ajustar');
+            nuevaNorma.style.border = '1px solid #576cbc';
+            nuevaNorma.style.borderRadius = '5px';
+            nuevaNorma.style.marginBottom = '10px';
+            nuevaNorma.setAttribute('placeholder', 'Escribe la norma');
+            normaContainer.appendChild(nuevaNorma);
+
+            let borrarNorma = document.createElement('button');
+            borrarNorma.setAttribute('class', 'borrarNorma');
+            borrarNorma.innerText = 'X';
+            borrarNorma.style.backgroundColor = '#576cbc';
+            borrarNorma.style.color = 'white';
+            borrarNorma.style.padding = '2px 20px';
+            borrarNorma.style.marginLeft = '10px';
+            borrarNorma.style.fontSize = '16px';
+            borrarNorma.style.borderRadius = '5px';
+            borrarNorma.addEventListener('click', () => {
+                container.removeChild(normaContainer);
+            });
+            normaContainer.appendChild(borrarNorma);
+
+            container.appendChild(normaContainer);
+        });
+    </script>
+</body>
+</html>
