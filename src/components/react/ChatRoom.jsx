@@ -87,7 +87,13 @@ const ChatRoom = () => {
                 );
             }));
     
-          
+            if (!isCurrentReceiverLoaded && !uniqueReceiverIds.includes(userData.receiverId)) {
+                buttons.push(
+                    <button key={`currentReceiver_${userData.receiverId}`} onClick={() => handleReceiverChange(userData.receiverId)}>
+                        Chat with {userData.receiverName} {userData.receiverSurname}
+                    </button>
+                );
+            }
     
             buttons = buttons.filter((button, index) => {
                 return buttons.findIndex(btn => btn.key === button.key) === index;
@@ -161,13 +167,12 @@ const ChatRoom = () => {
                 date: new Date().toLocaleString('es-ES', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false })
             };
     
-            let divuser = document.querySelector(".chat-header");
-            const chatHeaderContent = divuser.innerHTML;
+            let divuser = document.getElementById('iduser');
     
-            if(chatHeaderContent.includes(receivedMessage.senderName) && chatHeaderContent.includes(receivedMessage.senderSurname)){
+            if(divuser.value == receivedMessage.senderId){
                 setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
             } else {
-                console.log("Mensaje de otro usuario..");
+                console.log("Mensaje de otro usuario " + receivedMessage.senderName + " " + receivedMessage.senderSurname)
             }
         }
     };
@@ -244,8 +249,9 @@ const ChatRoom = () => {
         <div className="chat-room">
             {userData.connected ? (
                 <div className="chat-container">
-                    <div className="chat-header">
+                    <div className="chat-header" >
                         Chat with {customerData.receiverName} {customerData.receiverSurname}
+                        <input type="hidden" id='iduser' value={customerData.receiverId} />
                     </div>
                     <div className="chat-messages">
                         {privateChats.map((message, index) => (
