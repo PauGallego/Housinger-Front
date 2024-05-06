@@ -143,9 +143,9 @@ import '../global.css';
                         <div class="modal-box">
                             <h3 class="font-bold text-lg">Cambiar contraseña</h3>
                             <br>
-                            <input type="text" class="datos-insertar" id="user" placeholder="Correo electronico" />
+                            <input type="text" class="datos-insertar" id="mailrecuperar" placeholder="Correo electronico" />
                             <br><br><br>
-                            <button class="bg-[#576cbc] text-[20px] h-10 w-20 text-white rounded-md">Cambiar</button>
+                            <button  id="btncambiar" class="bg-[#576cbc] text-[20px] h-10 w-20 text-white rounded-md">Cambiar</button>
                             <div class="modal-action">
                                 <form method="dialog">
                                     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -205,6 +205,32 @@ import '../global.css';
 
         document.getElementById("crearCuenta").addEventListener("click", function() {
             window.location.href = `${API_BASE_URL2}/register`;
+        });
+
+        document.getElementById("btncambiar").addEventListener("click", async function() {
+            let mailrecuperar = document.getElementById("mailrecuperar");
+    
+
+           
+
+            let url = `${API_BASE_URL}/v1/recover/user/${ mailrecuperar.value}`;
+
+            console.log(url);
+
+            try {
+                let response = await fetch(
+                    url,
+                );
+
+                if (response.ok) {
+                    alert("Si el correo existia, se ha enviado un mensaje de recuperacion");
+                } else {
+                    alert("¡Error en el envio del correo!");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                alert("¡Error en el envio del correo!");
+            }
         });
     </script>
 </Layout>
