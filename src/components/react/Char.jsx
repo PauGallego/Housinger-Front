@@ -24,9 +24,6 @@ const Char = ({ url }) => {
     let url2 = `${API_BASE_URL}/v1/propertyCalendar/get`;
     let url3 = `${API_BASE_URL}/v1/propertyLocation/get`;
 
-
-
-
     useEffect(() => {
     
         setUrlTemp(`${API_BASE_URL}/v1/propertyCharacteristics/get/all`);
@@ -116,28 +113,28 @@ const Char = ({ url }) => {
                     <i className="icon-[mage--filter] h-[25px] w-[25px] mt-1 "></i>
                 </button>
                 <dialog id="my_modal_4" className="modal">
-                    <div className="modal-box ">
-                        <h3 className="font-bold text-[20px] mb-10">¿Qué buscamos?</h3>
-                        <div className="grid grid-cols-2 gap-2">
-                            {propertyData.map((char, index) => (
-                                <button
-                                    key={char.id}
-                                    className={`flex items-center ${activeButtons.has(index) ? 'boton-filtro2' : 'boton-filtro3'}`}
-                                    onClick={() => handleButtonClick(index, char.id)}
-                                    style={{ backgroundColor: activeButtons.has(index) ? '#576cbc' : '#ffffff' }}
-                                >
-                                    <Icon icon={char.icon} id={char.id + "CharId"} className="h-10 w-10" />
-                                    <h2 className={`nombreFiltro text-12 lg:text-15 md:text-16 ${activeButtons.has(index) ? 'nombreFiltro-activo' : ''}`}>
-                                        {char.name}
-                                    </h2>
-                                </button>
-                            ))}
-                        </div>
-                        <div className="modal-action">
-                            <button className="btn cerrar" onClick={() => document.getElementById('my_modal_4').close()}>Cerrar</button>
-                        </div>
+                <div className="modal-box">
+                    <h3 className="font-bold text-[20px] mb-10">¿Qué buscamos?</h3>
+                    <div className="grid grid-cols-2 gap-2">
+                        {propertyData.filter(char => char.grupo === "Ubicacion").slice(0, 16).map((char, index) => (
+                            <button
+                                key={char.id}
+                                className={`flex items-center ${activeButtons.has(index) ? 'boton-filtro2' : 'boton-filtro3'}`}
+                                onClick={() => handleButtonClick(index, char.id)}
+                                style={{ backgroundColor: activeButtons.has(index) ? '#576cbc' : '#ffffff' }}
+                            >
+                                <Icon icon={char.icon} id={char.id + "CharId"} className="h-10 w-10" />
+                                <h2 className={`nombreFiltro text-12 lg:text-15 md:text-16 ${activeButtons.has(index) ? 'nombreFiltro-activo' : ''}`}>
+                                    {char.name}
+                                </h2>
+                            </button>
+                        ))}
                     </div>
-                </dialog>
+                    <div className="modal-action">
+                        <button className="btn cerrar" onClick={() => document.getElementById('my_modal_4').close()}>Cerrar</button>
+                    </div>
+                </div>
+            </dialog>
             </div>
         </div>
 
