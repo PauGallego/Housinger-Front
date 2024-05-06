@@ -43,6 +43,20 @@
             flex-grow: 1;
             font-size: 16px;
         }
+
+        .boton-modal {
+            background-color: white;
+            border: 1px solid var(--gris);
+            padding: 5px;
+            border-radius: 5px;
+            box-shadow: 0px 5px 5px 0px var(--gris);
+        }
+
+        .boton-modal:hover {
+            background-color: var(--gris);
+            color: white;
+        }
+        
     </style>
 </head>
 <body>
@@ -73,7 +87,7 @@
         <div>
             <h2 class="font-bold text-lg mt-5">Politicas de intercambio de casa</h2>
             <p class="politica">Ofrecemos una política de cancelación completa del anfitrión en Housinger. Cancela tu intercambio sin penalización por cualquier imprevisto. Para saber más informacion clica al boton “Mostrar más” para saber nuestras politicas de intercambio.</p>
-            <button class="btn" onclick="my_modal_5.showModal()">Mostrar más</button>
+            <button class="boton-modal" onclick="my_modal_5.showModal()">Mostrar más</button>
             <dialog id="my_modal_5" class="modal">
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Politicas de intercambio de casa</h3>
