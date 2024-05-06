@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa con Leaflet</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        .dirrecion {
+            border: 2px solid #948e8e;
+            border-radius: 5px;
+        }
+        #map {
+            height: 400px;
+        }
+
+        .error-mensaje {
+            color: red;
+        }
+
+        #btnBuscar{
+            background-color: #576cbc;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 5px;
+        }
+
+        @media screen and (width: 1440px) {
+            .ajustar {
+                margin-left: 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h2 class="ajustar font-bold text-lg mt-10 lg:ml-[200px]">Ubicación de la vivienda</h2>
+    <input type="text" id="inputDireccion" class="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]" placeholder="Dirección">
+    <button id="btnBuscar" class="mt-5">Buscar en Mapa</button>
+    <br>
+    <span id="mensaje" class="error-mensaje"></span>
+    <div id="map" class="ajustar lg:w-[900px] lg:ml-[200px] mt-5"></div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map;
+        var marker;
+
+        document.getElementById('btnBuscar').addEventListener('click', buscarEnMapa);
+
+        function buscarEnMapa() {
+            var direccion = document.getElementById('inputDireccion').value;
+            if (!direccion) {
+                document.getElementById('mensaje').textContent = 'Por favor, ingresa una dirección.';
+                return;
+            }
+            
+            fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(direccion))
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var latitud = data[0].lat;
+                    var longitud = data[0].lon;
+                    map.setView([latitud, longitud], 13);
+                    
+                    // Ocultar mensaje de error
+                    document.getElementById('mensaje').textContent = '';
+                    
+                    // Eliminar el marcador existente si existe
+                    if (marker) {
+                        map.removeLayer(marker);
+                    }
+                    
+                    marker = L.marker([latitud, longitud]).addTo(map);
+                    marker.bindPopup("<b>¡Hola!</b><br>Estás aquí.").openPopup(); 
+                } else {
+                    document.getElementById('mensaje').textContent = 'La dirección no pudo ser encontrada. Por favor, inténtelo de nuevo.';
+                }
+            })
+            .catch(error => {
+                console.error('Hubo un error al buscar la dirección:', error);
+                document.getElementById('mensaje').textContent = 'Hubo un error al buscar la dirección. Por favor, inténtelo de nuevo.';
+            });
+        }
+        
+        // Función para inicializar el mapa
+        function inicializarMapa() {
+            // Barcelona como ubicación predeterminada
+            map = L.map('map').setView([41.3851, 2.1734], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+        }
+
+        window.onload = inicializarMapa;
+    </script>
+</body>
+</html>
