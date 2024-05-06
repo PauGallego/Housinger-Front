@@ -87,13 +87,7 @@ const ChatRoom = () => {
                 );
             }));
     
-            if (!isCurrentReceiverLoaded && !uniqueReceiverIds.includes(userData.receiverId)) {
-                buttons.push(
-                    <button key={`currentReceiver_${userData.receiverId}`} onClick={() => handleReceiverChange(userData.receiverId)}>
-                        Chat with {userData.receiverName} {userData.receiverSurname}
-                    </button>
-                );
-            }
+          
     
             buttons = buttons.filter((button, index) => {
                 return buttons.findIndex(btn => btn.key === button.key) === index;
@@ -155,19 +149,30 @@ const ChatRoom = () => {
     };
 
     const onPrivateMessage = (payload) => {
-        var payloadData = JSON.parse(payload.body);
-        const receivedMessage = {
-            senderId: payloadData.senderId,
-            senderName: payloadData.senderName,
-            senderSurname: payloadData.senderSurname,
-            receiverName: payloadData.receiverName,
-            receiverSurname: payloadData.receiverSurname,
-            message: payloadData.message,
-            date: new Date().toLocaleString('es-ES', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false })
-        };
+        if (stompClient) {
+            var payloadData = JSON.parse(payload.body);
+            const receivedMessage = {
+                senderId: payloadData.senderId,
+                senderName: payloadData.senderName,
+                senderSurname: payloadData.senderSurname,
+                receiverName: payloadData.receiverName,
+                receiverSurname: payloadData.receiverSurname,
+                message: payloadData.message,
+                date: new Date().toLocaleString('es-ES', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false })
+            };
     
-        setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
+            let divuser = document.querySelector(".chat-header");
+            const chatHeaderContent = divuser.innerHTML;
+    
+            if(chatHeaderContent.includes(receivedMessage.senderName) && chatHeaderContent.includes(receivedMessage.senderSurname)){
+                setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
+            } else {
+                console.log("Mensaje de otro usuario..");
+            }
+        }
     };
+    
+    
     
     
     const onError = (err) => {
