@@ -66,41 +66,46 @@ const ChatRoom = () => {
         }
     };
     
-   const fetchData = async () => {
+    const fetchData = async () => {
         try {
-            await fetchCustomerData(); 
-
+            await fetchCustomerData();
+    
             const response2 = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
             const data2 = await response2.json();
             
             const uniqueReceiverIds = [...new Set(data2.map(message => message.receiverId))];
-
+    
             const isCurrentReceiverLoaded = loadedConversations.includes(userData.receiverId);
-
-            let buttons = uniqueReceiverIds.map(receiverId => (
-                <button key={receiverId} onClick={() => handleReceiverChange(receiverId)}>
-                    Chat with {receiverId}
-                </button>
-            ));
-
+    
+            let buttons = await Promise.all(uniqueReceiverIds.map(async (receiverId) => {
+                const messagesWithReceiver = data2.filter(message => message.receiverId === receiverId);
+    
+                return (
+                    <button key={receiverId} onClick={() => handleReceiverChange(receiverId)}>
+                        Chat with {messagesWithReceiver[0].receiverName} {messagesWithReceiver[0].receiverSurname}
+                    </button>
+                );
+            }));
+    
             if (!isCurrentReceiverLoaded && !uniqueReceiverIds.includes(userData.receiverId)) {
                 buttons.push(
                     <button key={`currentReceiver_${userData.receiverId}`} onClick={() => handleReceiverChange(userData.receiverId)}>
-                        Chat with {userData.receiverId}
+                        Chat with {userData.receiverName} {userData.receiverSurname}
                     </button>
                 );
             }
-
+    
             buttons = buttons.filter((button, index) => {
                 return buttons.findIndex(btn => btn.key === button.key) === index;
             });
-
+    
             setReceiverButtons(buttons);
-
+    
         } catch (error) {
             console.error('Error loading chat history:', error);
         }
     };
+    
 
 
     const loadChatHistory = async (senderId, receiverId) => {
