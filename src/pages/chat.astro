@@ -1,10 +1,12 @@
 ---
-import Layout from "../layouts/cabezera.astro";
+import Layout from "../layouts/cabezera2.astro";
 import Chatroom from "../components/react/LocalChat.jsx";
 import { API_BASE_URL } from '../astro.config.js';
 
 
 ---
+<Layout title="Housinger" fondo="blue">
+    <Chatroom client:only="svelte"/>
+</Layout>
 
 
-<Chatroom client:only="svelte"/>
