@@ -187,10 +187,31 @@ import '../global.css';
                 );
 
                 if (response.ok) {
-                    alert("¡Inicio de sesión exitoso!");
-                } else {
-                    alert("¡Error en el inicio de sesión!");
-                }
+                     
+                        response.json().then(data => {
+                 
+                            localStorage.setItem("userData", JSON.stringify(data));
+
+          
+
+                            let authorization = response.headers.get("authorization");
+
+                   
+                            localStorage.setItem("authorization", authorization);
+
+                            localStorage.setItem("userData", JSON.stringify(data));
+
+                            window.location.href = `${API_BASE_URL2}`;
+
+                          
+
+                   
+                        }).catch(error => {
+                            console.error('Error al leer el cuerpo de la respuesta como JSON:', error);
+                        });
+                    } else {
+                        alert("¡Error en el inicio de sesión!");
+                    }
             } catch (error) {
                 console.error("Error:", error);
                 alert("¡Error en el inicio de sesión!");

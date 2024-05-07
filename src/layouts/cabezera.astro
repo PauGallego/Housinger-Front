@@ -5,6 +5,8 @@ interface Props {
 }
 
 import { API_BASE_URL2 } from "../astro.config.js";
+import { API_BASE_URL } from "../astro.config.js";
+
 
 const { title, fondo } = Astro.props;
 ---
@@ -50,7 +52,7 @@ const { title, fondo } = Astro.props;
                                 ></i></button
                             >
                         </div>
-                        <div class="redondo">
+                        <div class="redondo" id="login">
                             <a href=`${API_BASE_URL2}/login`>
                                 <button
                                     class="w-[38px] h-[36px] lg:w-[48px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]"
@@ -100,6 +102,24 @@ const { title, fondo } = Astro.props;
     </body>
 </html>
 
+<script>
+import { API_BASE_URL } from "../astro.config";
+
+
+    if(localStorage.getItem('userData') != null){
+
+        let userData = JSON.parse(localStorage.getItem('userData'));
+
+        let login = document.getElementById('login');
+
+        login.innerHTML = `<a href="">
+            <button class="w-[38px] h-[36px] lg:w-[48px] lg:w-[57px] lg:h-[53px] md:w-[57px] md:h-[53px]">
+                img src="${API_BASE_URL}/v1/fileCustomer/download/${userData.picture}" class="w-[20px] h-[20px] lg:w-[35px] lg:h-[35px] md:w-[30px] md:h-[30px] lg:mt-0 text-fuchsia-50"
+            </button>
+        </a>`;
+       
+    }
+</script>
 <style is:global>
     @import url("https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap");
     :root {
