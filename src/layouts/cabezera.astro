@@ -120,6 +120,8 @@ const { title, fondo } = Astro.props;
 
     let premiumbtn = document.getElementById('premiumbtn');
 
+    let token = localStorage.getItem('authorization');
+
     premiumbtn.addEventListener('click', () => {
         if(localStorage.getItem('userData') == null){
             alert('Debes iniciar sesión para contratar premium');
@@ -132,6 +134,7 @@ const { title, fondo } = Astro.props;
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Authentication '  +  token,
             }
         }).then(response => {
             if(response.ok) {
@@ -152,38 +155,41 @@ const { title, fondo } = Astro.props;
     });
 
     let contratar = document.getElementById('contratar');
+   
 
-        contratar.addEventListener('click', () => {
-            let data = JSON.parse(localStorage.getItem('userData'));
-            
-            fetch(`${url}/v1/premium/${data.userId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            }).then(response => {
-                if(response.ok) {
-                    return response.text();
-                } else if(response.status === 400) {
-                    return response.text();
-                } else {
-                    throw new Error('Error al contratar premium');
-                }
-            }).then(body => {
-                if(body.trim() === 'Usuario añadido a premium correctamente!'){
-                    alert('Premium contratado');
-                    my_modal_1.close();
-                } else if(body.trim() === 'El usuario ya es premium.'){
-                    alert('El usuario ya es premium');
-                    my_modal_1.close();
-                } else {
-                    alert('Ocurrió un error al contratar premium');
-                }
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('Ocurrió un error al contratar premium');
-            });
-        });
+    contratar.addEventListener('click', () => {
+    let data = JSON.parse(localStorage.getItem('userData'));
+
+    fetch(`${url}/v1/premium/${data.userId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Authentication '  +  token,
+        }
+    }).then(response => {
+        if(response.ok) {
+            return response.text();
+        } else if(response.status === 400) {
+            return response.text();
+        } else {
+            throw new Error('Error al contratar premium');
+        }
+    }).then(body => {
+        if(body.trim() === 'Usuario añadido a premium correctamente!'){
+            alert('Premium contratado');
+            my_modal_1.close();
+        } else if(body.trim() === 'El usuario ya es premium.'){
+            alert('El usuario ya es premium');
+            my_modal_1.close();
+        } else {
+            alert('Ocurrió un error al contratar premium');
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        alert('Ocurrió un error al contratar premium');
+    });
+});
+
 
 
 });
