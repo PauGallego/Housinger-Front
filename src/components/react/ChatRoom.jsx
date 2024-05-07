@@ -6,11 +6,11 @@ import { parse } from 'date-fns';
 
 var stompClient = null;
 
-const ChatRoom = () => {
+const ChatRoom = ({ senderId, receiverId }) => {
     const [privateChats, setPrivateChats] = useState([]);
     const [userData, setUserData] = useState({
-        senderId: '',
-        receiverId: '',
+        senderId: senderId,
+        receiverId: receiverId,
         connected: false,
         message: ''
     });
@@ -66,11 +66,21 @@ const ChatRoom = () => {
         }
     };
     
+    let token = localStorage.getItem('authorization');
+
+
     const fetchData = async () => {
         try {
             await fetchCustomerData();
     
-            const response2 = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`);
+            const response2 = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Authentication ' + token,
+                }
+            });
+
             const data2 = await response2.json();
             
             const uniqueReceiverIds = [...new Set(data2.map(message => message.receiverId))];
@@ -110,7 +120,15 @@ const ChatRoom = () => {
 
     const loadChatHistory = async (senderId, receiverId) => {
         try {
-            const response = await fetch(`${API_BASE_URL}/v1/chat/getChat/${senderId}/${receiverId}`);
+           
+            const response = await fetch(`${API_BASE_URL}/v1/chat/getChat/${senderId}/${receiverId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Authentication ' + token,
+                }
+            });
+
             const data = await response.json();
     
             data.sort((a, b) => {
@@ -213,28 +231,6 @@ const ChatRoom = () => {
         }
     };
     
-    const handleSenderId = (event) => {
-        const { value } = event.target;
-        setUserData((prevUserData) => ({
-            ...prevUserData,
-            senderId: value
-        }));
-    };
-
-    const handleReceiverId = (event) => {
-        const { value } = event.target;
-        setUserData((prevUserData) => ({
-            ...prevUserData,
-            receiverId: value
-        }));
-    };
-
-    const handleConnectClick = () => {
-        if (userData.senderId && userData.receiverId) {
-            connect();
-        }
-    };
-
     const handleReceiverChange = (receiverId) => {
         setUserData(prevUserData => ({
             ...prevUserData,
@@ -245,6 +241,12 @@ const ChatRoom = () => {
         setPrivateChats([]);
     };
     
+    useEffect(() => {
+        if (senderId && receiverId) {
+            connect();
+        }
+    }, [senderId, receiverId]);
+
     return (
         <div className="chat-room">
             {userData.connected ? (
@@ -274,24 +276,8 @@ const ChatRoom = () => {
                     </div>
                 </div>
             ) : (
-                <div className="register">
-                    <input
-                        id="user-id"
-                        placeholder="Enter your ID"
-                        name="userId"
-                        value={userData.senderId}
-                        onChange={handleSenderId}
-                        margin="normal"
-                    />
-                    <input
-                        id="receiver-id"
-                        placeholder="Enter receiver's ID"
-                        name="receiverId"
-                        value={userData.receiverId}
-                        onChange={handleReceiverId}
-                        margin="normal"
-                    />
-                    <button type="button" onClick={handleConnectClick}>Connect</button> 
+                <div className="loading-message">
+                    Connecting...
                 </div>
             )}
         </div>
