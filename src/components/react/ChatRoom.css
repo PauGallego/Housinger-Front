@@ -50,7 +50,7 @@
     flex: 1;
     overflow-y: scroll;
     height: calc(100vh - 20px);
-    scroll-behavior: smooth; /* Desplazamiento suave */
+    scroll-behavior: smooth;
 }
 
 .sent-message, .received-message {
@@ -77,7 +77,6 @@
     margin: 0;
 }
 
-/* Ocultar la barra de desplazamiento del chat */
 .chat-messages::-webkit-scrollbar {
     width: 0;
 }

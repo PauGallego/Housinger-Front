@@ -1,64 +1,28 @@
 ---
 import Layout from "../layouts/cabezera3.astro";
+import Profile from "../components/react/Profile.jsx";
+import Data_user from "../components/react/Data_user.jsx";
+import Reservation from "../components/react/Reservation.jsx";
+import Char from "../components/react/Char.jsx";
+import { API_BASE_URL } from '../astro.config.js';
+
 ---
 
 <Layout title="Perfil usuario" fondo="blue">
     <main>
         <div class="md:flex md:flex-col lg:flex-row lg:items-center lg:ml-[550px] ajustar">
             <!--FOTO DE PERFIL -->
-            <div class="relative flex justify-center lg:mt-10">
-                <img src="/public/perfil.jpg" class="w-[300px] h-[200px] lg:w-[350px] lg:h-[280px] rounded-[10px]" alt="foto_perfil">
-                <button class="editar-foto absolute top-[70%] left-[70%] md:top-[70%] md:left-[60%] lg:top-[70%] lg:left-[80%] transform -translate-x-1/2 flex items-center justify-center">
-                    <i class="icon-[lets-icons--img-box] text-white aaa"></i>
-                </button>
-            </div>
+            <Profile/>
 
-            <div class="flex flex-col md:ml-[180px] lg:ml-[100px]">
-            <!--INFORMACION -->
-            <div class="mt-10">
-                <h2 class="font-bold text-xl" id="nombre_apellido">Maria Perez</h2>
-                <p class="font-bold mt-2 text-xl">Informacion</p>
-            </div>
-
-            <!--DATOS -->
-                <div class="mt-5">
-                    <div class="md:flex md:gap-2">
-                        <div class="mb-2">
-                            <p>Nombre</p>
-                            <input class="input-datos w-[100%]" type="text" name="" id="" placeholder="Nombre">
-                        </div>
-                        <div class="mb-2">
-                            <p>Apellido</p>
-                            <input class="input-datos w-[100%]" type="text" name="" id="" placeholder="Apellido">
-                        </div>
-                    </div>
-                    <div class="md:flex md:gap-2">
-                        <div class="mb-2">
-                            <p>Correo</p>
-                            <input class="input-datos w-[100%]" type="text" name="" id="" placeholder="Correo">
-                        </div>
-                        <div class="mb-2">
-                            <p>Usuario</p>
-                            <input class="input-datos w-[100%]" type="text" name="" id="" placeholder="Usuario">
-                        </div>
-                    </div>
-                    <div class="md:flex md:gap-2">
-                        <div class="mb-2">
-                            <p>Contraseña</p>
-                            <input class="input-datos w-[100%]" type="text" name="" id="" placeholder="Correo">
-                        </div>
-                        <div class="mb-2 mt-6">
-                            <button class="boton-guardar w-[200px]">Guardar perfil</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!--DATOS DE USUARIO -->
+            <Data_user/>
         </div>
-        <!-- MIS PROPIEDADES -->
+        <!-- MIS PROPIEDADES !!!! ACTIVAR MIS PROPIEDADES !!!! -->
+        <!-- <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} client:only="svelte" /> -->
         <div class="mt-10">
-            <h2 class="md:ml-[180px] lg:ml-[550px] ajustar font-bold text-xl">Mis propiedades</h2>
+            <h2 class="md:ml-[180px] lg:ml-[550px] ajustar font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
         </div>
-        <div class="lg:ml-[550px] md:ml-[180px] ajustar">
+        <div class="ml-[50px] lg:ml-[550px] md:ml-[180px] ajustar">
             <div class="mt-5 lg:flex md:flex md:flex-wrap gap-5">
                 <div class="flex-col mb-10">
                     <img class="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]" src="/public/casa1.jpg" alt="">
@@ -76,20 +40,9 @@ import Layout from "../layouts/cabezera3.astro";
         </div>        
         <!-- MIS RESERVAS -->
         <div class="mt-10">
-            <h2 class="md:ml-[180px] lg:ml-[550px] ajustar font-bold text-xl">Mis reservas</h2>
+            <h2 class="md:ml-[180px] lg:ml-[550px] ajustar font-bold text-xl text-center md:text-left lg:text-left">Mis reservas</h2>
         </div>
-        <div class="lg:ml-[550px] md:ml-[180px] ajustar">
-            <div class="mt-5 lg:flex md:flex md:flex-wrap gap-5">
-                <div class="relative flex-col mb-10">
-                    <img class="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]" src="/public/casa1.jpg" alt="">
-                    <p>Madrid, España</p>
-                    <p>Propietario: Javier Muelas</p>
-                    <p>Realizo intercambio el 12/02/2024 - 27/02/2024</p>
-                    <p>Con la propiedad de Madrid, España</p>
-                    <img class="absolute -top-[-30%] left-[50%] lg:left-[70%] transform -translate-x-1/2 rounded-full w-[80px] h-[80px]" src="/public/perfil2.jpg" alt="">
-                </div>
-            </div>
-        </div>        
+        <Reservation/>
         <div class="mt-10"></div>
     </main>
     <style>
@@ -100,41 +53,6 @@ import Layout from "../layouts/cabezera3.astro";
             --gris: #948e8e;
             --star: #ffd910;
             --menu: #a5d7e8;
-        }
-
-        .input-datos {
-            padding: 2px;
-            border: 2px solid var(--gris);
-            border-radius: 5px;
-        }
-
-        .aaa {
-            font-size: 30px;
-        }
-
-        .boton-guardar {
-            background-color: var(--primary);
-            color: white;
-            padding: 5px;
-            border-radius: 5px;
-            border: none;
-        }
-
-        .editar-foto {
-            background-color: var(--primary);
-            color: white;
-            padding: 5px;
-            border-radius: 50px;
-            border: none;
-            margin-left: 10px;
-            width: 50px;
-            height: 50px;
-        }
-
-        @media screen and (width: 1440px) {
-            .ajustar {
-                margin-left: 300px;
-            }
         }
     </style>
 </Layout>

@@ -66,3 +66,39 @@ h3 {
 .cerrar:hover {
     background-color: #3f4e7f;
 }
+
+/** Perfil_user ***/
+.editar-foto {
+    background-color: var(--primary);
+    color: white;
+    padding: 5px;
+    border-radius: 50px;
+    border: none;
+    margin-left: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.cambiar-foto {
+    font-size: 30px;
+}
+
+.input-datos {
+    padding: 2px;
+    border: 2px solid var(--gris);
+    border-radius: 5px;
+}
+
+.boton-guardar {
+    background-color: var(--primary);
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+@media screen and (width: 1440px) {
+    .ajustar {
+        margin-left: 300px;
+    }
+}
