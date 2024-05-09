@@ -36,26 +36,26 @@ const ChatRoom = ({ senderId, receiverId }) => {
 
     useEffect(() => {
         if (userData.receiverId && userData.senderId && userData.connected) {
-            fetchCustomerData(); 
+            fetchCustomerData();
         }
     }, [userData.receiverId, userData.senderId, userData.connected]);
-    
+
     useEffect(() => {
         if (customerData.receiverId && customerData.senderId) {
-            fetchData(); 
+            fetchData();
         }
     }, [customerData.receiverId, customerData.senderId]);
-    
-    
+
+
 
     const fetchCustomerData = async () => {
         try {
             const response1 = await fetch(`${API_BASE_URL}/v1/customer/get/${userData.receiverId}`);
             const data1 = await response1.json();
-    
+
             const response2 = await fetch(`${API_BASE_URL}/v1/customer/get/${userData.senderId}`);
             const data2 = await response2.json();
-    
+
             setCustomerData({
                 receiverName: data1.name,
                 receiverSurname: data1.surname,
@@ -71,14 +71,14 @@ const ChatRoom = ({ senderId, receiverId }) => {
             console.error('Error loading customer data:', error);
         }
     };
-    
+
     let token = localStorage.getItem('authorization');
 
 
     const fetchData = async () => {
         try {
             await fetchCustomerData();
-    
+
             const response2 = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`, {
                 method: 'GET',
                 headers: {
@@ -88,40 +88,40 @@ const ChatRoom = ({ senderId, receiverId }) => {
             });
 
             const data2 = await response2.json();
-            
+
             const uniqueReceiverIds = [...new Set(data2.map(message => message.receiverId))];
-    
+
             const isCurrentReceiverLoaded = loadedConversations.includes(userData.receiverId);
-    
+
             let buttons = await Promise.all(uniqueReceiverIds.map(async (receiverId) => {
                 const messagesWithReceiver = data2.filter(message => message.receiverId === receiverId);
-    
+
                 return (
-                    <button key={receiverId} onClick={() => handleReceiverChange(receiverId)} className='flex items-center'>
-                         <img src={`${API_BASE_URL}/v1/fileCustomer/download/${messagesWithReceiver[0].receiverPicture}`} className="rounded-full w-10 h-10 m-[5px] " alt="Sender" />
+                    <button key={receiverId} onClick={() => handleReceiverChange(receiverId)} className='flex items-center boton-persona'>
+                        <img src={`${API_BASE_URL}/v1/fileCustomer/download/${messagesWithReceiver[0].receiverPicture}`} className="rounded-full w-10 h-10 m-[5px] " alt="Sender" />
                         {messagesWithReceiver[0].receiverName} {messagesWithReceiver[0].receiverSurname}
                     </button>
                 );
             }));
-    
-            
-    
+
+
+
             buttons = buttons.filter((button, index) => {
                 return buttons.findIndex(btn => btn.key === button.key) === index;
             });
-    
+
             setReceiverButtons(buttons);
-    
+
         } catch (error) {
             console.error('Error loading chat history:', error);
         }
     };
-    
+
 
 
     const loadChatHistory = async (senderId, receiverId) => {
         try {
-           
+
             const response = await fetch(`${API_BASE_URL}/v1/chat/getChat/${senderId}/${receiverId}`, {
                 method: 'GET',
                 headers: {
@@ -131,16 +131,16 @@ const ChatRoom = ({ senderId, receiverId }) => {
             });
 
             const data = await response.json();
-    
+
             data.sort((a, b) => {
                 const dateA = parse(a.date, "dd/MM/yyyy, HH:mm:ss", new Date());
                 const dateB = parse(b.date, "dd/MM/yyyy, HH:mm:ss", new Date());
                 return dateA - dateB;
             });
 
-    
+
             setPrivateChats(data);
-    
+
             if (!loadedConversations.includes(receiverId)) {
                 setLoadedConversations(prevConversations => [...prevConversations, receiverId]);
             }
@@ -159,8 +159,8 @@ const ChatRoom = ({ senderId, receiverId }) => {
         setUserData({ ...userData, connected: true });
         stompClient.subscribe('/user/' + userData.senderId + '/private', onPrivateMessage);
         userJoin();
-        if(userData.receiverId) {
-            handleReceiverChange(userData.receiverId); 
+        if (userData.receiverId) {
+            handleReceiverChange(userData.receiverId);
         }
     };
 
@@ -185,20 +185,20 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 message: payloadData.message,
                 date: new Date().toLocaleString('es-ES', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false })
             };
-    
+
             let divuser = document.getElementById('iduser');
-    
-            if(divuser.value == receivedMessage.senderId){
+
+            if (divuser.value == receivedMessage.senderId) {
                 setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
             } else {
                 console.log("Mensaje de otro usuario " + receivedMessage.senderName + " " + receivedMessage.senderSurname)
             }
         }
     };
-    
-    
-    
-    
+
+
+
+
     const onError = (err) => {
         console.log(err);
     };
@@ -211,7 +211,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
     const sendPrivateValue = () => {
         if (stompClient && userData.message.trim() !== "") {
             const currentDate = new Date();
-            const formattedDate = currentDate.toLocaleString('es-ES'); 
+            const formattedDate = currentDate.toLocaleString('es-ES');
             var chatMessage = {
                 senderId: userData.senderId,
                 receiverId: userData.receiverId,
@@ -220,35 +220,35 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 receiverName: customerData.receiverName,
                 receiverSurname: customerData.receiverSurname,
                 message: userData.message,
-                date: formattedDate , 
+                date: formattedDate,
                 senderPicture: customerData.senderFoto,
                 status: "MESSAGE"
             };
-            
+
             setUserData({ ...userData, "message": "" });
-            
+
             stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
-            
+
             setPrivateChats(prevPrivateChats => [...prevPrivateChats, chatMessage]);
-    
-      
+
+
             if (privateChats.length === 0) {
-                fetchData(); 
+                fetchData();
             }
         }
     };
-    
-    
+
+
     const handleReceiverChange = (receiverId) => {
         setUserData(prevUserData => ({
             ...prevUserData,
             receiverId: receiverId
         }));
-        loadChatHistory(userData.senderId, receiverId); 
-    
+        loadChatHistory(userData.senderId, receiverId);
+
         setPrivateChats([]);
     };
-    
+
     useEffect(() => {
         if (senderId && receiverId) {
             connect();
@@ -256,49 +256,53 @@ const ChatRoom = ({ senderId, receiverId }) => {
     }, [senderId, receiverId]);
 
     return (
-        <div className="chat-room bg-black">
+        <div className="chat-room bg-[#576cbc]">
             {userData.connected ? (
-                
+
                 <div className="chat-container flex  gap-5 ">
-                    
+
                     <div className="conversation-buttons  flex flex-col ">
                         {receiverButtons}
                     </div>
-                    
+
                     <div className="chat-messages flex flex-col w-[70vw]">
-                    <div className="chat-header text-left" >
+                        <div className="chat-header text-left" >
 
-<p className='text-white text-left'>Chat with {customerData.receiverName} {customerData.receiverSurname}</p>
+                            <p className='text-white text-left'>Chat con {customerData.receiverName} {customerData.receiverSurname}</p>
 
-<input type="hidden" id='iduser' value={customerData.receiverId} />
-</div>
-                   
-            {privateChats.map((message, index) => (
-                <div key={index} className={message.senderId === userData.senderId ? "sent-message" : "received-message"}>
-                    <div className="flex items-center">
-                       
-                        <img src={`${API_BASE_URL}/v1/fileCustomer/download/${message.senderPicture}`} className="rounded-full w-10 h-10 m-[5px] " alt="Sender" />
-                    </div>
-                    <div className="m-[5px]">
-                        <p className="text-white ">{message.message}</p>
-                        <p className="text-xs text-white">{message.senderName} {message.senderSurname}</p>
-                        <p className="text-xs text-white">{message.date}</p>
-                    </div>
-                </div>
-            ))}
-                         <div className="chat-input">
-                        <input className='w-[90%] mb-[50px] mt-[50px]'
-                            type="text"
-                            value={userData.message}
-                            onChange={handleMessage}
-                            placeholder="Type your message here..."
-                        />
-                        <button onClick={sendPrivateValue} className='ml-[20px]'>Send</button>
-                    </div>
-        </div>
+                            <input type="hidden" id='iduser' value={customerData.receiverId} />
+                        </div>
 
-                   
-                    
+                        {privateChats.map((message, index) => (
+                            <div key={index} className={message.senderId === userData.senderId ? "sent-message" : "received-message"}>
+                                <div className="flex items-center">
+
+                                    <img src={`${API_BASE_URL}/v1/fileCustomer/download/${message.senderPicture}`} className="rounded-full w-10 h-10 m-[5px]" alt="Sender" />
+                                </div>
+                                <div className="m-[5px]">
+                                    <p className="text-black ">{message.message}</p>
+                                    <p className="text-xs text-black">{message.senderName}</p>
+                                    <p className="text-xs text-black">{message.date}</p>
+                                </div>
+                            </div>
+                        ))}
+                        <div className="chat-input">
+                            <input className='w-[90%] h-[40px] rounded-[50px] input-enviar'
+                                type="text"
+                                value={userData.message}
+                                onChange={handleMessage}
+                            />
+                            <button onClick={sendPrivateValue} className='ml-[20px] boton-enviar'>
+                                <i class="icon-[material-symbols--send-rounded] logo-enviar"></i>
+                            </button>
+                            <button className='ml-[20px] boton-enviar'>
+                                <i class="icon-[mdi--home-switch-outline] logo-enviar"></i>
+                            </button>
+                        </div>
+                    </div>
+
+
+
                 </div>
             ) : (
                 <div className="loading-message">

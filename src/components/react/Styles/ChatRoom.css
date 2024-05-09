@@ -2,11 +2,33 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-.sent-message {
-    display: flex;
-    flex-direction: row-reverse; 
+:root {
+    --primary: #576cbc;
+    --secondary: #0b2447;
+    --tertiary: #b1ddec;
+    --gris: #948e8e;
+    --star: #ffd910;
+    --menu: #a5d7e8;
 }
 
+.sent-message {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 5px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;
+    margin-left: 78%;
+}
+
+.sent-message .flex-container {
+    justify-content: flex-start; 
+}
+
+.input-enviar {
+    padding: 10px;
+}
 .received-message {
     display: flex;
     flex-direction: row; 
@@ -16,9 +38,7 @@
     max-width: 70%; 
 }
 
-.sent-message .flex-container {
-    justify-content: flex-start; 
-}
+
 
 .received-message .flex-container {
     justify-content: flex-end; 
@@ -44,7 +64,25 @@
 .conversation-buttons {
     height: calc(100vh - 20px);
     overflow-y: auto;
+    background-color: var(--secondary);
 }
+
+.boton-enviar {
+    background-color: white;
+    height: 40px;
+    width: 40px;
+    border-radius: 50px;
+}
+
+.logo-enviar {
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+.boton-persona {
+    color: white;
+}
+
 
 .chat-messages {
     flex: 1;
@@ -53,13 +91,13 @@
     scroll-behavior: smooth; /* Desplazamiento suave */
 }
 
-.sent-message, .received-message {
+.received-message {
     display: flex;
     margin: 5px;
-}
-
-.sent-message .flex-container {
-    justify-content: flex-start;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;
 }
 
 .received-message .flex-container {

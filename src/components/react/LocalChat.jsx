@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Chatroom from './ChatRoom.jsx';
 import { API_BASE_URL } from '../../astro.config.js';
+import '../../global.css';
 
 const MyComponent = () => {
   const [senderId, setSenderId] = useState(null);
@@ -48,11 +49,20 @@ const MyComponent = () => {
   return (
     <div>
       {isLoading ? (
-        <p>Cargando...</p>
+        <div className='flex justify-center items-center'>
+          <div className='md:flex md:flex-col md:h-[500px] md:w-[500px] md:justify-center md:items-center lg:flex lg:flex-col lg:h-[500px] lg:w-[500px] lg:justify-center lg:items-center'>
+              <img className='ajustar-carga' src="../../cargar.gif" alt="Cargando..." />
+          </div>
+        </div>
       ) : receiverId ? (
         <Chatroom senderId={senderId} receiverId={receiverId} client="svelte:only" />
       ) : (
-        <p>No hay chats previos..</p>
+        <div className='flex justify-center items-center'>
+          <div className='md:flex md:flex-col md:h-[500px] md:w-[500px] md:justify-center md:items-center lg:flex lg:flex-col lg:h-[500px] lg:w-[500px] lg:justify-center lg:items-center'>
+              <img className='ajustar-carga' src="../../cargar.gif" alt="Cargando..." />
+              <p className='text-center mt-10 text-xl font-bold'>No hay chats previos...</p>
+          </div>
+        </div>
       )}
     </div>
   );
