@@ -56,39 +56,68 @@ const MyComponent = () => {
     }
 
 
+    const defaultImage = "casa1.jpg";
+    const fotosCompletas = propiedad.fotos.concat(Array.from({ length: 8 - propiedad.fotos.length }, (_, index) => defaultImage));
+
     return (
         <div>
             <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
                 {/* Dirección */}
-                <div className="flex mt-5 lg:mt-10 gap-2 lg:ml-[245px] contendor-direcion">
+                <div className="flex mt-5 lg:mt-10 gap- lg:ml-[245px] contendor-direcion">
                     <i className="icon-[ion--location-sharp] icon-blue h-7 w-7"></i>
                     <p className='font-bold "'>{propiedad.address} </p>
               
                 </div>
                 {/* Imagenes */}
                 <div className="flex gap-5 justify-center items-center">
-                    {/* Contenido de las imágenes */}
-                    <div className="hidden lg:flex justify-center items-center gap-2 flex-col">
-                        <img className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
-                        <img className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
+                    {/* Contenido de las imágenes izquierdas */}
+                    <div className="hidden lg:flex justify-center items-center gap- flex-col">
+                        {/* Mostrar las primeras tres imágenes */}
+                        {fotosCompletas.slice(0, 2).map((foto, index) => (
+                            <img 
+                                key={index} 
+                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[195px] md:h-[160px] lg:h-[130px]" 
+                                src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`} 
+                                alt={`imagen-propiedad-${index}`} 
+                            />
+                        ))}
                     </div>
                     {/* Imagen Central */}
                     <div className="flex justify-center items-center">
-                        <img className="mt-10 rounded-[10px] h-[auto] w-[auto] lg:h-[300px] lg:w-[auto]" src="../../casa1.jpg" alt="imagen-propiedad" />
+                        <img 
+                            className="mt-10 rounded-[10px] w-[195px] lg:h-[300px] lg:w-[450px]" 
+                            src={`${API_BASE_URL}/v1/fileCustomer/download/${fotosCompletas[0]}`} 
+                            alt="imagen-propiedad-central" 
+                        />
                     </div>
-                    {/* Imagen COLUMNA DERECHA */}
-                    <div className="hidden lg:flex justify-center items-center gap-2 flex-col">
-                        <img className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
-                        <img className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
+                    {/* Contenido de las imágenes derechas */}
+                    <div className="hidden lg:flex justify-center items-center gap- flex-col">
+                        {/* Mostrar las siguientes tres imágenes */}
+                        {fotosCompletas.slice(2, 4).map((foto, index) => (
+                            <img 
+                                key={index} 
+                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[195px] md:h-[160px] lg:h-[130px]" 
+                                src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`} 
+                                alt={`imagen-propiedad-${index + 3}`} 
+                            />
+                        ))}
                     </div>
                 </div>
+
                 {/* Imagen PIE */}
                 <div className="flex justify-center items-center gap-[10px] lg:gap-[35px]">
-                    <img className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
-                    <img className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
-                    <img className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]" src="../../casa1.jpg" alt="imagen-propiedad" />
-                    <img className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[auto] md:h-[160px] lg:h-[130px]  hidden lg:block" src="../../casa1.jpg" alt="imagen-propiedad" />
+                    {/* Mostrar las imágenes restantes */}
+                    {fotosCompletas.slice(4).map((foto, index) => (
+                        <img 
+                            key={index} 
+                            className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[195px] md:h-[160px] lg:h-[130px]" 
+                            src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`} 
+                            alt={`imagen-propiedad-${index + 6}`} 
+                        />
+                    ))}
                 </div>
+
+
                 {/* DESCRIPCION */}
                 <div className="lg:ml-[240px] mt-10 contendor-descripcion">
                     <p>{propiedad.description}</p>
