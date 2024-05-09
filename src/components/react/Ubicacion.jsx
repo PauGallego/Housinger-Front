@@ -94,6 +94,7 @@ const MapaLeafletComponent = ({ location }) => {
             {location ? (
                 <>
                     <input type="text" id="inputDireccion" className="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]" placeholder={location} readOnly />
+                    
                     <br />
                 </>
             ) : (
