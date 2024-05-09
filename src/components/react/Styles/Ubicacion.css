@@ -1,0 +1,24 @@
+.dirrecion {
+    border: 2px solid #948e8e;
+    border-radius: 5px;
+}
+#map {
+    height: 400px;
+}
+
+.error-mensaje {
+    color: red;
+}
+
+#btnBuscar{
+    background-color: #576cbc;
+    color: white;
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+@media screen and (width: 1440px) {
+    .ajustar {
+        margin-left: 0px;
+    }
+}

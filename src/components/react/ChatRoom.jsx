@@ -3,7 +3,7 @@ import { over } from 'stompjs';
 import SockJS from "sockjs-client/dist/sockjs";
 import { API_BASE_URL } from '../../astro.config.js';
 import { parse } from 'date-fns';
-import './ChatRoom.css';
+import './Styles/ChatRoom.css';
 
 
 

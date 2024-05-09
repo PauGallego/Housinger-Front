@@ -1,0 +1,125 @@
+
+:root {
+    --primary: #576cbc;
+    --secondary: #0b2447;
+    --tertiary: #b1ddec;
+    --gris: #948e8e;
+    --star: #ffd910;
+    --menu: #a5d7e8;
+}
+.bg-secondary {
+    background-color: var(--gris) !important;
+}
+.imagen-optima{
+    object-fit: cover; 
+}
+
+.boton-direcion {
+    border: 1px solid var(--gris);
+}
+body,
+html {
+    background-color: #ffff;
+}
+.icon-blue {
+    color: var(--primary);
+}
+
+.descripcion {
+    border: 1px solid var(--gris);
+    border-radius: 5px;
+}
+
+.botones-propiedad {
+    background-color: var(--primary);
+    box-shadow: 0px 5px 5px 0px var(--gris);
+}
+
+.boton-modal {
+    background-color: white;
+    border: 1px solid var(--gris);
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 5px 5px 0px var(--gris);
+}
+
+.boton-anadir-cama {
+    background-color: var(--primary);
+    border-radius: 50px;
+    box-shadow: 0px 5px 5px 0px var(--gris);
+    color: white;
+    font-size: 20px
+}
+
+.bola-premiun {
+    background-color: var(--star);
+    border-radius: 50px;
+}
+
+.corono {
+    color: white;
+    font-size: 30px;
+}
+
+.premiun-texto {
+    color: var(--primary);
+    font-size: 20px;
+}
+
+/* MOBIL */
+@media screen and (max-width: 390px) {
+    .prpiedad-foto-1 {
+    height: 80px;
+    width: auto;
+}
+}
+
+/* TABLET */
+@media screen and (width: 768px) {
+    .prpiedad-foto-1 {
+    height: 120px;
+    width: auto;
+}
+}
+
+/* PC */
+@media screen and (width: 1440px) {
+    .contendor-direcion{
+        margin-left: 0px;
+    }
+
+    .contendor-descripcion {
+        margin-left: 0px;
+    }
+
+    .descripcion {
+        width: 100%;
+    }
+
+    .contenedor-propietario {
+        margin-left: 0px;
+    }
+    .texto-que-hay {
+        margin-left: 0px;
+    }
+
+    .contendor-caracteritica {
+    margin-left: 0px;
+    }
+
+    .contendor-camas{
+        margin-left: 0px;
+    }
+
+    .contneder-cama-premiun{
+        gap: 180px;
+    }
+
+    .contendor-resenas {
+        margin-left: 0px;
+    }
+
+    .ajustar {
+        margin-left: 0px;
+    }
+}

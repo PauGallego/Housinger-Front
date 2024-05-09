@@ -1,0 +1,18 @@
+.boton-modal {
+    background-color: #576cbc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.boton-modal:hover {
+    background-color: #3f4e8f;
+}
+
+@media screen and (width: 1440px) {
+    .ajustar-resena {
+        margin-left: 0px;
+    }
+}
