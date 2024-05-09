@@ -15,7 +15,7 @@ const ResenaComponent = () => {
                             <br />
                             <div className="rating">
                                 <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" checked />
+                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500"  />
                                 <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
                                 <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
                                 <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
@@ -23,7 +23,7 @@ const ResenaComponent = () => {
                         </div>
                     </div>
                     <div className="mt-5">
-                        <textarea className="h-[100px] w-[300px]">Buena ubicacion para disfrutar con la familia y propietaria muy maja y amable. El intermacambio fue rapido y sencillo.</textarea>
+                        <textarea className="h-[100px] w-[300px] " placeholder='Buena ubicacion para disfrutar con la familia y propietaria muy maja y amable. El intermacambio fue rapido y sencillo.'></textarea>
                     </div>
                 </div>
                 <div>
@@ -36,7 +36,7 @@ const ResenaComponent = () => {
                             <br />
                             <div className="rating">
                                 <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" checked />
+                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500"  />
                                 <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
                                 <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
                                 <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
@@ -44,7 +44,7 @@ const ResenaComponent = () => {
                         </div>
                     </div>
                     <div className="mt-5">
-                        <textarea className="h-[100px] w-[300px]">Buena ubicacion para disfrutar con la familia y propietaria muy maja y amable. El intermacambio fue rapido y sencillo.</textarea>
+                        <textarea className="h-[100px] w-[300px] " placeholder='Buena ubicacion para disfrutar con la familia y propietaria muy maja y amable. El intermacambio fue rapido y sencillo.'></textarea>
                     </div>
                 </div>
                 

@@ -1,21 +1,66 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Styles/UserProp.css';
 import Calendar from './Calendario.jsx';
 import Resena from './Resena.jsx';
 import Ubicacion from './Ubicacion.jsx';
 import Normas from './Normas.jsx';
+import { API_BASE_URL } from '../../astro.config.js';
+
 
 const MyComponent = () => {
+
+    const [id, setid] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [propiedad, setPropiedad] = useState(null);
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const idParam = params.get('id');
+
+
+        if (idParam) {
+            setid(idParam);
+            const getPropiedad = async () => {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/v1/property/get/${idParam}`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch');
+                    }
+                    const data = await response.json();
+                    setIsLoading(false);
+
+                    if (data) {
+                        setPropiedad(data);
+                        console.log('data:', data);
+                    }else{
+                        console.log('No se encontraron datos');
+                    }
+
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+            getPropiedad();
+      
+
+        } else {
+            
+            console.log('id:', id);
+        }
+    }, []);
+
+    if (isLoading) {
+        return <p>Cargando...</p>;
+    }
+
+
     return (
         <div>
-            <header>
-                {/* Contenido del encabezado */}
-            </header>
             <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
                 {/* Dirección */}
                 <div className="flex mt-5 lg:mt-10 gap-2 lg:ml-[245px] contendor-direcion">
                     <i className="icon-[ion--location-sharp] icon-blue h-7 w-7"></i>
-                    <input className="w-[350px] boton-direcion rounded-[5px] md:w-[350px] lg:w-[550px] font-bold" type="text" placeholder="Dirección" />
+                    <input className="w-[350px] boton-direcion rounded-[5px] md:w-[350px] lg:w-[550px] font-bold" type="text" placeholder={propiedad.address}  readOnly/>
                 </div>
                 {/* Imagenes */}
                 <div className="flex gap-5 justify-center items-center">
@@ -62,7 +107,7 @@ const MyComponent = () => {
                         </div>
                         <div className="rating">
                             <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                            <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" checked />
+                            <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500"  />
                             <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
                             <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
                             <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
@@ -120,10 +165,10 @@ const MyComponent = () => {
                         {/* BARRA VERTICAL */}
                         <div className="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[100px]"></div>
                         {/* CALENDARIO */}
-                        <Calendar/>
+                        <Calendar />
                     </div>
                     <div className="mt-10 lg:mt-5">
-              
+
                     </div>
                 </div>
                 {/* CAMAS */}
@@ -168,14 +213,14 @@ const MyComponent = () => {
                 </div>
                 {/* RESEÑAS */}
                 <Resena />
-              
+
                 {/* UBICACION */}
-              
-                <Ubicacion/>
-               
+
+                <Ubicacion  location={propiedad.address} />
+
                 {/* NORMAS, SEGURIDAD Y POLITICA */}
-                <Normas/>
-             
+                <Normas />
+
                 <div className="mb-[100px]"></div>
             </main>
         </div>
