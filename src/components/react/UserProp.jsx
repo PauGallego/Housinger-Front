@@ -211,6 +211,7 @@ const MyComponent = () => {
                         </div>
                     </div>
                     {/* PREMIUM */}
+                    {propiedad.premium ? (
                     <div className="mt-10 lg:mt-[100px]">
                         <div className="flex flex-col items-center">
                             <p className="text-center font-bold	premiun-texto">HOUNSINGER</p>
@@ -220,6 +221,12 @@ const MyComponent = () => {
                             </div>
                         </div>
                     </div>
+                ) : (
+                    <div className="mt-10 lg:mt-[100px]">
+                        <p className="text-center font-bold	premiun-texto">NO PREMIUM VERIFICADO</p>
+                    </div>
+                )}
+
                 </div>
                 {/* RESEÑAS */}
                 <Resena />
