@@ -10,9 +10,6 @@ import './Styles/ChatRoom.css';
 var stompClient = null;
 
 const ChatRoom = ({ senderId, receiverId }) => {
-
-
-
     const [privateChats, setPrivateChats] = useState([]);
     const [userData, setUserData] = useState({
         senderId: senderId,
@@ -256,7 +253,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
     }, [senderId, receiverId]);
 
     return (
-        <div className="chat-room bg-[#576cbc]">
+        <div className="chat-room bg-[#576cbc] lg:ml-[200px]">
             {userData.connected ? (
 
                 <div className="chat-container flex  gap-5 ">
@@ -279,7 +276,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
 
                                     <img src={`${API_BASE_URL}/v1/fileCustomer/download/${message.senderPicture}`} className="rounded-full w-10 h-10 m-[5px]" alt="Sender" />
                                 </div>
-                                <div className="m-[5px]">
+                                <div className="m-[5px] ajustar-texto">
                                     <p className="text-black ">{message.message}</p>
                                     <p className="text-xs text-black">{message.senderName}</p>
                                     <p className="text-xs text-black">{message.date}</p>
@@ -292,21 +289,18 @@ const ChatRoom = ({ senderId, receiverId }) => {
                                 value={userData.message}
                                 onChange={handleMessage}
                             />
-                            <button onClick={sendPrivateValue} className='ml-[20px] boton-enviar'>
+                            <button onClick={sendPrivateValue} className='ml-[10px] boton-enviar'>
                                 <i class="icon-[material-symbols--send-rounded] logo-enviar"></i>
                             </button>
-                            <button className='ml-[20px] boton-enviar'>
+                            <button className='ml-[10px] boton-enviar'>
                                 <i class="icon-[mdi--home-switch-outline] logo-enviar"></i>
                             </button>
                         </div>
                     </div>
-
-
-
                 </div>
             ) : (
-                <div className="loading-message">
-                    Connecting...
+                <div className="loading-message ">
+                    <p className='text-center text-white text-4xl'>Conectando...</p>
                 </div>
             )}
         </div>
