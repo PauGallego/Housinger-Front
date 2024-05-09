@@ -5,6 +5,8 @@ import Resena from './Resena.jsx';
 import Ubicacion from './Ubicacion.jsx';
 import Normas from './Normas.jsx';
 import { API_BASE_URL } from '../../astro.config.js';
+import { API_BASE_URL2 } from '../../astro.config.js';
+
 import { Icon } from '@iconify/react';
 import { Modal } from '@mui/material';
 
@@ -65,6 +67,11 @@ const MyComponent = () => {
 
     const defaultImage = "casa1.jpg";
     const fotosCompletas = propiedad.fotos.concat(Array.from({ length: 8 - propiedad.fotos.length }, (_, index) => defaultImage));
+
+    const chatear = () => {
+        window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
+    }
+    
 
     return (
         <div>
@@ -145,18 +152,28 @@ const MyComponent = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="rating">
-                            <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                            <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500"  />
-                            <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                            <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                            <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                        </div>
+                        <div className="rating flex items-center justify-center ">
+                        <p  className='mr-[10px] text-xl'>{propiedad.stars}</p>
+                        {[...Array(5)].map((_, index) => (
+                            <input
+                                key={index}
+                                type="radio"
+                                name="rating-4"
+                                className="mask mask-star-2 bg-yellow-500"
+                                checked={index < Math.round(propiedad.stars + (propiedad.stars % 1 >= 0.5 ? 0.5 : 0))}
+                                readOnly
+                            />
+                        ))}
+                    </div>
+
+
+
+
                     </div>
                     <div className="mt-[50px] lg:flex lg:items-center md:flex md:items-center gap-2">
                         <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">¡Reservar!</button>
                         <br /><br />
-                        <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">Chat</button>
+                        <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]"   onClick={() => chatear()}  >Chat</button>
                     </div>
                 </div>
                 {/* CARACTERISTICAS */}
@@ -183,45 +200,42 @@ const MyComponent = () => {
                      {/* Botón para abrir el modal */}
                     <button className="mt-10 boton-modal lg:w-40" onClick={openModal}>Mostrar más</button>
                     <Modal open={showModal} onClose={closeModal} sx={{
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}}>
-    <div className="modal-box">
-        <h2>Características</h2>
-        <div className="modal-content-container flex flex-wrap"> {/* Contenedor flex */}
-            {/* Iterar sobre las claves del objeto (grupos) */}
-            {Object.keys(propiedad.characteristics.reduce((groups, caracteristica) => {
-                const { grupo, ...rest } = caracteristica;
-                if (!groups[grupo]) groups[grupo] = [];
-                groups[grupo].push(rest);
-                return groups;
-            }, {})).map((grupo, grupoIndex) => (
-                <div key={grupoIndex} className="grupo-caracteristicas ">
-  
-                    <h3 className="font-bold ">{grupo}</h3>
-                    {/* Sublista de características */}
-                    <ul>
-                        {propiedad.characteristics.reduce((acc, caracteristica) => {
-                            if (caracteristica.grupo === grupo) {
-                                acc.push(caracteristica);
-                            }
-                            return acc;
-                        }, []).map((caracteristica, index) => (
-                            <li key={index} className="caracteristica flex items-center">
-                                <Icon icon={caracteristica.icon} className="h-[25px] w-[25px] mr-[10px]" />
-                                <label className="font-bold">{caracteristica.name}</label>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            ))}
-        </div>
-        <div className="modal-action">
-            <button className="btn" onClick={closeModal}>Cerrar</button>
-        </div>
-    </div>
-</Modal>
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                    <div className="modal-box">
+                        <h2>Características</h2>
+                        <div className="modal-content-container flex flex-wrap">
+                            {Object.keys(propiedad.characteristics.reduce((groups, caracteristica) => {
+                                const { grupo, ...rest } = caracteristica;
+                                if (!groups[grupo]) groups[grupo] = [];
+                                groups[grupo].push(rest);
+                                return groups;
+                            }, {})).map((grupo, grupoIndex) => (
+                                <div key={grupoIndex} className="grupo-caracteristicas ">
+                                    <h3 className="font-bold ">{grupo}</h3>
+                                    <ul>
+                                        {propiedad.characteristics.reduce((acc, caracteristica) => {
+                                            if (caracteristica.grupo === grupo) {
+                                                acc.push(caracteristica);
+                                            }
+                                            return acc;
+                                        }, []).map((caracteristica, index) => (
+                                            <li key={index} className="caracteristica flex items-center">
+                                                <Icon icon={caracteristica.icon} className="h-[25px] w-[25px] mr-[10px]" />
+                                                <label className="font-bold">{caracteristica.name}</label>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="modal-action">
+                            <button className="btn" onClick={closeModal}>Cerrar</button>
+                        </div>
+                    </div>
+                </Modal>
 
 
 

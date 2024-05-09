@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE_URL2 } from '../../astro.config';
 
 const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, location}) => {
     const [propertyData, setPropertyData] = useState(null);
@@ -126,6 +127,7 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, 
         );
     }
 
+
     return (
         <div>
             {propiedadesFiltradas && propiedadesFiltradas.length > 0 ? (
@@ -134,7 +136,7 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, 
                     <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
                         {propiedadesFiltradas.map((property, index) => (
                             <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={`prop_${property.id || index}_Premium`}>
-                                <a href={property.propertyId}>
+                                <a href={`${API_BASE_URL2}/user_prop?id=${property.propertyId}`}>
                                     {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
                                     <h2 className="lugar">{property.address}</h2>
                                     <h2 className="descripcion">{property.ownerName}</h2>
@@ -142,12 +144,12 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, 
                             </div>
                         ))}
                     </div>
-
+    
                     <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h2>
                     <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
                         {propiedadesFiltradas.map((property, index) => (
                             <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={`prop_${property.id || index}_NoPremium`}>
-                                <a href={property.propertyId}>
+                                <a href={`${API_BASE_URL2}/user_prop?id=${property.propertyId}`}>
                                     {property.foto && <img src="public/casa1.jpg" alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
                                     <h2 className="lugar">{property.address}</h2>
                                     <h2 className="descripcion">{property.ownerName}</h2>
@@ -164,6 +166,7 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, 
             )}
         </div>
     );
+    
 };
 
 export default Prop;
