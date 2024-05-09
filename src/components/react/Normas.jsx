@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Modal } from '@mui/material';
 import './Styles/Normas.css';
 
 const NormasComponent = () => {
@@ -6,8 +7,11 @@ const NormasComponent = () => {
     const [modalAbierto, setModalAbierto] = useState(false);
 
     const abrirModal = () => {
-        const modal = document.getElementById('my_modal_5');
-        modal.showModal();
+        setModalAbierto(true);
+    };
+
+    const cerrarModal = () => {
+        setModalAbierto(false);
     };
 
     const agregarNorma = () => {
@@ -58,15 +62,23 @@ const NormasComponent = () => {
                 <h2 className="font-bold text-lg mt-5">Políticas de intercambio de casa</h2>
                 <p className="politica">Ofrecemos una política de cancelación completa del anfitrión en Housinger. Cancela tu intercambio sin penalización por cualquier imprevisto. Para saber más información, haz clic en el botón "Mostrar más" para conocer nuestras políticas de intercambio.</p>
                 <button className="boton-modal" onClick={abrirModal}>Mostrar más</button>
-                <dialog id="my_modal_5" className="modal">
+                <Modal
+    open={modalAbierto}
+    onClose={cerrarModal}
+    sx={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    }}
+>
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">Políticas de intercambio de casa</h3>
                         <p className="py-4">En Housinger, entendemos que los planes pueden cambiar en cualquier momento debido a circunstancias imprevistas. Es por eso que ofrecemos una política de cancelación completa del anfitrión. Ya sea que surja un compromiso repentino, un cambio en tus planes de viaje o cualquier otro imprevisto, puedes cancelar tu intercambio sin penalización alguna. Nuestra prioridad es brindarte flexibilidad y tranquilidad durante tu experiencia de intercambio en Housinger. Queremos que te sientas seguro al reservar con nosotros, sabiendo que estamos aquí para respaldarte en caso de que necesites realizar cambios en tu reserva.</p>
                         <div className="modal-action">
-                            <button className="btn" onClick={() => document.getElementById('my_modal_5').close()}>Cerrar</button>
+                            <button className="btn" onClick={cerrarModal}>Cerrar</button>
                         </div>
                     </div>
-                </dialog>
+                </Modal>
             </div>
         </div>
     );

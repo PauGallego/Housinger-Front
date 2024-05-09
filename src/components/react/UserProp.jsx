@@ -6,12 +6,14 @@ import Ubicacion from './Ubicacion.jsx';
 import Normas from './Normas.jsx';
 import { API_BASE_URL } from '../../astro.config.js';
 import { Icon } from '@iconify/react';
+import { Modal } from '@mui/material';
 
 const MyComponent = () => {
     const [id, setId] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [propiedad, setPropiedad] = useState(null);
     const [imagenCentral, setImagenCentral] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -50,6 +52,13 @@ const MyComponent = () => {
         setImagenCentral(url);
     };
 
+    const openModal = () => {
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+};
     if (isLoading) {
         return <p>Cargando...</p>;
     }
@@ -171,7 +180,51 @@ const MyComponent = () => {
                        
                     ))}
                      </div>
-                    <button className="mt-10 boton-modal lg:w-40" onClick="">Mostrar más</button>
+                     {/* Botón para abrir el modal */}
+                    <button className="mt-10 boton-modal lg:w-40" onClick={openModal}>Mostrar más</button>
+                    <Modal open={showModal} onClose={closeModal} sx={{
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}}>
+    <div className="modal-box">
+        <h2>Características</h2>
+        <div className="modal-content-container flex flex-wrap"> {/* Contenedor flex */}
+            {/* Iterar sobre las claves del objeto (grupos) */}
+            {Object.keys(propiedad.characteristics.reduce((groups, caracteristica) => {
+                const { grupo, ...rest } = caracteristica;
+                if (!groups[grupo]) groups[grupo] = [];
+                groups[grupo].push(rest);
+                return groups;
+            }, {})).map((grupo, grupoIndex) => (
+                <div key={grupoIndex} className="grupo-caracteristicas ">
+  
+                    <h3 className="font-bold ">{grupo}</h3>
+                    {/* Sublista de características */}
+                    <ul>
+                        {propiedad.characteristics.reduce((acc, caracteristica) => {
+                            if (caracteristica.grupo === grupo) {
+                                acc.push(caracteristica);
+                            }
+                            return acc;
+                        }, []).map((caracteristica, index) => (
+                            <li key={index} className="caracteristica flex items-center">
+                                <Icon icon={caracteristica.icon} className="h-[25px] w-[25px] mr-[10px]" />
+                                <label className="font-bold">{caracteristica.name}</label>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ))}
+        </div>
+        <div className="modal-action">
+            <button className="btn" onClick={closeModal}>Cerrar</button>
+        </div>
+    </div>
+</Modal>
+
+
+
                 </div>
 
                         {/* BARRA VERTICAL */}
