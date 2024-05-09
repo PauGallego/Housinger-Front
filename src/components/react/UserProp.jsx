@@ -14,40 +14,42 @@ const MyComponent = () => {
     const [propiedad, setPropiedad] = useState(null);
 
     useEffect(() => {
-        const params = new URLSearchParams(window.location.search);
-        const idParam = params.get('id');
-
-
-        if (idParam) {
-            setid(idParam);
-            const getPropiedad = async () => {
-                try {
+        const fetchData = async () => {
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const idParam = params.get('id');
+    
+                if (idParam) {
+                    setid(idParam);
                     const response = await fetch(`${API_BASE_URL}/v1/property/get/${idParam}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch');
                     }
                     const data = await response.json();
                     setIsLoading(false);
-
+    
                     if (data) {
                         setPropiedad(data);
                         console.log('data:', data);
-                    }else{
+                    } else {
                         console.log('No se encontraron datos');
                     }
-
-                } catch (error) {
-                    console.error(error);
+                } else {
+                    console.log('No se encontró el parámetro "id"');
                 }
-            };
-            getPropiedad();
-      
-
-        } else {
-            
-            console.log('id:', id);
-        }
+    
+            } catch (error) {
+                console.error(error);
+            }
+        };
+    
+        fetchData();
     }, []);
+    
+
+
+
+
 
     if (isLoading) {
         return <p>Cargando...</p>;
@@ -60,7 +62,8 @@ const MyComponent = () => {
                 {/* Dirección */}
                 <div className="flex mt-5 lg:mt-10 gap-2 lg:ml-[245px] contendor-direcion">
                     <i className="icon-[ion--location-sharp] icon-blue h-7 w-7"></i>
-                    <input className="w-[350px] boton-direcion rounded-[5px] md:w-[350px] lg:w-[550px] font-bold" type="text" placeholder={propiedad.address}  readOnly/>
+                    <p className='font-bold "'>{propiedad.address} </p>
+              
                 </div>
                 {/* Imagenes */}
                 <div className="flex gap-5 justify-center items-center">
@@ -88,7 +91,7 @@ const MyComponent = () => {
                 </div>
                 {/* DESCRIPCION */}
                 <div className="lg:ml-[240px] mt-10 contendor-descripcion">
-                    <textarea className="p-2 descripcion w-full lg:w-[79%] h-30" placeholder="Características"></textarea>
+                    <p>{propiedad.description}</p>
                 </div>
 
                 {/* PROPIETARIO */}
@@ -98,10 +101,10 @@ const MyComponent = () => {
                             <div className="flex items-center gap-5">
                                 <div>
                                     <h2 className="font-bold">Propietario</h2>
-                                    <p>Maria Perez Mari</p>
+                                    <p>{propiedad.name} {propiedad.surname}</p>
                                 </div>
                                 <div>
-                                    <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src="../../public/perfil.jpg" alt="" />
+                                    <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src={`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.picture}`} alt="" />
                                 </div>
                             </div>
                         </div>
@@ -114,7 +117,7 @@ const MyComponent = () => {
                         </div>
                     </div>
                     <div className="mt-[50px] lg:flex lg:items-center md:flex md:items-center gap-2">
-                        <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">Guardar</button>
+                        <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">¡Reservar!</button>
                         <br /><br />
                         <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">Chat</button>
                     </div>
