@@ -10,6 +10,13 @@
     --star: #ffd910;
     --menu: #a5d7e8;
 }
+.chat-room {
+    width: 1500px;
+}
+
+body {
+    overflow: hidden;
+}
 
 .sent-message {
     display: flex;
@@ -18,16 +25,27 @@
     background-color: white;
     border-radius: 10px;
     padding: 10px;
-    width: 200px;
-    margin-left: 78%;
+    width: 300px;
+    margin-left: 73%;
 }
 
 .sent-message .flex-container {
     justify-content: flex-start; 
 }
 
+.ajustar-texto {
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+
+.chat-input {
+    margin-bottom: 10px;
+}
+
 .input-enviar {
     padding: 10px;
+    margin-top: 20px;
 }
 .received-message {
     display: flex;
@@ -62,9 +80,10 @@
 }
 
 .conversation-buttons {
-    height: calc(100vh - 20px);
+    /* height: calc(100vh - 20px); */
     overflow-y: auto;
     background-color: var(--secondary);
+    width: 200px
 }
 
 .boton-enviar {
@@ -83,12 +102,18 @@
     color: white;
 }
 
+.boton-persona:hover {
+    background-color: #1e3f6e;
+}
+
 
 .chat-messages {
-    flex: 1;
+    height: 700px;
     overflow-y: scroll;
-    height: calc(100vh - 20px);
-    scroll-behavior: smooth; /* Desplazamiento suave */
+    margin-bottom: 30px;
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary) var(--secondary);
 }
 
 .received-message {
@@ -118,4 +143,16 @@
 /* Ocultar la barra de desplazamiento del chat */
 .chat-messages::-webkit-scrollbar {
     width: 0;
+}
+
+
+@media screen and (width: 1440px){
+    .chat-room {
+        margin-left: 0px;
+        width: 1000px;
+    }
+
+    .input-enviar {
+        width: 85%;
+    }
 }
