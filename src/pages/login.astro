@@ -144,8 +144,10 @@ import '../global.css';
                             <h3 class="font-bold text-lg">Cambiar contraseña</h3>
                             <br>
                             <input type="text" class="datos-insertar" id="mailrecuperar" placeholder="Correo electronico" />
-                            <br><br><br>
+                            <br><br>
                             <button  id="btncambiar" class="bg-[#576cbc] text-[20px] h-10 w-20 text-white rounded-md">Cambiar</button>
+                            <br> <br>
+                            <span id="mensaje-enviado"></span>
                             <div class="modal-action">
                                 <form method="dialog">
                                     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
@@ -161,6 +163,28 @@ import '../global.css';
                 </div>
             </div>
         </div>
+        <dialog id="my_modal_4" class="modal">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Error al inicar session</h3>
+                <p class="py-4">Usario o contraseña no son correctas</p>
+                <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">Close</button>
+                </form>
+                </div>
+            </div>
+        </dialog>
+        <dialog id="my_modal_5" class="modal">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Error en el correo</h3>
+                <p class="py-4">El correo no exite o esta en uso</p>
+                <div class="modal-action">
+                <form method="dialog">
+                    <button class="btn">Close</button>
+                </form>
+                </div>
+            </div>
+        </dialog>
     </div>
 
     <script>
@@ -187,34 +211,34 @@ import '../global.css';
                 );
 
                 if (response.ok) {
-                     
                         response.json().then(data => {
-                 
                             localStorage.setItem("userData", JSON.stringify(data));
-
-          
 
                             let authorization = response.headers.get("authorization");
 
-                   
                             localStorage.setItem("authorization", authorization);
 
                             localStorage.setItem("userData", JSON.stringify(data));
 
                             window.location.href = `${API_BASE_URL2}`;
-
-                          
-
-                   
                         }).catch(error => {
                             console.error('Error al leer el cuerpo de la respuesta como JSON:', error);
                         });
                     } else {
-                        alert("¡Error en el inicio de sesión!");
+                        let my_modal_4 = document.getElementById('my_modal_4');
+                        if (my_modal_4 && typeof my_modal_4.showModal === 'function') {
+                            my_modal_4.showModal();
+                        } 
+                        return;
                     }
             } catch (error) {
                 console.error("Error:", error);
-                alert("¡Error en el inicio de sesión!");
+                // alert("¡Error en el inicio de sesión!");
+                let my_modal_4 = document.getElementById('my_modal_4');
+                if (my_modal_4 && typeof my_modal_4.showModal === 'function') {
+                    my_modal_4.showModal();
+                } 
+                return;
             }
         }
 
@@ -230,9 +254,6 @@ import '../global.css';
 
         document.getElementById("btncambiar").addEventListener("click", async function() {
             let mailrecuperar = document.getElementById("mailrecuperar");
-    
-
-           
 
             let url = `${API_BASE_URL}/v1/recover/user/${ mailrecuperar.value}`;
 
@@ -244,7 +265,8 @@ import '../global.css';
                 );
 
                 if (response.ok) {
-                    alert("Si el correo existia, se ha enviado un mensaje de recuperacion");
+                    let mensaje = document.getElementById("mensaje-enviado");
+                    mensaje.innerHTML = "Correo enviado con exito si existe";
                 } else {
                     alert("¡Error en el envio del correo!");
                 }

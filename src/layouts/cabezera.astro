@@ -93,32 +93,36 @@ const { title, fondo } = Astro.props;
                         </div>
                     </div>
                 </dialog>
+                <dialog id="my_modal_4" class="modal">
+                    <div class="modal-box">
+                        <h3 class="font-bold text-lg">Sesion no inciada</h3>
+                        <p class="py-4">Inicia session con una cuenta de Housinger</p>
+                        <div class="modal-action">
+                        <form method="dialog">
+                            <button class="btn">Close</button>
+                        </form>
+                        </div>
+                    </div>
+                </dialog>
             </div>
         </header>
         <main>
             <slot />
         </main>
+
     </body>
 </html>
 <script>
-
     import { API_BASE_URL } from "../astro.config.js";
     import { API_BASE_URL2 } from "../astro.config.js";
-
-
 
     let url = API_BASE_URL;
     let url2 = API_BASE_URL2;
     document.addEventListener("DOMContentLoaded", function() {
-    
         let chat = document.getElementById("chat");
-
     chat.addEventListener('click', () => {
         window.location.href = `${url2}/chat`; 
     });
-
-
-
 
     if(localStorage.getItem('userData') != null){
         let userData = JSON.parse(localStorage.getItem('userData'));
@@ -135,9 +139,13 @@ const { title, fondo } = Astro.props;
     let token = localStorage.getItem('authorization');
 
     premiumbtn.addEventListener('click', () => {
+        // CAMBIAR ALERT POR MODAL
         if(localStorage.getItem('userData') == null){
-            alert('Debes iniciar sesión para contratar premium');
-            return;
+        let my_modal_4 = document.getElementById('my_modal_4');
+        if (my_modal_4 && typeof my_modal_4.showModal === 'function') {
+            my_modal_4.showModal();
+        } 
+        return;
         }
 
         let data = JSON.parse(localStorage.getItem('userData'));
@@ -167,7 +175,6 @@ const { title, fondo } = Astro.props;
     });
 
     let contratar = document.getElementById('contratar');
-   
 
     contratar.addEventListener('click', () => {
     let data = JSON.parse(localStorage.getItem('userData'));
@@ -201,12 +208,7 @@ const { title, fondo } = Astro.props;
         alert('Ocurrió un error al contratar premium');
     });
 });
-
-
-
 });
-
-
 </script>
 
 
