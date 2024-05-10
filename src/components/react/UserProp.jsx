@@ -4,6 +4,7 @@ import Calendar from './Calendario.jsx';
 import Resena from './Resena.jsx';
 import Ubicacion from './Ubicacion.jsx';
 import Normas from './Normas.jsx';
+import Camas from './Camas.jsx'
 import { API_BASE_URL } from '../../astro.config.js';
 import { API_BASE_URL2 } from '../../astro.config.js';
 
@@ -253,33 +254,7 @@ const MyComponent = () => {
                 </div>
                 {/* CAMAS */}
                 <div className="lg:flex lg:gap-[200px] contneder-cama-premiun">
-                    <div className="contendor-camas mt-10 lg:ml-[230px]">
-                        <h2 className="font-bold text-lg texto-que-hay">¿Dónde dormimos?</h2>
-                        <div className="flex gap-5">
-                            <div className="mt-5 flex gap-2">
-                                <i className="icon-[material-symbols--bed-outline] h-[30px] w-[30px]"></i>
-                                <label className="mt-2">1 cama doble</label>
-                            </div>
-                            <div className="mt-5 flex gap-2">
-                                <i className="icon-[material-symbols--bed-outline] h-[30px] w-[30px]"></i>
-                                <label className="mt-2">1 cama doble</label>
-                            </div>
-                        </div>
-                        <div className="flex gap-5">
-                            <div className="mt-5 flex gap-2">
-                                <i className="icon-[material-symbols--bed-outline] h-[30px] w-[30px]"></i>
-                                <label className="mt-2">1 cama doble</label>
-                            </div>
-                            <div className="mt-5 flex gap-2">
-                                <i className="icon-[material-symbols--bed-outline] h-[30px] w-[30px]"></i>
-                                <label className="mt-2">1 cama doble</label>
-                            </div>
-                        </div>
-                        <div className='hidden'>
-                            <button className="boton-anadir-cama mt-5 w-7 h-7">+</button>
-                            <label>Añadir cama</label>
-                        </div>
-                    </div>
+                    <Camas id={propiedad.id}></Camas>
                     {/* PREMIUM */}
                     {propiedad.premium ? (
                     <div className="mt-10 lg:mt-[100px]">
