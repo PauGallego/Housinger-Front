@@ -93,7 +93,7 @@ const { title, fondo } = Astro.props;
                         </div>
                     </div>
                 </dialog>
-                <dialog id="my_modal_4" class="modal">
+                <dialog id="modal_aleatorio" class="modal">
                     <div class="modal-box">
                         <h3 class="font-bold text-lg">Sesion no inciada</h3>
                         <p class="py-4">Inicia session con una cuenta de Housinger</p>
@@ -141,9 +141,9 @@ const { title, fondo } = Astro.props;
     premiumbtn.addEventListener('click', () => {
         // CAMBIAR ALERT POR MODAL
         if(localStorage.getItem('userData') == null){
-        let my_modal_4 = document.getElementById('my_modal_4');
-        if (my_modal_4 && typeof my_modal_4.showModal === 'function') {
-            my_modal_4.showModal();
+        let modal_aleatorio = document.getElementById('modal_aleatorio');
+        if (modal_aleatorio && typeof modal_aleatorio.showModal === 'function') {
+            modal_aleatorio.showModal();
         } 
         return;
         }

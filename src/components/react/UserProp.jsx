@@ -93,6 +93,7 @@ const MyComponent = () => {
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`} 
                                 alt={`imagen-propiedad-${index}`} 
                                 onClick={() => handleImageClick(foto)} 
+                                onMouseOver={() => handleImageClick(foto)} 
                             />
                         ))}
                     </div>
@@ -114,6 +115,7 @@ const MyComponent = () => {
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`} 
                                 alt={`imagen-propiedad-${index + 3}`} 
                                 onClick={() => handleImageClick(foto)} 
+                                onMouseOver={() => handleImageClick(foto)} 
                             />
                         ))}
                     </div>
@@ -128,7 +130,8 @@ const MyComponent = () => {
                             className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[195px] md:h-[160px] lg:h-[130px]" 
                             src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`} 
                             alt={`imagen-propiedad-${index + 6}`} 
-                            onClick={() => handleImageClick(foto)} 
+                            onClick={() => handleImageClick(foto)}
+                            onMouseOver={() => handleImageClick(foto)} 
                         />
                     ))}
                 </div>
@@ -148,7 +151,7 @@ const MyComponent = () => {
                                     <p>{propiedad.name} {propiedad.surname}</p>
                                 </div>
                                 <div>
-                                    <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src={`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.picture}`} alt="" />
+                                    <img className="imagen-optima  w-[80px] rounded-[50%]" src={`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.picture}`} alt="" />
                                 </div>
                             </div>
                         </div>
