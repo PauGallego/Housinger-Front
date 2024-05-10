@@ -73,6 +73,13 @@ const MyComponent = () => {
         window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
     }
     
+    const inputs = document.querySelectorAll('.mask');
+
+    inputs.forEach(input => {
+        input.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevenimos el evento click
+        });
+    });
 
     return (
         <div>
@@ -274,7 +281,7 @@ const MyComponent = () => {
 
                 </div>
                 {/* RESEÑAS */}
-                <Resena />
+                <Resena id={propiedad.id} />
                 {/* UBICACION */}
                 <Ubicacion location={propiedad.address} />
                 {/* NORMAS, SEGURIDAD Y POLITICA */}

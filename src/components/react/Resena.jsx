@@ -1,57 +1,108 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Styles/Resena.css';
+import { API_BASE_URL } from '../../astro.config';
 
-const ResenaComponent = () => {
+const ResenaComponent = ({ id }) => {
+    const [reviews, setReviews] = useState([]);
+    const [showAll, setShowAll] = useState(false); // Estado para controlar si se muestran todas las reseñas o solo 4
+
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/v1/propertyReviews/get/${id}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setReviews(data.reviews);
+                } else {
+                    throw new Error('Failed to fetch reviews');
+                }
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+            }
+        };
+
+        fetchReviews();
+    }, [id]);
+
+    // Función para manejar el clic en el botón "Mostrar más"
+    const handleShowMore = () => {
+        setShowAll(!showAll); // Cambia el estado para mostrar todas las reseñas o solo 4
+    };
+
     return (
         <div>
-            <div className="lg:flex gap-5 mt-10 lg:ml-[210px] lg:gap-[160px] ajustar-resena">
-                <div>
-                    <div className="flex gap-5">
+            <div className="lg:flex gap-5 mt-10 lg:ml-[210px] lg:gap-[100px] ajustar-resena flex-wrap items-center">
+                {/* Mostrar solo las primeras 4 reseñas si showAll es falso */}
+                {showAll ? reviews.map(review => (
+                    <div key={review.id}>
                         <div>
-                            <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src="../../public/perfil2.jpg" alt="" />
-                        </div>
-                        <div className="mt-5">
-                            <label>Adrian 05/02/2024</label>
-                            <br />
-                            <div className="rating">
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500"  />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
+                            <div>
+                                <div className="flex gap-5">
+                                    <div>
+                                        <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src={`${API_BASE_URL}/v1/fileCustomer/download/${review.picture}`} alt="" />
+                                    </div>
+                                    <div className="mt-5">
+                                        <label>{`${review.name} ${review.surname} ${new Date(review.date).toLocaleDateString()}`}</label>
+                                        <br />
+                                        <div className="rating">
+                                            {[...Array(5)].map((_, index) => (
+                                                <input
+                                                    key={index}
+                                                    type="radio"
+                                                    name={`rating-${review.id}`}
+                                                    className="mask mask-star-2 bg-yellow-500"
+                                                    checked={index < Math.round(review.stars)}
+                                                    readOnly
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-5">
+                                    <p className="h-[100px] w-[300px]" readOnly>{review.description}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="mt-5">
-                        <textarea className="h-[100px] w-[300px] " placeholder='Buena ubicacion para disfrutar con la familia y propietaria muy maja y amable. El intermacambio fue rapido y sencillo.'></textarea>
-                    </div>
-                </div>
-                <div>
-                    <div className="flex gap-5">
+                )) : reviews.slice(0, 4).map(review => (
+                    <div key={review.id}>
                         <div>
-                            <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src="../../public/perfil2.jpg" alt="" />
-                        </div>
-                        <div className="mt-5">
-                            <label>Adrian 05/02/2024</label>
-                            <br />
-                            <div className="rating">
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500"  />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
-                                <input type="radio" name="rating-4" className="mask mask-star-2 bg-yellow-500" />
+                            <div>
+                                <div className="flex gap-5">
+                                    <div>
+                                        <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src={`${API_BASE_URL}/v1/fileCustomer/download/${review.picture}`} alt="" />
+                                    </div>
+                                    <div className="mt-5">
+                                        <label>{`${review.name} ${review.surname} ${new Date(review.date).toLocaleDateString()}`}</label>
+                                        <br />
+                                        <div className="rating">
+                                            {[...Array(5)].map((_, index) => (
+                                                <input
+                                                    key={index}
+                                                    type="radio"
+                                                    name={`rating-${review.id}`}
+                                                    className="mask mask-star-2 bg-yellow-500"
+                                                    checked={index < Math.round(review.stars)}
+                                                    readOnly
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="mt-5">
+                                    <p className="h-[100px] w-[300px]" readOnly>{review.description}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="mt-5">
-                        <textarea className="h-[100px] w-[300px] " placeholder='Buena ubicacion para disfrutar con la familia y propietaria muy maja y amable. El intermacambio fue rapido y sencillo.'></textarea>
-                    </div>
+                ))}
+            </div>
+            {/* Mostrar botón "Mostrar más" solo si hay más de 4 reseñas */}
+            {reviews.length > 4 && (
+                <div className="lg:ml-[210px] ajustar">
+                    <button className="boton-modal lg:w-40" onClick={handleShowMore}>{showAll ? "Mostrar menos" : "Mostrar más"}</button>
                 </div>
-                
-            </div>
-            <div className="lg:ml-[210px] ajustar">
-                <button className="boton-modal lg:w-40">Mostrar más</button>
-            </div>
+            )}
         </div>
     );
 };

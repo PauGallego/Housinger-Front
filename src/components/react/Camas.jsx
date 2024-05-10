@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
+import { API_BASE_URL } from '../../astro.config';
 
 const CamasComponent = ({ id }) => {
     const [camas, setCamas] = useState([]);
@@ -7,7 +8,7 @@ const CamasComponent = ({ id }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:8081/v1/bed/getByProperty/${id}`);
+                const response = await fetch(`${ API_BASE_URL }/v1/bed/getByProperty/${id}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }

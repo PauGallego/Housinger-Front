@@ -93,8 +93,7 @@ const MapaLeafletComponent = ({ location }) => {
             <h2 className="ajustar font-bold text-lg mt-10 lg:ml-[200px]">Ubicación de la vivienda</h2>
             {location ? (
                 <>
-                    <input type="text" id="inputDireccion" className="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]" placeholder={location} readOnly />
-                    
+                    <p className='ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]'>{location}</p>
                     <br />
                 </>
             ) : (
@@ -108,6 +107,7 @@ const MapaLeafletComponent = ({ location }) => {
             <div id="map" className="ajustar lg:w-[900px] lg:ml-[200px] mt-5"></div>
         </div>
     );
+    
 };
 
 export default MapaLeafletComponent;
