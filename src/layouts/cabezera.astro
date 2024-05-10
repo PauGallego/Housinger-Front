@@ -104,6 +104,17 @@ const { title, fondo } = Astro.props;
                         </div>
                     </div>
                 </dialog>
+                <dialog id="modal_ya_premium" class="modal">
+                    <div class="modal-box">
+                        <h3 class="font-bold text-lg">¡Ya eres usuario premium!</h3>
+                        <p class="py-4">¡Gracias por confiar en nosotros!</p>
+                        <div class="modal-action">
+                        <form method="dialog">
+                            <button class="btn">Close</button>
+                        </form>
+                        </div>
+                    </div>
+                </dialog>
             </div>
         </header>
         <main>
@@ -121,7 +132,18 @@ const { title, fondo } = Astro.props;
     document.addEventListener("DOMContentLoaded", function() {
         let chat = document.getElementById("chat");
     chat.addEventListener('click', () => {
+        
+        if(localStorage.getItem('userData') == null){
+        let modal_aleatorio = document.getElementById('modal_aleatorio');
+        if (modal_aleatorio && typeof modal_aleatorio.showModal === 'function') {
+            modal_aleatorio.showModal();
+        } 
+        return;
+        }
+
         window.location.href = `${url2}/chat`; 
+
+
     });
 
     if(localStorage.getItem('userData') != null){
@@ -164,7 +186,19 @@ const { title, fondo } = Astro.props;
             }
         }).then(body => {
             if(body.trim() === 'ok'){
-                alert('Ya tienes premium');
+                
+                let modal_ya_premium = document.getElementById('modal_ya_premium');
+
+                if (modal_ya_premium && typeof modal_ya_premium.showModal === 'function') {
+                    modal_ya_premium.showModal();
+                }else{
+                    return;
+        
+                }
+      
+       
+
+
             } else {
                 my_modal_1.showModal();
             }
@@ -195,8 +229,16 @@ const { title, fondo } = Astro.props;
         }
     }).then(body => {
         if(body.trim() === 'Usuario añadido a premium correctamente!'){
-            alert('Premium contratado');
-            my_modal_1.close();
+            
+            let modal_ya_premium = document.getElementById('modal_ya_premium');
+
+if (modal_ya_premium && typeof modal_ya_premium.showModal === 'function') {
+    modal_ya_premium.showModal();
+    my_modal_1.close();
+}else{
+    return;
+
+}
         } else if(body.trim() === 'El usuario ya es premium.'){
             alert('El usuario ya es premium');
             my_modal_1.close();
