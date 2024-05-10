@@ -1,0 +1,66 @@
+.calendar {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.month {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: green;
+}
+
+.dropdown {
+    margin-bottom: 10px;
+}
+
+.dropdown select {
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #efefef;
+    border: none;
+    height: 50px;
+    font-weight: bold;
+    width: 200px;
+}
+
+
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+
+.day {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.placeholder {
+    visibility: hidden;
+}
+
+.contendor-calendario {
+    width: 100%;
+}
+
+@media screen and (width: 768px) {
+    .contendor-calendario {
+        width: 75%;
+    }
+}
+
+@media screen and (width: 768px) {
+    .dropdown select {
+        width: 200px;
+    }
+}
+
+@media screen and (width: 1440px) {
+    .dropdown select {
+        width: 170px;
+    }
+}
