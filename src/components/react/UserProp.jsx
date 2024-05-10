@@ -285,8 +285,8 @@ const MyComponent = () => {
                 {/* UBICACION */}
                 <Ubicacion location={propiedad.address} />
                 {/* NORMAS, SEGURIDAD Y POLITICA */}
-                <Normas />
-                <div className="mb-[100px]"></div>
+                <Normas normas={propiedad.normas} userId={propiedad.userId} seguridad={propiedad.seguridadHogar}/>
+                <div className="pb-[200px]"></div>
             </main>
         </div>
     );
