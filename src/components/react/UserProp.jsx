@@ -77,7 +77,7 @@ const MyComponent = () => {
 
     inputs.forEach(input => {
         input.addEventListener('click', (event) => {
-            event.preventDefault(); // Prevenimos el evento click
+            event.preventDefault(); 
         });
     });
 
@@ -164,22 +164,22 @@ const MyComponent = () => {
                             </div>
                         </div>
                         <div className="rating flex items-center justify-center ">
-                        <p  className='mr-[10px] text-xl'>{propiedad.stars}</p>
-                        {[...Array(5)].map((_, index) => (
-                            <input
-                                key={index}
-                                type="radio"
-                                name="rating-4"
-                                className="mask mask-star-2 bg-yellow-500"
-                                checked={index < Math.round(propiedad.stars + (propiedad.stars % 1 >= 0.5 ? 0.5 : 0))}
-                                readOnly
-                            />
-                        ))}
-                    </div>
+                        
 
-
-
-
+                        <div className="rating">
+                            <p className='mr-[10px] text-xl'>{propiedad.stars.toFixed(1)}</p>
+                                {[...Array(5)].map((_, index) => (
+                                    <input
+                                        key={index}
+                                        type="radio"
+                                        name={`rating-${propiedad.star}`}
+                                        className="mask mask-star-2 bg-yellow-500"
+                                        checked={index < Math.round(propiedad.stars)}
+                                        readOnly
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
                     <div className="mt-[50px] lg:flex lg:items-center md:flex md:items-center gap-2">
                         <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">¡Reservar!</button>
