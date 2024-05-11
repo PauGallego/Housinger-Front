@@ -4,7 +4,7 @@ import { API_BASE_URL } from '../../astro.config';
 
 const ResenaComponent = ({ id }) => {
     const [reviews, setReviews] = useState([]);
-    const [showAll, setShowAll] = useState(false); // Estado para controlar si se muestran todas las reseñas o solo 4
+    const [showAll, setShowAll] = useState(false);
 
     useEffect(() => {
         const fetchReviews = async () => {
@@ -24,20 +24,19 @@ const ResenaComponent = ({ id }) => {
         fetchReviews();
     }, [id]);
 
-    // Función para manejar el clic en el botón "Mostrar más"
     const handleShowMore = () => {
-        setShowAll(!showAll); // Cambia el estado para mostrar todas las reseñas o solo 4
+        setShowAll(!showAll); 
     };
 
     return (
         <div>
-            <div className="lg:flex gap-5 mt-10 lg:ml-[210px] lg:gap-[100px] ajustar-resena flex-wrap items-center">
-                {/* Mostrar solo las primeras 4 reseñas si showAll es falso */}
+            <div className="lg:flex  mt-10 lg:ml-[210px] lg:gap-[120px] ajustar-resena flex-wrap items-center ">
+                
                 {showAll ? reviews.map(review => (
                     <div key={review.id}>
                         <div>
                             <div>
-                                <div className="flex gap-5">
+                                <div className="flex  gap-5">
                                     <div>
                                         <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src={`${API_BASE_URL}/v1/fileCustomer/download/${review.picture}`} alt="" />
                                     </div>

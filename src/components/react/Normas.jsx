@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from '@mui/material';
 import './Styles/Normas.css';
-
-const NormasComponent = ({ normas: propsNormas, userId , seguridad }) => {
+const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSeguridad }) => {
     const [normasState, setNormasState] = useState(propsNormas || []);
     const [modalAbierto, setModalAbierto] = useState(false);
-    let userData = JSON.parse(localStorage.getItem('userData'));
-    const userId2 = userData.userId;
+    const [seguridad, setSeguridad] = useState(propsSeguridad || []);
+
     useEffect(() => {
         setNormasState(propsNormas || []);
-    }, [propsNormas]);
+        setSeguridad(propsSeguridad || []);
+    }, [propsNormas, propsSeguridad]);
+
+    let userData = JSON.parse(localStorage.getItem('userData'));
+    const userId2 = userData.userId;
 
     const abrirModal = () => {
         setModalAbierto(true);
@@ -28,10 +31,13 @@ const NormasComponent = ({ normas: propsNormas, userId , seguridad }) => {
         }
     };
 
-    const borrarNorma = (index) => {
-        const nuevasNormas = [...normasState];
-        nuevasNormas.splice(index, 1);
-        setNormasState(nuevasNormas);
+    const toggleSeguridad = (item) => {
+        if (userId === userId2) {
+            const updatedSeguridad = seguridad.includes(item)
+                ? seguridad.filter((seg) => seg !== item)
+                : [...seguridad, item];
+            setSeguridad(updatedSeguridad);
+        }
     };
 
     return (
