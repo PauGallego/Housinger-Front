@@ -9,7 +9,7 @@ import { API_BASE_URL } from '../../astro.config.js';
 import { API_BASE_URL2 } from '../../astro.config.js';
 
 import { Icon } from '@iconify/react';
-import { Modal, Button } from '@mui/material'; // Importar el componente Modal y Button de Material-UI
+import { Modal, Button } from '@mui/material'; 
 
 const MyComponent = () => {
     const [id, setId] = useState(null);
@@ -17,8 +17,40 @@ const MyComponent = () => {
     const [propiedad, setPropiedad] = useState(null);
     const [imagenCentral, setImagenCentral] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [showModal3, setShowModal3] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
-    const [puedeGuardar, setPuedeGuardar] = useState(false); // Nuevo estado para controlar la visualización del botón "Guardar"
+    const [puedeGuardar, setPuedeGuardar] = useState(false); 
+    const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
+    const [allCharacteristics, setAllCharacteristics] = useState([]);
+
+
+    const handleCharacteristicChange = (event, characteristic) => {
+        const isChecked = event.target.checked;
+        if (isChecked) {
+            setSelectedCharacteristics([...selectedCharacteristics, characteristic]);
+        } else {
+            setSelectedCharacteristics(selectedCharacteristics.filter((item) => item !== characteristic));
+        }
+    };
+    
+
+
+    useEffect(() => {
+        const fetchCharacteristics = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/v1/characteristic/get/all`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch characteristics');
+                }
+                const data = await response.json();
+                setAllCharacteristics(data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchCharacteristics();
+    }, []);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -74,6 +106,14 @@ const MyComponent = () => {
 
     const closeModal2 = () => {
         setShowModal2(false);
+    };
+
+    const openModal3 = () => {
+        setShowModal3(true);
+    };
+
+    const closeModal3 = () => {
+        setShowModal3(false);
     };
 
     const chatear = () => {
@@ -270,7 +310,14 @@ const MyComponent = () => {
                                 ))}
                             </div>
                             {/* Botón para abrir el modal */}
-                            <button className="mt-10 boton-modal lg:w-40" onClick={openModal}>Mostrar más</button>
+                                
+                            {!puedeGuardar && (
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={openModal}>Mostrar más</button>
+                            )}
+                             {puedeGuardar && (
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={openModal3}>Modificar</button>
+                            )}
+                            
                             <Modal open={showModal} onClose={closeModal} sx={{
                                 display: 'flex',
                                 alignItems: 'center',
@@ -308,6 +355,59 @@ const MyComponent = () => {
                                     </div>
                                 </div>
                             </Modal>
+                            <Modal open={showModal3} onClose={closeModal3} sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}>
+                                <div className="modal-box">
+                                    <h2>Seleccionar características</h2>
+                                    <div className="modal-content-container flex flex-wrap  w-[200px]">
+                                        {Object.entries(allCharacteristics.reduce((groups, caracteristica) => {
+                                            const { grupo, ...rest } = caracteristica;
+                                            if (!groups[grupo]) groups[grupo] = [];
+                                            groups[grupo].push(rest);
+                                            return groups;
+                                        }, {})).map(([grupo, caracteristicas], grupoIndex) => (
+                                            <div key={grupoIndex} className="grupo-caracteristicas mt-[20px] ">
+                                                <h3 className="font-bold ">{grupo}</h3>
+                                                <ul>
+                                                    {caracteristicas.map((caracteristica, index) => {
+                                                        const isChecked = propiedad.characteristics.some(item => item.id === caracteristica.id);
+                                                        return (
+                                                            <li key={index} className="caracteristica flex items-center">
+                                                                <Icon icon={caracteristica.icon} className="h-[25px] w-[25px] mr-[10px]" />
+                                                                <input
+                                                                    type="checkbox"
+                                                                    id={`caracteristica-${caracteristica.id}`}
+                                                                    defaultChecked={isChecked}
+                                                                    onChange={(event) => handleCharacteristicChange(event, caracteristica)}
+                                                                />
+                                                                <label htmlFor={`caracteristica-${caracteristica.id}`} className="ml-2">{caracteristica.name}</label>
+                                                            </li>
+                                                        );
+                                                    })}
+                                                </ul>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="flex justify-end">
+                                    <div className="modal-action mr-[20px]">
+                                    <button className="btn" onClick={closeModal3}>Modificar</button>
+                                    </div>
+                                    <div className="modal-action">
+                                    
+                                        <button className="btn" onClick={closeModal3}>Cerrar</button>
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+                            </Modal>
+
+
+
+
                         </div>
 
                         {/* BARRA VERTICAL */}

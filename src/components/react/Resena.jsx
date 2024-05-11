@@ -99,7 +99,7 @@ const ResenaComponent = ({ id }) => {
             {/* Mostrar botón "Mostrar más" solo si hay más de 4 reseñas */}
             {reviews.length > 4 && (
                 <div className="lg:ml-[210px] ajustar">
-                    <button className="boton-modal lg:w-40" onClick={handleShowMore}>{showAll ? "Mostrar menos" : "Mostrar más"}</button>
+                    <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={handleShowMore}>{showAll ? "Mostrar menos" : "Mostrar más"}</button>
                 </div>
             )}
         </div>

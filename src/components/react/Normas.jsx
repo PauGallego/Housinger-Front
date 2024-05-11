@@ -81,7 +81,7 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
             <div>
                 <h2 className="font-bold text-lg mt-5">Políticas de intercambio de casa</h2>
                 <p className="politica">Ofrecemos una política de cancelación completa del anfitrión en Housinger. Cancela tu intercambio sin penalización por cualquier imprevisto. Para saber más información, haz clic en el botón "Mostrar más" para conocer nuestras políticas de intercambio.</p>
-                <button className="boton-modal" onClick={abrirModal}>Mostrar más</button>
+                <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={abrirModal}>Mostrar más</button>
                 <Modal
                     open={modalAbierto}
                     onClose={cerrarModal}
