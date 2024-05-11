@@ -404,10 +404,6 @@ const MyComponent = () => {
                                     
                                 </div>
                             </Modal>
-
-
-
-
                         </div>
 
                         {/* BARRA VERTICAL */}
@@ -419,7 +415,7 @@ const MyComponent = () => {
                 </div>
                 {/* CAMAS */}
                 <div className="lg:flex lg:gap-[200px] contneder-cama-premiun">
-                    <Camas id={propiedad.id}></Camas>
+                    <Camas id={propiedad.id} guardar={puedeGuardar} ></Camas>
                     {/* PREMIUM */}
                     {propiedad.premium ? (
                         <div className="mt-10 lg:mt-[100px]">
@@ -436,7 +432,6 @@ const MyComponent = () => {
                             <p className="text-center font-bold	premiun-texto">NO PREMIUM VERIFICADO</p>
                         </div>
                     )}
-
                 </div>
                 {/* RESEÑAS */}
                 <Resena id={propiedad.id} />

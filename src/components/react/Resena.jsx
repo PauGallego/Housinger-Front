@@ -30,7 +30,7 @@ const ResenaComponent = ({ id }) => {
 
     return (
         <div>
-            <div className="lg:flex  mt-10 lg:ml-[210px] lg:gap-[120px] ajustar-resena flex-wrap items-center ">
+            <div className="lg:flex  mt-10 lg:ml-[210px] lg:gap-[20%] ajustar-resena flex-wrap items-center ">
                 
                 {showAll ? reviews.map(review => (
                     <div key={review.id}>
