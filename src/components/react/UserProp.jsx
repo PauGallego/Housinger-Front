@@ -11,12 +11,14 @@ import { API_BASE_URL2 } from '../../astro.config.js';
 import { Icon } from '@iconify/react';
 import { Modal } from '@mui/material';
 
+
 const MyComponent = () => {
     const [id, setId] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [propiedad, setPropiedad] = useState(null);
     const [imagenCentral, setImagenCentral] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [puedeGuardar, setPuedeGuardar] = useState(false); // Nuevo estado para controlar la visualización del botón "Guardar"
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,6 +38,9 @@ const MyComponent = () => {
                     if (data) {
                         setPropiedad(data);
                         console.log('data:', data);
+                        // Verificar si el userId almacenado en localStorage coincide con el userId de la propiedad
+                        const userIdLocalStorage = JSON.parse(localStorage.getItem('userData')).userId;
+                        setPuedeGuardar(userIdLocalStorage === data.userId);
                     } else {
                         console.log('No se encontraron datos');
                     }
@@ -61,26 +66,19 @@ const MyComponent = () => {
 
     const closeModal = () => {
         setShowModal(false);
-};
+    };
+    
+    const chatear = () => {
+        window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
+    }
+    
     if (isLoading) {
         return <p>Cargando...</p>;
     }
 
     const defaultImage = "casa1.jpg";
     const fotosCompletas = propiedad.fotos.concat(Array.from({ length: 8 - propiedad.fotos.length }, (_, index) => defaultImage));
-
-    const chatear = () => {
-        window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
-    }
     
-    const inputs = document.querySelectorAll('.mask');
-
-    inputs.forEach(input => {
-        input.addEventListener('click', (event) => {
-            event.preventDefault(); 
-        });
-    });
-
     return (
         <div>
             <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
@@ -146,7 +144,15 @@ const MyComponent = () => {
 
                 {/* DESCRIPCION */}
                 <div className="lg:ml-[240px] mt-10 contendor-descripcion">
-                    <p>{propiedad.description}</p>
+                    
+                    {puedeGuardar && (
+                            <textarea  className='w-[80%]' defaultValue={propiedad.description}></textarea>
+                        )}
+                         {!puedeGuardar && (
+                           <p>{propiedad.description}</p>
+                        )}
+
+                        
                 </div>
 
                 {/* PROPIETARIO */}
@@ -164,25 +170,29 @@ const MyComponent = () => {
                             </div>
                         </div>
                         <div className="rating flex items-center justify-center ">
-                        
-
-                        <div className="rating">
-                            <p className='mr-[10px] text-xl'>{propiedad.stars.toFixed(1)}</p>
-                                {[...Array(5)].map((_, index) => (
-                                    <input
-                                        key={index}
-                                        type="radio"
-                                        name={`rating-${propiedad.star}`}
-                                        className="mask mask-star-2 bg-yellow-500"
-                                        checked={index < Math.round(propiedad.stars)}
-                                        readOnly
-                                    />
-                                ))}
+                            <div className="rating">
+                                <p className='mr-[10px] text-xl'>{propiedad.stars.toFixed(1)}</p>
+                                    {[...Array(5)].map((_, index) => (
+                                        <input
+                                            key={index}
+                                            type="radio"
+                                            name={`rating-${propiedad.star}`}
+                                            className="mask mask-star-2 bg-yellow-500"
+                                            checked={index < Math.round(propiedad.stars)}
+                                            readOnly
+                                        />
+                                    ))}
                             </div>
                         </div>
                     </div>
                     <div className="mt-[50px] lg:flex lg:items-center md:flex md:items-center gap-2">
-                        <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">¡Reservar!</button>
+                        
+                        {puedeGuardar && (
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">Guardar</button>
+                        )}
+                         {!puedeGuardar && (
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">Reservar</button>
+                        )}
                         <br /><br />
                         <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]"   onClick={() => chatear()}  >Chat</button>
                     </div>
