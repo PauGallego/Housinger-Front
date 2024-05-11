@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import './Styles/Ubicacion.css';
 
-const MapaLeafletComponent = ({ location }) => {
+const MapaLeafletComponent = ({ location, userId }) => {
     const [mensajeError, setMensajeError] = useState('');
     const [map, setMap] = useState(null);
     const [marker, setMarker] = useState(null);
@@ -88,26 +88,26 @@ const MapaLeafletComponent = ({ location }) => {
             });
     }
 
+    const puedeModificarDireccion = userId == JSON.parse(localStorage.getItem('userData')).userId;
+
+
+
     return (
         <div>
             <h2 className="ajustar font-bold text-lg mt-10 lg:ml-[200px]">Ubicación de la vivienda</h2>
-            {location ? (
-                <>
-                    <p className='ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]'>{location}</p>
-                    <br />
-                </>
-            ) : (
+            {puedeModificarDireccion ? (
                 <>
                     <input type="text" id="inputDireccion" className="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]" placeholder="Dirección" />
                     <button id="btnBuscar" className="mt-5" onClick={buscarEnMapa}>Buscar en Mapa</button>
                     <br />
                 </>
+            ) : (
+                <p className='ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]'>{location}</p>
             )}
             <span id="mensaje" className="error-mensaje lg:ml-[200px]">{mensajeError}</span>
             <div id="map" className="ajustar lg:w-[900px] lg:ml-[200px] mt-5"></div>
         </div>
     );
-    
 };
 
 export default MapaLeafletComponent;

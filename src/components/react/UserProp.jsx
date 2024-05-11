@@ -283,7 +283,7 @@ const MyComponent = () => {
                 {/* RESEÑAS */}
                 <Resena id={propiedad.id} />
                 {/* UBICACION */}
-                <Ubicacion location={propiedad.address} />
+                <Ubicacion location={propiedad.address} userId={propiedad.userId} />
                 {/* NORMAS, SEGURIDAD Y POLITICA */}
                 <Normas normas={propiedad.normas} userId={propiedad.userId} seguridad={propiedad.seguridadHogar}/>
                 <div className="pb-[200px]"></div>
