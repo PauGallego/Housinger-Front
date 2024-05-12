@@ -21,11 +21,11 @@ const CamasComponent = ({ id, guardar }) => {
                 const data = await response.json();
                 setCamas(data);
 
-                console.log(data);
+      
 
                 const newDataFormat = data.map(cama => [cama.bedTypeId, cama.number]);
                 
-                console.log(newDataFormat);
+             
                 setCamasModificadas(newDataFormat);
 
             } catch (error) {

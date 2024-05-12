@@ -10,6 +10,7 @@ import { API_BASE_URL2 } from '../../astro.config.js';
 
 import { Icon } from '@iconify/react';
 import { Modal, Button } from '@mui/material'; 
+import { set } from 'date-fns';
 
 const MyComponent = () => {
     const [id, setId] = useState(null);
@@ -20,19 +21,8 @@ const MyComponent = () => {
     const [showModal3, setShowModal3] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     const [puedeGuardar, setPuedeGuardar] = useState(false); 
-    const [selectedCharacteristics, setSelectedCharacteristics] = useState([]);
     const [allCharacteristics, setAllCharacteristics] = useState([]);
-
-
-    const handleCharacteristicChange = (event, characteristic) => {
-        const isChecked = event.target.checked;
-        if (isChecked) {
-            setSelectedCharacteristics([...selectedCharacteristics, characteristic]);
-        } else {
-            setSelectedCharacteristics(selectedCharacteristics.filter((item) => item !== characteristic));
-        }
-    };
-    
+    const [modifiedCharacteristics, setModifiedCharacteristics] = useState([]);
 
 
     useEffect(() => {
@@ -187,6 +177,97 @@ const MyComponent = () => {
     const defaultImage = "casa1.jpg";
     const fotosCompletas = propiedad.fotos.concat(Array.from({ length: 8 - propiedad.fotos.length }, (_, index) => defaultImage));
 
+
+
+    const handleCharacteristicChange = (event, caracteristica) => {
+        const { id, name, icon } = caracteristica;
+        const isChecked = event.target.checked;
+    
+        if (isChecked) {
+
+            setModifiedCharacteristics(prevState => [...prevState, { id, name, icon, grupo: caracteristica.grupo }]);
+        } else {
+          
+            setModifiedCharacteristics(prevState =>
+                prevState.filter(item => item.id !== id)
+            );
+        }
+    };
+    
+
+    const saveChanges = () => {
+
+        propiedad.characteristics = modifiedCharacteristics;
+
+        setPropiedad(propiedad);
+        
+        closeModal3();
+    };
+
+
+    const updateProperty = () => {
+        console.log("Aaaa");
+        propiedad.address = localStorage.getItem("ubi");
+        propiedad.description = document.getElementById("descripcione").value;
+    
+        // Manejo de seguridadHogar
+        let seguridadHogar = JSON.parse(localStorage.getItem("seguridad"));
+        propiedad.seguridadHogar = seguridadHogar && seguridadHogar.length ? seguridadHogar : null;
+    
+        // Manejo de normas
+        let normas = JSON.parse(localStorage.getItem("normas"));
+        propiedad.normas = normas && normas.length ? normas : null;
+    
+        let propiedadJSON = {
+            address: propiedad.address,
+            calendar: propiedad.calendar,
+            characteristics: propiedad.characteristics,
+            description: propiedad.description,
+            extraInfo: "string",
+            fotos: propiedad.fotos,
+            id: propiedad.id,
+            normas: propiedad.normas,
+            userId: propiedad.userId,
+            seguridadHogar: propiedad.seguridadHogar
+        };
+    
+        let token = localStorage.getItem('authorization');
+        console.log(JSON.stringify(propiedadJSON));
+    
+        fetch(`${API_BASE_URL}/v1/property/save`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Authentication ' + token,
+            },
+            body: JSON.stringify(propiedadJSON)
+        })
+        .then(response => {
+            if (!response.ok) {
+                console.log(response);
+                if (response.status === 500) {
+                    alert("direccion duplicada");
+                    throw new Error('La dirección ya está siendo utilizada.');
+                } else {
+                    alert("Error interno");
+                    throw new Error('Error al actualizar la propiedad');
+                }
+            }
+            console.log('Propiedad actualizada correctamente');
+            location.reload(true);
+            return response.json();
+            
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
+    
+
+  
+
+
+
     return (
         <div>
             <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
@@ -330,10 +411,11 @@ const MyComponent = () => {
 
 
                 {/* DESCRIPCION */}
-                <div className="lg:ml-[240px] mt-10 contendor-descripcion">
+                <div className="lg:ml-[240px] mt-10 contendor-descripcion" >
 
                     {puedeGuardar && (
-                        <textarea className='w-[80%]' defaultValue={propiedad.description}></textarea>
+                        <textarea  id='descripcione' className='w-[80%] h-[200px] resize-none' defaultValue={propiedad.description}></textarea>
+
                     )}
                     {!puedeGuardar && (
                         <p>{propiedad.description}</p>
@@ -375,8 +457,9 @@ const MyComponent = () => {
                     <div className="mt-[50px] lg:flex lg:items-center md:flex md:items-center gap-2">
 
                         {puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">Guardar</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]" onClick={updateProperty}>Guardar</button>
                         )}
+
                         {!puedeGuardar && (
                             <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">Reservar</button>
                         )}
@@ -450,54 +533,53 @@ const MyComponent = () => {
                                 </div>
                             </Modal>
                             <Modal open={showModal3} onClose={closeModal3} sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}>
-                                <div className="modal-box">
-                                    <h2>Seleccionar características</h2>
-                                    <div className="modal-content-container flex flex-wrap  w-[200px]">
-                                        {Object.entries(allCharacteristics.reduce((groups, caracteristica) => {
-                                            const { grupo, ...rest } = caracteristica;
-                                            if (!groups[grupo]) groups[grupo] = [];
-                                            groups[grupo].push(rest);
-                                            return groups;
-                                        }, {})).map(([grupo, caracteristicas], grupoIndex) => (
-                                            <div key={grupoIndex} className="grupo-caracteristicas mt-[20px] ">
-                                                <h3 className="font-bold ">{grupo}</h3>
-                                                <ul>
-                                                    {caracteristicas.map((caracteristica, index) => {
-                                                        const isChecked = propiedad.characteristics.some(item => item.id === caracteristica.id);
-                                                        return (
-                                                            <li key={index} className="caracteristica flex items-center">
-                                                                <Icon icon={caracteristica.icon} className="h-[25px] w-[25px] mr-[10px]" />
-                                                                <input
-                                                                    type="checkbox"
-                                                                    id={`caracteristica-${caracteristica.id}`}
-                                                                    defaultChecked={isChecked}
-                                                                    onChange={(event) => handleCharacteristicChange(event, caracteristica)}
-                                                                />
-                                                                <label htmlFor={`caracteristica-${caracteristica.id}`} className="ml-2">{caracteristica.name}</label>
-                                                            </li>
-                                                        );
-                                                    })}
-                                                </ul>
-                                            </div>
-                                        ))}
-                                    </div>
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }}>
+            <div className="modal-box">
+                <h2>Seleccionar características</h2>
+                <div className="modal-content-container flex flex-wrap w-[200px]">
+                    {Object.entries(allCharacteristics.reduce((groups, caracteristica) => {
+                        const { grupo, ...rest } = caracteristica;
+                        if (!groups[grupo]) groups[grupo] = [];
+                        groups[grupo].push(rest);
+                        return groups;
+                    }, {})).map(([grupo, caracteristicas], grupoIndex) => (
+                        <div key={grupoIndex} className="grupo-caracteristicas mt-[20px] ">
+                            <h3 className="font-bold ">{grupo}</h3>
+                            <ul>
+                                {caracteristicas.map((caracteristica, index) => {
+                                    const isChecked = propiedad.characteristics.some(item => item.id === caracteristica.id);
+                                    return (
+                                        <li key={index} className="caracteristica flex items-center">
+                                            <Icon icon={caracteristica.icon} className="h-[25px] w-[25px] mr-[10px]" />
+                                            <input
+                                                type="checkbox"
+                                                id={`caracteristica-${caracteristica.id}`}
+                                                defaultChecked={isChecked}
+                                                onChange={(event) => handleCharacteristicChange(event, caracteristica)}
+                                            />
+                                            <label htmlFor={`caracteristica-${caracteristica.id}`} className="ml-2">{caracteristica.name}</label>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
 
-                                    <div className="flex justify-end">
-                                    <div className="modal-action mr-[20px]">
-                                    <button className="btn" onClick={closeModal3}>Modificar</button>
-                                    </div>
-                                    <div className="modal-action">
-                                    
-                                        <button className="btn" onClick={closeModal3}>Cerrar</button>
-                                    </div>
-                                    </div>
-                                    
-                                </div>
-                            </Modal>
+                <div className="flex justify-end">
+                    <div className="modal-action mr-[20px]">
+                        <button className="btn" onClick={saveChanges}>Modificar</button>
+                    </div>
+                    <div className="modal-action">
+                        <button className="btn" onClick={closeModal3}>Cerrar</button>
+                    </div>
+                </div>
+
+            </div>
+        </Modal>
                         </div>
 
                         {/* BARRA VERTICAL */}
