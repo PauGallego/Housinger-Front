@@ -5,8 +5,6 @@ import { API_BASE_URL } from '../../astro.config.js';
 import { parse } from 'date-fns';
 import './Styles/ChatRoom.css';
 
-
-
 var stompClient = null;
 
 const ChatRoom = ({ senderId, receiverId }) => {
@@ -101,8 +99,6 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 );
             }));
 
-
-
             buttons = buttons.filter((button, index) => {
                 return buttons.findIndex(btn => btn.key === button.key) === index;
             });
@@ -113,8 +109,6 @@ const ChatRoom = ({ senderId, receiverId }) => {
             console.error('Error loading chat history:', error);
         }
     };
-
-
 
     const loadChatHistory = async (senderId, receiverId) => {
         try {
@@ -193,9 +187,6 @@ const ChatRoom = ({ senderId, receiverId }) => {
         }
     };
 
-
-
-
     const onError = (err) => {
         console.log(err);
     };
@@ -228,13 +219,11 @@ const ChatRoom = ({ senderId, receiverId }) => {
 
             setPrivateChats(prevPrivateChats => [...prevPrivateChats, chatMessage]);
 
-
             if (privateChats.length === 0) {
                 fetchData();
             }
         }
     };
-
 
     const handleReceiverChange = (receiverId) => {
         setUserData(prevUserData => ({
@@ -256,7 +245,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
         <div className="chat-room bg-[#576cbc] lg:ml-[200px]">
             {userData.connected ? (
 
-                <div className="chat-container flex  gap-5 ">
+                <div className="chat-container flex-col md:flex-col lg:flex-row gap-5 ">
 
                     <div className="conversation-buttons  flex flex-col ">
                         {receiverButtons}
