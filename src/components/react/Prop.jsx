@@ -142,7 +142,7 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, 
                 {propiedadesFiltradas.filter(property => property.premium === true).map((property, index) => (
                     <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={`prop_${property.id || index}_Premium`}>
                         <a href={`${API_BASE_URL2}/user_prop?id=${property.propertyId}`}>
-                            {property.foto && <img   src={`${API_BASE_URL}/v1/fileCustomer/download/${property.foto}`}  alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
+                            {property.foto && <img   src={`${API_BASE_URL}/v1/fileCustomer/download/${property.foto}`}  alt="Property" className="w-[90%] h-[250px] rounded-[20px] lg:w-[100%]" />}
                             <h2 className="lugar">{property.address}</h2>
                             <h2 className="descripcion">{property.ownerName}</h2>
                         </a>
@@ -155,7 +155,7 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas , startDate, endDate, 
                 {propiedadesFiltradas.map((property, index) => (
                     <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={`prop_${property.id || index}_NoPremium`}>
                         <a href={`${API_BASE_URL2}/user_prop?id=${property.propertyId}`}>
-                            {property.foto && <img   src={`${API_BASE_URL}/v1/fileCustomer/download/${property.foto}`}  alt="Property" className="w-[90%] h-[auto] rounded-[20px] lg:w-[100%]" />}
+                            {property.foto && <img   src={`${API_BASE_URL}/v1/fileCustomer/download/${property.foto}`}  alt="Property" className="w-[90%] h-[250px] rounded-[20px] lg:w-[100%]" />}
                             <h2 className="lugar">{property.address}</h2>
                             <h2 className="descripcion">{property.ownerName}</h2>
                         </a>

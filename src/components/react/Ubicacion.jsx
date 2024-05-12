@@ -10,6 +10,11 @@ const MapaLeafletComponent = ({ location, userId }) => {
 
     useEffect(() => {
         inicializarMapa();
+
+        if (userId === JSON.parse(localStorage.getItem('userData')).userId && location) {
+            localStorage.setItem('ubi', location);
+        }
+
     }, []);
 
     const buscarEnMapa = () => {
@@ -102,7 +107,7 @@ const MapaLeafletComponent = ({ location, userId }) => {
             {puedeModificarDireccion ? (
                 <>
                     <input type="text" id="inputDireccion" className="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]" placeholder="Dirección" />
-                    <button id="btnBuscar" className="mt-5" onClick={buscarEnMapa}>Buscar en Mapa</button>
+                    <button id="btnBuscar" className="mt-5" onClick={buscarEnMapa}>Buscar y Modificar</button>
                     <br />
                 </>
             ) : (

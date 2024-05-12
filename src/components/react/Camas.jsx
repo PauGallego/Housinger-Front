@@ -8,7 +8,8 @@ const CamasComponent = ({ id, guardar }) => {
     const [tiposCama, setTiposCama] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedBed, setSelectedBed] = useState(null);
-    const [numberOfBeds, setNumberOfBeds] = useState('');
+    const [numberOfBeds, setNumberOfBeds] = useState({});
+    const [camasModificadas, setCamasModificadas] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,6 +20,14 @@ const CamasComponent = ({ id, guardar }) => {
                 }
                 const data = await response.json();
                 setCamas(data);
+
+                console.log(data);
+
+                const newDataFormat = data.map(cama => [cama.bedTypeId, cama.number]);
+                
+                console.log(newDataFormat);
+                setCamasModificadas(newDataFormat);
+
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -32,8 +41,6 @@ const CamasComponent = ({ id, guardar }) => {
                 }
                 const data = await response.json();
                 setTiposCama(data);
-
-                console.log(data)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -41,7 +48,13 @@ const CamasComponent = ({ id, guardar }) => {
 
         fetchData();
         fetchData2();
+
+ 
     }, [id]);
+
+    useEffect(() => {
+        localStorage.setItem('camasModificadas', JSON.stringify(camasModificadas));
+    }, [camasModificadas]);
 
     const openModal = () => {
         setShowModal(true);
@@ -56,16 +69,28 @@ const CamasComponent = ({ id, guardar }) => {
     };
 
     const handleSave = () => {
-        console.log('Cama seleccionada:', selectedBed);
-        console.log('Número de camas:', numberOfBeds);
+        console.log('Camas seleccionadas:', numberOfBeds);
+        const nuevasCamas = tiposCama.map(tipoCama => {
+            const cantidad = numberOfBeds[tipoCama.name] || 0;
+            const camaExistente = camas.find(cama => cama.type === tipoCama.name);
+            const icon = camaExistente ? camaExistente.icon : tipoCama.icon;
+            return { type: tipoCama.name, number: cantidad, icon: icon, id: tipoCama.id };
+        }).filter(cama => cama.number > 0);
+
+        const camasIdNum = nuevasCamas.map(cama => [cama.id, cama.number]);
+        setCamasModificadas(camasIdNum);
+
         closeModal();
+        // Actualizar la lista de camas después de guardar
+        const updatedCamas = nuevasCamas.filter(cama => cama.number > 0);
+        setCamas(updatedCamas);
     };
 
     return (
-        <div className="contendor-camas mt-10 lg:ml-[230px]  ">
+        <div className="contendor-camas mt-10 lg:ml-[230px]">
             <h2 className="font-bold text-lg texto-que-hay">¿Dónde dormimos?</h2>
             {camas.map(cama => (
-                <div key={cama.id} className="flex items-center justify-center gap-5">
+                <div key={cama.type} className="flex items-center justify-center gap-5">
                     <div className="mt-5 flex items-center justify-center gap-2">
                         <Icon icon={cama.icon} className="h-[25px] w-[25px] mr-[10px]" />
                         <label className="mt-2">{`${cama.number} ${cama.type}`}</label>
@@ -85,20 +110,22 @@ const CamasComponent = ({ id, guardar }) => {
                     <div className="modal-content-container">
                         <div className="bed-list">
                             {tiposCama.map(tipoCama => {
-                                const camaExistente = camas.find(cama => cama.type === tipoCama.name);
-                                const cantidad = camaExistente ? camaExistente.number : 0;
+                                const cantidad = camas.find(cama => cama.type === tipoCama.name)?.number || 0;
                                 return (
-                                    <div key={tipoCama.id} className={`bed ${selectedBed && selectedBed.type === tipoCama.name ? 'selected' : ''}`} onClick={() => handleBedSelection(tipoCama)}>
+                                    <div key={tipoCama.id} className={`bed ${selectedBed && selectedBed.type === tipoCama.name ? 'selected' : ''}`}>
                                         <Icon icon={tipoCama.icon} className="h-[25px] w-[25px] mr-[10px]" />
                                         <span>{` ${tipoCama.name}`}</span>
                                         <input
                                             type="number"
-                                            value={numberOfBeds}
+                                            value={numberOfBeds[tipoCama.name] || ''}
                                             onChange={(e) => {
                                                 const newValue = parseInt(e.target.value);
-                                                setNumberOfBeds(isNaN(newValue) ? '' : newValue);
+                                                setNumberOfBeds(prevState => ({
+                                                    ...prevState,
+                                                    [tipoCama.name]: isNaN(newValue) ? '' : newValue
+                                                }));
                                             }}
-                                            placeholder={cantidad === 0 ? '0' : cantidad.toString()}
+                              
                                         />
                                     </div>
                                 );
@@ -111,9 +138,6 @@ const CamasComponent = ({ id, guardar }) => {
                     </div>
                 </div>
             </Modal>
-
-
-
         </div>
     );
 };
