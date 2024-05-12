@@ -116,6 +116,80 @@ const MyComponent = () => {
         setShowModal3(false);
     };
 
+    let arrayFotosSubidas = ["","","","","","","",""];
+
+    const handleFileUpload = (e, index) => {
+        const file = e.target.files[0];
+        if (file) {
+            arrayFotosSubidas[index] = file;
+        } else {
+            arrayFotosSubidas[index] = ""; 
+        }
+    }
+
+    const guardarImagenes = async () => {
+        const formData = new FormData();
+
+    
+
+        for (let i = 0; i < arrayFotosSubidas.length; i++) {
+     
+            if (!arrayFotosSubidas[i] && propiedad.fotos[i]) {
+              
+                const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.fotos[i]}`);
+                const blob = await response.blob();
+                formData.append('files', blob, propiedad.fotos[i]);
+            }
+        }
+
+        arrayFotosSubidas.forEach(async (file, index) => {
+            if (file) {
+                formData.append('files', file);
+            } else {
+                // Si el elemento en arrayFotosSubidas es una cadena vacía, agregar la imagen predeterminada "casa1.jpg" al FormData
+                const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`);
+                const defaultImageBlob = await response.blob();
+                formData.append('files', defaultImageBlob, 'casa1.jpg');
+            }
+        });
+        
+        
+    
+        try {
+            const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/uploadProperty/${propiedad.id}`, {
+                method: 'POST',
+                body: formData
+            });
+    
+            if (!response.ok) {
+                throw new Error('Failed to upload images');
+            }
+    
+        
+
+            const data = await response.json();
+
+               
+            propiedad.fotos = data;
+
+            setPropiedad(propiedad);
+            setImagenCentral(propiedad.fotos[0]);
+    
+            closeModal2();
+        } catch (error) {
+            // Manejar errores de red u otros errores
+            console.error('Error uploading images:', error);
+        }
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+
     const chatear = () => {
         window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
     }
@@ -195,7 +269,7 @@ const MyComponent = () => {
 
                 {puedeGuardar && (
                     <div className="flex w-[100%] items-center justify-center mt-[50px]">
-                        <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]" onClick={openModal2}>Subir imágenes nuevas</button>
+                        <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]" onClick={openModal2}>Modificar Imagenes</button>
                     </div>
                 )}
 
@@ -222,7 +296,7 @@ const MyComponent = () => {
                         </div>
                         <div className="flex justify-end">
                         <div className="modal-action mr-[20px]">
-                        <button className="btn" onClick={closeModal2}>Subir Imagenes</button>
+                        <button className="btn" onClick={guardarImagenes}>Guardar</button>
                         </div>
                         <div className="modal-action">
                            
