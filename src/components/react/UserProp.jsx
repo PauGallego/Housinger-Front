@@ -129,31 +129,26 @@ const MyComponent = () => {
 
     const guardarImagenes = async () => {
         const formData = new FormData();
-
     
-
+        // Iterar sobre cada elemento en arrayFotosSubidas utilizando un bucle for tradicional
         for (let i = 0; i < arrayFotosSubidas.length; i++) {
-     
-            if (!arrayFotosSubidas[i] && propiedad.fotos[i]) {
-              
+            const file = arrayFotosSubidas[i];
+            
+            if (file) {
+                // Si hay una nueva imagen seleccionada, agregarla al FormData
+                formData.append('files', file);
+            } else if (propiedad.fotos[i]) {
+                // Si no hay una nueva imagen seleccionada pero ya hay una imagen existente en esa posición, mantenerla
                 const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.fotos[i]}`);
                 const blob = await response.blob();
                 formData.append('files', blob, propiedad.fotos[i]);
-            }
-        }
-
-        arrayFotosSubidas.forEach(async (file, index) => {
-            if (file) {
-                formData.append('files', file);
             } else {
-                // Si el elemento en arrayFotosSubidas es una cadena vacía, agregar la imagen predeterminada "casa1.jpg" al FormData
+                // Si no hay una nueva imagen seleccionada ni una imagen existente en esa posición, agregar la imagen predeterminada "casa1.jpg" al FormData
                 const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`);
                 const defaultImageBlob = await response.blob();
                 formData.append('files', defaultImageBlob, 'casa1.jpg');
             }
-        });
-        
-        
+        }
     
         try {
             const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/uploadProperty/${propiedad.id}`, {
@@ -165,13 +160,10 @@ const MyComponent = () => {
                 throw new Error('Failed to upload images');
             }
     
-        
-
             const data = await response.json();
-
-               
+    
             propiedad.fotos = data;
-
+    
             setPropiedad(propiedad);
             setImagenCentral(propiedad.fotos[0]);
     
@@ -184,12 +176,6 @@ const MyComponent = () => {
     
     
     
-    
-    
-    
-    
-    
-
     const chatear = () => {
         window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
     }
@@ -282,30 +268,64 @@ const MyComponent = () => {
                     <div className="modal-box">
                         <h2>Subir imágenes nuevas</h2>
                         <div className="modal-content-container flex flex-wrap">
-                            {[...Array(8)].map((_, index) => (
-                                <div key={index} className="file-input-container">
-                                    <label htmlFor={`file-input-${index}`} className="file-label">Foto {index + 1}</label>
-                                    <input
-                                        type="file"
-                                        id={`file-input-${index}`}
-                                        accept="image/*"
-                                        onChange={(e) => handleFileUpload(e, index)}
-                                    />
-                                </div>
-                            ))}
+                            {/* Fotos del lado izquierdo */}
+                            <div className="group-section">
+                                <p>Lado Izquierdo</p>
+                                {[...Array(2)].map((_, index) => (
+                                    <div key={index} className="file-input-container">
+                                        <label htmlFor={`file-input-${index}`} className="file-label">Foto {index + 1}</label>
+                                        <input
+                                            type="file"
+                                            id={`file-input-${index}`}
+                                            accept="image/*"
+                                            onChange={(e) => handleFileUpload(e, index)}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Fotos del lado derecho */}
+                            <div className="group-section">
+                                <p>Lado Derecho</p>
+                                {[...Array(2)].map((_, index) => (
+                                    <div key={index + 2} className="file-input-container">
+                                        <label htmlFor={`file-input-${index + 2}`} className="file-label">Foto {index + 3}</label>
+                                        <input
+                                            type="file"
+                                            id={`file-input-${index + 2}`}
+                                            accept="image/*"
+                                            onChange={(e) => handleFileUpload(e, index + 2)}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
+                            {/* Fotos en la parte inferior */}
+                            <div className="group-section">
+                                <p>Parte Inferior</p>
+                                {[...Array(4)].map((_, index) => (
+                                    <div key={index + 4} className="file-input-container">
+                                        <label htmlFor={`file-input-${index + 4}`} className="file-label">Foto {index + 5}</label>
+                                        <input
+                                            type="file"
+                                            id={`file-input-${index + 4}`}
+                                            accept="image/*"
+                                            onChange={(e) => handleFileUpload(e, index + 4)}
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                         <div className="flex justify-end">
-                        <div className="modal-action mr-[20px]">
-                        <button className="btn" onClick={guardarImagenes}>Guardar</button>
+                            <div className="modal-action mr-[20px]">
+                                <button className="btn" onClick={guardarImagenes}>Guardar</button>
+                            </div>
+                            <div className="modal-action">
+                                <button className="btn" onClick={closeModal2}>Cerrar</button>
+                            </div>
                         </div>
-                        <div className="modal-action">
-                           
-                            <button className="btn" onClick={closeModal2}>Cerrar</button>
-                        </div>
-                        </div>
-                       
                     </div>
                 </Modal>
+
+
 
 
 
