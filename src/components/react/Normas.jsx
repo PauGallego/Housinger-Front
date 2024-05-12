@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from '@mui/material';
 import './Styles/Normas.css';
+
 const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSeguridad }) => {
     const [normasState, setNormasState] = useState(propsNormas || []);
     const [modalAbierto, setModalAbierto] = useState(false);
@@ -14,6 +15,16 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
     let userData = JSON.parse(localStorage.getItem('userData'));
     const userId2 = userData.userId;
 
+    useEffect(() => {
+        // Guardar las normas en localStorage
+        localStorage.setItem('normas', JSON.stringify(normasState));
+    }, [normasState]);
+
+    useEffect(() => {
+        // Guardar la seguridad en localStorage
+        localStorage.setItem('seguridad', JSON.stringify(seguridad));
+    }, [seguridad]);
+
     const abrirModal = () => {
         setModalAbierto(true);
     };
@@ -22,6 +33,7 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
         setModalAbierto(false);
     };
 
+    // Función para agregar una nueva norma
     const agregarNorma = () => {
         const normaInput = document.getElementById('nuevaNormaInput');
         const nuevaNorma = normaInput.value.trim();
@@ -31,6 +43,14 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
         }
     };
 
+    // Función para eliminar una norma
+    const borrarNorma = (index) => {
+        const newNormas = [...normasState];
+        newNormas.splice(index, 1);
+        setNormasState(newNormas);
+    };
+
+    // Función para gestionar seguridad
     const toggleSeguridad = (item) => {
         if (userId === userId2) {
             const updatedSeguridad = seguridad.includes(item)
@@ -62,21 +82,18 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
                 )}
             </div>
 
-           <div>
+            <div>
                 <h2 className="font-bold text-lg mt-5">Seguridad en el hogar</h2>
                 <div id="seguridadContainer">
-                <input type="checkbox" id="alarma" checked={seguridad.includes('1')} onChange={() => { if (userId === userId2) { const updatedSeguridad = seguridad.includes('1') ? seguridad.filter(item => item !== '1') : [...seguridad, '1']; setSeguridad(updatedSeguridad); } }} /><label htmlFor="alarma">Alarma</label><br />
-                <input type="checkbox" id="camaras" checked={seguridad.includes('2')} onChange={() => { if (userId === userId2) { const updatedSeguridad = seguridad.includes('2') ? seguridad.filter(item => item !== '2') : [...seguridad, '2']; setSeguridad(updatedSeguridad); } }} /><label htmlFor="camaras">Cámaras de seguridad</label><br />
-                <input type="checkbox" id="cerco" checked={seguridad.includes('3')} onChange={() => { if (userId === userId2) { const updatedSeguridad = seguridad.includes('3') ? seguridad.filter(item => item !== '3') : [...seguridad, '3']; setSeguridad(updatedSeguridad); } }} /><label htmlFor="cerco">Cerco eléctrico</label><br />
-                <input type="checkbox" id="luces" checked={seguridad.includes('4')} onChange={() => { if (userId === userId2) { const updatedSeguridad = seguridad.includes('4') ? seguridad.filter(item => item !== '4') : [...seguridad, '4']; setSeguridad(updatedSeguridad); } }} /><label htmlFor="luces">Luces de movimiento</label><br />
-                <input type="checkbox" id="rejas" checked={seguridad.includes('5')} onChange={() => { if (userId === userId2) { const updatedSeguridad = seguridad.includes('5') ? seguridad.filter(item => item !== '5') : [...seguridad, '5']; setSeguridad(updatedSeguridad); } }} /><label htmlFor="rejas">Rejas en ventanas</label><br />
-                <input type="checkbox" id="sensores" checked={seguridad.includes('6')} onChange={() => { if (userId === userId2) { const updatedSeguridad = seguridad.includes('6') ? seguridad.filter(item => item !== '6') : [...seguridad, '6']; setSeguridad(updatedSeguridad); } }} /><label htmlFor="sensores">Sensores de movimiento</label><br />
-                <input type="checkbox" id="vigilancia" checked={seguridad.includes('7')} onChange={() => { if (userId === userId2) { const updatedSeguridad = seguridad.includes('7') ? seguridad.filter(item => item !== '7') : [...seguridad, '7']; setSeguridad(updatedSeguridad); } }} /><label htmlFor="vigilancia">Vigilancia 24/7</label><br />
-
-
+                    <input type="checkbox" id="alarma" checked={seguridad.includes('1')} onChange={() => toggleSeguridad('1')} /><label htmlFor="alarma">Alarma</label><br />
+                    <input type="checkbox" id="camaras" checked={seguridad.includes('2')} onChange={() => toggleSeguridad('2')} /><label htmlFor="camaras">Cámaras de seguridad</label><br />
+                    <input type="checkbox" id="cerco" checked={seguridad.includes('3')} onChange={() => toggleSeguridad('3')} /><label htmlFor="cerco">Cerco eléctrico</label><br />
+                    <input type="checkbox" id="luces" checked={seguridad.includes('4')} onChange={() => toggleSeguridad('4')} /><label htmlFor="luces">Luces de movimiento</label><br />
+                    <input type="checkbox" id="rejas" checked={seguridad.includes('5')} onChange={() => toggleSeguridad('5')} /><label htmlFor="rejas">Rejas en ventanas</label><br />
+                    <input type="checkbox" id="sensores" checked={seguridad.includes('6')} onChange={() => toggleSeguridad('6')} /><label htmlFor="sensores">Sensores de movimiento</label><br />
+                    <input type="checkbox" id="vigilancia" checked={seguridad.includes('7')} onChange={() => toggleSeguridad('7')} /><label htmlFor="vigilancia">Vigilancia 24/7</label><br />
                 </div>
             </div>
-
 
             <div>
                 <h2 className="font-bold text-lg mt-5">Políticas de intercambio de casa</h2>

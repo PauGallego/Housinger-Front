@@ -36,6 +36,10 @@ const MapaLeafletComponent = ({ location, userId }) => {
                     const newMarker = L.marker([latitud, longitud]).addTo(map);
                     newMarker.bindPopup("<b>Propiedad</b>").openPopup();
                     setMarker(newMarker);
+
+                    localStorage.setItem("ubi", direccion);
+
+
                 } else {
                     setMensajeError('La dirección no pudo ser encontrada. Por favor, inténtelo de nuevo.');
                 }
