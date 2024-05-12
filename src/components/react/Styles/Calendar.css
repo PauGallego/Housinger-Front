@@ -26,7 +26,14 @@
     width: 200px;
 }
 
+.selected-day {
+    background-color: green;
+    color: white; /* Para asegurar que el texto sea visible en el fondo verde */
+}
 
+.selected-day-number {
+    color: white;
+}
 
 .days {
     display: grid;
