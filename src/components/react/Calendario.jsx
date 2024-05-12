@@ -12,7 +12,7 @@ const Calendario = () => {
         // Resetear el calendario al cambiar el mes o el año
         setStartDate(null);
         setEndDate(null);
-        setSelectedDays([]);
+        // No restablecer selectedDays al cambiar el mes
     }, [month, year]);
 
     const renderCalendar = () => {
@@ -55,11 +55,12 @@ const Calendario = () => {
                         className={`day ${isPastDay ? 'past-day' : ''} ${isSelectedDay ? 'selected-day' : ''}`}
                         style={{
                             textDecoration: isPastDay ? 'line-through' : 'none',
-                            color: isPastDay ? 'red' : 'inherit'
+                            color: isPastDay ? 'red' : 'inherit',
+                            backgroundColor: isSelectedDay ? 'green' : 'transparent'
                         }}
                         onClick={() => handleDayClick(currentDay)}
                     >
-                        {dayCounter}
+                        <span className={isSelectedDay ? 'selected-day-number' : ''}>{dayCounter}</span>
                     </div>
                 );
                 dayCounter++;
@@ -72,22 +73,45 @@ const Calendario = () => {
         return days;
     };
     
-
     const handleDayClick = (clickedDay) => {
+        const isDaySelected = selectedDays.some(selectedDay =>
+            selectedDay.toDateString() === clickedDay.toDateString()
+        );
+
         if (!startDate || (startDate && endDate)) {
             setStartDate(clickedDay);
             setEndDate(null);
-            setSelectedDays([clickedDay]);
-        } else {
-            if (clickedDay > startDate) {
-                setEndDate(clickedDay);
-                setSelectedDays([...selectedDays, clickedDay]);
-            } else {
-                setEndDate(startDate);
-                setStartDate(clickedDay);
+            if (!isDaySelected) {
                 setSelectedDays([clickedDay]);
             }
+        } else {
+            if (clickedDay > startDate) {
+                const daysBetween = getDaysBetween(startDate, clickedDay);
+                setEndDate(clickedDay);
+                const updatedSelectedDays = isDaySelected
+                    ? selectedDays.filter(day => day.toDateString() !== clickedDay.toDateString())
+                    : [...selectedDays, ...daysBetween];
+                setSelectedDays(updatedSelectedDays);
+            } else {
+                const daysBetween = getDaysBetween(clickedDay, startDate);
+                setEndDate(startDate);
+                setStartDate(clickedDay);
+                const updatedSelectedDays = isDaySelected
+                    ? selectedDays.filter(day => day.toDateString() !== clickedDay.toDateString())
+                    : [...daysBetween];
+                setSelectedDays(updatedSelectedDays);
+            }
         }
+    };
+
+    const getDaysBetween = (start, end) => {
+        const days = [];
+        const currentDay = new Date(start);
+        while (currentDay < end) {
+            days.push(new Date(currentDay));
+            currentDay.setDate(currentDay.getDate() + 1);
+        }
+        return days;
     };
 
     const populateYearSelect = () => {

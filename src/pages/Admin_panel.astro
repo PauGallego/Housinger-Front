@@ -1,0 +1,57 @@
+---
+import Layout from "../layouts/cabezera.astro";
+import Char from "../components/react/Char.jsx";
+import { API_BASE_URL } from '../astro.config.js';
+---
+
+<Layout title="Panel Admin" fondo="blue">
+    <main>
+        <!-- BOTONES FILTROS -->
+        <h2 class="pl-5 text-xl font-bold pl-2 mt-10 md:pl-[100px] lg:pl-[200px]">Panel de adminstrador</h2>
+        <div class="pl-5 md:pl-[100px] lg:pl-[200px] flex items-center gap-5 mt-10">
+            <div class="contendor-filtros h-[100px] w-[100px] flex justify-center items-center rounded-[10px]">
+                <i class="icon-[ph--users-fill] h-[50px] w-[50px]"></i>
+            </div>
+            <div class="contendor-filtros h-[100px] w-[100px] flex justify-center items-center rounded-[10px]">
+                <i class="icon-[material-symbols--house] h-[50px] w-[50px]"></i>
+            </div>
+            <div class="contendor-filtros h-[100px] w-[100px] flex justify-center items-center rounded-[10px]">
+                <i class="icon-[mdi--star-box-multiple-outline] h-[50px] w-[50px]"></i>
+            </div>
+        </div>
+        <!-- PROPIEDADES -->
+        <h2 class="pl-5 text-xl font-bold pl-2 mt-10 md:pl-[100px] lg:pl-[200px]">Propiedades</h2>
+        <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} client:only="svelte" />
+        <!-- USUARIOS -->
+        <h2 class="pl-5 text-xl font-bold pl-2 mt-10 md:pl-[100px] lg:pl-[200px]">Usuarios</h2>
+        <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} client:only="svelte" />
+
+    </main>
+
+    <script>
+        document.getElementById('esconder-propiedad').style.display = 'none';
+
+        function mostrarPropiedades() {
+            document.getElementById('esconder-propiedad').style.display = 'block';
+        }
+
+        function esconderPropiedades() {
+            document.getElementById('esconder-propiedad').style.display = 'none';
+        }
+    </script>
+    <style>
+        .contendor-filtros {
+            border: 3px solid gray;
+        }
+
+        .contendor-filtros:hover {
+            background-color: #f1f1f1;
+        }
+
+        main,
+        html,
+        body {
+            background-color: white;
+        }
+    </style>
+</Layout>
