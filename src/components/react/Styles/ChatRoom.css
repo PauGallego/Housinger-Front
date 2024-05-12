@@ -10,27 +10,29 @@
     --star: #ffd910;
     --menu: #a5d7e8;
 }
-.chat-room {
-    width: 1500px;
+
+html, body {
+    /* background-color: var(--gris) !important; */
+    overflow: hidden;
 }
 
-body {
-    overflow: hidden;
+.chat-room {
+    width: 1500px;
 }
 
 .sent-message {
     display: flex;
     flex-direction: row-reverse;
     margin: 5px;
-    background-color: white;
+    background-color: rgb(188, 186, 186);
     border-radius: 10px;
     padding: 10px;
     width: 300px;
-    margin-left: 73%;
+    margin-left: 960px;
 }
 
 .sent-message .flex-container {
-    justify-content: flex-start; 
+    justify-content: flex-start;
 }
 
 .ajustar-texto {
@@ -38,39 +40,42 @@ body {
     word-wrap: break-word;
 }
 
-
 .chat-input {
     margin-bottom: 10px;
+    position: fixed;
+    width: 1300px;
+    top: 830px;
 }
 
 .input-enviar {
     padding: 10px;
     margin-top: 20px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1) !important;
 }
+
 .received-message {
     display: flex;
-    flex-direction: row; 
+    flex-direction: row;
+    background-color: rgb(200, 196, 196) !important;
 }
 
 .message-container {
-    max-width: 70%; 
+    max-width: 70%;
 }
 
-
-
 .received-message .flex-container {
-    justify-content: flex-end; 
+    justify-content: flex-end;
 }
 
 .message-content {
-    background-color: #F3F4F6; 
+    background-color: #F3F4F6;
     padding: 8px;
     border-radius: 8px;
     margin-bottom: 8px;
 }
 
 .message-content p {
-    margin: 0; 
+    margin: 0;
 }
 
 
@@ -91,6 +96,7 @@ body {
     height: 40px;
     width: 40px;
     border-radius: 50px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
 }
 
 .logo-enviar {
@@ -105,7 +111,6 @@ body {
 .boton-persona:hover {
     background-color: #1e3f6e;
 }
-
 
 .chat-messages {
     height: 700px;
@@ -146,13 +151,56 @@ body {
 }
 
 
-@media screen and (width: 1440px){
+/* Para pantallas de 1440px (PC) y superior */
+@media screen and (max-width: 1440px) {
     .chat-room {
         margin-left: 0px;
-        width: 1000px;
+        width: 1100px;
     }
 
     .input-enviar {
         width: 85%;
+    }
+
+    .sent-message {
+        margin-left: 600px;
+    }
+
+    .chat-input {
+        width: 950px;
+        top: 830px;
+    }
+}
+
+/* Para tabletas (768px de ancho) */
+@media screen and (max-width: 768px) and (max-width: 1024px) {
+    .sent-message {
+        margin-left: 430px;
+    }
+
+    .input-enviar {
+        width: 80%;
+    }
+
+    .chat-messages{
+        margin-left: 0px;
+        width: 800px;
+    }
+
+    .chat-input {
+        width: 790px;
+        top: 880px;
+    }
+}
+
+/* Para móviles (390px de ancho) */
+@media screen and (max-width: 767px) {
+    .sent-message {
+        margin-left: 30px;
+    }
+
+    .chat-input {
+        width: 400px;
+        top: 740px;
     }
 }

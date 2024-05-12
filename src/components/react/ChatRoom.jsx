@@ -241,12 +241,18 @@ const ChatRoom = ({ senderId, receiverId }) => {
         }
     }, [senderId, receiverId]);
 
+    //Funcion para enviar mensaje con la tecla Enter
+    const handleMessageKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            sendPrivateValue();
+        }
+    };
+
     return (
         <div className="chat-room bg-[#576cbc] lg:ml-[200px]">
             {userData.connected ? (
 
                 <div className="chat-container flex-col md:flex-col lg:flex-row gap-5 ">
-
                     <div className="conversation-buttons  flex flex-col ">
                         {receiverButtons}
                     </div>
@@ -271,12 +277,16 @@ const ChatRoom = ({ senderId, receiverId }) => {
                                     <p className="text-xs text-black">{message.date}</p>
                                 </div>
                             </div>
+                            
                         ))}
+                        <div className='mt-[200px] bm-[200px] md:mt-[100px] md:bm-[100px]'></div>
+
                         <div className="chat-input">
                             <input className='w-[90%] h-[40px] rounded-[50px] input-enviar'
                                 type="text"
                                 value={userData.message}
                                 onChange={handleMessage}
+                                onKeyDown={handleMessageKeyDown}
                             />
                             <button onClick={sendPrivateValue} className='ml-[10px] boton-enviar'>
                                 <i class="icon-[material-symbols--send-rounded] logo-enviar"></i>
