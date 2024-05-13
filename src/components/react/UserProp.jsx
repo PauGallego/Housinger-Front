@@ -174,8 +174,6 @@ const MyComponent = () => {
     const defaultImage = "casa1.jpg";
     const fotosCompletas = propiedad.fotos.concat(Array.from({ length: 8 - propiedad.fotos.length }, (_, index) => defaultImage));
 
-
-
     const handleCharacteristicChange = (event, caracteristica) => {
         const { id, name, icon } = caracteristica;
         const isChecked = event.target.checked;
@@ -191,13 +189,9 @@ const MyComponent = () => {
         }
     };
     
-
     const saveChanges = () => {
-
         propiedad.characteristics = modifiedCharacteristics;
-
         setPropiedad(propiedad);
-        
         closeModal3();
     };
 
@@ -255,8 +249,6 @@ const MyComponent = () => {
     
                 console.log('Bed updated successfully');
             }));
-
-     
 
             let propiedadJSON = {
                 address: propiedad.address,
@@ -320,14 +312,14 @@ const MyComponent = () => {
 
                 <div>
                     {/* Imagenes */}
-                    <div className="flex gap-2 items-center lg:flex lg:gap-5 lg:justify-center lg:items-center">
+                    <div className="flex flex-col justify-center items-center lg:flex lg:gap-5 lg:justify-center lg:flex-row lg:items-center">
                         {/* Contenido de las imágenes izquierdas */}
-                        <div className="lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
+                        <div className="flex lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
                             {/* Mostrar las primeras tres imágenes */}
                             {fotosCompletas.slice(0, 2).map((foto, index) => (
                                 <img
                                 key={index}
-                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[204px] w-[195px] md:h-[160px] lg:h-[130px]"
+                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[195px] md:h-[160px] lg:h-[130px]"
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                 alt={`imagen-propiedad-${index}`}
                                 onClick={() => handleImageClick(foto)}
@@ -345,12 +337,12 @@ const MyComponent = () => {
                             />
                         </div>
                         {/* Contenido de las imágenes derechas */}
-                        <div className="flex flex-col  lg:flex justify-center items-center lg:flex-col">
+                        <div className="flex gap-5 lg:flex-col lg:flex justify-center lg:items-center lg:flex-col">
                             {/* Mostrar las siguientes tres imágenes */}
                             {fotosCompletas.slice(2, 4).map((foto, index) => (
                                 <img
                                     key={index}
-                                    className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[195px] md:h-[160px] lg:h-[130px]"
+                                    className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[104px] md:w-[123px] lg:h-[130px] lg:w-[195px]"
                                     src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                     alt={`imagen-propiedad-${index + 3}`}
                                     onClick={() => handleImageClick(foto)}

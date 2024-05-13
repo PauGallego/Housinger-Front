@@ -1,5 +1,5 @@
 ---
-import Layout from "../layouts/cabezera2.astro";
+import Layout from "../layouts/cabezera3.astro";
 import Profile from "../components/react/Profile.jsx";
 import Data_user from "../components/react/Data_user.jsx";
 import Reservation from "../components/react/Reservation.jsx";
@@ -10,12 +10,9 @@ import { API_BASE_URL } from '../astro.config.js';
 
 <Layout title="Perfil usuario" fondo="blue">
     <main>
-        <div class="md:flex md:flex-col lg:flex-row lg:items-center lg:ml-[550px] ajustar">
+        <div >
             <!--FOTO DE PERFIL -->
-            <Profile/>
-
-            <!--DATOS DE USUARIO -->
-            <Data_user/>
+            <Profile client:only="svelte" />
         </div>
         <!-- MIS PROPIEDADES !!!! ACTIVAR MIS PROPIEDADES !!!! -->
         <!-- <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} client:only="svelte" /> -->
