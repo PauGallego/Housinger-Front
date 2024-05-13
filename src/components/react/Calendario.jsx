@@ -119,7 +119,7 @@ export default function DateCalendarServerRequest() {
                         },
                     }}
                 />
-                <div className='flex gap-[60px]'>
+                <div className='flex gap-[60px] ml-[30px] md:ml-[130px] lg:ml-[0px]'>
                     <div>
                         <p htmlFor="entrada">Fecha de entrada:</p>
                         <input

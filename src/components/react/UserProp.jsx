@@ -312,14 +312,14 @@ const MyComponent = () => {
 
                 <div>
                     {/* Imagenes */}
-                    <div className="flex flex-col justify-center items-center lg:flex lg:gap-5 lg:justify-center lg:flex-row lg:items-center">
+                    <div className="flex flex-col md:flex-row justify-center items-center lg:flex lg:gap-5 lg:justify-center lg:flex-row lg:items-center">
                         {/* Contenido de las imágenes izquierdas */}
-                        <div className="flex lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
+                        <div className="md:mr-2 lg:mr-0 flex md:flex-col lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
                             {/* Mostrar las primeras tres imágenes */}
                             {fotosCompletas.slice(0, 2).map((foto, index) => (
                                 <img
                                 key={index}
-                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[195px] md:h-[160px] lg:h-[130px]"
+                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[104px] md:w-[123px] lg:h-[130px] lg:w-[195px]"
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                 alt={`imagen-propiedad-${index}`}
                                 onClick={() => handleImageClick(foto)}
@@ -331,13 +331,13 @@ const MyComponent = () => {
                         {/* Imagen Central */}
                         <div className="flex justify-center items-center">
                             <img
-                                className="mt-10 rounded-[10px] w-[350px] h-[200px] lg:h-[300px] lg:w-[450px]"
+                                className="mt-10 rounded-[10px] w-[350px] h-[200px] md:h-[260px] md:w-[450px] lg:h-[300px] lg:w-[450px]"
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${imagenCentral || fotosCompletas[0]}`}
                                 alt="imagen-propiedad-central"
                             />
                         </div>
                         {/* Contenido de las imágenes derechas */}
-                        <div className="flex gap-5 lg:flex-col lg:flex justify-center lg:items-center lg:flex-col">
+                        <div className="flex gap-2 md:ml-2 lg:ml-0 md:flex-col lg:flex-col lg:flex justify-center lg:items-center lg:flex-col">
                             {/* Mostrar las siguientes tres imágenes */}
                             {fotosCompletas.slice(2, 4).map((foto, index) => (
                                 <img
@@ -353,7 +353,7 @@ const MyComponent = () => {
                     </div>
 
                     {/* Imagen PIE */}
-                    <div className="flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
+                    <div className="ml-[30px] md:ml-[0px] flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
                         {/* Mostrar las imágenes restantes */}
                         {fotosCompletas.slice(4).map((foto, index) => (
                             <img
@@ -497,8 +497,7 @@ const MyComponent = () => {
                 {/* CARACTERISTICAS */}
                 <h2 className="font-bold text-lg lg:ml-[235px] texto-que-hay">¿Qué hay en la vivienda?</h2>
                 <div className="lg:flex lg:gap-20 md:gap-0">
-                    <div className="flex items-center">
-
+                    <div className="lg:flex lg:items-center">
                         <div className="lg:ml-[235px] contendor-caracteritica mt-5">
                             {/* Mostrar las seis primeras características */}
                             <div className="flex  gap-7 flex-wrap mt-5 items-center  w-[250px]">
@@ -516,7 +515,7 @@ const MyComponent = () => {
                             {/* Botón para abrir el modal */}
                                 
                             {!puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={openModal}>Mostrar más</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px] " onClick={openModal}>Mostrar más</button>
                             )}
                              {puedeGuardar && (
                             <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={openModal3}>Modificar</button>
@@ -608,11 +607,10 @@ const MyComponent = () => {
             </div>
         </Modal>
                         </div>
-
                         {/* BARRA VERTICAL */}
-                        <div className="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[100px]"></div>
+                        <div className="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[100px] lg:mr-[150px]"></div>
                         {/* CALENDARIO */}
-                        <Calendar />
+                        <Calendar/>
                     </div>
                     <div className="mt-10 lg:mt-5"></div>
                 </div>
