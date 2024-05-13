@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../../astro.config';
 import { API_BASE_URL2 } from '../../astro.config';
 import { Modal, Button, TextField } from '@mui/material';
+import { Icon } from '@iconify/react';
 
 
 const MisPropiedades = () => {
@@ -64,26 +65,54 @@ const MisPropiedades = () => {
                     setError('La dirección no pudo ser encontrada. Por favor, inténtelo de nuevo.');
                 }
             });
+
+
+   
     }
 
-    return (
-        <div className="mt-10">
-            <h2 className="md:ml-[180px] lg:ml-[550px] font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
-            <div className="ml-[50px] lg:ml-[550px] md:ml-[180px]">
-                <div className="mt-5 lg:flex md:flex md:flex-wrap gap-5">
-                    {propiedades.map((propiedad, index) => (
-                        <div className="flex-col mb-10" key={index}>
-                            <a href={API_BASE_URL2 + "/user_prop?id=" + propiedad.propertyId}>
-                                <img
-                                    className="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]"
-                                    src={propiedad.foto ? `${API_BASE_URL}/v1/fileCustomer/download/${propiedad.foto}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`}
-                                    alt=""
-                                />
-                                <p>{propiedad.address}</p>
-                            </a>
-                        </div>
-                    ))}
-                    <div className="flex-col mb-10">
+    const borrarPropiedad = async (id) => {
+
+        let token = localStorage.getItem('authorization');
+        try {
+            const response = await fetch(`${API_BASE_URL}/v1/property/trueDelete/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Authentication ' + token,
+                }
+                
+            });
+            const data = await response.json();
+  
+            location.reload(true);
+        } catch (error) {
+            console.error('Error deleting property:', error);
+        }
+    }
+    
+
+
+                    return (
+                        <div className="mt-10">
+                            <h2 className="md:ml-[180px] lg:ml-[550px] font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
+                            <div className="ml-[50px] lg:ml-[550px] md:ml-[180px]">
+                                <div className="mt-5 lg:flex md:flex md:flex-wrap gap-5">
+                                {propiedades.map((propiedad, index) => (
+                                <div className="flex-col mb-10 relative" key={index}>
+                                    <button className="absolute top-0 right-0 z-10" onClick={() => borrarPropiedad(propiedad.propertyId)}>
+                                    <Icon icon="flowbite:x-circle-solid" className="h-[25px] w-[25px] red text-red" />
+                                    </button>
+                                    <a href={API_BASE_URL2 + "/user_prop?id=" + propiedad.propertyId}>
+                                        <img
+                                            className="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]"
+                                            src={propiedad.foto ? `${API_BASE_URL}/v1/fileCustomer/download/${propiedad.foto}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`}
+                                            alt=""
+                                        />
+                                        <p>{propiedad.address}</p>
+                                    </a>
+                                </div>
+                            ))}
+
+                                    <div className="flex-col mb-10">
                         <button onClick={handleModalOpen}>
                             <img
                                 className="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]"
