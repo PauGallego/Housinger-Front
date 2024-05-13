@@ -70,18 +70,12 @@ html {
 
 /* MOBIL */
 @media screen and (max-width: 390px) {
-    .prpiedad-foto-1 {
-    height: 80px;
-    width: auto;
-}
+
 }
 
 /* TABLET */
 @media screen and (width: 768px) {
-    .prpiedad-foto-1 {
-    height: 120px;
-    width: auto;
-}
+
 }
 
 /* PC */

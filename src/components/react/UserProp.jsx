@@ -163,15 +163,12 @@ const MyComponent = () => {
             console.error('Error uploading images:', error);
         }
     };
-    
-    
-    
     const chatear = () => {
         window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
     }
 
     if (isLoading) {
-        return <p>Cargando...</p>;
+        return <div className="loading-container"><img src="../../cargar.gif" alt="Cargando..." /></div>;
     }
 
     const defaultImage = "casa1.jpg";
@@ -301,29 +298,17 @@ const MyComponent = () => {
 
                 location.reload(true);  
                 return response.json();
-              
-    
             })
             .catch(error => {
                 console.error('Error:', error);
             });
-
-    
             console.log('All beds updated successfully');
-
-          
-            
         } catch (error) {
             console.error('Error:', error);
             alert("Error interno");
         }
     };
     
-
-  
-
-
-
     return (
         <div>
             <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
@@ -335,31 +320,32 @@ const MyComponent = () => {
 
                 <div>
                     {/* Imagenes */}
-                    <div className="flex gap-5 justify-center items-center">
+                    <div className="flex gap-2 items-center lg:flex lg:gap-5 lg:justify-center lg:items-center">
                         {/* Contenido de las imágenes izquierdas */}
-                        <div className="hidden lg:flex justify-center items-center gap- flex-col">
+                        <div className="lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
                             {/* Mostrar las primeras tres imágenes */}
                             {fotosCompletas.slice(0, 2).map((foto, index) => (
                                 <img
-                                    key={index}
-                                    className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[195px] md:h-[160px] lg:h-[130px]"
-                                    src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
-                                    alt={`imagen-propiedad-${index}`}
-                                    onClick={() => handleImageClick(foto)}
-                                    onMouseOver={() => handleImageClick(foto)}
-                                />
+                                key={index}
+                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[204px] w-[195px] md:h-[160px] lg:h-[130px]"
+                                src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
+                                alt={`imagen-propiedad-${index}`}
+                                onClick={() => handleImageClick(foto)}
+                                onMouseOver={() => handleImageClick(foto)}
+                                style={{ objectFit: 'cover' }}
+                            />
                             ))}
                         </div>
                         {/* Imagen Central */}
                         <div className="flex justify-center items-center">
                             <img
-                                className="mt-10 rounded-[10px] w-[195px] lg:h-[300px] lg:w-[450px]"
+                                className="mt-10 rounded-[10px] w-[350px] h-[200px] lg:h-[300px] lg:w-[450px]"
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${imagenCentral || fotosCompletas[0]}`}
                                 alt="imagen-propiedad-central"
                             />
                         </div>
                         {/* Contenido de las imágenes derechas */}
-                        <div className="hidden lg:flex justify-center items-center gap- flex-col">
+                        <div className="flex flex-col  lg:flex justify-center items-center lg:flex-col">
                             {/* Mostrar las siguientes tres imágenes */}
                             {fotosCompletas.slice(2, 4).map((foto, index) => (
                                 <img
@@ -375,12 +361,12 @@ const MyComponent = () => {
                     </div>
 
                     {/* Imagen PIE */}
-                    <div className="flex justify-center items-center gap-[10px] lg:gap-[35px]">
+                    <div className="flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
                         {/* Mostrar las imágenes restantes */}
                         {fotosCompletas.slice(4).map((foto, index) => (
                             <img
                                 key={index}
-                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[195px] md:h-[160px] lg:h-[130px]"
+                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[104px] md:w-[123px] lg:h-[130px] lg:w-[195px]"
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                 alt={`imagen-propiedad-${index + 6}`}
                                 onClick={() => handleImageClick(foto)}
@@ -462,13 +448,8 @@ const MyComponent = () => {
                     </div>
                 </Modal>
 
-
-
-
-
                 {/* DESCRIPCION */}
                 <div className="lg:ml-[240px] mt-10 contendor-descripcion" >
-
                     {puedeGuardar && (
                         <textarea  id='descripcione' className='w-[80%] h-[200px] resize-none' defaultValue={propiedad.description}></textarea>
 
@@ -476,8 +457,6 @@ const MyComponent = () => {
                     {!puedeGuardar && (
                         <p>{propiedad.description}</p>
                     )}
-
-
                 </div>
 
                 {/* PROPIETARIO */}
@@ -490,7 +469,7 @@ const MyComponent = () => {
                                     <p>{propiedad.name} {propiedad.surname}</p>
                                 </div>
                                 <div>
-                                    <img className="imagen-optima  w-[80px] rounded-[50%]" src={`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.picture}`} alt="" />
+                                    <img className="imagen-optima h-[80px] w-[80px] rounded-[50px]" src={`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.picture}`} alt="" />
                                 </div>
                             </div>
                         </div>
@@ -517,10 +496,10 @@ const MyComponent = () => {
                         )}
 
                         {!puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]">Reservar</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]">Reservar</button>
                         )}
                         <br /><br />
-                        <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]" onClick={() => chatear()} >Chat</button>
+                        <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => chatear()} >Chat</button>
                     </div>
                 </div>
                 {/* CARACTERISTICAS */}
