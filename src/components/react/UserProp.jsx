@@ -228,6 +228,9 @@ const MyComponent = () => {
                     'Authorization': 'Authentication ' + token,
                 }
             });
+
+            let test = false;
+            let test2 = false;
     
             // Save updated beds
             let camas = JSON.parse(localStorage.getItem("camasModificadas"));
@@ -249,13 +252,67 @@ const MyComponent = () => {
     
                 if (!response.ok) {
                     throw new Error('Error al actualizar las camas');
+                }else{
+                    test = true;
                 }
     
                 console.log('Bed updated successfully');
             }));
+
+     
+
+            let propiedadJSON = {
+                address: propiedad.address,
+                calendar: propiedad.calendar,
+                characteristics: propiedad.characteristics,
+                description: propiedad.description,
+                extraInfo: "string",
+                fotos: propiedad.fotos,
+                id: propiedad.id,
+                normas: propiedad.normas,
+                userId: propiedad.userId,
+                seguridadHogar: propiedad.seguridadHogar
+            };
+    
+            console.log(JSON.stringify(propiedadJSON));
+    
+            fetch(`${API_BASE_URL}/v1/property/save`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Authentication ' + token,
+                },
+                body: JSON.stringify(propiedadJSON)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.log(response);
+                    if (response.status === 500) {
+                        alert("direccion duplicada");
+                        throw new Error('La dirección ya está siendo utilizada.');
+                    } else {
+                        alert("Error interno");
+                        throw new Error('Error al actualizar la propiedad');
+                    }
+                }else{
+                    test2 = true;
+                }
+                console.log('Propiedad actualizada correctamente');
+
+                location.reload(true);  
+                return response.json();
+              
+    
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
     
             console.log('All beds updated successfully');
-            location.reload(true);
+
+          
+            
         } catch (error) {
             console.error('Error:', error);
             alert("Error interno");
