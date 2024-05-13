@@ -60,7 +60,6 @@ const MyComponent = () => {
                     if (data) {
                         setPropiedad(data);
                         console.log('data:', data);
-                        // Verificar si el userId almacenado en localStorage coincide con el userId de la propiedad
                         const userIdLocalStorage = JSON.parse(localStorage.getItem('userData')).userId;
                         setPuedeGuardar(userIdLocalStorage === data.userId);
                     } else {

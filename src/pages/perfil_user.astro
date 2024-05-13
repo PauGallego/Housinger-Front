@@ -5,6 +5,7 @@ import Data_user from "../components/react/Data_user.jsx";
 import Reservation from "../components/react/Reservation.jsx";
 import Char from "../components/react/Char.jsx";
 import { API_BASE_URL } from '../astro.config.js';
+import MisPropiedades from "../components/react/MisProp";
 
 ---
 
@@ -16,30 +17,13 @@ import { API_BASE_URL } from '../astro.config.js';
         </div>
         <!-- MIS PROPIEDADES !!!! ACTIVAR MIS PROPIEDADES !!!! -->
         <!-- <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} client:only="svelte" /> -->
-        <div class="mt-10">
-            <h2 class="md:ml-[180px] lg:ml-[550px] ajustar font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
-        </div>
-        <div class="ml-[50px] lg:ml-[550px] md:ml-[180px] ajustar">
-            <div class="mt-5 lg:flex md:flex md:flex-wrap gap-5">
-                <div class="flex-col mb-10">
-                    <img class="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]" src="/public/casa1.jpg" alt="">
-                    <p>Disponible</p>
-                </div>
-                <div class="flex-col mb-10">
-                    <img class="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]" src="/public/casa1.jpg" alt="">
-                    <p>Disponible</p>
-                </div>
-                <div class="flex-col mb-10">
-                    <img class="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]" src="/public/casa1.jpg" alt="">
-                    <p>Reservado 12/11/2024</p>
-                </div>
-            </div>
-        </div>        
+       
+        <MisPropiedades client:only="svelte" />
         <!-- MIS RESERVAS -->
         <div class="mt-10">
             <h2 class="md:ml-[180px] lg:ml-[550px] ajustar font-bold text-xl text-center md:text-left lg:text-left">Mis reservas</h2>
         </div>
-        <Reservation/>
+        <Reservation client:only="svelte" />
         <div class="mt-10"></div>
     </main>
     <style>

@@ -123,23 +123,27 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas, startDate, endDate, l
         <div>
             {propiedadesFiltradas && propiedadesFiltradas.length > 0 ? (
                 <div>
-                    <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Recomendados</h2>
-                    <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
-                        {propiedadesFiltradas.filter(property => property.premium === true).map((property, index) => (
-                            <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={`prop_${property.id || index}_Premium`}>
-                                <a href={`${API_BASE_URL2}/user_prop?id=${property.propertyId}`}>
-                                    {property.foto ? (
-                                        <img src={`${API_BASE_URL}/v1/fileCustomer/download/${property.foto}`} alt="Property" className="w-[90%] h-[250px] rounded-[20px] lg:w-[100%]" />
-                                    ) : (
-                                        <img src={`${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} alt="Property" className="w-[90%] h-[250px] rounded-[20px] lg:w-[100%]" />
-                                    )}
-                                    <h2 className="lugar">{property.address}</h2>
-                                    <h2 className="descripcion">{property.ownerName}</h2>
-                                </a>
+                    {propiedadesFiltradas.some(property => property.premium === true) && (
+                        <>
+                            <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Recomendados</h2>
+                            <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
+                                {propiedadesFiltradas.filter(property => property.premium === true).map((property, index) => (
+                                    <div className="propiedad ml-[30px] lg:ml-[1%] lg:w-[400px]" key={`prop_${property.id || index}_Premium`}>
+                                        <a href={`${API_BASE_URL2}/user_prop?id=${property.propertyId}`}>
+                                            {property.foto ? (
+                                                <img src={`${API_BASE_URL}/v1/fileCustomer/download/${property.foto}`} alt="Property" className="w-[90%] h-[250px] rounded-[20px] lg:w-[100%]" />
+                                            ) : (
+                                                <img src={`${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} alt="Property" className="w-[90%] h-[250px] rounded-[20px] lg:w-[100%]" />
+                                            )}
+                                            <h2 className="lugar">{property.address}</h2>
+                                            <h2 className="descripcion">{property.ownerName}</h2>
+                                        </a>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-
+                        </>
+                    )}
+    
                     <h2 className="font-bold text-[20px] ml-5 mt-5 mb-5 lg:ml-[95px]">Mejor valorados</h2>
                     <div className="lg:flex lg:flex-wrap m-auto lg:ml-20">
                         {propiedadesFiltradas.map((property, index) => (
