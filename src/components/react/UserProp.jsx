@@ -198,6 +198,8 @@ const MyComponent = () => {
     const updateProperty = async () => {
         try {
             console.log("Updating property...");
+            const modal = document.getElementById('my_modal_15');
+            modal.showModal();
     
             propiedad.address = localStorage.getItem("ubi");
             propiedad.description = document.getElementById("descripcione").value;
@@ -323,6 +325,16 @@ const MyComponent = () => {
     return (
         <div>
             <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
+            <dialog id="my_modal_15" class="modal">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Cargando cambios...</h3>
+                <p class="py-4">Propiedad actualizada correctamente</p>
+                <div class="modal-action">
+                {/* <button class="btn" onclick="this.closest('dialog').close()">Close</button> */}
+                </div>
+            </div>
+            </dialog>
+
                 {/* Dirección */}
                 <div className="flex mt-5 lg:mt-10 gap- lg:ml-[245px] contendor-direcion items-center">
                     <i className="icon-[ion--location-sharp] icon-blue h-7 w-7"></i>
