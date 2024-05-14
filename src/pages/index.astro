@@ -2,10 +2,7 @@
 import Layout from "../layouts/cabezera.astro";
 import Char from "../components/react/Char.jsx";
 import { API_BASE_URL } from '../astro.config.js';
-
-
 ---
-
 <Layout title="Housinger" fondo="blue">
     <main>
         <div class="fondo-menu">
@@ -80,9 +77,7 @@ import { API_BASE_URL } from '../astro.config.js';
         const updatedURL = `${baseURL}?${queryParams.toString()}`;
 
         window.history.pushState({ path: updatedURL }, '', updatedURL);
-
         window.location.reload();
-
     });
 });
 

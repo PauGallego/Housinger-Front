@@ -101,7 +101,7 @@ const Char = ({ url }) => {
                     onClick={() => handleButtonClick(index, char.id)}
                     style={{ backgroundColor: activeButtons.has(index) ? '#576cbc' : '#ffffff' }}
                 >
-                    <Icon icon={char.icon} id={char.id + "CharId"} className="h-9 w-9" />
+                    <Icon icon={char.icon} id={char.id + "CharId"} className="h-9 w-9 text-black" />
                     <h2 className={`nombreFiltro text-12 lg:text-15 md:text-16 ${activeButtons.has(index) ? 'nombreFiltro-activo' : ''}`}>
                         {char.name}
                     </h2>
@@ -123,7 +123,7 @@ const Char = ({ url }) => {
                                 onClick={() => handleButtonClick(index, char.id)}
                                 style={{ backgroundColor: activeButtons.has(index) ? '#576cbc' : '#ffffff' }}
                             >
-                                <Icon icon={char.icon} id={char.id + "CharId"} className="h-10 w-10" />
+                                <Icon icon={char.icon} id={char.id + "CharId"} className="h-10 w-10 text-black" />
                                 <h2 className={`nombreFiltro text-12 lg:text-15 md:text-16 ${activeButtons.has(index) ? 'nombreFiltro-activo' : ''}`}>
                                     {char.name}
                                 </h2>
