@@ -12,10 +12,11 @@ function getRandomNumber(min, max) {
     return Math.round(Math.random() * (max - min) + min);
 }
 
-function fakeFetch(date, { signal }) {
+function fakeFetch(date, { signal }, id) {
 
-    let id = getRandomNumber(1, 100);
-    const fetchPromise = fetch(`${API_BASE_URL}/v1/propertyCalendar/getByProperty/441`, { signal })
+    let superid = id.propid;
+
+    const fetchPromise = fetch(`${API_BASE_URL}/v1/propertyCalendar/getByProperty/${superid}`, { signal })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -84,13 +85,12 @@ function ServerDay(props) {
     );
 }
 
-export default function DateCalendarServerRequest() {
+export default function DateCalendarServerRequest(propid) {
     const requestAbortController = React.useRef(null);
     const [isLoading, setIsLoading] = React.useState(false);
     const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
     const [entrada, setEntrada] = React.useState(initialValue);
     const [salida, setSalida] = React.useState(initialValue);
-
 
     const handleEntradaChange = (event) => {
         setEntrada(dayjs(event.target.value));
@@ -102,9 +102,7 @@ export default function DateCalendarServerRequest() {
 
     const fetchHighlightedDays = (date) => {
         const controller = new AbortController();
-        fakeFetch(date, {
-            signal: controller.signal,
-        })
+        fakeFetch(date, { signal: controller.signal }, propid)
             .then(({ daysToHighlight }) => {
                 setHighlightedDays(daysToHighlight);
                 setIsLoading(false);
@@ -120,6 +118,7 @@ export default function DateCalendarServerRequest() {
 
     React.useEffect(() => {
         fetchHighlightedDays(initialValue);
+       
         return () => requestAbortController.current?.abort();
     }, []);
 

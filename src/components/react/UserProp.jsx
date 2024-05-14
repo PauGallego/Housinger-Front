@@ -638,7 +638,7 @@ const MyComponent = () => {
                         {/* BARRA VERTICAL */}
                         <div className="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[100px] lg:mr-[150px]"></div>
                         {/* CALENDARIO */}
-                        <Calendar id={propiedad.id}/>
+                        <Calendar propid={propiedad.id}/>
                     </div>
                     <div className="mt-10 lg:mt-5"></div>
                 </div>
