@@ -6,18 +6,26 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
+import { API_BASE_URL } from '../../astro.config';
 
 function getRandomNumber(min, max) {
     return Math.round(Math.random() * (max - min) + min);
 }
 
 function fakeFetch(date, { signal }) {
-    return new Promise((resolve, reject) => {
-        const timeout = setTimeout(() => {
+    const fetchPromise = fetch(`${API_BASE_URL}/v1/propertyCalendar/getByProperty/${id}`, { signal })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
             const today = dayjs();
             const daysInMonth = date.daysInMonth();
             const daysToHighlight = [];
 
+            // Marcamos los días anteriores al día actual
             for (let i = 1; i <= daysInMonth; i++) {
                 const currentDate = date.date(i);
                 if (currentDate.isBefore(today, 'day')) {
@@ -25,15 +33,35 @@ function fakeFetch(date, { signal }) {
                 }
             }
 
-            resolve({ daysToHighlight });
-        }, 500);
+            // Marcamos los días dentro de los rangos de fechas reservadas
+            for (let i = 0; i < data.reservedDates.length; i += 2) {
+                const startDate = dayjs(data.reservedDates[i]);
+                const endDate = dayjs(data.reservedDates[i + 1]);
 
-        signal.onabort = () => {
-            clearTimeout(timeout);
-            reject(new DOMException('aborted', 'AbortError'));
-        };
-    });
+                if (startDate.isSame(date, 'month') || endDate.isSame(date, 'month')) {
+                    const startDay = startDate.isSame(date, 'month') ? startDate.date() : 1;
+                    const endDay = endDate.isSame(date, 'month') ? endDate.date() : date.daysInMonth();
+
+                    for (let j = startDay; j <= endDay; j++) {
+                        if (!daysToHighlight.includes(j)) {
+                            daysToHighlight.push(j);
+                        }
+                    }
+                }
+            }
+
+            return { daysToHighlight };
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        });
+
+    return fetchPromise;
 }
+
+
+
 
 const initialValue = dayjs();
 
