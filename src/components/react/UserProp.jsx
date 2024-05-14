@@ -167,7 +167,7 @@ const MyComponent = () => {
     }
 
     if (isLoading) {
-        return <div className="loading-container"><img src="../../cargar.gif" alt="Cargando..." /></div>;
+        return <div className="h-[100vh] loading-container flex justify-center items-start mt-[50px]"><img src="../../cargar.gif" alt="Cargando..." /></div>;
     }
 
     const defaultImage = "casa1.jpg";
@@ -616,7 +616,7 @@ const MyComponent = () => {
                     <Camas id={propiedad.id} guardar={puedeGuardar} ></Camas>
                     {/* PREMIUM */}
                     {propiedad.premium ? (
-                        <div className="mt-10 lg:mt-[100px]">
+                        <div className="lg:ml-[190px] mt-10 lg:mt-[100px]">
                             <div className="flex flex-col items-center">
                                 <p className="text-center font-bold	premiun-texto">HOUNSINGER</p>
                                 <p className="text-center font-bold	premiun-texto">PREMIUM VERIFICADO</p>
