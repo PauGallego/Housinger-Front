@@ -454,13 +454,13 @@ const MyComponent = () => {
                 <div className="flex gap-[100px] md:gap-[50px] mb-10">
                     <div className="lg:flex lg:items-center lg:gap-10 md:flex md:items-center md:gap-10 mt-10">
                         <div className="flex items-center contenedor-propietario lg:ml-[240px] gap-5">
-                            <div className="flex items-center gap-5">
+                            <div className="flex items-center gap-5 md:flex-col">
                                 <div>
                                     <h2 className="font-bold">Propietario</h2>
                                     <p>{propiedad.name} {propiedad.surname}</p>
                                 </div>
                                 <div>
-                                    <img className="imagen-optima h-[80px] w-[80px] rounded-[50px]" src={`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.picture}`} alt="" />
+                                    <img className="imagen-optima h-[80px] w-[80px]  md:h-[100px] md:w-[100px] lg:h-[80px] lg:w-[80px] rounded-[50px]" src={`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.picture}`} alt="" />
                                 </div>
                             </div>
                         </div>
@@ -514,9 +514,9 @@ const MyComponent = () => {
                             {/* Botón para abrir el modal */}
                                 
                             {!puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px] " onClick={openModal}>Mostrar más</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-40 md:w-40 lg:w-40 md:w-[69px] mt-[20px] " onClick={openModal}>Mostrar más</button>
                             )}
-                             {puedeGuardar && (
+                            {puedeGuardar && (
                             <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={openModal3}>Modificar</button>
                             )}
                             
@@ -535,7 +535,7 @@ const MyComponent = () => {
                                             return groups;
                                         }, {})).map((grupo, grupoIndex) => (
                                             <div key={grupoIndex} className="grupo-caracteristicas ">
-                                                <h3 className="font-bold ">{grupo}</h3>
+                                                <h3 className="font-bold">{grupo}</h3>
                                                 <ul>
                                                     {propiedad.characteristics.reduce((acc, caracteristica) => {
                                                         if (caracteristica.grupo === grupo) {
@@ -593,7 +593,6 @@ const MyComponent = () => {
                         </div>
                     ))}
                 </div>
-
                 <div className="flex justify-end">
                     <div className="modal-action mr-[20px]">
                         <button className="btn" onClick={saveChanges}>Modificar</button>
@@ -602,7 +601,6 @@ const MyComponent = () => {
                         <button className="btn" onClick={closeModal3}>Cerrar</button>
                     </div>
                 </div>
-
             </div>
         </Modal>
                         </div>
@@ -629,7 +627,7 @@ const MyComponent = () => {
                         </div>
                     ) : (
                         <div className="mt-10 lg:mt-[100px]">
-                            <p className="text-center font-bold	premiun-texto">NO PREMIUM VERIFICADO</p>
+                            <p className="lg:ml-[190px] text-center font-bold	premiun-texto">NO PREMIUM VERIFICADO</p>
                         </div>
                     )}
                 </div>
