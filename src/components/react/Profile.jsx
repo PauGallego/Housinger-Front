@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { API_BASE_URL } from '../../astro.config';
 import { Modal, Button } from '@mui/material'; 
 import { set } from 'date-fns';
+import { API_BASE_URL2 } from '../../astro.config';
 
 function ProfileComponent() {
     const [userData, setUserData] = useState(null); 
@@ -79,6 +80,17 @@ function ProfileComponent() {
             console.error('Error uploading images:', error);
         }
     }
+
+
+    const cerrarSesion =  () => {
+
+            localStorage.clear();
+
+            window.location.href = API_BASE_URL2;
+    }
+
+
+
     const uploadData = async () => {
         try {
             let name = document.querySelector('#inputNombre').value.trim();
@@ -209,9 +221,11 @@ function ProfileComponent() {
                                 </div>
                                
                             </div>
-                            <div className="mb-2 mt-6">
-                                    <button className="boton-guardar w-[190px]"  onClick={uploadData}>Guardar perfil</button>
-                                </div>
+                            <div className="mb-2 mt-6 flex flex-row gap-10">
+                                <button className="boton-guardar w-[190px]"  onClick={uploadData}>Guardar perfil</button>
+                                <button className="boton-guardar w-[190px]"  onClick={cerrarSesion}>Cerrar Sesion</button>
+                                    
+                            </div>
                         </div>
                     </div>
                     <Modal open={modalOpen} onClose={closeModal}>
