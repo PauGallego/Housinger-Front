@@ -167,7 +167,7 @@ const MyComponent = () => {
     }
 
     if (isLoading) {
-        return <div className="h-[100vh] loading-container flex justify-center items-start mt-[50px]"><img src="../../cargar.gif" alt="Cargando..." /></div>;
+        return <div className="h-[100vh] loading-container flex justify-center items-start mt-[5px]"><img src="../../cargar.gif" alt="Cargando..." /></div>;
     }
 
     const defaultImage = "casa1.jpg";
@@ -300,6 +300,26 @@ const MyComponent = () => {
         }
     };
     
+    const deletebyProperty = async () => {
+        let token = localStorage.getItem('authorization');
+        try {
+            const response = await fetch(`${API_BASE_URL}/v1/property/trueDelete/${propiedad.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': 'Authentication ' + token,
+                }
+            });
+            const data = await response;
+            console.log(data);
+
+            window.location.href = API_BASE_URL2;
+
+        } catch (error) {
+            console.error('Error deleting property:', error);
+        }
+    }
+
+
     return (
         <div>
             <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
@@ -482,15 +502,26 @@ const MyComponent = () => {
                     </div>
                     <div className="mt-[50px] lg:flex lg:items-center md:flex md:items-center gap-2">
 
-                        {puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]" onClick={updateProperty}>Guardar</button>
+                    {puedeGuardar && (
+                             <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => deletebyProperty()} >Eliminar</button>
                         )}
 
                         {!puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]">Reservar</button>
+                             <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => chatear()} >Chat</button>
+                        )}
+
+
+                        {puedeGuardar && (
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] ml-[50px]" onClick={updateProperty}>Guardar</button>
+                        )}
+
+                        {!puedeGuardar && (
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]  ml-[50px]">Reservar</button>
                         )}
                         <br /><br />
-                        <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => chatear()} >Chat</button>
+
+                      
+                       
                     </div>
                 </div>
                 {/* CARACTERISTICAS */}

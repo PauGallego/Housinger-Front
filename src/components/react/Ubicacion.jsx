@@ -93,12 +93,12 @@ const MapaLeafletComponent = ({ location, userId }) => {
                     newMarker.bindPopup("<b>Propiedad</b>").openPopup();
                     setMarker(newMarker);
                 } else {
-                    setMensajeError('La dirección no pudo ser encontrada. Por favor, inténtelo de nuevo.');
+                    setMensajeError('La dirección no pudo ser encontrada. Por favor, inténtelo de nuevo 1.');
                 }
             })
             .catch(error => {
                 console.error('Hubo un error al buscar la dirección:', error);
-                setMensajeError('Hubo un error al buscar la dirección. Por favor, inténtelo de nuevo.');
+                setMensajeError('Hubo un error al buscar la dirección. Por favor, inténtelo de nuevo 2 .');
             });
     }
 
