@@ -12,6 +12,7 @@ import { Icon } from '@iconify/react';
 import { Modal, Button } from '@mui/material'; 
 import { set } from 'date-fns';
 
+
 const MyComponent = () => {
     const [id, setId] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -21,6 +22,7 @@ const MyComponent = () => {
     const [showModal3, setShowModal3] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     const [showModal4, setShowModal4] = useState(false);
+    const [showModal5, setShowModal5] = useState(false);
     const [puedeGuardar, setPuedeGuardar] = useState(false); 
     const [allCharacteristics, setAllCharacteristics] = useState([]);
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState([]);
@@ -116,6 +118,15 @@ const MyComponent = () => {
         setShowModal4(false);
     };
 
+    const openModal5 = () => {
+        setShowModal5(true);
+    };
+
+    const closeModal5 = () => {
+        setShowModal5(false);
+    };
+
+
     let arrayFotosSubidas = ["","","","","","","",""];
 
     const handleFileUpload = (e, index) => {
@@ -174,8 +185,29 @@ const MyComponent = () => {
         }
     };
     const chatear = () => {
-        window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
+
+        const userIdLocalStorage = localStorage.getItem('userData');
+
+        if(userIdLocalStorage){
+            window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
+        }else{
+            window.location.href = `${API_BASE_URL2}/login`;
+        }
+        
     }
+
+    const reservar = () => {
+
+        const userIdLocalStorage = localStorage.getItem('userData');
+
+        if(userIdLocalStorage){
+           openModal5();
+        }else{
+            window.location.href = `${API_BASE_URL2}/login`;
+        }
+        
+    }
+
 
     if (isLoading) {
         return <div className="h-[100vh] loading-container flex justify-center items-start mt-[5px]"><img src="../../cargar.gif" alt="Cargando..." /></div>;
@@ -362,6 +394,26 @@ const MyComponent = () => {
                         <div className="modal-action">
                             <button className="btn" onClick={() => deletebyProperty()}>Borrar</button>
                             <button className="btn" onClick={closeModal4}>Cerrar</button>
+                        </div>
+                    </div>
+                </Modal>
+
+                <Modal
+                    open={showModal5}
+                    onClose={closeModal5}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div className="modal-box bg-[white]">
+                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
+                            <p>Dia de entrada:</p>
+                         <Calendar propid={propiedad.id} />
+                        <div className="modal-action">
+                            <button className="btn" onClick={closeModal5}>Siguiente</button>
+                            <button className="btn" onClick={closeModal5}>Cerrar</button>
                         </div>
                     </div>
                 </Modal>
@@ -559,7 +611,7 @@ const MyComponent = () => {
                         )}
 
                         {!puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]  ml-[50px]">Reservar</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]  ml-[50px]" onClick={reservar}>Reservar</button>
                         )}
                         <br /><br />
 
@@ -568,10 +620,12 @@ const MyComponent = () => {
                     </div>
                 </div>
                 {/* CARACTERISTICAS */}
-                <h2 className="font-bold text-lg lg:ml-[235px] texto-que-hay">¿Qué hay en la vivienda?</h2>
+           
                 <div className="lg:flex lg:gap-20 md:gap-0">
+        
                     <div className="lg:flex lg:items-center">
-                        <div className="lg:ml-[235px] contendor-caracteritica mt-5">
+                        <div className="lg:ml-[235px] contendor-caracteritica  lg:h-[400px] mt-5">
+                        <h2 className="font-bold text-lg  texto-que-hay">¿Qué hay en la vivienda?</h2>
                             {/* Mostrar las seis primeras características */}
                             <div className="flex  gap-7 flex-wrap mt-5 items-center  w-[250px]">
                                 {propiedad.characteristics.slice(0, 6).map((caracteristica, index) => (
@@ -599,8 +653,8 @@ const MyComponent = () => {
                                 alignItems: 'center',
                                 justifyContent: 'center',
                             }}>
-                                <div className="modal-box">
-                                    <h2>Características</h2>
+                                <div className="modal-box bg-[white] text-black">
+                                    <h2 className = "font-bold text-xl"> Características</h2>
                                     <div className="modal-content-container flex flex-wrap">
                                         {Object.keys(propiedad.characteristics.reduce((groups, caracteristica) => {
                                             const { grupo, ...rest } = caracteristica;
@@ -636,8 +690,8 @@ const MyComponent = () => {
             alignItems: 'center',
             justifyContent: 'center',
         }}>
-            <div className="modal-box">
-                <h2>Seleccionar características</h2>
+            <div className="modal-box bg-[white] text-black">
+            <h2 className = "font-bold text-xl"> Seleccionar características</h2>
                 <div className="modal-content-container flex flex-wrap w-[200px]">
                     {Object.entries(allCharacteristics.reduce((groups, caracteristica) => {
                         const { grupo, ...rest } = caracteristica;
@@ -681,7 +735,10 @@ const MyComponent = () => {
                         {/* BARRA VERTICAL */}
                         <div className="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[100px] lg:mr-[150px]"></div>
                         {/* CALENDARIO */}
+                        <div className='flex flex-col item-center jutify-center'>
+                        <p className='font-bold text-center'> Calendario</p>
                         <Calendar propid={propiedad.id}/>
+                        </div>
                     </div>
                     <div className="mt-10 lg:mt-5"></div>
                 </div>

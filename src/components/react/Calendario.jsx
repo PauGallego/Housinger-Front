@@ -74,7 +74,7 @@ function ServerDay(props) {
     const isSelected =
         !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
 
-    const isDisabled = isSelected ? true : false; // Si está seleccionado, deshabilitar la casilla
+    const isDisabled = isSelected ? true : false; 
 
     return (
         <Badge
@@ -82,11 +82,12 @@ function ServerDay(props) {
             overlap="circular"
             badgeContent={isSelected ? '❌' : undefined} 
         >
-            <PickersDay
+             <PickersDay
                 {...other}
                 outsideCurrentMonth={outsideCurrentMonth}
                 day={day}
-                disabled={isDisabled} // Pasar la propiedad disabled al componente PickersDay
+                disabled={true}
+                style={{ color: isDisabled ? 'grey' : 'black' }} 
             />
         </Badge>
     );
@@ -140,10 +141,13 @@ export default function DateCalendarServerRequest(propid) {
     };
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <div>
+        <LocalizationProvider dateAdapter={AdapterDayjs} >
+           
+          
+
                 <DateCalendar
                     defaultValue={initialValue}
+                    style={{ color:  'black' }}
                     loading={isLoading}
                     onMonthChange={handleMonthChange}
                     renderLoading={() => <DayCalendarSkeleton />}
@@ -156,27 +160,8 @@ export default function DateCalendarServerRequest(propid) {
                         },
                     }}
                 />
-                <div className='flex gap-[60px] ml-[30px] md:ml-[130px] lg:ml-[0px]'>
-                    <div>
-                        <p htmlFor="entrada">Fecha de entrada:</p>
-                        <input
-                            type="date"
-                            id="entrada"
-                            value={entrada.format('YYYY-MM-DD')}
-                            onChange={handleEntradaChange}
-                        />
-                    </div>
-                    <div>
-                        <p htmlFor="salida">Fecha de salida:</p>
-                        <input
-                            type="date"
-                            id="salida"
-                            value={salida.format('YYYY-MM-DD')}
-                            onChange={handleSalidaChange}
-                        />
-                    </div>
-                </div>
-            </div>
+    
+           
         </LocalizationProvider>
     );
 }

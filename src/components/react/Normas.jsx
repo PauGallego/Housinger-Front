@@ -111,10 +111,11 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
+
                     }}
                 >
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">Políticas de intercambio de casa</h3>
+                    <div className="modal-box bg-[white]">
+                        <h3 className="font-bold text-lg text-black">Políticas de intercambio de casa</h3>
                         <p className="py-4">En Housinger, entendemos que los planes pueden cambiar en cualquier momento debido a circunstancias imprevistas. Es por eso que ofrecemos una política de cancelación completa del anfitrión. Ya sea que surja un compromiso repentino, un cambio en tus planes de viaje o cualquier otro imprevisto, puedes cancelar tu intercambio sin penalización alguna. Nuestra prioridad es brindarte flexibilidad y tranquilidad durante tu experiencia de intercambio en Housinger. Queremos que te sientas seguro al reservar con nosotros, sabiendo que estamos aquí para respaldarte en caso de que necesites realizar cambios en tu reserva.</p>
                         <div className="modal-action">
                             <button className="btn" onClick={cerrarModal}>Cerrar</button>
