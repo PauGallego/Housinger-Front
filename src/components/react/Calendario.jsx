@@ -13,7 +13,9 @@ function getRandomNumber(min, max) {
 }
 
 function fakeFetch(date, { signal }) {
-    const fetchPromise = fetch(`${API_BASE_URL}/v1/propertyCalendar/getByProperty/${id}`, { signal })
+
+    let id = getRandomNumber(1, 100);
+    const fetchPromise = fetch(`${API_BASE_URL}/v1/propertyCalendar/getByProperty/441`, { signal })
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -88,6 +90,7 @@ export default function DateCalendarServerRequest() {
     const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
     const [entrada, setEntrada] = React.useState(initialValue);
     const [salida, setSalida] = React.useState(initialValue);
+
 
     const handleEntradaChange = (event) => {
         setEntrada(dayjs(event.target.value));
