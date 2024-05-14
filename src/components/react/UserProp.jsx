@@ -224,7 +224,6 @@ const MyComponent = () => {
 
             setModifiedCharacteristics(prevState => [...prevState, { id, name, icon, grupo: caracteristica.grupo }]);
         } else {
-          
             setModifiedCharacteristics(prevState =>
                 prevState.filter(item => item.id !== id)
             );
@@ -232,10 +231,17 @@ const MyComponent = () => {
     };
     
     const saveChanges = () => {
-        propiedad.characteristics = modifiedCharacteristics;
+        const existingCharacteristics = [...propiedad.characteristics];
+        const newCharacteristics = modifiedCharacteristics.filter(modifiedCharacteristic =>
+            !existingCharacteristics.some(existingCharacteristic => existingCharacteristic.id === modifiedCharacteristic.id)
+        );
+    
+        const updatedCharacteristics = [...existingCharacteristics, ...newCharacteristics];
+        propiedad.characteristics = updatedCharacteristics;
         setPropiedad(propiedad);
         closeModal3();
     };
+    
 
 
     const updateProperty = async () => {
