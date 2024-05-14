@@ -16,9 +16,9 @@ const { title } = Astro.props;
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
+	<main class="bg-[white]">
 		<slot />
-	</body>
+	</main>
 </html>
 <style is:global>
     @import url('https://fonts.googleapis.com/css2?family=Karma:wght@300;400;500;600;700&display=swap');
