@@ -604,7 +604,7 @@ const MyComponent = () => {
                     <div className="mt-[50px] lg:flex lg:items-center md:flex md:items-center gap-2">
 
                     {puedeGuardar && (
-                             <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => openModal4()} >Eliminar</button>
+                             <button id='chatear' className="botones-propiedad-elimiar text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => openModal4()} >Eliminar</button>
                         )}
 
                         {!puedeGuardar && (

@@ -17,6 +17,10 @@
 .area {
     border: 1px solid var(--gris);
 }
+
+.botones-propiedad-elimiar {
+    background-color: red;
+}
 .boton-direcion {
     border: 1px solid var(--gris);
 }
