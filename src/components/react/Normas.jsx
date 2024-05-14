@@ -13,8 +13,13 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
     }, [propsNormas, propsSeguridad]);
 
     let userData = JSON.parse(localStorage.getItem('userData'));
-    const userId2 = userData.userId;
 
+    // Verifica si userData es null y asigna un array vacío en ese caso
+    if (userData === null) {
+        userData = [];
+    }
+    
+    const userId2 = userData.userId;
     useEffect(() => {
         // Guardar las normas en localStorage
         localStorage.setItem('normas', JSON.stringify(normasState));

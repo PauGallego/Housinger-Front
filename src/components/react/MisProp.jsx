@@ -92,7 +92,7 @@ const MisPropiedades = () => {
 
 
                     return (
-                        <div className="mt-10">
+                        <div className="mt-10  w-[80%]">
                             <h2 className="md:ml-[180px] lg:ml-[550px] font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
                             <div className="ml-[50px] lg:ml-[550px] md:ml-[180px]">
                                 <div className="mt-5 lg:flex md:flex md:flex-wrap gap-5">

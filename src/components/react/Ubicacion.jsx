@@ -11,10 +11,15 @@ const MapaLeafletComponent = ({ location, userId }) => {
     useEffect(() => {
         inicializarMapa();
 
-        if (userId === JSON.parse(localStorage.getItem('userData')).userId && location) {
-            localStorage.setItem('ubi', location);
+        const userDataString = localStorage.getItem('userData');
+        
+        if (userDataString && location) {
+            const userData = JSON.parse(userDataString);
+            if (userId === userData.userId) {
+                localStorage.setItem('ubi', location);
+            }
         }
-
+        
     }, []);
 
     const buscarEnMapa = () => {
@@ -97,9 +102,17 @@ const MapaLeafletComponent = ({ location, userId }) => {
             });
     }
 
-    const puedeModificarDireccion = userId == JSON.parse(localStorage.getItem('userData')).userId;
-
-
+    let puedeModificarDireccion = false;
+    const userDataString = localStorage.getItem('userData');
+    
+    if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        puedeModificarDireccion = userId === userData.userId;
+    } else {
+        puedeModificarDireccion = false;
+    }
+    
+    
 
     return (
         <div>

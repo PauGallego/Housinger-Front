@@ -20,7 +20,7 @@ const { title, fondo } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
-    <body>
+    <body class="bg-[white]">
         <header>
             <div class="fondo" style={{ "--colorFondo": fondo }}>
                 <div
@@ -117,7 +117,7 @@ const { title, fondo } = Astro.props;
                 </dialog>
             </div>
         </header>
-        <main>
+        <main class="bg-[white]">
             <slot />
         </main>
 
