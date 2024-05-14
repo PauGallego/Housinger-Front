@@ -462,8 +462,7 @@ const MyComponent = () => {
                 {/* DESCRIPCION */}
                 <div className="lg:ml-[240px] mt-10 contendor-descripcion" >
                     {puedeGuardar && (
-                        <textarea  id='descripcione' className='w-[80%] h-[200px] resize-none' defaultValue={propiedad.description}></textarea>
-
+                        <textarea  id='descripcione' className='area w-[80%] h-[200px] border-gray-950 resize-none' placeholder='Descripcion' defaultValue={propiedad.description}></textarea>
                     )}
                     {!puedeGuardar && (
                         <p>{propiedad.description}</p>
