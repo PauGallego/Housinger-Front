@@ -74,13 +74,20 @@ function ServerDay(props) {
     const isSelected =
         !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
 
+    const isDisabled = isSelected ? true : false; // Si está seleccionado, deshabilitar la casilla
+
     return (
         <Badge
             key={props.day.toString()}
             overlap="circular"
             badgeContent={isSelected ? '❌' : undefined} 
         >
-            <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
+            <PickersDay
+                {...other}
+                outsideCurrentMonth={outsideCurrentMonth}
+                day={day}
+                disabled={isDisabled} // Pasar la propiedad disabled al componente PickersDay
+            />
         </Badge>
     );
 }
