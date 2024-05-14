@@ -64,14 +64,22 @@ function ProfileComponent() {
             }
             const imageUrl = await response.text(); // Leer la respuesta como texto
             // Extraer el nombre del archivo de la URL
-            const fileName = imageUrl.split('/').pop(); // Obtener la parte después de la última barra
-            // Actualizar el estado de userData con el nombre del archivo
+            const fileName = imageUrl.match(/([^\/\\]+)$/)[0];
+
             setUserData(prevUserData => ({
                 ...prevUserData,
                 picture: fileName
             }));
-    
+
+            let localdata = JSON.parse(localStorage.getItem("userData"));
+
+            localdata.picture = fileName;
+
+            localStorage.setItem("userData", JSON.stringify(localdata));
+            
             closeModal();
+
+            location.reload(true);
         } catch (error) {
             // Manejar errores de red u otros errores
             console.error('Error uploading images:', error);
@@ -161,6 +169,16 @@ function ProfileComponent() {
             const erroresMostrar = document.getElementById('errores-mostrar');
             erroresMostrar.innerHTML = "Datos actulizados correctamente.";
             erroresMostrar.style.color = 'green';
+
+            let localdata = JSON.parse(localStorage.getItem("userData"));
+
+            localdata.mail = userData.mail;
+            localdata.surname = userData.surname;
+            localdata.name = userData.name;
+            
+
+            localStorage.setItem("userData", JSON.stringify(localdata));
+
 
             location.reload(true);
         } catch (error) {

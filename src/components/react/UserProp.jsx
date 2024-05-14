@@ -20,9 +20,12 @@ const MyComponent = () => {
     const [showModal, setShowModal] = useState(false);
     const [showModal3, setShowModal3] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
+    const [showModal4, setShowModal4] = useState(false);
     const [puedeGuardar, setPuedeGuardar] = useState(false); 
     const [allCharacteristics, setAllCharacteristics] = useState([]);
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState([]);
+
+
 
 
     useEffect(() => {
@@ -103,6 +106,14 @@ const MyComponent = () => {
 
     const closeModal3 = () => {
         setShowModal3(false);
+    };
+
+    const openModal4 = () => {
+        setShowModal4(true);
+    };
+
+    const closeModal4 = () => {
+        setShowModal4(false);
     };
 
     let arrayFotosSubidas = ["","","","","","","",""];
@@ -325,14 +336,35 @@ const MyComponent = () => {
     return (
         <div>
             <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
-            <dialog id="my_modal_15" class="modal">
-            <div class="modal-box">
-                <h3 class="font-bold text-lg">Cargando cambios...</h3>
-                <p class="py-4">Propiedad actualizada correctamente</p>
-                <div class="modal-action">
-                {/* <button class="btn" onclick="this.closest('dialog').close()">Close</button> */}
+
+                
+         
+            <dialog id="my_modal_15" className="modal">
+            <div className="modal-box">
+                <h3 className="font-bold text-lg">Cargando cambios...</h3>
+                <p className="py-4">Propiedad actualizada correctamente</p>
+                <div className="modal-action">
+                {/* <button className="btn" onclick="this.closest('dialog').close()">Close</button> */}
                 </div>
             </div>
+            <Modal
+                    open={showModal4}
+                    onClose={closeModal4}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">¿Estas seguro que quieres eliminar la propiedad?</h3>
+                        <p>Esta accion es irreversible</p>
+                        <div className="modal-action">
+                            <button className="btn" onClick={() => deletebyProperty()}>Borrar</button>
+                            <button className="btn" onClick={closeModal4}>Cerrar</button>
+                        </div>
+                    </div>
+                </Modal>
             </dialog>
 
                 {/* Dirección */}
@@ -514,7 +546,7 @@ const MyComponent = () => {
                     <div className="mt-[50px] lg:flex lg:items-center md:flex md:items-center gap-2">
 
                     {puedeGuardar && (
-                             <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => deletebyProperty()} >Eliminar</button>
+                             <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => openModal4()} >Eliminar</button>
                         )}
 
                         {!puedeGuardar && (

@@ -9,8 +9,10 @@ const MisPropiedades = () => {
     const [propiedades, setPropiedades] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [openModal, setOpenModal] = useState(false);
+    const [openModal2, setOpenModal2] = useState(false);
     const [direccion, setDireccion] = useState('');
     const [error, setError] = useState('');
+    const [idProp, setIdProp] = useState('');
 
     const handleModalOpen = () => {
         setOpenModal(true);
@@ -19,6 +21,17 @@ const MisPropiedades = () => {
     const handleModalClose = () => {
         setOpenModal(false);
     };
+
+    
+    const handleModalOpen2 = (id) => {
+        setIdProp(id);
+        setOpenModal2(true);
+    };
+    
+    const handleModalClose2 = () => {
+        setOpenModal2(false);
+    };
+    
     
     let userId = JSON.parse(localStorage.getItem('userData')).userId;
 
@@ -42,19 +55,23 @@ const MisPropiedades = () => {
             setError('Introduce una dirección');
             return;
         }
-
+    
         fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`)
             .then(response => response.json())
             .then(data => {
                 if (data.length > 0) {
-                    
                     const fetchData2 = async () => {
                         try {
                             const response = await fetch(`${API_BASE_URL}/v1/property/new/${userId}/${direccion}`);
-                            const data = await response.json();
-                            console.log(data);
-
-                            window.location.href = `${API_BASE_URL2}/user_prop?id=${data.id}`;
+                            const responseData = await response.json();
+    
+                            // Check if the response indicates an error
+                            if (!response.ok) {
+                                throw new Error(responseData.message || 'Error creating property');
+                            }
+    
+                            console.log(responseData);
+                            window.location.href = `${API_BASE_URL2}/user_prop?id=${responseData.id}`;
                         } catch (error) {
                             setError('La dirección ya esta en uso');
                             console.error('Error Creating property:', error);
@@ -65,9 +82,11 @@ const MisPropiedades = () => {
                     setError('La dirección no pudo ser encontrada. Por favor, inténtelo de nuevo.');
                 }
             });
-        }
+    }
+    
 
     const borrarPropiedad = async (id) => {
+
         let token = localStorage.getItem('authorization');
         try {
             const response = await fetch(`${API_BASE_URL}/v1/property/trueDelete/${id}`, {
@@ -77,20 +96,28 @@ const MisPropiedades = () => {
                 }
                 
             });
-            const data = await response.json();
-            location.reload(true);
+
+            if(response){
+                location.reload(true);
+  
+            }
+           
+            
         } catch (error) {
             console.error('Error deleting property:', error);
         }
     }
+    
+
+
                     return (
-                        <div className="mt-10  w-[80%]">
-                            <h2 className="ajustar md:ml-[180px] lg:ml-[550px] font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
-                            <div className="ajustar ml-[50px] lg:ml-[550px] md:ml-[180px]">
+                        <div className="mt-10">
+                            <h2 className="md:ml-[180px] lg:ml-[550px] font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
+                            <div className="ml-[50px] lg:ml-[550px] md:ml-[180px]">
                                 <div className="mt-5 lg:flex md:flex md:flex-wrap gap-5">
                                 {propiedades.map((propiedad, index) => (
                                 <div className="flex-col mb-10 relative" key={index}>
-                                    <button className="absolute top-0 right-0 z-10" onClick={() => borrarPropiedad(propiedad.propertyId)}>
+                                    <button className="absolute top-0 right-0 z-10" onClick={() => handleModalOpen2(propiedad.propertyId)}>
                                     <Icon icon="flowbite:x-circle-solid" className="h-[25px] w-[25px] red text-red" />
                                     </button>
                                     <a href={API_BASE_URL2 + "/user_prop?id=" + propiedad.propertyId}>
@@ -133,6 +160,25 @@ const MisPropiedades = () => {
                         <div className="modal-action">
                             <button className="btn" onClick={nuevaPropiedad}>Crear</button>
                             <button className="btn" onClick={handleModalClose}>Cerrar</button>
+                        </div>
+                    </div>
+                </Modal>
+
+                <Modal
+                    open={openModal2}
+                    onClose={handleModalClose2}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div className="modal-box">
+                        <h3 className="font-bold text-lg">¿Estas seguro que quieres eliminar la propiedad?</h3>
+                        <p>Esta accion es irreversible</p>
+                        <div className="modal-action">
+                            <button className="btn" onClick={() => borrarPropiedad(idProp)}>Borrar</button>
+                            <button className="btn" onClick={handleModalClose2}>Cerrar</button>
                         </div>
                     </div>
                 </Modal>
