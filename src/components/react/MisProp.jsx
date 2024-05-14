@@ -65,13 +65,9 @@ const MisPropiedades = () => {
                     setError('La dirección no pudo ser encontrada. Por favor, inténtelo de nuevo.');
                 }
             });
-
-
-   
-    }
+        }
 
     const borrarPropiedad = async (id) => {
-
         let token = localStorage.getItem('authorization');
         try {
             const response = await fetch(`${API_BASE_URL}/v1/property/trueDelete/${id}`, {
@@ -82,19 +78,15 @@ const MisPropiedades = () => {
                 
             });
             const data = await response.json();
-  
             location.reload(true);
         } catch (error) {
             console.error('Error deleting property:', error);
         }
     }
-    
-
-
                     return (
                         <div className="mt-10  w-[80%]">
-                            <h2 className="md:ml-[180px] lg:ml-[550px] font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
-                            <div className="ml-[50px] lg:ml-[550px] md:ml-[180px]">
+                            <h2 className="ajustar md:ml-[180px] lg:ml-[550px] font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
+                            <div className="ajustar ml-[50px] lg:ml-[550px] md:ml-[180px]">
                                 <div className="mt-5 lg:flex md:flex md:flex-wrap gap-5">
                                 {propiedades.map((propiedad, index) => (
                                 <div className="flex-col mb-10 relative" key={index}>

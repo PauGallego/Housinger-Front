@@ -98,6 +98,16 @@ h3 {
     border: none;
 }
 
+
+
+.boton-cerrar {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
 @media screen and (width: 1440px) {
     .ajustar {
         margin-left: 300px;

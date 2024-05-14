@@ -62,12 +62,9 @@ function ProfileComponent() {
             if (!response.ok) {
                 throw new Error('Failed to upload image');
             }
-    
             const imageUrl = await response.text(); // Leer la respuesta como texto
-    
             // Extraer el nombre del archivo de la URL
             const fileName = imageUrl.split('/').pop(); // Obtener la parte después de la última barra
-    
             // Actualizar el estado de userData con el nombre del archivo
             setUserData(prevUserData => ({
                 ...prevUserData,
@@ -80,16 +77,10 @@ function ProfileComponent() {
             console.error('Error uploading images:', error);
         }
     }
-
-
     const cerrarSesion =  () => {
-
             localStorage.clear();
-
             window.location.href = API_BASE_URL2;
     }
-
-
 
     const uploadData = async () => {
         try {
@@ -104,37 +95,51 @@ function ProfileComponent() {
             if (name) {
                 userData.name = name;
             }
+
+            if (name && name.charAt(0) !== name.charAt(0).toUpperCase()) {
+                const erroresMostrar = document.getElementById('errores-mostrar');
+                erroresMostrar.innerHTML = "El nombre debe comenzar con mayúscula.";
+                erroresMostrar.style.color = 'red';
+                return;
+            }
     
             if (surname) {
                 userData.surname = surname;
             }
 
+            if (surname && surname.charAt(0) !== surname.charAt(0).toUpperCase()) {
+                const erroresMostrar = document.getElementById('errores-mostrar');
+                erroresMostrar.innerHTML = "El apellido debe comenzar con mayúscula.";
+                erroresMostrar.style.color = 'red';
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (mail && !emailRegex.test(mail)) {
+                const erroresMostrar = document.getElementById('errores-mostrar');
+                erroresMostrar.innerHTML = "El correo electrónico ingresado no es válido.";
+                erroresMostrar.style.color = 'red';
+                return;
+            }
+
             if (mail) {
-
                 userData.mail = mail;
-
-
             }
-
+            
             if (username) {
-
                 userData.username = username;
-
             }
 
-            if(  password && password !== password2) {
-
-                alert('Las contraseñas no coinciden');
+            if (password && password !== password2) {
+                const erroresMostrar = document.getElementById('errores-mostrar');
+                erroresMostrar.innerHTML = "Las contraseñas no coinciden.";
+                erroresMostrar.style.color = 'red';
                 return;
             }
 
             if (password ) {
-
                 userData.password = password;
-
             }
-
-
             setUserData(userData);
             console.log(userData);
 
@@ -142,22 +147,20 @@ function ProfileComponent() {
                 method: 'PUT',
                 headers: {
                     'Authorization': 'Authentication ' + token,
-                    'Content-Type': 'application/json' // Agregamos el tipo de contenido
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(userData), // Enviamos los datos actualizados
+                body: JSON.stringify(userData), 
             });
     
             if (!response.ok) {
                 throw new Error('Failed to update user data');
             }
-    
             const updatedUserDataResponse = await response.json();
-
-
-    
             console.log(updatedUserDataResponse);
 
-            alert('Datos actualizados correctamente');
+            const erroresMostrar = document.getElementById('errores-mostrar');
+            erroresMostrar.innerHTML = "Datos actulizados correctamente.";
+            erroresMostrar.style.color = 'green';
 
             location.reload(true);
         } catch (error) {
@@ -165,7 +168,6 @@ function ProfileComponent() {
         }
     };
     
-
     return (
         <div>
             {userData !== null ? ( // Mostrar el div solo cuando userData no sea null
@@ -219,14 +221,13 @@ function ProfileComponent() {
                                     <p>Confirmar Contraseña</p>
                                     <input className="input-datos w-[100%]" type="password" name="" id="inputPassword2" placeholder="Contraseña" />
                                 </div>
-                               
                             </div>
-                            <div className="mb-2 mt-6 flex flex-row gap-10">
-                                <button className="boton-guardar w-[190px]"  onClick={uploadData}>Guardar perfil</button>
-                                <button className="boton-guardar w-[190px]"  onClick={cerrarSesion}>Cerrar Sesion</button>
-                                    
+                            <div className="mb-2 mt-6 flex flex-col md:flex-row lg:flex-row gap-5">
+                                <button className="boton-guardar w-[100%] md:w-[31%] lg:w-[100%]"  onClick={uploadData}>Guardar perfil</button>
+                                <button className="boton-cerrar w-[100%] md:w-[31%] lg:w-[100%]"  onClick={cerrarSesion}>Cerrar Sesion</button>
                             </div>
                         </div>
+                        <span id='errores-mostrar'></span>
                     </div>
                     <Modal open={modalOpen} onClose={closeModal}>
                         <div className="fixed inset-0 flex items-center justify-center z-10">
@@ -241,14 +242,12 @@ function ProfileComponent() {
                             </div>
                         </div>
                     </Modal>
-
-
                 </div>
             ) : (
-                <div>Cargando...</div> 
+                <div className='flex items-center justify-center'>
+                    <img className='h-[300px] w-[400px]' src="../../cargar.gif" alt="Cargando..." />
+                </div>
             )}
-
-        
         </div>
     );
 }

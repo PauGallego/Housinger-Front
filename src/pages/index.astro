@@ -4,10 +4,9 @@ import Char from "../components/react/Char.jsx";
 import { API_BASE_URL } from '../astro.config.js';
 ---
 <Layout title="Housinger" fondo="blue">
-    <main>
+    <main style="height: 250vh;">
         <div class="fondo-menu ">
             <div class="flex gap-10 font-bold justify-center">
-              
             </div>
             <div class="flex justify-center">
                 <div class="buscador h-[55px] w-[376px] rounded-[50px] mt-[20px] mb-[20px] lg:h-[77px] lg:w-[714px]">
@@ -55,7 +54,7 @@ import { API_BASE_URL } from '../astro.config.js';
         </div>
         <div class="h-screen">
             <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} client:only="svelte" />
-    </div>
+        </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
     const locationInput = document.getElementById('buscador-destino');
