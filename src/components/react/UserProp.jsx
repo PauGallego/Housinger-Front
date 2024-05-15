@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Styles/UserProp.css';
 import Calendar from './Calendario.jsx';
+import Calendar2 from './CalendarioSelec.jsx'
+import Calendar3 from './CalendarioSelec2.jsx'
 import Resena from './Resena.jsx';
 import Ubicacion from './Ubicacion.jsx';
 import Normas from './Normas.jsx';
@@ -23,6 +25,7 @@ const MyComponent = () => {
     const [showModal2, setShowModal2] = useState(false);
     const [showModal4, setShowModal4] = useState(false);
     const [showModal5, setShowModal5] = useState(false);
+    const [showModal6, setShowModal6] = useState(false);
     const [puedeGuardar, setPuedeGuardar] = useState(false); 
     const [allCharacteristics, setAllCharacteristics] = useState([]);
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState([]);
@@ -119,12 +122,45 @@ const MyComponent = () => {
     };
 
     const openModal5 = () => {
+        localStorage.removeItem("first_date");
+        localStorage.removeItem("last_date");
         setShowModal5(true);
     };
 
     const closeModal5 = () => {
         setShowModal5(false);
     };
+
+    const openModal6 = () => {
+        setShowModal6(true);
+    };
+
+    const closeModal6 = () => {
+        setShowModal6(false);
+    };
+
+    const nextModal  = () => {
+        let day = localStorage.getItem("first_date");
+        let error2 = document.getElementById("errorDiaEntrada");
+    
+        if (!day) {
+            error2.innerHTML = "¡Debes seleccionar una fecha!";
+            return;
+        }
+    
+        setShowModal5(false);
+        setShowModal6(true);
+    };
+    
+
+    const prevModal  = () => {
+        localStorage.removeItem("first_date");
+        localStorage.removeItem("last_date");
+        setShowModal6(false);
+        setShowModal5(true);
+       
+    };
+
 
 
     let arrayFotosSubidas = ["","","","","","","",""];
@@ -426,10 +462,34 @@ const MyComponent = () => {
                     <div className="modal-box bg-[white]">
                         <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
                             <p>Dia de entrada:</p>
-                         <Calendar propid={propiedad.id} />
+                         <Calendar2 propid={propiedad.id} />
+                       
+                        <div className="modal-action flex  items-center">
+                             <p className='text-[red] text-center' id='errorDiaEntrada'></p>
+                            <button className="btn" onClick={closeModal5}>Cancelar</button>
+                            <button className="btn" onClick={nextModal}>Siguiente</button>
+                           
+                        </div>
+                       
+                    </div>
+                </Modal>
+                <Modal
+                    open={showModal6}
+                    onClose={closeModal6}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div className="modal-box bg-[white]">
+                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
+                            <p>Dia de salida:</p>
+                         <Calendar3 propid={propiedad.id} />
                         <div className="modal-action">
-                            <button className="btn" onClick={closeModal5}>Siguiente</button>
-                            <button className="btn" onClick={closeModal5}>Cerrar</button>
+                            <button className="btn" onClick={closeModal6}>Cancelar</button>
+                            <button className="btn" onClick={prevModal}>Anterior</button>
+                            <button className="btn" onClick={closeModal6}>Reservar</button>
                         </div>
                     </div>
                 </Modal>
