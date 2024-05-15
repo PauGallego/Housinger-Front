@@ -15,7 +15,7 @@ const MyComponent = () => {
 
       if (receiverParam) {
         setReceiverId(receiverParam);
-        setIsLoading(false); // No necesitamos cargar más datos si el receiverId está presente
+        setIsLoading(false); 
       } else {
         try {
           const response = await fetch(`${API_BASE_URL}/v1/chat/getSent/${senderId}`, {
@@ -30,10 +30,10 @@ const MyComponent = () => {
           if (data && data.length > 0) {
             setReceiverId(data[0].receiverId);
           }
-          setIsLoading(false); // Finaliza la carga independientemente de si se encuentra un receiverId
+          setIsLoading(false); 
         } catch (error) {
           console.error('Error loading chat history:', error);
-          setIsLoading(false); // Manejo de error: finaliza la carga
+          setIsLoading(false);
         }
       }
     };

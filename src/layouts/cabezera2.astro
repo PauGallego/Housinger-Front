@@ -95,11 +95,11 @@ const { title, fondo } = Astro.props;
                 </dialog>
                 <dialog id="modal_aleatorio" class="modal">
                     <div class="modal-box">
-                        <h3 class="font-bold text-lg">Sesion no inciada</h3>
+                        <h3 class="font-bold text-lg text-black">Sesion no inciada</h3>
                         <p class="py-4">Inicia session con una cuenta de Housinger</p>
                         <div class="modal-action">
                         <form method="dialog">
-                            <button class="btn">Cerrar</button>
+                            <button class="btn cerrar-css">Cerrar</button>
                         </form>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ const { title, fondo } = Astro.props;
                         <p class="py-4">¡Gracias por confiar en nosotros!</p>
                         <div class="modal-action">
                         <form method="dialog">
-                            <button class="btn">Cerrar</button>
+                            <button class="btn cerrar-css">Cerrar</button>
                         </form>
                         </div>
                     </div>
@@ -259,6 +259,9 @@ if (modal_ya_premium && typeof modal_ya_premium.showModal === 'function') {
         --star: #ffd910;
         --menu: #a5d7e8;
     }
+    .modal-box {
+        background-color: white;
+    }
 
     .amarillo {
         background-color: var(--star);
@@ -268,6 +271,11 @@ if (modal_ya_premium && typeof modal_ya_premium.showModal === 'function') {
     .preimun-caja {
         background-color: white;
         border-radius: 10px;
+    }
+
+    .cerrar-css {
+        background-color: var(--primary) !important;
+        color: white !important;
     }
 
     .boton-nes{

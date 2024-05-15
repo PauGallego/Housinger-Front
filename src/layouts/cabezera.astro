@@ -99,7 +99,7 @@ const { title, fondo } = Astro.props;
                         <p class="py-4">Inicia session con una cuenta de Housinger</p>
                         <div class="modal-action">
                         <form method="dialog">
-                            <button class="btn">Close</button>
+                            <button class="btn cerrar-css">Cerrar</button>
                         </form>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ const { title, fondo } = Astro.props;
                         <p class="py-4">¡Gracias por confiar en nosotros!</p>
                         <div class="modal-action">
                         <form method="dialog">
-                            <button class="btn">Close</button>
+                            <button class="btn cerrar-css">Cerrar</button>
                         </form>
                         </div>
                     </div>
@@ -275,6 +275,11 @@ const { title, fondo } = Astro.props;
     .cerramos:hover {
         background-color: var(--primary);
         color: white;
+    }
+
+    .cerrar-css {
+        background-color: var(--primary) !important;
+        color: white !important;
     }
 
     .boton-nes{
