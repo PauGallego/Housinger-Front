@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/cabezera2.astro";
+import { API_BASE_URL2 } from '../astro.config.js';
 ---
 
 <Layout title="Crear cuenta" fondo="white">
@@ -24,7 +25,7 @@ import Layout from "../layouts/cabezera2.astro";
                         <p class="text-lg ml-[40px]">Email</p>
                         <input type="text" id="mail" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1"/>
                         <p class="text-lg ml-[40px]">Contraseña</p>
-                        <input type="text" id="pass" class="input-style lg:w-full lg:h-[20%] w-[80%]"/>
+                        <input type="password" id="pass" class="input-style lg:w-full lg:h-[20%] w-[80%]"/>
                         <p class="text-lg ml-[40px]">Usuario</p>
                         <input type="text" id="user" class="input-style lg:w-full lg:h-[20%] w-[80%]"/>
                     </div>
@@ -34,7 +35,7 @@ import Layout from "../layouts/cabezera2.astro";
                         <p class="text-lg ml-[40px]">DNI</p>
                         <input type="text" id="dni" class="input-style lg:w-full lg:h-[20%] w-[80%] mb-1"/>
                         <p class="text-lg ml-[40px]">Confirmar contraseña</p>
-                        <input type="text" id="pass2" class="input-style lg:w-full lg:h-[20%] w-[80%]"/>
+                        <input type="password" id="pass2" class="input-style lg:w-full lg:h-[20%] w-[80%]"/>
                         <button id="register" class="p-2 lg:p-0 input-style ml-[10%] lg:mt-[27px] lg:w-full lg:h-[10%] lg:ml-[3.4%] md:ml-[5%]">Guardar cuenta</button>
                     </div>
                 </div>
@@ -47,10 +48,11 @@ import Layout from "../layouts/cabezera2.astro";
         <dialog id="my_modal_30" class="modal">
             <div class="modal-box">
                 <h3 class="font-bold text-lg">Cuenta creada con exito</h3>
+                <p class="py-4">Para activar tu cuenta accede a tu correo</p>
             <div class="modal-action">
             <form method="dialog">
-                <button class="btn">Close</button>
-                </form>
+                <button id="closeButton" class="btn">Close</button>
+            </form>
             </div>
             </div>
         </dialog>
@@ -60,7 +62,7 @@ import Layout from "../layouts/cabezera2.astro";
             <div class="modal-action">
             <form method="dialog">
                 <button class="btn">Close</button>
-                </form>
+            </form>
             </div>
             </div>
         </dialog>
@@ -70,7 +72,7 @@ import Layout from "../layouts/cabezera2.astro";
             <div class="modal-action">
             <form method="dialog">
                 <button class="btn">Close</button>
-                </form>
+            </form>
             </div>
             </div>
         </dialog>
@@ -97,6 +99,7 @@ import Layout from "../layouts/cabezera2.astro";
     </main>
     <script>
         import { API_BASE_URL } from "../astro.config.js";
+        import { API_BASE_URL2 } from "../astro.config.js";
         let uploadedFile = null;
     
         function showLoading() {
@@ -106,6 +109,10 @@ import Layout from "../layouts/cabezera2.astro";
         function hideLoading() {
             document.getElementById("loading-spinner").style.display = "none";
         }
+
+        document.getElementById("closeButton").addEventListener("click", function() {
+            window.location.href = `${API_BASE_URL2}/login`;
+        });
     
         function handleFileSelect(event) {
             const file = event.target.files[0];
@@ -172,16 +179,25 @@ import Layout from "../layouts/cabezera2.astro";
             }
     
             if (password.value !== pass2.value) {
-                document.getElementById("error-message").textContent = "Las contraseñas no coinciden.";
-                password.classList.add("campo-invalido");
-                pass2.classList.add("campo-invalido");
-                hideLoading();
-                return;
+            document.getElementById("error-message").textContent = "Las contraseñas no coinciden.";
+            password.classList.add("campo-invalido");
+            pass2.classList.add("campo-invalido");
+            hideLoading();
+            return;
             } else {
-                document.getElementById("error-message").textContent = "";
-                password.classList.remove("campo-invalido");
-                pass2.classList.remove("campo-invalido");
+                if (password.value.length < 8) {
+                    document.getElementById("error-message").textContent = "La contraseña debe tener al menos 8 caracteres.";
+                    password.classList.add("campo-invalido");
+                    pass2.classList.add("campo-invalido");
+                    hideLoading();
+                    return;
+                } else {
+                    document.getElementById("error-message").textContent = "";
+                    password.classList.remove("campo-invalido");
+                    pass2.classList.remove("campo-invalido");
+                }
             }
+
             if (password.value.trim() === "") {
                 document.getElementById("error-message").textContent = "La contraseña no puede estar vacía.";
                 password.classList.add("campo-invalido");
@@ -274,8 +290,8 @@ import Layout from "../layouts/cabezera2.astro";
     
                         if (pictureResponse.ok) {
                             // alert("¡Foto de perfil subida con éxito!");
-                            const modal2 = document.getElementById('my_modal_31');
-                            modal2.showModal();
+                            // const modal2 = document.getElementById('my_modal_31');
+                            // modal2.showModal();
                         } else {
                             // alert("¡Error al subir foto de perfil!");
                             const moda3 = document.getElementById('my_modal_32');
@@ -291,7 +307,7 @@ import Layout from "../layouts/cabezera2.astro";
                         try {
                             const errorText = await response.text();
                             if (errorText.includes("Duplicate entry") && /(\d{8,}[A-Z])/.test(errorText)) {
-                                const errorMessage = "El DNI ya existe en la base de datos.";
+                                const errorMessage = "El DNI ya existe";
                                 document.getElementById("error-message").textContent = errorMessage;
                             }
                             else if (errorText.includes("Duplicate entry") && errorText.includes('@')) {
