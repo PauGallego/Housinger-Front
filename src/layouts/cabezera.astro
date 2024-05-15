@@ -84,7 +84,7 @@ const { title, fondo } = Astro.props;
                                 <h2 class="text-left">+Sin anuncios</h2>
                                 <h2 class="text-left">+Apoyar a los creadores</h2>
                             </div>
-                            <button  id="contratar" class="mt-5 p-[8px] rounded-[10px] contratar-premiun">Contratar premiun</button>
+                            <button  id="contratar" class=" mt-5 p-[8px] rounded-[10px] contratar-premiun">Contratar premiun</button>
                         </div>
                         <div class="modal-action">
                             <form method="dialog">
@@ -142,8 +142,6 @@ const { title, fondo } = Astro.props;
         }
 
         window.location.href = `${url2}/chat`; 
-
-
     });
 
     if(localStorage.getItem('userData') != null){
@@ -195,10 +193,6 @@ const { title, fondo } = Astro.props;
                     return;
         
                 }
-      
-       
-
-
             } else {
                 my_modal_1.showModal();
             }
@@ -232,13 +226,12 @@ const { title, fondo } = Astro.props;
             
             let modal_ya_premium = document.getElementById('modal_ya_premium');
 
-if (modal_ya_premium && typeof modal_ya_premium.showModal === 'function') {
-    modal_ya_premium.showModal();
-    my_modal_1.close();
-}else{
-    return;
-
-}
+        if (modal_ya_premium && typeof modal_ya_premium.showModal === 'function') {
+            modal_ya_premium.showModal();
+            my_modal_1.close();
+        }else{
+            return;
+        }
         } else if(body.trim() === 'El usuario ya es premium.'){
             alert('El usuario ya es premium');
             my_modal_1.close();

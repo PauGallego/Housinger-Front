@@ -99,7 +99,7 @@ const { title, fondo } = Astro.props;
                         <p class="py-4">Inicia session con una cuenta de Housinger</p>
                         <div class="modal-action">
                         <form method="dialog">
-                            <button class="btn">Close</button>
+                            <button class="btn">Cerrar</button>
                         </form>
                         </div>
                     </div>
@@ -110,7 +110,7 @@ const { title, fondo } = Astro.props;
                         <p class="py-4">¡Gracias por confiar en nosotros!</p>
                         <div class="modal-action">
                         <form method="dialog">
-                            <button class="btn">Close</button>
+                            <button class="btn">Cerrar</button>
                         </form>
                         </div>
                     </div>
@@ -142,8 +142,6 @@ const { title, fondo } = Astro.props;
         }
 
         window.location.href = `${url2}/chat`; 
-
-
     });
 
     if(localStorage.getItem('userData') != null){
@@ -195,10 +193,6 @@ const { title, fondo } = Astro.props;
                     return;
         
                 }
-      
-       
-
-
             } else {
                 my_modal_1.showModal();
             }
@@ -265,6 +259,39 @@ if (modal_ya_premium && typeof modal_ya_premium.showModal === 'function') {
         --star: #ffd910;
         --menu: #a5d7e8;
     }
+
+    .amarillo {
+        background-color: var(--star);
+        border-radius: 10px;
+    }
+
+    .preimun-caja {
+        background-color: white;
+        border-radius: 10px;
+    }
+
+    .boton-nes{
+        background-color: var(--star);
+        padding: 10px;
+        border-radius: 50px;
+    }
+
+    .contratar-premiun {
+        background-color: var(--primary);
+        color: white;
+    }
+
+    .cerramos {
+        background-color: white;
+        border: none;
+        color: black;
+    }
+
+    .cerramos:hover {
+        background-color: var(--primary);
+        color: white;
+    }
+
     body,
     html {
         font-family: "Karma", serif;
