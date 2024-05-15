@@ -8,10 +8,6 @@ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import { API_BASE_URL } from '../../astro.config';
 
-function getRandomNumber(min, max) {
-    return Math.round(Math.random() * (max - min) + min);
-}
-
 function fakeFetch(date, { signal }, id) {
 
     let superid = id.propid;
@@ -95,7 +91,7 @@ function ServerDay(props) {
 
 export default function DateCalendarServerRequest(propid) {
     const requestAbortController = React.useRef(null);
-    const [isLoading, setIsLoading] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(true);
     const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
     const [entrada, setEntrada] = React.useState(initialValue);
     const [salida, setSalida] = React.useState(initialValue);

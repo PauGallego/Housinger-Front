@@ -244,6 +244,50 @@ const MyComponent = () => {
         
     }
 
+    const reservarTrue = async () => {
+        let last_date = localStorage.getItem("last_date");
+        let error2 = document.getElementById("errorDiaSalida");
+            
+        if (!last_date) {
+            error2.innerHTML = "¡Debes seleccionar una fecha!";
+            return;
+        }
+    
+        try {
+
+
+            const reservationData = {
+                reservationUserId:  JSON.parse(localStorage.getItem('userData')).userId,
+                reservationPropertyId: propiedad.id, 
+                dateStart:  new Date (localStorage.getItem("first_date")), 
+                dateEnd:  new Date (localStorage.getItem("last_date"))
+            };
+
+            console.log(JSON.stringify(reservationData));
+    
+            const response = await fetch(`${API_BASE_URL}/v1/reservation/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reservationData)
+            });
+    
+            if (response.ok) {
+                console.log('Reserva realizada con éxito.');
+                window.location.href = `${API_BASE_URL2}/chat?receiver=${propiedad.customerId}`;
+            } else {
+           
+                console.error('Error al realizar la reserva:', response.statusText);
+            }
+        } catch(error) {
+           
+            console.error('Error:', error);
+        }
+    }
+    
+
+
 
     if (isLoading) {
         return <div className="h-[100vh] loading-container flex justify-center items-start mt-[5px]"><img src="../../cargar.gif" alt="Cargando..." /></div>;
@@ -464,7 +508,7 @@ const MyComponent = () => {
                             <p>Dia de entrada:</p>
                          <Calendar2 propid={propiedad.id} />
                        
-                        <div className="modal-action flex  items-center">
+                          <div className="modal-action flex  items-center">
                              <p className='text-[red] text-center' id='errorDiaEntrada'></p>
                             <button className="btn" onClick={closeModal5}>Cancelar</button>
                             <button className="btn" onClick={nextModal}>Siguiente</button>
@@ -486,10 +530,11 @@ const MyComponent = () => {
                         <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
                             <p>Dia de salida:</p>
                          <Calendar3 propid={propiedad.id} />
-                        <div className="modal-action">
-                            <button className="btn" onClick={closeModal6}>Cancelar</button>
+                        
+                         <div className="modal-action flex  items-center">
+                        <p className='text-[red] text-center' id='errorDiaSalida'></p>
                             <button className="btn" onClick={prevModal}>Anterior</button>
-                            <button className="btn" onClick={closeModal6}>Reservar</button>
+                            <button className="btn" onClick={reservarTrue}>Reservar</button>
                         </div>
                     </div>
                 </Modal>
