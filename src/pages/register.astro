@@ -44,6 +44,56 @@ import Layout from "../layouts/cabezera2.astro";
                 </div>
             </div>
         </div>
+        <dialog id="my_modal_30" class="modal">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Cuenta creada con exito</h3>
+            <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Close</button>
+                </form>
+            </div>
+            </div>
+        </dialog>
+        <dialog id="my_modal_31" class="modal">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">Foto de perfil subida con exito</h3>
+            <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Close</button>
+                </form>
+            </div>
+            </div>
+        </dialog>
+        <dialog id="my_modal_32" class="modal">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">¡Error al subir foto de perfil!</h3>
+            <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Close</button>
+                </form>
+            </div>
+            </div>
+        </dialog>
+        <dialog id="my_modal_32" class="modal">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">¡Error al subir foto de perfil!</h3>
+            <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Close</button>
+                </form>
+            </div>
+            </div>
+        </dialog>
+        <dialog id="my_modal_33" class="modal">
+            <div class="modal-box">
+                <h3 class="font-bold text-lg">¡Error al crear cuenta!</h3>
+            <div class="modal-action">
+            <form method="dialog">
+                <button class="btn">Close</button>
+                </form>
+            </div>
+            </div>
+        </dialog>
     </main>
     <script>
         import { API_BASE_URL } from "../astro.config.js";
@@ -120,7 +170,6 @@ import Layout from "../layouts/cabezera2.astro";
                 document.getElementById("error-message").textContent = "";
                 dni.classList.remove("campo-invalido");
             }
-
     
             if (password.value !== pass2.value) {
                 document.getElementById("error-message").textContent = "Las contraseñas no coinciden.";
@@ -207,7 +256,9 @@ import Layout from "../layouts/cabezera2.astro";
                     const responseData = await response.json();
                     const customerId = responseData.customerEntity.id;
     
-                    alert("¡Cuenta creada con éxito!");
+                    // alert("¡Cuenta creada con éxito!");
+                    const modal = document.getElementById('my_modal_30');
+                    modal.showModal();
     
                     let formData = new FormData();
                     formData.append("file", uploadedFile);
@@ -222,13 +273,18 @@ import Layout from "../layouts/cabezera2.astro";
                         );
     
                         if (pictureResponse.ok) {
-                            alert("¡Foto de perfil subida con éxito!");
+                            // alert("¡Foto de perfil subida con éxito!");
+                            const modal2 = document.getElementById('my_modal_31');
+                            modal2.showModal();
                         } else {
-                            alert("¡Error al subir foto de perfil!");
+                            // alert("¡Error al subir foto de perfil!");
+                            const moda3 = document.getElementById('my_modal_32');
+                            moda3.showModal();
                         }
                     } catch (error) {
                         console.error("Error al subir foto de perfil:", error);
-                        alert("¡Error al subir foto de perfil!");
+                        // alert("¡Error al subir foto de perfil!");
+                        moda3.showModal();
                     }
                 } else {
                     if (response.status === 409) {
@@ -247,19 +303,24 @@ import Layout from "../layouts/cabezera2.astro";
                                 document.getElementById("error-message").textContent = errorMessage;
                             }
                             else {
-                                alert("¡Error al crear cuenta!");
+                                // alert("¡Error al crear cuenta!");
+                                const moda4 = document.getElementById('my_modal_33');
+                                moda4.showModal();
                             }
                         } catch (error) {
                             console.error("Error al obtener el texto del error:", error);
-                            alert("¡Error al crear cuenta!");
+                            // alert("¡Error al crear cuenta!");
+                            moda4.showModal();
                         }
                     } else {
-                        alert("¡Error al crear cuenta!");
+                        // alert("¡Error al crear cuenta!");
+                        moda4.showModal();
                     }
                 }
             } catch (error) {
                 console.error("Error:", error);
-                alert("¡Error al crear cuenta!");
+                // alert("¡Error al crear cuenta!");
+                moda4.showModal();
             } finally {
                 hideLoading();
             }
