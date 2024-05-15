@@ -2,13 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { over } from 'stompjs';
 import SockJS from "sockjs-client/dist/sockjs";
 import { API_BASE_URL } from '../../astro.config.js';
-import { parse } from 'date-fns';
+import { API_BASE_URL2 } from '../../astro.config.js';
+import { parse, set } from 'date-fns';
 import './Styles/ChatRoom.css';
+import { Modal, Button, TextField } from '@mui/material';
+import Calendar from './Calendario.jsx';
+import Calendar2 from './CalendarioSelec.jsx'
+import Calendar3 from './CalendarioSelec2.jsx'
+
 
 var stompClient = null;
 
 const ChatRoom = ({ senderId, receiverId }) => {
     const [privateChats, setPrivateChats] = useState([]);
+    const [showModal, setShowModal] = useState(false);
+    const [showModal2, setShowModal2] = useState(false);
+    const [showModal3, setShowModal3] = useState(false);
+    const [propId, setPropId] = useState(false);
+    const [propiedades, setPropiedades] = useState([]);
     const [userData, setUserData] = useState({
         senderId: senderId,
         receiverId: receiverId,
@@ -25,9 +36,123 @@ const ChatRoom = ({ senderId, receiverId }) => {
         senderFoto: '',
         receiverFoto: ''
     });
-
     const [receiverButtons, setReceiverButtons] = useState(null);
     const [loadedConversations, setLoadedConversations] = useState([]);
+
+
+    const openModal = (id) =>{
+        setShowModal3(false);
+        setPropId(id);
+
+        setShowModal(true);
+    }
+
+    const closeModal = () =>{
+        setShowModal(false);
+    }
+    
+    const openModal2 = () =>{
+        setShowModal2(true);
+    }
+
+    const closeModal2 = () =>{
+        setShowModal2(false);
+    }
+
+    const openModal3 = () =>{
+        fetchPropData();
+        localStorage.removeItem("first_date");
+        localStorage.removeItem("last_date");
+        setShowModal3(true);
+    }
+
+    const closeModal3 = () =>{
+        setShowModal3(false);
+    }
+
+    const nextModal = () =>{
+        let day = localStorage.getItem("first_date");
+        let error2 = document.getElementById("errorDiaEntrada");
+    
+        if (!day) {
+            error2.innerHTML = "¡Debes seleccionar una fecha!";
+            return;
+        }
+        setShowModal(false);
+        setShowModal2(true);
+        
+    }
+
+    const fianlizarReserva = async () =>{
+        let last_date = localStorage.getItem("last_date");
+        let error2 = document.getElementById("errorDiaSalida");
+            
+        if (!last_date) {
+            error2.innerHTML = "¡Debes seleccionar una fecha!";
+            return;
+        }
+        
+        try {
+
+
+            const reservationData = {
+                reservationUserId:  JSON.parse(localStorage.getItem('userData')).userId,
+                reservationPropertyId: propId, 
+                dateStart:  new Date (localStorage.getItem("first_date")), 
+                dateEnd:  new Date (localStorage.getItem("last_date"))
+            };
+
+            console.log(JSON.stringify(reservationData));
+    
+            const response = await fetch(`${API_BASE_URL}/v1/reservation/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(reservationData)
+            });
+    
+            if (response.ok) {
+                console.log('Reserva realizada con éxito.');
+                window.location.href = `${API_BASE_URL2}/chat?receiver=${userData.receiverId}`;
+            } else {
+           
+                console.error('Error al realizar la reserva:', response.statusText);
+            }
+        } catch(error) {
+           
+            console.error('Error:', error);
+        }
+        
+    }
+
+    const prevModal = () =>{
+        localStorage.removeItem("first_date");
+        localStorage.removeItem("last_date");
+        setShowModal(true);
+        setShowModal2(false);
+    }
+
+    const fetchPropData = () =>{
+
+        const fetchData = async () => {
+            try {
+                const response = await fetch(`${API_BASE_URL}/v1/propertyUser/getCustomer/${userData.receiverId}`);
+                const data = await response.json();
+                setPropiedades(data);
+
+                console.log(data);
+            } catch (error) {
+                console.error('Error fetching property data:', error);
+            }
+        };
+
+            
+        fetchData();
+       
+    }
+
+
 
     useEffect(() => {
         if (userData.receiverId && userData.senderId && userData.connected) {
@@ -289,10 +414,10 @@ const ChatRoom = ({ senderId, receiverId }) => {
                                 onKeyDown={handleMessageKeyDown}
                             />
                             <button onClick={sendPrivateValue} className='ml-[10px] boton-enviar'>
-                                <i class="icon-[material-symbols--send-rounded] logo-enviar"></i>
+                                <i className="icon-[material-symbols--send-rounded] logo-enviar"></i>
                             </button>
-                            <button className='ml-[10px] boton-enviar'>
-                                <i class="icon-[mdi--home-switch-outline] logo-enviar"></i>
+                            <button onClick={openModal3}  className='ml-[10px] boton-enviar'>
+                                <i className="icon-[mdi--home-switch-outline] logo-enviar"></i>
                             </button>
                         </div>
                     </div>
@@ -302,6 +427,90 @@ const ChatRoom = ({ senderId, receiverId }) => {
                     <p className='text-center text-white text-4xl'>Conectando...</p>
                 </div>
             )}
+                
+
+                <Modal
+                    open={showModal3}
+                    onClose={closeModal3}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div className="modal-box bg-[white]">
+                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona la propiedad deseada</h3>
+
+                        {propiedades.map((propiedad, index) => (
+                                <div className="flex-col mb-10 relative" key={index}>
+                                
+                                    <button onClick={ () => openModal(propiedad.propertyId)}>
+                                        <img
+                                            className="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]"
+                                            src={propiedad.foto ? `${API_BASE_URL}/v1/fileCustomer/download/${propiedad.foto}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`}
+                                            alt=""
+                                        />
+                                        <p>{propiedad.address}</p>
+                                    </button>
+                                </div>
+                            ))}
+                        
+                         <div className="modal-action flex  items-center">
+                        <p className='text-[red] text-center' id='errorDiaSalida'></p>
+                            <button className="btn" onClick={closeModal3}>Cerrar</button>
+                        </div>
+                    </div>
+                </Modal>
+
+
+                <Modal
+                    open={showModal}
+                    onClose={closeModal}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                  
+                  <div className="modal-box bg-[white]">
+                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
+                            <p>Dia de entrada:</p>
+                         <Calendar2 propid={propId} />
+                       
+                          <div className="modal-action flex  items-center">
+                             <p className='text-[red] text-center' id='errorDiaEntrada'></p>
+                            <button className="btn" onClick={closeModal}>Cancelar</button>
+                            <button className="btn" onClick={nextModal}>Siguiente</button>
+                           
+                        </div>
+                       
+                    </div>
+                </Modal>
+
+                <Modal
+                    open={showModal2}
+                    onClose={closeModal2}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div className="modal-box bg-[white]">
+                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
+                            <p>Dia de salida:</p>
+                         <Calendar3 propid={propId} />
+                        
+                         <div className="modal-action flex  items-center">
+                        <p className='text-[red] text-center' id='errorDiaSalida'></p>
+                            <button className="btn" onClick={prevModal}>Anterior</button>
+                            <button className="btn" onClick={fianlizarReserva}>Reservar</button>
+                        </div>
+                    </div>
+                </Modal>
+
+                
         </div>
     );
 
