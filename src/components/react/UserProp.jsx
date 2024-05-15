@@ -247,8 +247,6 @@ const MyComponent = () => {
     const updateProperty = async () => {
         try {
             console.log("Updating property...");
-            const modal = document.getElementById('my_modal_15');
-            modal.showModal();
     
             propiedad.address = localStorage.getItem("ubi");
             propiedad.description = document.getElementById("descripcione").value;
@@ -260,7 +258,7 @@ const MyComponent = () => {
             propiedad.normas = normas && normas.length ? normas : null;
     
             let token = localStorage.getItem('authorization');
-            
+    
             // Delete existing beds associated with the property
             await fetch(`${API_BASE_URL}/v1/bed/deletebyProperty/${propiedad.id}`, {
                 method: 'DELETE',
@@ -269,10 +267,9 @@ const MyComponent = () => {
                     'Authorization': 'Authentication ' + token,
                 }
             });
-
+    
             let test = false;
             let test2 = false;
-    
             // Save updated beds
             let camas = JSON.parse(localStorage.getItem("camasModificadas"));
             await Promise.all(camas.map(async (element) => {
@@ -293,13 +290,13 @@ const MyComponent = () => {
     
                 if (!response.ok) {
                     throw new Error('Error al actualizar las camas');
-                }else{
+                } else {
                     test = true;
                 }
     
                 console.log('Bed updated successfully');
             }));
-
+    
             let propiedadJSON = {
                 address: propiedad.address,
                 calendar: propiedad.calendar,
@@ -316,40 +313,56 @@ const MyComponent = () => {
             console.log(JSON.stringify(propiedadJSON));
     
             fetch(`${API_BASE_URL}/v1/property/save`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Authentication ' + token,
-                },
-                body: JSON.stringify(propiedadJSON)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    console.log(response);
-                    if (response.status === 500) {
-                        alert("direccion duplicada");
-                        throw new Error('La dirección ya está siendo utilizada.');
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Authentication ' + token,
+                    },
+                    body: JSON.stringify(propiedadJSON)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        console.log(response);
+                        if (response.status === 500) {
+                            const modal = document.getElementById('my_modal_20');
+                            modal.showModal();
+    
+                            const closeButton = modal.querySelector('button');
+                            closeButton.addEventListener('click', () => {
+                                modal.close();
+                            });
+    
+                            throw new Error('La dirección ya está siendo utilizada.');
+                        } else {
+                            // alert("Error interno");
+                            throw new Error('Error al actualizar la propiedad');
+                        }
                     } else {
-                        alert("Error interno");
-                        throw new Error('Error al actualizar la propiedad');
+                        test2 = true;
+                        console.log('Propiedad actualizada correctamente');
+    
+                        location.reload(true);
+                        return response.json();
                     }
-                }else{
-                    test2 = true;
-                }
-                console.log('Propiedad actualizada correctamente');
-
-                location.reload(true);  
-                return response.json();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+                })
+                .then(() => {
+                    // Mostrar el modal solo si todo el proceso se completó sin errores
+                    const modalSuccess = document.getElementById('my_modal_15');
+                    modalSuccess.showModal();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // alert("Error interno");
+                });
+    
             console.log('All beds updated successfully');
+    
         } catch (error) {
             console.error('Error:', error);
             alert("Error interno");
         }
     };
+    
     
     const deletebyProperty = async () => {
         let token = localStorage.getItem('authorization');
@@ -374,9 +387,6 @@ const MyComponent = () => {
     return (
         <div>
             <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
-
-                
-         
             <dialog id="my_modal_15" className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Cargando cambios...</h3>
@@ -738,6 +748,17 @@ const MyComponent = () => {
             </div>
         </Modal>
                         </div>
+                        <dialog id="my_modal_20" class="modal">
+                        <div class="modal-box">
+                            <h3 class="font-bold text-lg">Error en la direcion</h3>
+                            <p class="py-4">La dirección ya está siendo utilizada.</p>
+                            <div class="modal-action">
+                            <form method="dialog">
+                                <button class="btn">Close</button>
+                            </form>
+                            </div>
+                        </div>
+                        </dialog>
                         {/* BARRA VERTICAL */}
                         <div className="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[100px] lg:mr-[150px]"></div>
                         {/* CALENDARIO */}
