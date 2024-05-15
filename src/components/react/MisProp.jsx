@@ -108,8 +108,6 @@ const MisPropiedades = () => {
         }
     }
     
-
-
                     return (
                         <div className="mt-10">
                             <h2 className="md:ml-[180px] lg:ml-[550px] font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
@@ -118,7 +116,7 @@ const MisPropiedades = () => {
                                 {propiedades.map((propiedad, index) => (
                                 <div className="flex-col mb-10 relative" key={index}>
                                     <button className="absolute top-0 right-0 z-10" onClick={() => handleModalOpen2(propiedad.propertyId)}>
-                                    <Icon icon="flowbite:x-circle-solid" className="h-[25px] w-[25px] red text-red" />
+                                    <Icon icon="flowbite:x-circle-solid" className="h-[25px] w-[25px] red text-[red]" />
                                     </button>
                                     <a href={API_BASE_URL2 + "/user_prop?id=" + propiedad.propertyId}>
                                         <img
