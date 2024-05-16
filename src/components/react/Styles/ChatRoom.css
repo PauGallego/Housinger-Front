@@ -83,13 +83,13 @@ html, body {
     display: flex;
     gap: 5px;
 }
-
 .conversation-buttons {
-    /* height: calc(100vh - 20px); */
+    color: white;
     overflow-y: auto;
+    overflow-x: auto;
     background-color: var(--secondary);
-    width: 200px
 }
+
 
 .boton-enviar {
     background-color: white;
@@ -167,7 +167,7 @@ html, body {
     }
 
     .chat-input {
-        width: 950px;
+        width: 910px;
         top: 830px;
     }
 }
@@ -200,7 +200,7 @@ html, body {
     }
 
     .chat-input {
-        width: 400px;
+        width: 380px;
         top: 740px;
     }
 }

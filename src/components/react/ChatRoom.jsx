@@ -217,7 +217,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 const messagesWithReceiver = data2.filter(message => message.receiverId === receiverId);
 
                 return (
-                    <button key={receiverId} onClick={() => handleReceiverChange(receiverId)} className='flex items-center boton-persona'>
+                    <button key={receiverId} onClick={() => handleReceiverChange(receiverId)} className='flex items-center w-[200px] boton-persona'>
                         <img src={`${API_BASE_URL}/v1/fileCustomer/download/${messagesWithReceiver[0].receiverPicture}`} className="rounded-full w-10 h-10 m-[5px] " alt="Sender" />
                         {messagesWithReceiver[0].receiverName} {messagesWithReceiver[0].receiverSurname}
                     </button>
@@ -378,7 +378,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
             {userData.connected ? (
 
                 <div className="chat-container flex-col md:flex-col lg:flex-row gap-5 ">
-                    <div className="conversation-buttons  flex flex-col ">
+                    <div className="conversation-buttons flex flex-row lg:flex-col">
                         {receiverButtons}
                     </div>
 
@@ -406,17 +406,17 @@ const ChatRoom = ({ senderId, receiverId }) => {
                         ))}
                         <div className='mt-[200px] bm-[200px] md:mt-[100px] md:bm-[100px]'></div>
 
-                        <div className="chat-input">
+                        <div className="chat-input flex justify-center items-center">
                             <input className='w-[90%] h-[40px] rounded-[50px] input-enviar'
                                 type="text"
                                 value={userData.message}
                                 onChange={handleMessage}
                                 onKeyDown={handleMessageKeyDown}
                             />
-                            <button onClick={sendPrivateValue} className='ml-[10px] boton-enviar'>
+                            <button onClick={sendPrivateValue} className='ml-[10px] mt-5 boton-enviar'>
                                 <i className="icon-[material-symbols--send-rounded] logo-enviar"></i>
                             </button>
-                            <button onClick={openModal3}  className='ml-[10px] boton-enviar'>
+                            <button onClick={openModal3}  className='ml-[10px] mt-5 boton-enviar'>
                                 <i className="icon-[mdi--home-switch-outline] logo-enviar"></i>
                             </button>
                         </div>
