@@ -198,42 +198,75 @@ const ChatRoom = ({ senderId, receiverId }) => {
     const fetchData = async () => {
         try {
             await fetchCustomerData();
-
-            const response2 = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`, {
+    
+            const responseSent = await fetch(`${API_BASE_URL}/v1/chat/getSent/${userData.senderId}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': 'Authentication ' + token,
                 }
             });
-
-            const data2 = await response2.json();
-
-            const uniqueReceiverIds = [...new Set(data2.map(message => message.receiverId))];
-
-            const isCurrentReceiverLoaded = loadedConversations.includes(userData.receiverId);
-
-            let buttons = await Promise.all(uniqueReceiverIds.map(async (receiverId) => {
-                const messagesWithReceiver = data2.filter(message => message.receiverId === receiverId);
-
-                return (
-                    <button key={receiverId} onClick={() => handleReceiverChange(receiverId)} className='flex items-center w-[200px] boton-persona'>
-                        <img src={`${API_BASE_URL}/v1/fileCustomer/download/${messagesWithReceiver[0].receiverPicture}`} className="rounded-full w-10 h-10 m-[5px] " alt="Sender" />
-                        {messagesWithReceiver[0].receiverName} {messagesWithReceiver[0].receiverSurname}
-                    </button>
-                );
-            }));
-
-            buttons = buttons.filter((button, index) => {
-                return buttons.findIndex(btn => btn.key === button.key) === index;
+    
+            const dataSent = await responseSent.json();
+    
+            const responseReceived = await fetch(`${API_BASE_URL}/v1/chat/getReceived/${userData.senderId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Authentication ' + token,
+                }
             });
-
+    
+            const dataReceived = await responseReceived.json();
+    
+            const filteredReceivedMessages = dataReceived.filter(message => message.senderId !== userData.senderId);
+    
+            const allMessages = [...dataSent, ...filteredReceivedMessages];
+    
+            const uniqueSenderIds = [...new Set(allMessages.map(message => message.senderId))];
+    
+            let buttons = [];
+    
+            const addedSenderIds = new Set();
+    
+            await Promise.all(uniqueSenderIds.map(async (senderId) => {
+                if (senderId === userData.senderId) {
+                    const messagesWithSender = allMessages.filter(message => message.senderId === senderId);
+                    messagesWithSender.forEach(message => {
+                        if (!addedSenderIds.has(message.receiverId)) {
+                            buttons.push(
+                                <button key={`${message.receiverId}`} onClick={() => handleReceiverChange(message.receiverId)} className='flex items-center w-[200px] boton-persona'>
+                                    <img src={`${API_BASE_URL}/v1/fileCustomer/download/${message.receiverFoto}`} className="rounded-full w-10 h-10 m-[5px] " alt="Sender" />
+                                    {message.receiverName} {message.receiverSurname}
+                                </button>
+                            );
+                            addedSenderIds.add(message.receiverId);
+                        }
+                    });
+                } else {
+                    const messagesWithSender = allMessages.filter(message => message.senderId === senderId);
+                    if (!addedSenderIds.has(senderId)) {
+                        buttons.push(
+                            <button key={senderId} onClick={() => handleReceiverChange(senderId)} className='flex items-center w-[200px] boton-persona'>
+                                <img src={`${API_BASE_URL}/v1/fileCustomer/download/${messagesWithSender[0].senderPicture}`} className="rounded-full w-10 h-10 m-[5px] " alt="Sender" />
+                                {messagesWithSender[0].senderName} {messagesWithSender[0].senderSurname}
+                            </button>
+                        );
+                        addedSenderIds.add(senderId);
+                    }
+                }
+            }));
+    
             setReceiverButtons(buttons);
-
+    
         } catch (error) {
             console.error('Error loading chat history:', error);
         }
     };
+    
+    
+    
+    
 
     const loadChatHistory = async (senderId, receiverId) => {
         try {
@@ -308,6 +341,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
             } else {
                 console.log("Mensaje de otro usuario " + receivedMessage.senderName + " " + receivedMessage.senderSurname)
+                fetchData();
             }
         }
     };
@@ -344,7 +378,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
 
             setPrivateChats(prevPrivateChats => [...prevPrivateChats, chatMessage]);
 
-            if (privateChats.length === 0) {
+            if (privateChats.length == 0) {
                 fetchData();
             }
         }
