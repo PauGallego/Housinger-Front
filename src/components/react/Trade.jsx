@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Chatroom from './ChatRoom.jsx';
 import { API_BASE_URL } from '../../astro.config.js';
+import { API_BASE_URL2 } from '../../astro.config.js'; 
 import '../../global.css';
+import { set } from 'date-fns';
 
 const MyComponent = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [proposerId, setProposerId] = useState(null);
   const [receiverId, setReceiverId] = useState(null);
-    const [data, setData] = useState({});
+  const [reservId, setReservId] = useState(null);
+  const [customerId, setCustomerId] = useState(null);
+  const [data, setData] = useState({});
 
   let userData = JSON.parse(localStorage.getItem('userData'));
+
   
   useEffect(() => {
     const fetchData = async () => {
       const params = new URLSearchParams(window.location.search);
       const id = params.get('id');
-
+      setReservId(id);
         const response = await fetch(`${API_BASE_URL}/v1/reservation/get/${id}`, {
             method: 'GET',
             headers: {
@@ -31,10 +36,11 @@ const MyComponent = () => {
         if(userData.userId != data.receiverUserId ){
 
             window.location.href = '/';
-        }else{
+        }else{  
 
-            setProposerId(data.proposerId);
-            setReceiverId(data.receiverId);
+            setProposerId(data.reservationUserId);
+            setReceiverId(data.receiverUserId);
+            setCustomerId(data.reservationCustomerId);
             setData(data);
         }
 
@@ -44,8 +50,7 @@ const MyComponent = () => {
 
 
       if (id) {
-        
-        setProposerId(id);
+
         setIsLoading(false); 
       } 
 
@@ -56,8 +61,8 @@ const MyComponent = () => {
 
     let data = JSON.parse(localStorage.getItem('userData'));
 
-
   
+
   }, []);
 
   const formatDate = (dateString) => {
@@ -67,6 +72,30 @@ const MyComponent = () => {
     const year = date.getFullYear();
     return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
   };
+
+  let rechazar = async () => {
+
+   const url = `${API_BASE_URL}/v1/reservation/declineOffer/${reservId}/${receiverId}/${proposerId}`;
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+
+      await response.response;
+      if(response){
+        window.location.href = `${API_BASE_URL2}/chat?receiver=${customerId}`;
+   
+      }
+    
+    } catch (error) {
+      console.error('Error:', error);
+
+    }
+  }
 
   return (
     <div>
@@ -88,7 +117,7 @@ const MyComponent = () => {
                 <p>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
 
                 <button>Ver Propiedades</button>
-                <button>Rechazar</button>
+                <button onClick={ () => rechazar()}>Rechazar</button>
           </div>
         </div>
       )}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState , useRef} from 'react';
 import { over } from 'stompjs';
 import SockJS from "sockjs-client/dist/sockjs";
 import { API_BASE_URL } from '../../astro.config.js';
@@ -114,7 +114,12 @@ const ChatRoom = ({ senderId, receiverId }) => {
     
             if (response.ok) {
                 console.log('Reserva realizada con éxito.');
-                loadChatHistory(userData.senderId, receiverId);
+
+                const updatedUrl = new URL(window.location.href);
+                updatedUrl.searchParams.set('receiver', userData.receiverId); 
+                window.history.pushState({}, '', updatedUrl);
+
+                loadChatHistory(userData.senderId, userData.receiverId);
                 closeModal2();
             } else {
            
@@ -404,6 +409,25 @@ const ChatRoom = ({ senderId, receiverId }) => {
         }
     }, [senderId, receiverId]);
 
+    const chatContainerRef = useRef(null);
+
+  // Scroll to the bottom of the chat container after initial render
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, []);
+
+  // Scroll to the bottom of the chat container when privateChats change
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [privateChats]);
+
+
+      
+
     //Funcion para enviar mensaje con la tecla Enter
     const handleMessageKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -415,12 +439,12 @@ const ChatRoom = ({ senderId, receiverId }) => {
         <div className="chat-room bg-[#576cbc] lg:ml-[200px]">
             {userData.connected ? (
 
-                <div className="chat-container flex-col md:flex-col lg:flex-row gap-5 ">
+                <div  id='chat-container' className="chat-container flex-col md:flex-col lg:flex-row gap-5 ">
                     <div className="conversation-buttons flex flex-row lg:flex-col">
                         {receiverButtons}
                     </div>
 
-                    <div className="chat-messages flex flex-col w-[70vw]">
+                    <div className="chat-messages flex flex-col w-[70vw]" ref={chatContainerRef}>
                         <div className="chat-header text-left" >
 
                             <p className='text-white text-left'>Chat con {customerData.receiverName} {customerData.receiverSurname}</p>
