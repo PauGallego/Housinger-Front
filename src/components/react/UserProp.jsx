@@ -297,30 +297,45 @@ const MyComponent = () => {
     const fotosCompletas = propiedad.fotos.concat(Array.from({ length: 8 - propiedad.fotos.length }, (_, index) => defaultImage));
 
     const handleCharacteristicChange = (event, caracteristica) => {
-        const { id, name, icon } = caracteristica;
-        const isChecked = event.target.checked;
-    
-        if (isChecked) {
+    const { id, name, icon } = caracteristica;
+    const isChecked = event.target.checked;
 
-            setModifiedCharacteristics(prevState => [...prevState, { id, name, icon, grupo: caracteristica.grupo }]);
-        } else {
-            setModifiedCharacteristics(prevState =>
-                prevState.filter(item => item.id !== id)
-            );
-        }
-    };
-    
-    const saveChanges = () => {
-        const existingCharacteristics = [...propiedad.characteristics];
-        const newCharacteristics = modifiedCharacteristics.filter(modifiedCharacteristic =>
-            !existingCharacteristics.some(existingCharacteristic => existingCharacteristic.id === modifiedCharacteristic.id)
-        );
-    
-        const updatedCharacteristics = [...existingCharacteristics, ...newCharacteristics];
-        propiedad.characteristics = updatedCharacteristics;
-        setPropiedad(propiedad);
-        closeModal3();
-    };
+    if (isChecked) {
+        setModifiedCharacteristics(prevState => {
+            console.log("Característica marcada:", { id, name, icon });
+            return [...prevState, { id, name, icon, grupo: caracteristica.grupo, checked: true }];
+        });
+    } else {
+        setModifiedCharacteristics(prevState => {
+            console.log("Característica desmarcada:", { id, name, icon });
+            return prevState.filter(item => item.id !== id);
+        });
+    }
+};
+
+const saveChanges = () => {
+    const existingCharacteristics = [...propiedad.characteristics];
+    console.log("Características existentes:", existingCharacteristics);
+
+    const newCharacteristics = modifiedCharacteristics.filter(modifiedCharacteristic =>
+        modifiedCharacteristic.checked && !existingCharacteristics.some(existingCharacteristic => existingCharacteristic.id === modifiedCharacteristic.id)
+    );
+    console.log("Nuevas características a añadir:", newCharacteristics);
+
+    const updatedModifiedCharacteristics = modifiedCharacteristics.filter(modifiedCharacteristic =>
+        modifiedCharacteristic.checked || existingCharacteristics.some(existingCharacteristic => existingCharacteristic.id !== modifiedCharacteristic.id)
+    );
+    console.log("Características actualizadas:", updatedModifiedCharacteristics);
+
+    const updatedCharacteristics = [...existingCharacteristics, ...newCharacteristics];
+    console.log("Características actualizadas finales:", updatedCharacteristics);
+
+    propiedad.characteristics = updatedCharacteristics;
+    console.log("Propiedad actualizada:", propiedad);
+    setPropiedad(propiedad);
+    closeModal3();
+};
+
     
 
 
