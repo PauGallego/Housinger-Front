@@ -1,0 +1,130 @@
+---
+import Layout from "../layouts/cabezera.astro";
+---
+
+<Layout title="Panel Admin" fondo="blue">
+    <main>
+        <!-- BOTONES FILTROS -->
+        <h2 class="pl-5 text-xl font-bold pl-2 mt-10 md:pl-[100px] lg:pl-[200px]">Panel de adminstrador</h2>
+        <div class="pl-5 md:pl-[100px] lg:pl-[200px] flex items-center gap-5 mt-10">
+            <div class="contendor-filtros h-[100px] w-[100px] flex justify-center items-center rounded-[10px]">
+                <i class="icon-[ph--users-fill] h-[50px] w-[50px]"></i>
+            </div>
+            <div class="contendor-filtros h-[100px] w-[100px] flex justify-center items-center rounded-[10px]">
+                <i class="icon-[material-symbols--house] h-[50px] w-[50px]"></i>
+            </div>
+            <div class="contendor-filtros h-[100px] w-[100px] flex justify-center items-center rounded-[10px]">
+                <i class="icon-[mdi--star-box-multiple-outline] h-[50px] w-[50px]"></i>
+            </div>
+        </div>
+        <!-- PROPIEDADES -->
+        <h2 class="pl-5 text-xl font-bold pl-2 mt-10 md:pl-[100px] lg:pl-[200px]">Propiedades</h2>
+        <!-- USUARIOS -->
+        <h2 class="pl-5 text-xl font-bold pl-2 mt-10 md:pl-[100px] lg:pl-[200px]">Usuarios</h2>
+        <button class="btn" onclick="my_modal_40.showModal()">Ejemplo de modal usuario</button>
+        <dialog id="my_modal_40" class="modal">
+        <div class="modal-box">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="font-bold text-lg">Usuario: Pepe Martin Garcia</h3>
+            <div class="w-[300px]">
+                <img src="../../public/perfil.jpg" alt="foto usuario">
+            </div>
+            <div class="flex gap-5 flex-wrap">
+                <div class="flex flex-col">
+                    <p class="py-4">Nombre</p>
+                    <input type="text" id="nombre" name="nombre">
+                </div>
+                <div class="flex flex-col">
+                    <p class="py-4">Apellido</p>
+                    <input type="text" id="apellido" name="apellido">
+                </div>
+                <div class="flex flex-col">
+                    <p class="py-4">Email</p>
+                    <input type="text" id="email" name="email">
+                </div>
+                <div class="flex flex-col">
+                    <p class="py-4">DNI</p>
+                    <input type="text" id="dni" name="dni">
+                </div>
+                <div class="flex flex-col">
+                    <p class="py-4">Usuario</p>
+                    <input type="text" id="user" name="user">
+                </div>
+                <div class="flex flex-col">
+                    <p class="py-4">Contraseña</p>
+                    <input type="text" id="pasword" name="pasword">
+                </div>
+                <div class="w-[100%]" >
+                    <select>
+                        <option value="usuario">Usuario no premiun</option>
+                        <option value="usuarioPremiun">Usuario Premiun</option>
+                        <option value="admin">Usuario admin</option>
+                    </select>
+                </div>
+                <button class="modificar">Modificar</button>
+                <button class="eliminar" id="eliminar" >Eliminar usuario</button>
+            </div>
+        </div>
+        </dialog>
+    </main>
+    <script>
+        let eliminar = document.getElementById('eliminar');
+        // Hace una alerta de confirmación
+        eliminar.addEventListener('click', () => {
+            if (confirm('¿Estás seguro de que quieres eliminar la sesión?')) {
+                alert('Sesión eliminada');
+            }
+        });
+    </script>
+
+    <style>
+        .contendor-filtros {
+            border: 3px solid gray;
+        }
+
+        select {
+            border: 1px solid gray;
+            padding: 5px;
+            border-radius: 5px;
+            width: 430px;
+        }
+
+        input {
+            border: 1px solid gray;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .contendor-filtros:hover {
+            background-color: #f1f1f1;
+        }
+
+        .modificar {
+            background-color: #576cbc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 205px;
+        }
+
+        .eliminar {
+            background-color: #f44336;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 205px;
+        }
+
+        main,
+        html,
+        body {
+            background-color: white;
+        }
+    </style>
+</Layout>
