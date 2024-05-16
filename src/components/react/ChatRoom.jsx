@@ -397,7 +397,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
                                     <img src={`${API_BASE_URL}/v1/fileCustomer/download/${message.senderPicture}`} className="rounded-full w-10 h-10 m-[5px]" alt="Sender" />
                                 </div>
                                 <div className="m-[5px] ajustar-texto">
-                                    <p className="text-black ">{message.message}</p>
+                                    <p className="text-black " dangerouslySetInnerHTML={{ __html: message.message }}></p>
                                     <p className="text-xs text-black">{message.senderName}</p>
                                     <p className="text-xs text-black">{message.date}</p>
                                 </div>
