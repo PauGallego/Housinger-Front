@@ -28,7 +28,7 @@ import Layout from "../layouts/cabezera.astro";
                 <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
             </form>
             <h3 class="font-bold text-lg">Usuario: Pepe Martin Garcia</h3>
-            <div class="w-[300px]">
+            <div class="w-[210px] md:w-[30z0px]">
                 <img src="../../public/perfil.jpg" alt="foto usuario">
             </div>
             <div class="flex gap-5 flex-wrap">
@@ -57,7 +57,7 @@ import Layout from "../layouts/cabezera.astro";
                     <input type="text" id="pasword" name="pasword">
                 </div>
                 <div class="w-[100%]" >
-                    <select>
+                    <select class="w-[210px] md:w-[430px]">
                         <option value="usuario">Usuario no premiun</option>
                         <option value="usuarioPremiun">Usuario Premiun</option>
                         <option value="admin">Usuario admin</option>
@@ -88,7 +88,6 @@ import Layout from "../layouts/cabezera.astro";
             border: 1px solid gray;
             padding: 5px;
             border-radius: 5px;
-            width: 430px;
         }
 
         input {
