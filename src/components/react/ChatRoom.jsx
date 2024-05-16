@@ -237,7 +237,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
                         if (!addedSenderIds.has(message.receiverId)) {
                             buttons.push(
                                 <button key={`${message.receiverId}`} onClick={() => handleReceiverChange(message.receiverId)} className='flex items-center w-[200px] boton-persona'>
-                                    <img src={`${API_BASE_URL}/v1/fileCustomer/download/${message.receiverFoto}`} className="rounded-full w-10 h-10 m-[5px] " alt="Sender" />
+                                    <img src={`${API_BASE_URL}/v1/fileCustomer/download/${message.receiverPicture}`} className="rounded-full w-10 h-10 m-[5px] " alt="Sender" />
                                     {message.receiverName} {message.receiverSurname}
                                 </button>
                             );
@@ -326,6 +326,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
     const onPrivateMessage = (payload) => {
         if (stompClient) {
             var payloadData = JSON.parse(payload.body);
+
             const receivedMessage = {
                 senderId: payloadData.senderId,
                 senderName: payloadData.senderName,
@@ -333,6 +334,8 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 receiverName: payloadData.receiverName,
                 receiverSurname: payloadData.receiverSurname,
                 message: payloadData.message,
+                senderFoto: payloadData.senderPicture,
+                senderPicture: payloadData.senderPicture,
                 date: new Date().toLocaleString('es-ES', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false })
             };
 
