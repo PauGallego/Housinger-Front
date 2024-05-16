@@ -114,7 +114,8 @@ const ChatRoom = ({ senderId, receiverId }) => {
     
             if (response.ok) {
                 console.log('Reserva realizada con éxito.');
-                window.location.href = `${API_BASE_URL2}/chat?receiver=${userData.receiverId}`;
+                loadChatHistory(userData.senderId, receiverId);
+                closeModal2();
             } else {
            
                 console.error('Error al realizar la reserva:', response.statusText);
