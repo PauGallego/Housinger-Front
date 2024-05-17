@@ -187,7 +187,8 @@ body, html {
 
     .chat-input {
         width: 790px;
-        top: 93vh;
+        top: 140vh;
+        margin-top: 50px;
     }
 }
 
@@ -199,6 +200,7 @@ body, html {
 
     .chat-input {
         width: 380px;
-        top: 131vh;
+        top: 100vh;
+        margin-left: 50px;
     }
 }

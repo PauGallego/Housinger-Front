@@ -466,7 +466,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
                             </div>
                             
                         ))}
-                        <div className='mt-[10px] bm-[200px] md:mt-[100px] md:bm-[100px]'></div>
+                        <div className='mt-[60px] bp-[500px] md:mt-[100px] md:bm-[100px]'></div>
 
                         <div className="chat-input flex justify-center items-center lg:top-[88vh]">
                             <input className='w-[90%] h-[40px] rounded-[50px] input-enviar'
