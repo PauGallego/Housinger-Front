@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/cabezera2.astro";
+import Trade from "../components/react/Trade2.jsx";
+import { API_BASE_URL } from '../astro.config.js';
+
+
+---
+<Layout title="Housinger" fondo="blue">
+    <Trade client:only="svelte" />
+</Layout>
+
+
