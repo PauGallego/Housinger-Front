@@ -105,11 +105,13 @@ const ChatRoom = ({ senderId, receiverId }) => {
             };
 
             console.log(JSON.stringify(reservationData));
+
     
             const response = await fetch(`${API_BASE_URL}/v1/reservation/sendMessage`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Authentication ' + localStorage.getItem('authorization')
                 },
                 body: JSON.stringify(reservationData)
             });
@@ -307,10 +309,15 @@ const ChatRoom = ({ senderId, receiverId }) => {
     };
 
     const connect = () => {
-        let Sock = new SockJS(`${API_BASE_URL}/ws`);
-        stompClient = over(Sock);
-        stompClient.connect({ sender: userData.senderId, receiver: userData.receiverId }, onConnected, onError);
+        if (!stompClient || !stompClient.connected) {
+            let Sock = new SockJS(`${API_BASE_URL}/ws`);
+            stompClient = over(Sock);
+            stompClient.connect({ sender: userData.senderId, receiver: userData.receiverId }, onConnected, onError);
+        } else {
+            onConnected();
+        }
     };
+    
 
     const onConnected = () => {
         setUserData({ ...userData, connected: true });
@@ -318,7 +325,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
         if (subscription) {
             subscription.unsubscribe();
         }
-  
+        
         subscription = stompClient.subscribe('/user/' + userData.senderId + '/private', onPrivateMessage);
         userJoin();
     
@@ -326,6 +333,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
             handleReceiverChange(userData.receiverId);
         }
     };
+    
 
     const userJoin = () => {
         var chatMessage = {
@@ -339,7 +347,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
     const onPrivateMessage = (payload) => {
         if (stompClient) {
             var payloadData = JSON.parse(payload.body);
-
+    
             const receivedMessage = {
                 senderId: payloadData.senderId,
                 senderName: payloadData.senderName,
@@ -351,17 +359,26 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 senderPicture: payloadData.senderPicture,
                 date: new Date().toLocaleString('es-ES', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false })
             };
-
-            let divuser = document.getElementById('iduser');
-
-            if (divuser.value == receivedMessage.senderId) {
-                setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
-            } else {
-                console.log("Mensaje de otro usuario " + receivedMessage.senderName + " " + receivedMessage.senderSurname)
-                fetchData();
+    
+            // Verificar si el mensaje ya existe para evitar duplicados
+            const isDuplicate = privateChats.some(chat => 
+                chat.senderId == receivedMessage.senderId &&
+                chat.message == receivedMessage.message &&
+                chat.date == receivedMessage.date
+            );
+    
+            if (!isDuplicate) {
+                let divuser = document.getElementById('iduser');
+                if (divuser.value == receivedMessage.senderId) {
+                    setPrivateChats(prevPrivateChats => [...prevPrivateChats, receivedMessage]);
+                } else {
+                    console.log("Mensaje de otro usuario " + receivedMessage.senderName + " " + receivedMessage.senderSurname);
+                    fetchData();
+                }
             }
         }
     };
+    
 
     const onError = (err) => {
         console.log(err);

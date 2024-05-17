@@ -121,7 +121,8 @@ const fianlizarReserva = async () =>{
       const response = await fetch(`${API_BASE_URL}/v1/reservation/contraOffert?previusId=${reservId}`, {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': 'Authentication ' + localStorage.getItem('authorization')
           },
           body: JSON.stringify(reservationData)
       });
@@ -155,6 +156,7 @@ const fianlizarReserva = async () =>{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Authentication ' + localStorage.getItem('authorization')
             }
 
         });
@@ -211,6 +213,7 @@ const fianlizarReserva = async () =>{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Authentication ' + localStorage.getItem('authorization')
         }
       });
 

@@ -275,7 +275,8 @@ const MyComponent = () => {
             const response = await fetch(`${API_BASE_URL}/v1/reservation/sendMessage`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Authentication ' + localStorage.getItem('authorization')
                 },
                 body: JSON.stringify(reservationData)
             });
