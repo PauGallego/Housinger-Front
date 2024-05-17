@@ -440,11 +440,11 @@ const ChatRoom = ({ senderId, receiverId }) => {
             {userData.connected ? (
 
                 <div  id='chat-container' className="chat-container flex-col md:flex-col lg:flex-row gap-5 ">
-                    <div className="conversation-buttons flex flex-row lg:flex-col">
+                    <div className="conversation-buttons flex flex-row lg:flex-col w-[100vw] lg:w-[17vw] flex-wrap">
                         {receiverButtons}
                     </div>
 
-                    <div className="chat-messages flex flex-col w-[70vw]" ref={chatContainerRef}>
+                    <div className="chat-messages flex flex-col lg:w-[70vw]" ref={chatContainerRef}>
                         <div className="chat-header text-left" >
 
                             <p className='text-white text-left'>Chat con {customerData.receiverName} {customerData.receiverSurname}</p>
@@ -466,9 +466,9 @@ const ChatRoom = ({ senderId, receiverId }) => {
                             </div>
                             
                         ))}
-                        <div className='mt-[200px] bm-[200px] md:mt-[100px] md:bm-[100px]'></div>
+                        <div className='mt-[10px] bm-[200px] md:mt-[100px] md:bm-[100px]'></div>
 
-                        <div className="chat-input flex justify-center items-center">
+                        <div className="chat-input flex justify-center items-center lg:top-[88vh]">
                             <input className='w-[90%] h-[40px] rounded-[50px] input-enviar'
                                 type="text"
                                 value={userData.message}

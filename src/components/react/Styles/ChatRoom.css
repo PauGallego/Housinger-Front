@@ -11,9 +11,8 @@
     --menu: #a5d7e8;
 }
 
-html, body {
-    /* background-color: var(--gris) !important; */
-    overflow: hidden;
+body, html {
+   height: 300px;
 }
 
 .chat-room {
@@ -28,7 +27,7 @@ html, body {
     border-radius: 10px;
     padding: 10px;
     width: 300px;
-    margin-left: 960px;
+    margin-left: 800px;
 }
 
 .sent-message .flex-container {
@@ -42,9 +41,8 @@ html, body {
 
 .chat-input {
     margin-bottom: 10px;
-    position: fixed;
-    width: 1300px;
-    top: 830px;
+    position: absolute;
+    width: 1100px;
 }
 
 .input-enviar {
@@ -57,11 +55,6 @@ html, body {
     display: flex;
     flex-direction: row;
     background-color: rgb(230, 227, 249) !important;
-    margin: 5px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    width: 300px;
 }
 
 .message-container {
@@ -126,6 +119,14 @@ html, body {
     scrollbar-color: var(--primary) var(--secondary);
 }
 
+.received-message {
+    display: flex;
+    margin: 5px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;
+}
 
 .received-message .flex-container {
     justify-content: flex-end;
@@ -160,12 +161,12 @@ html, body {
     }
 
     .sent-message {
-        margin-left: 600px;
+        margin-left: 550px;
     }
 
     .chat-input {
         width: 910px;
-        top: 830px;
+        top: 93vh;
     }
 }
 
@@ -186,18 +187,18 @@ html, body {
 
     .chat-input {
         width: 790px;
-        top: 880px;
+        top: 93vh;
     }
 }
 
 /* Para móviles (390px de ancho) */
 @media screen and (max-width: 767px) {
     .sent-message {
-        margin-left: 30px;
+        margin-left: 90px;
     }
 
     .chat-input {
         width: 380px;
-        top: 740px;
+        top: 131vh;
     }
 }
