@@ -12,6 +12,8 @@ import Calendar3 from './CalendarioSelec2.jsx'
 
 
 var stompClient = null;
+var subscription = null; 
+
 
 const ChatRoom = ({ senderId, receiverId }) => {
     const [privateChats, setPrivateChats] = useState([]);
@@ -312,8 +314,14 @@ const ChatRoom = ({ senderId, receiverId }) => {
 
     const onConnected = () => {
         setUserData({ ...userData, connected: true });
-        stompClient.subscribe('/user/' + userData.senderId + '/private', onPrivateMessage);
+    
+        if (subscription) {
+            subscription.unsubscribe();
+        }
+  
+        subscription = stompClient.subscribe('/user/' + userData.senderId + '/private', onPrivateMessage);
         userJoin();
+    
         if (userData.receiverId) {
             handleReceiverChange(userData.receiverId);
         }
