@@ -70,6 +70,13 @@ const MyComponent = () => {
                         console.log('data:', data);
                         const userIdLocalStorage = JSON.parse(localStorage.getItem('userData')).userId;
                         setPuedeGuardar(userIdLocalStorage === data.userId);
+
+                        if (data.characteristics.length > 0 && modifiedCharacteristics.length === 0) {
+                            // Copia independiente de las características existentes
+                            const copiedCharacteristics = [...data.characteristics];
+                            setModifiedCharacteristics(copiedCharacteristics);
+                        }
+
                     } else {
                         console.log('No se encontraron datos');
                     }
@@ -297,44 +304,53 @@ const MyComponent = () => {
     const fotosCompletas = propiedad.fotos.concat(Array.from({ length: 8 - propiedad.fotos.length }, (_, index) => defaultImage));
 
     const handleCharacteristicChange = (event, caracteristica) => {
-    const { id, name, icon } = caracteristica;
-    const isChecked = event.target.checked;
+        const { id, name, icon } = caracteristica;
+        const isChecked = event.target.checked;
+    
+        if (isChecked) {
+            setModifiedCharacteristics(prevState => {
+                return [...prevState, { id, name, icon, grupo: caracteristica.grupo, checked: true }];
+            });
+        } else {
+            setModifiedCharacteristics(prevState => {
+                return prevState.filter(item => item.id !== id);
+            });
+        }
+    };
 
-    if (isChecked) {
-        setModifiedCharacteristics(prevState => {
-            console.log("Característica marcada:", { id, name, icon });
-            return [...prevState, { id, name, icon, grupo: caracteristica.grupo, checked: true }];
-        });
-    } else {
-        setModifiedCharacteristics(prevState => {
-            console.log("Característica desmarcada:", { id, name, icon });
-            return prevState.filter(item => item.id !== id);
-        });
-    }
-};
+    const saveChanges = () => {
+        const existingCharacteristics = [...propiedad.characteristics];
+  
+    
+        const newCharacteristics = modifiedCharacteristics.filter(modifiedCharacteristic =>
+            modifiedCharacteristic.checked && !existingCharacteristics.some(existingCharacteristic => existingCharacteristic.id === modifiedCharacteristic.id)
+        );
 
-const saveChanges = () => {
-    const existingCharacteristics = [...propiedad.characteristics];
-    console.log("Características existentes:", existingCharacteristics);
+    
+        const updatedModifiedCharacteristics = modifiedCharacteristics.map(modifiedCharacteristic => ({
+            ...modifiedCharacteristic,
+            checked: modifiedCharacteristic.checked || existingCharacteristics.some(existingCharacteristic => existingCharacteristic.id === modifiedCharacteristic.id)
+        }));
+        
+    
+    
+        const atLeastOneChecked = updatedModifiedCharacteristics.some(modifiedCharacteristic =>
+            existingCharacteristics.some(existingCharacteristic => existingCharacteristic.id === modifiedCharacteristic.id && modifiedCharacteristic.checked)
+        );
+    
+        const finalCharacteristics = existingCharacteristics.filter(existingCharacteristic =>
+            updatedModifiedCharacteristics.some(modifiedCharacteristic => modifiedCharacteristic.id === existingCharacteristic.id)
+        );
+  
+    
+        const updatedCharacteristics = [...finalCharacteristics, ...newCharacteristics];
+    
+        propiedad.characteristics = updatedCharacteristics;
+        console.log("Propiedad actualizada:", propiedad);
+        setPropiedad(propiedad);
+        closeModal3();
+    };
 
-    const newCharacteristics = modifiedCharacteristics.filter(modifiedCharacteristic =>
-        modifiedCharacteristic.checked && !existingCharacteristics.some(existingCharacteristic => existingCharacteristic.id === modifiedCharacteristic.id)
-    );
-    console.log("Nuevas características a añadir:", newCharacteristics);
-
-    const updatedModifiedCharacteristics = modifiedCharacteristics.filter(modifiedCharacteristic =>
-        modifiedCharacteristic.checked || existingCharacteristics.some(existingCharacteristic => existingCharacteristic.id !== modifiedCharacteristic.id)
-    );
-    console.log("Características actualizadas:", updatedModifiedCharacteristics);
-
-    const updatedCharacteristics = [...existingCharacteristics, ...newCharacteristics];
-    console.log("Características actualizadas finales:", updatedCharacteristics);
-
-    propiedad.characteristics = updatedCharacteristics;
-    console.log("Propiedad actualizada:", propiedad);
-    setPropiedad(propiedad);
-    closeModal3();
-};
 
     
 
@@ -451,6 +467,8 @@ const saveChanges = () => {
                 });
     
             console.log('All beds updated successfully');
+            const modalSuccess = document.getElementById('my_modal_15');
+            modalSuccess.showModal();
     
         } catch (error) {
             console.error('Error:', error);
