@@ -35,6 +35,31 @@ const MyComponent = () => {
           console.error('Error loading chat history:', error);
           setIsLoading(false);
         }
+        try {
+
+          let data2 = JSON.parse(localStorage.getItem('userData'));
+          const response = await fetch(`${API_BASE_URL}/v1/chat/getReceived/${data2.customerId}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Authentication ' + localStorage.getItem('authorization'),
+            }
+          });
+
+          const data = await response.json();
+
+          setReceiverId(data[0].senderId);
+
+          console.log(data);
+         
+          setIsLoading(false); 
+        } catch (error) {
+          console.error('Error loading chat history:', error);
+          setIsLoading(false);
+        }
+
+
+
       }
     };
 
