@@ -150,7 +150,8 @@ function ProfileComponent() {
             }
             setUserData(userData);
             console.log(userData);
-
+            
+            let token = localStorage.getItem('authorization');
             const response = await fetch(`${API_BASE_URL}/v1/user/save`, {
                 method: 'PUT',
                 headers: {

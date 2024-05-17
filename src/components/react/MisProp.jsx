@@ -84,10 +84,12 @@ const MisPropiedades = () => {
             });
     }
     
+    
 
     const borrarPropiedad = async (id) => {
 
         let token = localStorage.getItem('authorization');
+        
         try {
             const response = await fetch(`${API_BASE_URL}/v1/property/trueDelete/${id}`, {
                 method: 'DELETE',

@@ -390,7 +390,7 @@ const MyComponent = () => {
                     number: element[1],
                     propertyId: propiedad.id
                 };
-    
+                let token = localStorage.getItem('authorization');
                 let response = await fetch(`${API_BASE_URL}/v1/bed/save`, {
                     method: 'POST',
                     headers: {
@@ -423,6 +423,7 @@ const MyComponent = () => {
             };
     
             console.log(JSON.stringify(propiedadJSON));
+            
     
             fetch(`${API_BASE_URL}/v1/property/save`, {
                     method: 'PUT',
