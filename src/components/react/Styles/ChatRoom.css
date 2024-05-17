@@ -57,6 +57,11 @@ html, body {
     display: flex;
     flex-direction: row;
     background-color: rgb(230, 227, 249) !important;
+    margin: 5px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    width: 300px;
 }
 
 .message-container {
@@ -121,14 +126,6 @@ html, body {
     scrollbar-color: var(--primary) var(--secondary);
 }
 
-.received-message {
-    display: flex;
-    margin: 5px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    width: 200px;
-}
 
 .received-message .flex-container {
     justify-content: flex-end;
