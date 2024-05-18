@@ -3,7 +3,7 @@ import { API_BASE_URL } from '../../astro.config';
 import { API_BASE_URL2 } from '../../astro.config';
 import { Modal, Button, TextField } from '@mui/material';
 import { Icon } from '@iconify/react';
-import Ubicacion from './AdminProp.jsx';
+
 
 const MisPropiedades = () => {
     const [propiedades, setPropiedades] = useState([]);
