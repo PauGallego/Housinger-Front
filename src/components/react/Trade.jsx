@@ -239,17 +239,18 @@ const fianlizarReserva = async () =>{
         </div>
       ) : (
         <div className='flex justify-center items-center'>
-          <div className=''>
+          <div className='text-[20px]'>
               <p>{data.proposerName} {data.proposerSurname}</p>
-              <img  className="w-[200px]"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
+              <img  className="w-[200px] h-[200px]"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
               <p>Esta ineresado/a en la propiedad </p>
-              <img  className="w-[200px]"   src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
+              <img  className="w-[200px] h-[200px]"   src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
               <p>{data.propertyAddress}</p>
               <p>Para las fechas</p>
-                <p>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
-
-                <button onClick={openModal3}>Ver Propiedades</button>
-                <button onClick={ () => rechazar()}>Rechazar</button>
+              <p>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
+              <div className='flex gap-5'>
+                <button className='boton-aceptar' onClick={openModal3}>Ver Propiedades</button>
+                <button className='boton-rechazar' onClick={ () => rechazar()}>Rechazar</button>
+              </div>
           </div>
         </div>
       )}
