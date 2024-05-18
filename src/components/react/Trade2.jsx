@@ -230,32 +230,32 @@ const fianlizarReserva = async () =>{
           </div>
         </div>
       ) : (
-        <div className='flex justify-center items-center'>
-          <div className=''>
-              <p>{data.proposerName} {data.proposerSurname}</p>
+        <div className='flex justify-center items-center gap-10 flex-col'>
+          <div className='lg:flex lg:flex-row justify-center items-center'>
+          <div className='text-[20px] contedor-propiedad1'>
+              <p className='blanco-propieda-intercambio'>{data.proposerName} {data.proposerSurname}</p>
               <img  className="w-[200px]"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
-              <p>Esta ineresado/a en la propiedad </p>
-              <img  className="w-[200px]"   src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
-              <p>{data.propertyAddress}</p>
-              <p>Para las fechas</p>
-                <p>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
-
-        
+              <p className='blanco-propieda-intercambio'>Esta ineresado/a en la propiedad </p>
+              <img  className="w-[200px] h-[200px] rounded-md"   src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
+              <p className='blanco-propieda-intercambio'>{data.propertyAddress}</p>
+              <p className='blanco-propieda-intercambio'>Para las fechas</p>
+                <p className='blanco-propieda-intercambio'>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
           </div>
-          <div className=''>
-              <p>{data2.proposerName} {data2.proposerSurname}</p>
+          <i class="icon-[mdi--home-switch-outline] ml-[120px] lg:ml-[0px] text-[100px]"></i>
+          <div className='text-[20px] contedor-propiedad2'>
+              <p className='blanco-propieda-intercambio'>{data2.proposerName} {data2.proposerSurname}</p>
               <img  className="w-[200px]"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data2.proposerPicture}`}  alt="" />
-              <p>Esta ineresado/a en la propiedad </p>
-              <img  className="w-[200px]"   src={data2.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data2.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
-              <p>{data2.propertyAddress}</p>
-              <p>Para las fechas</p>
-                <p>{formatDate(data2.dateStart)} - {formatDate(data2.dateEnd)}</p>
-
-    
-            
+              <p className='blanco-propieda-intercambio'>Esta ineresado/a en la propiedad </p>
+              <img  className="w-[200px] h-[200px] rounded-md"   src={data2.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data2.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
+              <p className='blanco-propieda-intercambio'>{data2.propertyAddress}</p>
+              <p className='blanco-propieda-intercambio'>Para las fechas</p>
+                <p className='blanco-propieda-intercambio'>{formatDate(data2.dateStart)} - {formatDate(data2.dateEnd)}</p>
           </div>
-          <button onClick={ () => aceptar()}>Aceptar</button>
-          <button onClick={ () => rechazar()}>Rechazar</button>
+          </div>
+          <div className='flex gap-5'>
+            <button className='boton-aceptar-intercambio' onClick={ () => aceptar()}>Aceptar</button>
+            <button className='boton-rechazar-intercambio' onClick={ () => rechazar()}>Rechazar</button>
+          </div>
         </div>
       )}
     </div>

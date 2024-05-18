@@ -105,6 +105,76 @@ h3 {
     border: none;
 }
 
+.boton-rechazar {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+.boton-rechazar:hover {
+    background-color: #fd7878;
+}
+
+.boton-aceptar {
+    background-color: #576cbc;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+.boton-aceptar:hover {
+    background-color: #3f4e7f;
+}
+
+.contedor-propiedad1 {
+    background-color: #3f4e7f;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    color: white ;
+}
+
+.contedor-propiedad2 {
+    background-color: var(--primary);
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    color: white ;
+}
+
+.blanco-propieda-intercambio {
+    color: white;
+}
+
+.boton-aceptar-intercambio {
+    background-color: #576cbc;
+    color: white;
+    padding: 15px;
+    width: 100px;
+    border-radius: 5px;
+    border: none;
+}
+
+.boton-aceptar-intercambio:hover {
+    background-color: #3f4e7f;
+}
+
+.boton-rechazar-intercambio {
+    background-color: red;
+    color: white;
+    padding: 15px;
+    width: 100px;
+    border-radius: 5px;
+    border: none;
+}
+
+.boton-rechazar-intercambio:hover {
+    background-color: #fd7878;
+}
+
 @media screen and (width: 1440px) {
     .ajustar {
         margin-left: 300px;
