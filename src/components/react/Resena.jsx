@@ -158,7 +158,7 @@ const ResenaComponent = ({ id }) => {
                                         <br />
                                         <Rating name={`rating-${review.id}`} value={review.stars}  precision={0.5} readOnly />
                                         {review.reviewUserId == userId && (
-                                            <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
+                                            <button className='ml-5 p-2 rounded-[5px] text-[white] bg-[red]' onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
                                         )}
                                     </div>
                                 </div>
