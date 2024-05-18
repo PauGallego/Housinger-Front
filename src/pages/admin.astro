@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/cabezera.astro";
+import { Modal, Box, Button, TextField, Rating } from '@mui/material';
+import Adminprop from "../components/react/AdminProp.jsx";
 ---
 
 <Layout title="Panel Admin" fondo="blue">
@@ -19,6 +21,8 @@ import Layout from "../layouts/cabezera.astro";
         </div>
         <!-- PROPIEDADES -->
         <h2 class="pl-5 text-xl font-bold pl-2 mt-10 md:pl-[100px] lg:pl-[200px]">Propiedades</h2>
+
+        <Adminprop  client:only="svelte" />
         <!-- USUARIOS -->
         <h2 class="pl-5 text-xl font-bold pl-2 mt-10 md:pl-[100px] lg:pl-[200px]">Usuarios</h2>
         <button class="btn" onclick="my_modal_40.showModal()">Ejemplo de modal usuario</button>
