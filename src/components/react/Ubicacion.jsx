@@ -108,6 +108,13 @@ const MapaLeafletComponent = ({ location, userId }) => {
     if (userDataString) {
         const userData = JSON.parse(userDataString);
         puedeModificarDireccion = userId === userData.userId;
+        if(!puedeModificarDireccion){
+            let admin = localStorage.getItem("admin");
+
+            if(admin){
+                puedeModificarDireccion = true;
+            }
+        }
     } else {
         puedeModificarDireccion = false;
     }

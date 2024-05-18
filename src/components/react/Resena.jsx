@@ -118,6 +118,8 @@ const ResenaComponent = ({ id }) => {
     const userId = JSON.parse(localStorage.getItem('userData')).userId;
     const notAreadyReviewd = !reviews.some(review => review.reviewUserId === userId);
 
+    let isAdmin = localStorage.getItem("admin");
+
 
     return (
         <div>
@@ -157,7 +159,7 @@ const ResenaComponent = ({ id }) => {
                                         <label>{`${review.name} ${review.surname} ${new Date(review.date).toLocaleDateString()}`}</label>
                                         <br />
                                         <Rating name={`rating-${review.id}`} value={review.stars}  precision={0.5} readOnly />
-                                        {review.reviewUserId == userId && (
+                                        {review.reviewUserId == userId  || isAdmin && (
                                             <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
                                         )}
                                     </div>

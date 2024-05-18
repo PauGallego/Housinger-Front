@@ -7,6 +7,8 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
     const [modalAbierto, setModalAbierto] = useState(false);
     const [seguridad, setSeguridad] = useState(propsSeguridad || []);
 
+    let isAdmin = localStorage.getItem("admin");
+
     useEffect(() => {
         setNormasState(propsNormas || []);
         setSeguridad(propsSeguridad || []);
@@ -57,7 +59,7 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
 
     // Función para gestionar seguridad
     const toggleSeguridad = (item) => {
-        if (userId === userId2) {
+        if (userId === userId2 || isAdmin) {
             const updatedSeguridad = seguridad.includes(item)
                 ? seguridad.filter((seg) => seg !== item)
                 : [...seguridad, item];
@@ -73,13 +75,13 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
                     {normasState.map((norma, index) => (
                         <div key={index} className="normaContainer">
                             <input type="text" className="normaText ajustar" value={norma} readOnly />
-                            {userId == userId2 && (
+                            {userId == userId2 || isAdmin &&  (
                                 <button className="borrarNorma" onClick={() => borrarNorma(index)}>X</button>
                             )}
                         </div>
                     ))}
                 </div>
-                {userId == userId2 && (
+                {userId == userId2 || isAdmin && (
                     <>
                         <input type="text" id="nuevaNormaInput" className="normaText ajustar" placeholder="Escribe la norma" />
                         <button className="botonNorma" onClick={agregarNorma}>Añadir norma</button>

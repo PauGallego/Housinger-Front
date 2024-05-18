@@ -71,6 +71,14 @@ const MyComponent = () => {
                         const userIdLocalStorage = JSON.parse(localStorage.getItem('userData')).userId;
                         setPuedeGuardar(userIdLocalStorage === data.userId);
 
+                        const isAdmin = await fetch(`${API_BASE_URL}/v1/user/admin/${userIdLocalStorage}`);
+
+                        if (isAdmin.ok) {
+                            setPuedeGuardar(true);
+                            localStorage.setItem("admin", true);
+                        }
+           
+
                         if (data.characteristics.length > 0 && modifiedCharacteristics.length === 0) {
                             // Copia independiente de las características existentes
                             const copiedCharacteristics = [...data.characteristics];
