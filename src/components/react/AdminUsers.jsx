@@ -17,6 +17,7 @@ const UserList = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [dni, setDNI] = useState('');
 
   const fetchUsers = async () => {
     const token = localStorage.getItem('authorization');
@@ -89,6 +90,59 @@ const UserList = () => {
     }));
   };
 
+  const uploadImg = async () => {
+    const formData = new FormData();
+    const fileInput = document.querySelector('#fileInput');
+    formData.append('file', fileInput.files[0]);
+
+    try {
+        const token = localStorage.getItem('authorization');
+        if (!token) {
+            console.error('No token found');
+            return;
+        }
+
+        const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/upload/${selectedUser.customerEntityId}`, {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Authentication ' + token,
+            },
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to upload image');
+        }
+
+        const imageUrl = await response.text(); 
+        const fileName = imageUrl.match(/([^\/\\]+)$/)[0];
+
+        setSelectedUser(prevUser => ({
+            ...prevUser,
+            picture: fileName
+        }));
+
+        let updatedUsers = users.map(user => {
+            if (user.id === selectedUser.id) {
+                return {
+                    ...user,
+                    picture: fileName
+                };
+            } else {
+                return user;
+            }
+        });
+
+        setUsers(updatedUsers);
+
+        closeModal();
+    } catch (error) {
+        // Manejar errores de red u otros errores
+        console.error('Error uploading image:', error);
+    }
+};
+
+
   const handleEnableAccountChange = (event) => {
     setEnableAccount(event.target.checked);
     setSelectedUser(prevUser => ({
@@ -121,6 +175,7 @@ const UserList = () => {
         roles.admin && 'A',
       ].filter(Boolean),
       enableAccount: enableAccount,
+      dni: dni,
     };
 
     const headers = new Headers({
@@ -240,6 +295,11 @@ const UserList = () => {
               alt={`${selectedUser.name} ${selectedUser.surname}`}
               style={{ width: '100px', height: '100px', borderRadius: '50%', margin: '16px 0' }}
             />
+             {/* Input para seleccionar un archivo de imagen */}
+      <input type="file" id="fileInput" accept="image/*" />
+      {/* Botón para subir la imagen */}
+      <Button variant="contained" color="primary" onClick={uploadImg}>Subir Imagen</Button>
+      
             <TextField
               label="Nombre"
               value={name}
@@ -253,6 +313,12 @@ const UserList = () => {
               fullWidth
               margin="normal"
               onChange={(e) => setSurname(e.target.value)}
+            />
+             <TextField
+              label="DNI"
+              fullWidth
+              margin="normal"
+              onChange={(e) => setDNI(e.target.value)}
             />
             <TextField
               label="Email"

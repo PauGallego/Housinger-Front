@@ -12,6 +12,9 @@ const MisPropiedades = () => {
     const [error, setError] = useState('');
     const [idProp, setIdProp] = useState('');
 
+
+    
+
     const handleModalOpen = () => {
         setOpenModal(true);
     };
@@ -30,16 +33,35 @@ const MisPropiedades = () => {
         setOpenModal2(false);
     };
     
-    
-    let userId = JSON.parse(localStorage.getItem('userData')).userId;
+    try{
+        let userId = JSON.parse(localStorage.getItem('userData')).userId;
+    }catch{
+        window.location.href = `${API_BASE_URL2}`;
+    }
+
 
     useEffect(() => {
+
+      
+
+
         const fetchData = async () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/v1/propertyUser/get/all`);
                 const data = await response.json();
                 setPropiedades(data);
+
+                const isAdmin = await fetch(`${API_BASE_URL}/v1/user/admin/${userId}`);
+
+                if (isAdmin.ok) {
+                    localStorage.setItem("admin", true);
+                }else{
+                    window.location.href = `${API_BASE_URL2}`;
+                }
+
                 setIsLoading(false);
+
+
             } catch (error) {
                 console.error('Error fetching property data:', error);
             }
