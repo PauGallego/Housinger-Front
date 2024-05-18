@@ -11,7 +11,7 @@ import { API_BASE_URL } from '../../astro.config.js';
 import { API_BASE_URL2 } from '../../astro.config.js';
 
 import { Icon } from '@iconify/react';
-import { Modal, Button } from '@mui/material'; 
+import { Modal, Box, Button, TextField, Rating } from '@mui/material';
 import { set } from 'date-fns';
 
 
@@ -737,17 +737,12 @@ const MyComponent = () => {
                         </div>
                         <div className="rating flex items-center justify-center ">
                             <div className="rating">
-                                <p className='mr-[10px] text-xl'>{propiedad.stars.toFixed(1)}</p>
-                                {[...Array(5)].map((_, index) => (
-                                    <input
-                                        key={index}
-                                        type="radio"
-                                        name={`rating-${propiedad.star}`}
-                                        className="mask mask-star-2 bg-yellow-500"
-                                        checked={index < Math.round(propiedad.stars)}
-                                        readOnly
-                                    />
-                                ))}
+                                <Rating
+                                name={`rating-${propiedad.star}`}
+                                value={propiedad.stars}
+                                precision={0.5}
+                                readOnly
+                                />
                             </div>
                         </div>
                     </div>
@@ -888,13 +883,13 @@ const MyComponent = () => {
             </div>
         </Modal>
                         </div>
-                        <dialog id="my_modal_20" class="modal">
-                        <div class="modal-box">
-                            <h3 class="font-bold text-lg">Error en la direcion</h3>
-                            <p class="py-4">La dirección ya está siendo utilizada.</p>
-                            <div class="modal-action">
+                        <dialog id="my_modal_20" className="modal">
+                        <div className="modal-box">
+                            <h3 className="font-bold text-lg">Error en la direcion</h3>
+                            <p className="py-4">La dirección ya está siendo utilizada.</p>
+                            <div className="modal-action">
                             <form method="dialog">
-                                <button class="btn">Close</button>
+                                <button className="btn">Close</button>
                             </form>
                             </div>
                         </div>
