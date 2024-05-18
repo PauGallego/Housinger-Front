@@ -624,7 +624,7 @@ const MyComponent = () => {
                     </div>
 
                     {/* Imagen PIE */}
-                    <div className="ml-[30px] md:ml-[0px] flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
+                    <div className="ml-[72px] md:ml-[0px] flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
                         {/* Mostrar las imágenes restantes */}
                         {fotosCompletas.slice(4).map((foto, index) => (
                             <img
@@ -641,7 +641,7 @@ const MyComponent = () => {
 
                 {puedeGuardar && (
                     <div className="flex w-[100%] items-center justify-center mt-[50px]">
-                        <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px]" onClick={openModal2}>Modificar Imagenes</button>
+                        <button className="botones-propiedad text-white p-2 rounded-[5px] w-[200px] lg:w-40 md:w-[200px]" onClick={openModal2}>Modificar Imagenes</button>
                     </div>
                 )}
 
@@ -712,7 +712,7 @@ const MyComponent = () => {
                 </Modal>
 
                 {/* DESCRIPCION */}
-                <div className="lg:ml-[240px] mt-10 contendor-descripcion" >
+                <div className="ml-[80px] md:ml-[0px] lg:ml-[240px] mt-10 contendor-descripcion" >
                     {puedeGuardar && (
                         <textarea  id='descripcione' className='area w-[80%] h-[200px] border-gray-950 resize-none' placeholder='Descripcion' defaultValue={propiedad.description}></textarea>
                     )}
@@ -746,7 +746,7 @@ const MyComponent = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-[50px] lg:flex lg:items-center md:flex md:items-center gap-2">
+                    <div className="mt-[50px] gap-5 flex items-center lg:flex lg:items-center md:flex md:items-center md:gap-[50px]">
 
                     {puedeGuardar && (
                              <button id='chatear' className="botones-propiedad-elimiar text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => openModal4()} >Eliminar</button>
@@ -758,11 +758,11 @@ const MyComponent = () => {
 
 
                         {puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] ml-[50px]" onClick={updateProperty}>Guardar</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={updateProperty}>Guardar</button>
                         )}
 
                         {!puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]  ml-[50px]" onClick={reservar}>Reservar</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={reservar}>Reservar</button>
                         )}
                         <br /><br />
 

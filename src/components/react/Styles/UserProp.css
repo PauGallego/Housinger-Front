@@ -20,6 +20,7 @@
 
 .botones-propiedad-elimiar {
     background-color: red;
+    box-shadow: 0px 5px 5px 0px var(--gris);
 }
 .boton-direcion {
     border: 1px solid var(--gris);
