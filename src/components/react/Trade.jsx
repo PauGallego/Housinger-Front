@@ -19,6 +19,7 @@ const MyComponent = () => {
   const [showModal, setShowModal] = useState(false);
   const [showModal2, setShowModal2] = useState(false);
   const [showModal3, setShowModal3] = useState(false);
+  const [showModal4, setShowModal4] = useState(false);
   const [propiedades, setPropiedades] = useState([]);
   const [propId, setPropId] = useState(false);
 
@@ -42,6 +43,14 @@ const openModal2 = () =>{
 
 const closeModal2 = () =>{
     setShowModal2(false);
+}
+
+const openModal4 = () =>{
+  setShowModal4(true);
+}
+
+const closeModal4 = () =>{
+  setShowModal4(false);
 }
 
 const openModal3 = () =>{
@@ -249,7 +258,7 @@ const fianlizarReserva = async () =>{
               <p>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
               <div className='flex gap-5'>
                 <button className='boton-aceptar' onClick={openModal3}>Ver Propiedades</button>
-                <button className='boton-rechazar' onClick={ () => rechazar()}>Rechazar</button>
+                <button className='boton-rechazar' onClick={openModal4}>Rechazar</button>
               </div>
           </div>
         </div>
@@ -331,6 +340,25 @@ const fianlizarReserva = async () =>{
                         <p className='text-[red] text-center' id='errorDiaSalida'></p>
                             <button className="btn" onClick={prevModal}>Anterior</button>
                             <button className="btn" onClick={fianlizarReserva}>Reservar</button>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal
+                    open={showModal4}
+                    onClose={closeModal4}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div className="modal-box bg-[white]">
+                        <h3 className="font-bold text-lg text-black">¿Esas seguro?</h3>
+                            <p>¿Deseas Rechazar la oferta?</p>              
+                         <div className="modal-action flex  items-center">
+                        <p className='text-[red] text-center' id='errorDiaSalida'></p>
+                            <button className="btn" onClick={closeModal4}>Cancelar</button>
+                            <button className="btn" onClick={ () => rechazar()}>Rechazar</button>
                         </div>
                     </div>
                 </Modal>

@@ -357,7 +357,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 message: payloadData.message,
                 senderFoto: payloadData.senderPicture,
                 senderPicture: payloadData.senderPicture,
-                date: new Date().toLocaleString('es-ES', { day: 'numeric', month: 'numeric', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: false })
+                date: payloadData.date
             };
     
             // Verificar si el mensaje ya existe para evitar duplicados

@@ -19,8 +19,16 @@ const MyComponent = () => {
   const [data, setData] = useState({});
   const [data2, setData2] = useState({});
   const [propId, setPropId] = useState(false);
+  const [showModal4, setShowModal4] = useState(false);
 
 
+  const openModal4 = () =>{
+    setShowModal4(true);
+  }
+  
+  const closeModal4 = () =>{
+    setShowModal4(false);
+  }
 
 
 const fianlizarReserva = async () =>{
@@ -254,10 +262,29 @@ const fianlizarReserva = async () =>{
           </div>
           <div className='flex gap-5'>
             <button className='boton-aceptar-intercambio' onClick={ () => aceptar()}>Aceptar</button>
-            <button className='boton-rechazar-intercambio' onClick={ () => rechazar()}>Rechazar</button>
+            <button className='boton-rechazar-intercambio' onClick={ openModal4}>Rechazar</button>
           </div>
         </div>
       )}
+       <Modal
+                    open={showModal4}
+                    onClose={closeModal4}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div className="modal-box bg-[white]">
+                        <h3 className="font-bold text-lg text-black">¿Esas seguro?</h3>
+                            <p>¿Deseas Rechazar la oferta?</p>              
+                         <div className="modal-action flex  items-center">
+                        <p className='text-[red] text-center' id='errorDiaSalida'></p>
+                            <button className="btn" onClick={closeModal4}>Cancelar</button>
+                            <button className="btn" onClick={ () => rechazar()}>Rechazar</button>
+                        </div>
+                    </div>
+                </Modal>
     </div>
   );
 };
