@@ -8,10 +8,19 @@ import { API_BASE_URL2 } from '../../astro.config';
 function ProfileComponent() {
     const [userData, setUserData] = useState(null); 
 
-    let userId = JSON.parse(localStorage.getItem('userData')).userId;
+
+    let userId = null;
     let token = localStorage.getItem('authorization');
 
+    try{
+        userId = JSON.parse(localStorage.getItem('userData')).userId;
+    }catch{
+        window.location.href = `${API_BASE_URL2}`;
+    }
+
     const [modalOpen, setModalOpen] = useState(false);
+
+    
 
     const openModal = () => {
         setModalOpen(true);

@@ -27,7 +27,14 @@ const ResenaComponent = ({ id }) => {
 
         const checkReviewable = async () => {
             try {
-                const userId = JSON.parse(localStorage.getItem('userData')).userId;
+                let userId = null;
+
+                try{
+                     userId = JSON.parse(localStorage.getItem('userData')).userId;
+                }catch{
+                    userId = null;
+                }
+    
                 const response = await fetch(`${API_BASE_URL}/v1/review/isReviewable/${id}/${userId}`);
                 if (response.ok) {
                     setCanReview(true);
@@ -65,7 +72,13 @@ const ResenaComponent = ({ id }) => {
 
     const handleSubmitReview = async () => {
         try {
-            const userId = JSON.parse(localStorage.getItem('userData')).userId;
+            let userId = null;
+
+            try{
+                 userId = JSON.parse(localStorage.getItem('userData')).userId;
+            }catch{
+                userId = null;
+            }
 
             const bodyText = JSON.stringify({
                 reviewUserId: userId,
@@ -115,7 +128,14 @@ const ResenaComponent = ({ id }) => {
         }
     };
 
-    const userId = JSON.parse(localStorage.getItem('userData')).userId;
+    let userId = null;
+
+    try{
+         userId = JSON.parse(localStorage.getItem('userData')).userId;
+    }catch{
+        userId = null;
+    }
+
     const notAreadyReviewd = !reviews.some(review => review.reviewUserId === userId);
 
     let isAdmin = localStorage.getItem("admin");

@@ -13,6 +13,7 @@ import { API_BASE_URL2 } from '../../astro.config.js';
 import { Icon } from '@iconify/react';
 import { Modal, Box, Button, TextField, Rating } from '@mui/material';
 import { set } from 'date-fns';
+import { ca, fi } from 'date-fns/locale';
 
 
 const MyComponent = () => {
@@ -34,6 +35,8 @@ const MyComponent = () => {
 
 
     useEffect(() => {
+
+        
         const fetchCharacteristics = async () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/v1/characteristic/get/all`);
@@ -68,7 +71,15 @@ const MyComponent = () => {
                     if (data) {
                         setPropiedad(data);
                         console.log('data:', data);
-                        const userIdLocalStorage = JSON.parse(localStorage.getItem('userData')).userId;
+                        
+                        let userIdLocalStorage;
+                        try{
+                            userIdLocalStorage = JSON.parse(localStorage.getItem('userData')).userId;
+                        }catch{
+                         userIdLocalStorage = null;
+                        }
+
+
                         setPuedeGuardar(userIdLocalStorage === data.userId);
 
                         const isAdmin = await fetch(`${API_BASE_URL}/v1/user/admin/${userIdLocalStorage}`);
@@ -270,12 +281,34 @@ const MyComponent = () => {
     
         try {
 
+            let userId = null;
+            let first_date = null;
+            let last_date = null;
+
+            try{
+                 userId = JSON.parse(localStorage.getItem('userData')).userId;
+            }catch{
+                 userId = null;
+            }   
+
+            try{
+                 first_date = localStorage.getItem("first_date");
+            }catch{
+                 first_date = null;
+            }
+
+            try{
+                 last_date = localStorage.getItem("last_date");
+            }catch{
+                 last_date = null;
+            }
+
 
             const reservationData = {
-                reservationUserId:  JSON.parse(localStorage.getItem('userData')).userId,
+                reservationUserId: userId,
                 reservationPropertyId: propiedad.id, 
-                dateStart:  new Date (localStorage.getItem("first_date")), 
-                dateEnd:  new Date (localStorage.getItem("last_date"))
+                dateStart:  new Date (first_date), 
+                dateEnd:  new Date (last_date)
             };
 
             console.log(JSON.stringify(reservationData));
@@ -371,10 +404,26 @@ const MyComponent = () => {
             propiedad.address = localStorage.getItem("ubi");
             propiedad.description = document.getElementById("descripcione").value;
     
-            let seguridadHogar = JSON.parse(localStorage.getItem("seguridad"));
+            let seguridadHogar = null;
+
+            try{
+                 seguridadHogar = JSON.parse(localStorage.getItem("seguridad"));
+            }catch{
+                 seguridadHogar = null;
+            }
+
+
             propiedad.seguridadHogar = seguridadHogar && seguridadHogar.length ? seguridadHogar : null;
     
-            let normas = JSON.parse(localStorage.getItem("normas"));
+           let normas;
+
+            try{
+                 normas = JSON.parse(localStorage.getItem("normas"));
+            }catch{
+                 normas = null;
+            }
+
+
             propiedad.normas = normas && normas.length ? normas : null;
     
             let token = localStorage.getItem('authorization');
@@ -391,7 +440,16 @@ const MyComponent = () => {
             let test = false;
             let test2 = false;
             // Save updated beds
-            let camas = JSON.parse(localStorage.getItem("camasModificadas"));
+           
+            let camas;
+
+
+            try{
+                 camas = JSON.parse(localStorage.getItem("camasModificadas"));
+            }catch{
+                 camas = null;
+            }
+
             await Promise.all(camas.map(async (element) => {
                 let bedJSOn = {
                     bedTypeId: element[0],

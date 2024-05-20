@@ -22,6 +22,8 @@ const Prop = ({ urlbase, url, url2, url3, caracteristicas, startDate, endDate, l
 
         setPropertyData(null);
 
+
+
         const fetchData = async () => {
             try {
                 let response;

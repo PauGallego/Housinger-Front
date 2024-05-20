@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Chatroom from './ChatRoom.jsx';
 import { API_BASE_URL } from '../../astro.config.js';
+import { API_BASE_URL2 } from '../../astro.config.js';
 import '../../global.css';
 
 const MyComponent = () => {
@@ -36,6 +37,15 @@ const MyComponent = () => {
           setIsLoading(false);
         }
         try {
+
+           
+            try{
+              let userId = JSON.parse(localStorage.getItem('userData')).userId;
+          }catch{
+              window.location.href = `${API_BASE_URL2}`;
+          }
+
+
 
           let data2 = JSON.parse(localStorage.getItem('userData'));
           const response = await fetch(`${API_BASE_URL}/v1/chat/getReceived/${data2.customerId}`, {
