@@ -649,14 +649,14 @@ const MyComponent = () => {
 
                 <div>
                     {/* Imagenes */}
-                    <div className="flex flex-col md:flex-row justify-center items-center lg:flex lg:gap-5 lg:justify-center lg:flex-row lg:items-center">
+                    <div className="flex flex-col justify-center items-center lg:flex lg:gap-5 lg:justify-center lg:flex-row lg:items-center">
                         {/* Contenido de las imágenes izquierdas */}
-                        <div className="md:mr-2 lg:mr-0 flex md:flex-col gap-5 lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
+                        <div className="md:mr-2 lg:mr-0 flex  gap-5 lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
                             {/* Mostrar las primeras tres imágenes */}
                             {fotosCompletas.slice(0, 2).map((foto, index) => (
                                 <img
                                 key={index}
-                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[104px] md:w-[123px] lg:h-[130px] lg:w-[195px]"
+                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[204px] md:w-[215px] lg:h-[130px] lg:w-[195px]"
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                 alt={`imagen-propiedad-${index}`}
                                 onClick={() => handleImageClick(foto)}
@@ -674,12 +674,12 @@ const MyComponent = () => {
                             />
                         </div>
                         {/* Contenido de las imágenes derechas */}
-                        <div className="flex gap-5 md:ml-2 lg:ml-0 md:flex-col lg:flex-col lg:flex justify-center lg:items-center lg:flex-col">
+                        <div className="flex gap-5 md:ml-2 lg:ml-0 lg:flex-col lg:flex justify-center lg:items-center lg:flex-col">
                             {/* Mostrar las siguientes tres imágenes */}
                             {fotosCompletas.slice(2, 4).map((foto, index) => (
                                 <img
                                     key={index}
-                                    className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[104px] md:w-[123px] lg:h-[130px] lg:w-[195px]"
+                                    className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[204px] md:w-[215px] lg:h-[130px] lg:w-[195px]"
                                     src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                     alt={`imagen-propiedad-${index + 3}`}
                                     onClick={() => handleImageClick(foto)}
@@ -690,12 +690,12 @@ const MyComponent = () => {
                     </div>
 
                     {/* Imagen PIE */}
-                    <div className="imagenes-pie pl-[25px] md:pl-[0px] flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
+                    <div className="imagenes-pie flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px]  lg:flex-nowrap">
                         {/* Mostrar las imágenes restantes */}
                         {fotosCompletas.slice(4).map((foto, index) => (
                             <img
                                 key={index}
-                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[104px] md:w-[123px] lg:h-[130px] lg:w-[195px]"
+                                className="lg:h-[130px] lg:w-[195px] prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[104px] md:h-[204px] md:w-[215px] lg:w-[195px]"
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                 alt={`imagen-propiedad-${index + 6}`}
                                 onClick={() => handleImageClick(foto)}
@@ -778,9 +778,9 @@ const MyComponent = () => {
                 </Modal>
 
                 {/* DESCRIPCION */}
-                <div className="ml-[80px] md:ml-[0px] lg:ml-[240px] mt-10 contendor-descripcion" >
+                <div className="flex justify-center mt-10 contendor-descripcion" >
                     {puedeGuardar && (
-                        <textarea  id='descripcione' className='area w-[80%] h-[200px] border-gray-950 resize-none' placeholder='Descripcion' defaultValue={propiedad.description}></textarea>
+                        <textarea  id='descripcione' className='area w-[80%] lg:w-[65%] h-[200px] border-gray-950 resize-none' placeholder='Descripcion' defaultValue={propiedad.description}></textarea>
                     )}
                     {!puedeGuardar && (
                         <p>{propiedad.description}</p>
@@ -823,7 +823,7 @@ const MyComponent = () => {
                     </div>
                 </div>
                 {/* ARREGLAR */}
-                <div className="pl-10 md:pl-0 ml-0 lg:ml-[0px] flex ">
+                <div className="pl-10 md:pl-0 ml-0 lg:ml-[0px] flex">
                             <div className="">
                                 <Rating
                                 name={`rating-${propiedad.star}`}

@@ -103,16 +103,20 @@ html {
 /* TABLET */
 @media screen and (width: 768px) {
     .imagenes-pie {
-        padding-left: 80px;
+        padding-left: 55px;
     }
 }
 
 /* PC */
 
 
-@media screen and (width: 1440px) {
+@media screen and (min-width: 1440px) {
     .contendor-direcion{
         margin-left: 0px;
+    }
+
+    .imagenes-pie {
+        padding-left: 0px;
     }
 
     .contendor-descripcion {
