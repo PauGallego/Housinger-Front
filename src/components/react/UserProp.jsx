@@ -567,7 +567,7 @@ const MyComponent = () => {
 
     return (
         <div>
-            <main className="ml-2 md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
+            <main className=" md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
             <dialog id="my_modal_15" className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Cargando cambios...</h3>
@@ -651,7 +651,7 @@ const MyComponent = () => {
                     {/* Imagenes */}
                     <div className="flex flex-col md:flex-row justify-center items-center lg:flex lg:gap-5 lg:justify-center lg:flex-row lg:items-center">
                         {/* Contenido de las imágenes izquierdas */}
-                        <div className="md:mr-2 lg:mr-0 flex md:flex-col lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
+                        <div className="md:mr-2 lg:mr-0 flex md:flex-col gap-5 lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
                             {/* Mostrar las primeras tres imágenes */}
                             {fotosCompletas.slice(0, 2).map((foto, index) => (
                                 <img
@@ -674,7 +674,7 @@ const MyComponent = () => {
                             />
                         </div>
                         {/* Contenido de las imágenes derechas */}
-                        <div className="flex gap-2 md:ml-2 lg:ml-0 md:flex-col lg:flex-col lg:flex justify-center lg:items-center lg:flex-col">
+                        <div className="flex gap-5 md:ml-2 lg:ml-0 md:flex-col lg:flex-col lg:flex justify-center lg:items-center lg:flex-col">
                             {/* Mostrar las siguientes tres imágenes */}
                             {fotosCompletas.slice(2, 4).map((foto, index) => (
                                 <img
@@ -690,7 +690,7 @@ const MyComponent = () => {
                     </div>
 
                     {/* Imagen PIE */}
-                    <div className="ml-[72px] md:ml-[0px] flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
+                    <div className="imagenes-pie ml-[25px] md:ml-[0px] flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
                         {/* Mostrar las imágenes restantes */}
                         {fotosCompletas.slice(4).map((foto, index) => (
                             <img
