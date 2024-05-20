@@ -690,7 +690,7 @@ const MyComponent = () => {
                     </div>
 
                     {/* Imagen PIE */}
-                    <div className="imagenes-pie ml-[25px] md:ml-[0px] flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
+                    <div className="imagenes-pie pl-[25px] md:pl-[0px] flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px] lg:flex-nowrap">
                         {/* Mostrar las imágenes restantes */}
                         {fotosCompletas.slice(4).map((foto, index) => (
                             <img
