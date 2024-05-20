@@ -567,7 +567,7 @@ const MyComponent = () => {
 
     return (
         <div>
-            <main className=" md:ml-[110px] lg:ml-[270px] mr-2 md:mr-[100px] lg:mr-[270px]">
+            <main className=" md:ml-[110px] lg:ml-[270px] md:mr-[100px] lg:mr-[270px]">
             <dialog id="my_modal_15" className="modal">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">Cargando cambios...</h3>
@@ -788,10 +788,10 @@ const MyComponent = () => {
                 </div>
 
                 {/* PROPIETARIO */}
-                <div className="flex gap-[100px] md:gap-[50px] mb-10">
-                    <div className="lg:flex lg:items-center lg:gap-10 md:flex md:items-center md:gap-10 mt-10">
+                <div className="flex md:gap-[50px] mb-10">
+                    <div className="lg:flex lg:items-center lg:gap-10 md:flex md:items-center md:gap-10 mt-10 pl-10 md:pl-0">
                         <div className="flex items-center contenedor-propietario lg:ml-[240px] gap-5">
-                            <div className="flex items-center gap-5 md:flex-col">
+                            <div className="flex items-center gap-5 flex-col">
                                 <div>
                                     <h2 className="font-bold">Propietario</h2>
                                     <p>{propiedad.name} {propiedad.surname}</p>
@@ -801,25 +801,14 @@ const MyComponent = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="rating flex items-center justify-center ">
-                            <div className="rating">
-                                <Rating
-                                name={`rating-${propiedad.star}`}
-                                value={propiedad.stars}
-                                precision={0.5}
-                                readOnly
-                                />
-                            </div>
-                        </div>
                     </div>
-                    <div className="mt-[50px] gap-5 flex items-center lg:flex lg:items-center md:flex md:items-center md:gap-[50px]">
-
+                    <div className="flex justify-center	align-items h-10 w-30 gap-5 ml-5 mt-[120px] md:mt-[140px] lg:mt-[120px] flex-wrap md:flex-row">
                     {puedeGuardar && (
-                             <button id='chatear' className="botones-propiedad-elimiar text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => openModal4()} >Eliminar</button>
+                            <button id='chatear' className="botones-propiedad-elimiar text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => openModal4()} >Eliminar</button>
                         )}
 
                         {!puedeGuardar && (
-                             <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => chatear()} >Chat</button>
+                            <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => chatear()} >Chat</button>
                         )}
 
 
@@ -831,17 +820,25 @@ const MyComponent = () => {
                             <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={reservar}>Reservar</button>
                         )}
                         <br /><br />
-
-                      
-                       
                     </div>
                 </div>
+                {/* ARREGLAR */}
+                <div className="pl-10 md:pl-0 ml-0 lg:ml-[0px] flex ">
+                            <div className="">
+                                <Rating
+                                name={`rating-${propiedad.star}`}
+                                value={propiedad.stars}
+                                precision={0.5}
+                                readOnly
+                                />
+                            </div>
+                        </div>
+
                 {/* CARACTERISTICAS */}
-           
                 <div className="lg:flex lg:gap-20 md:gap-0">
         
                     <div className="lg:flex lg:items-center">
-                        <div className="lg:ml-[235px] contendor-caracteritica  lg:h-[400px] mt-5">
+                        <div className="pl-10 md:pl-0 lg:ml-[235px] contendor-caracteritica  lg:h-[400px] mt-5">
                         <h2 className="font-bold text-lg  texto-que-hay">¿Qué hay en la vivienda?</h2>
                             {/* Mostrar las seis primeras características */}
                             <div className="flex  gap-7 flex-wrap mt-5 items-center  w-[250px]">
@@ -971,7 +968,7 @@ const MyComponent = () => {
                     <div className="mt-10 lg:mt-5"></div>
                 </div>
                 {/* CAMAS */}
-                <div className="lg:flex lg:gap-[200px] contneder-cama-premiun">
+                <div className="pl-10 md:pl-0 lg:flex lg:gap-[200px] contneder-cama-premiun">
                     <Camas id={propiedad.id} guardar={puedeGuardar} ></Camas>
                     {/* PREMIUM */}
                     {propiedad.premium ? (
