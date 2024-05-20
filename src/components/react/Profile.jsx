@@ -213,7 +213,7 @@ function ProfileComponent() {
                     </div>
                     <div className="flex flex-col md:ml-[180px] lg:ml-[100px]">
                         {/* INFORMACION */}
-                        <div className="mt-10">
+                        <div className="mt-10 ml-10 md:ml-0">
                             <h2 className="font-bold text-xl" id="nombre_apellido">{userData.name} {userData.surname}</h2>
                             <p className="font-bold mt-2 text-xl">Informacion</p>
                         </div>
@@ -222,37 +222,37 @@ function ProfileComponent() {
                         <div className="mt-5">
                             <div className="md:flex md:gap-2">
                                 <div className="mb-2">
-                                    <p>Nombre</p>
-                                    <input className="input-datos w-[100%]" type="text" name="" id="inputNombre" placeholder={userData.name} />
+                                    <p className="ml-10 md:ml-0">Nombre</p>
+                                    <input className="input-datos ml-10 md:ml-0 w-[80%] md:w-[100%]" type="text" name="" id="inputNombre" placeholder={userData.name} />
                                 </div>
                                 <div className="mb-2">
-                                    <p>Apellido</p>
-                                    <input className="input-datos w-[100%]" type="text" name="" id="inputApellido" placeholder={userData.surname} />
-                                </div>
-                            </div>
-                            <div className="md:flex md:gap-2">
-                                <div className="mb-2">
-                                    <p>Correo</p>
-                                    <input className="input-datos w-[100%]" type="text" name="" id="inputMail" placeholder={userData.mail} />
-                                </div>
-                                <div className="mb-2">
-                                    <p>Usuario</p>
-                                    <input className="input-datos w-[100%]" type="text" name="" id="inputUsername" placeholder={userData.username} />
+                                    <p className="ml-10 md:ml-0">Apellido</p>
+                                    <input className="input-datos ml-10 md:ml-0 w-[80%] md:w-[100%]" type="text" name="" id="inputApellido" placeholder={userData.surname} />
                                 </div>
                             </div>
                             <div className="md:flex md:gap-2">
                                 <div className="mb-2">
-                                    <p>Contraseña</p>
-                                    <input className="input-datos w-[100%]" type="password" name="" id="inputPassword" placeholder="Contraseña" />
+                                    <p className="ml-10 md:ml-0">Correo</p>
+                                    <input className="input-datos ml-10 md:ml-0 w-[80%] md:w-[100%]" type="text" name="" id="inputMail" placeholder={userData.mail} />
                                 </div>
                                 <div className="mb-2">
-                                    <p>Confirmar Contraseña</p>
-                                    <input className="input-datos w-[100%]" type="password" name="" id="inputPassword2" placeholder="Contraseña" />
+                                    <p className="ml-10 md:ml-0">Usuario</p>
+                                    <input className="input-datos ml-10 md:ml-0 w-[80%] md:w-[100%]" type="text" name="" id="inputUsername" placeholder={userData.username} />
+                                </div>
+                            </div>
+                            <div className="md:flex md:gap-2">
+                                <div className="mb-2">
+                                    <p className="ml-10 md:ml-0">Contraseña</p>
+                                    <input className="input-datos ml-10 md:ml-0 w-[80%] md:w-[100%]" type="password" name="" id="inputPassword" placeholder="Contraseña" />
+                                </div>
+                                <div className="mb-2">
+                                    <p className="ml-10 md:ml-0">Confirmar Contraseña</p>
+                                    <input className="input-datos ml-10 md:ml-0 w-[80%] md:w-[100%]" type="password" name="" id="inputPassword2" placeholder="Contraseña" />
                                 </div>
                             </div>
                             <div className="mb-2 mt-6 flex flex-col md:flex-row lg:flex-row gap-5">
-                                <button className="boton-guardar w-[100%] md:w-[31%] lg:w-[100%]"  onClick={uploadData}>Guardar perfil</button>
-                                <button className="boton-cerrar w-[100%] md:w-[31%] lg:w-[100%]"  onClick={cerrarSesion}>Cerrar Sesion</button>
+                                <button className="boton-guardar ml-10 md:ml-0 w-[80%] md:w-[31%] lg:w-[100%]"  onClick={uploadData}>Guardar perfil</button>
+                                <button className="boton-cerrar ml-10 md:ml-0 w-[80%] md:w-[31%] lg:w-[100%]"  onClick={cerrarSesion}>Cerrar Sesion</button>
                             </div>
                         </div>
                         <span id='errores-mostrar'></span>

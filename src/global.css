@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
-body, html {
+body,
+html {
     font-family: "IBM Plex Sans", sans-serif;
     margin: 0;
     padding: 0;
@@ -134,7 +135,7 @@ h3 {
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
-    color: white ;
+    color: white;
 }
 
 .contedor-propiedad2 {
@@ -142,7 +143,7 @@ h3 {
     border-radius: 5px;
     padding: 10px;
     margin: 10px;
-    color: white ;
+    color: white;
 }
 
 .blanco-propieda-intercambio {
@@ -178,5 +179,17 @@ h3 {
 @media screen and (width: 1440px) {
     .ajustar {
         margin-left: 300px;
+    }
+}
+@media screen and (min-width: 1041px) and (max-width: 1441px) {
+    .arreglar-texto {
+        margin-left: 550px;
+    }
+}
+
+
+@media screen and (min-width: 1441px) and (min-height: 900px) {
+    .arreglar-texto {
+        margin-left: 550px;
     }
 }

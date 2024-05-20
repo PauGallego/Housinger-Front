@@ -3,7 +3,7 @@ import { API_BASE_URL } from '../../astro.config';
 import { API_BASE_URL2 } from '../../astro.config';
 import { Modal, Button, TextField } from '@mui/material';
 import { Icon } from '@iconify/react';
-
+import '../../global.css';
 
 const MisPropiedades = () => {
     const [propiedades, setPropiedades] = useState([]);
@@ -112,8 +112,8 @@ const MisPropiedades = () => {
     
                     return (
                         <div className="mt-10">
-                            <h2 className="md:ml-[180px] lg:ml-[550px] font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
-                            <div className="ml-[50px] lg:ml-[550px] md:ml-[180px]">
+                            <h2 className="md:ml-[180px] lg:ml-[300px] arreglar-texto font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
+                            <div className="ml-[50px] lg:ml-[300px] md:ml-[180px] arreglar-texto">
                                 <div className="mt-5 lg:flex md:flex md:flex-wrap gap-5">
                                 {propiedades.map((propiedad, index) => (
                                 <div className="flex-col mb-10 relative" key={index}>
