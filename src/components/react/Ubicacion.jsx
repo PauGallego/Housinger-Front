@@ -123,13 +123,13 @@ const MapaLeafletComponent = ({ location, userId }) => {
 
     return (
         <div>
-        <div className='pl-10 md:pl-0'>
+        <div className='pl-10 md:pl-0 propitario'>
             <h2 className="ajustar font-bold text-lg mt-10 lg:ml-[200px]">Ubicación de la vivienda</h2>
         </div>
             {puedeModificarDireccion ? (
                 <>
-                <div className='pl-10 md:pl-0 '>
-                    <input type="text" id="inputDireccion" className="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]" placeholder="Dirección" />
+                <div className='pl-10 md:pl-0 propitario'>
+                    <input type="text" id="inputDireccion" className="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px] propitario" placeholder="Dirección" />
                     <button id="btnBuscar" className="mt-5" onClick={buscarEnMapa}>Buscar y Modificar</button>
                     <br />
                 </div>
@@ -138,7 +138,7 @@ const MapaLeafletComponent = ({ location, userId }) => {
                 <p className='ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]'>{location}</p>
             )}
             <span id="mensaje" className="error-mensaje lg:ml-[200px]">{mensajeError}</span>
-            <div id="map" className=" lg:w-[900px] mt-5 "></div>
+            <div id="map" className=" lg:w-[900px] mapa-ajustar mt-5 propitario"></div>
         </div>
     );
 };

@@ -7,7 +7,8 @@
     --menu: #a5d7e8;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
@@ -15,8 +16,9 @@ html, body {
 .bg-secondary {
     background-color: var(--gris) !important;
 }
-.imagen-optima{
-    object-fit: cover; 
+
+.imagen-optima {
+    object-fit: cover;
 }
 
 .area {
@@ -27,13 +29,16 @@ html, body {
     background-color: red;
     box-shadow: 0px 5px 5px 0px var(--gris);
 }
+
 .boton-direcion {
     border: 1px solid var(--gris);
 }
+
 body,
 html {
     background-color: #ffff;
 }
+
 .icon-blue {
     color: var(--primary);
 }
@@ -93,6 +98,7 @@ html {
         padding-left: 50px;
     }
 }
+
 @media screen and (min-width: 468px) and (max-width: 768px) {
     .imagenes-pie {
         padding-left: 70px;
@@ -109,11 +115,20 @@ html {
 
 /* PC */
 
+@media screen and (min-width: 1441px) and (min-height: 900px) {
+    .propitario {
+        padding-left: 280px;
+    }
+
+    .mapa-ajustar {
+        margin-left: 280px;
+    }
+    .contendor-direcion {
+        margin-left: 350px;
+    }
+}
 
 @media screen and (min-width: 1440px) {
-    .contendor-direcion{
-        margin-left: 0px;
-    }
 
     .imagenes-pie {
         padding-left: 0px;
@@ -130,19 +145,20 @@ html {
     .contenedor-propietario {
         margin-left: 0px;
     }
+
     .texto-que-hay {
         margin-left: 0px;
     }
 
     .contendor-caracteritica {
-    margin-left: 0px;
-    }
-
-    .contendor-camas{
         margin-left: 0px;
     }
 
-    .contneder-cama-premiun{
+    .contendor-camas {
+        margin-left: 0px;
+    }
+
+    .contneder-cama-premiun {
         gap: 180px;
     }
 

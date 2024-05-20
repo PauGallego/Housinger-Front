@@ -642,7 +642,7 @@ const MyComponent = () => {
             </dialog>
 
                 {/* Dirección */}
-                <div className="flex mt-5 lg:mt-10 gap- lg:ml-[245px] contendor-direcion items-center">
+                <div className="flex mt-5 ml-8 lg:mt-10 md:ml-[50px] lg:ml-[0px] contendor-direcion items-center">
                     <i className="icon-[ion--location-sharp] icon-blue h-7 w-7"></i>
                     <p className='font-bold "'>{propiedad.address} </p>
                 </div>
@@ -789,7 +789,7 @@ const MyComponent = () => {
 
                 {/* PROPIETARIO */}
                 <div className="flex md:gap-[50px] mb-10">
-                    <div className="lg:flex lg:items-center lg:gap-10 md:flex md:items-center md:gap-10 mt-10 pl-10 md:pl-0">
+                    <div className="lg:flex lg:items-center lg:gap-10 md:flex md:items-center md:gap-10 mt-10 pl-10 md:pl-0 propitario">
                         <div className="flex items-center contenedor-propietario lg:ml-[240px] gap-5">
                             <div className="flex items-center gap-5 flex-col">
                                 <div>
@@ -823,7 +823,7 @@ const MyComponent = () => {
                     </div>
                 </div>
                 {/* ARREGLAR */}
-                <div className="pl-10 md:pl-0 ml-0 lg:ml-[0px] flex">
+                <div className="pl-10 md:pl-0 ml-0 lg:ml-[0px] flex propitario">
                             <div className="">
                                 <Rating
                                 name={`rating-${propiedad.star}`}
@@ -835,7 +835,7 @@ const MyComponent = () => {
                         </div>
 
                 {/* CARACTERISTICAS */}
-                <div className="lg:flex lg:gap-20 md:gap-0">
+                <div className="lg:flex lg:gap-20 md:gap-0 propitario">
         
                     <div className="lg:flex lg:items-center">
                         <div className="pl-10 md:pl-0 lg:ml-[235px] contendor-caracteritica  lg:h-[400px] mt-5">
@@ -968,7 +968,7 @@ const MyComponent = () => {
                     <div className="mt-10 lg:mt-5"></div>
                 </div>
                 {/* CAMAS */}
-                <div className="pl-10 md:pl-0 lg:flex lg:gap-[200px] contneder-cama-premiun">
+                <div className="pl-10 md:pl-0 lg:flex lg:gap-[200px] contneder-cama-premiun propitario">
                     <Camas id={propiedad.id} guardar={puedeGuardar} ></Camas>
                     {/* PREMIUM */}
                     {propiedad.premium ? (
