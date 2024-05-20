@@ -5,6 +5,7 @@ interface Props {
 }
 
 import { API_BASE_URL2 } from "../astro.config.js";
+import { API_BASE_URL } from "../astro.config.js";
 
 
 const { title, fondo } = Astro.props;
@@ -16,7 +17,7 @@ const { title, fondo } = Astro.props;
         <meta charset="UTF-8" />
         <meta name="description" content="Astro description" />
         <meta name="viewport" content="width=device-width" />
-        <link rel="icon" type="image/svg+xml" href="/public/logo.png" />
+        <link rel="icon" type="image/svg+xml" href=`${API_BASE_URL}/v1/fileCustomer/download/logo.png` />
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
@@ -30,7 +31,7 @@ const { title, fondo } = Astro.props;
                         <div class="flex lg:pl-40">
                             <img
                                 alt="Logo de Housinger"
-                                src="public/logo.png"
+                                src=`${API_BASE_URL}/v1/fileCustomer/download/logo.png`
                                 class="h-[40px] lg:h-[62px] md:h-[52px] ml-2 mt-5"
                             />
                             <div
