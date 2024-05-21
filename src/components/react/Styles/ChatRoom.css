@@ -42,7 +42,6 @@ body, html {
 .chat-input {
     margin-bottom: 10px;
     position: absolute;
-    width: 1100px;
 }
 
 .input-enviar {
