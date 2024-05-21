@@ -822,7 +822,7 @@ const MyComponent = () => {
                         <br /><br />
                     </div>
                 </div>
-                {/* ARREGLAR */}
+                {/* RATING */}
                 <div className="pl-10 md:pl-0 ml-0 lg:ml-[0px] flex propitario">
                             <div className="">
                                 <Rating
@@ -838,7 +838,7 @@ const MyComponent = () => {
                 <div className="lg:flex lg:gap-20 md:gap-0 propitario">
         
                     <div className="lg:flex lg:items-center">
-                        <div className="pl-10 md:pl-0 lg:ml-[235px] contendor-caracteritica  lg:h-[400px] mt-5">
+                        <div className="pl-10 md:pl-0 lg:ml-[235px] contendor-caracteritica  lg:h-[400px] mt-20 lg:mt-10">
                         <h2 className="font-bold text-lg  texto-que-hay">¿Qué hay en la vivienda?</h2>
                             {/* Mostrar las seis primeras características */}
                             <div className="flex  gap-7 flex-wrap mt-5 items-center  w-[250px]">
@@ -856,7 +856,7 @@ const MyComponent = () => {
                             {/* Botón para abrir el modal */}
                                 
                             {!puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-40 md:w-40 lg:w-40 md:w-[69px] mt-[20px] " onClick={openModal}>Mostrar más</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-40 md:w-40 lg:w-40 mt-[20px] " onClick={openModal}>Mostrar más</button>
                             )}
                             {puedeGuardar && (
                             <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={openModal3}>Modificar</button>
@@ -960,7 +960,7 @@ const MyComponent = () => {
                         {/* BARRA VERTICAL */}
                         <div className="hidden lg:block bg-secondary h-[200px] w-[2px] lg:ml-[100px] lg:mr-[150px]"></div>
                         {/* CALENDARIO */}
-                        <div className='flex flex-col item-center jutify-center'>
+                        <div className='flex flex-col item-center jutify-center mt-20 md:mt-5 lg:mt-0'>
                         <p className='font-bold text-center'> Calendario</p>
                         <Calendar propid={propiedad.id}/>
                         </div>
