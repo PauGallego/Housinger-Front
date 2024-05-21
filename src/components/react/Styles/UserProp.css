@@ -53,6 +53,22 @@ html {
     box-shadow: 0px 5px 5px 0px var(--gris);
 }
 
+.bed-input {
+    border: 1px solid var(--gris);
+    border-radius: 5px;
+}
+
+.boton-cama {
+    background-color: white;
+    border: 1px solid var(--gris);
+    color: black;
+}
+
+.boton-cama:hover {
+    background-color: var(--gris);
+    color: white;
+}
+
 .boton-modal {
     background-color: white;
     border: 1px solid var(--gris);

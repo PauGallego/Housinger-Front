@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import { API_BASE_URL } from '../../astro.config';
 import { Modal, Button } from '@mui/material'; 
 
+
 const CamasComponent = ({ id, guardar }) => {
     const [camas, setCamas] = useState([]);
     const [tiposCama, setTiposCama] = useState([]);
@@ -105,7 +106,7 @@ const CamasComponent = ({ id, guardar }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
             }}>
-                <div className="modal-box">
+                <div className="modal-box bg-white text-black">
                     <h2>Seleccionar cama y número</h2>
                     <div className="modal-content-container">
                         <div className="bed-list">
@@ -116,6 +117,7 @@ const CamasComponent = ({ id, guardar }) => {
                                         <Icon icon={tipoCama.icon} className="h-[25px] w-[25px] mr-[10px]" />
                                         <span>{` ${tipoCama.name}`}</span>
                                         <input
+                                            className="ml-10 bed-input"
                                             type="number"
                                             value={numberOfBeds[tipoCama.name] || ''}
                                             onChange={(e) => {
@@ -133,8 +135,8 @@ const CamasComponent = ({ id, guardar }) => {
                         </div>
                     </div>
                     <div className="modal-action">
-                        <button className="btn" onClick={handleSave}>Guardar</button>
-                        <button className="btn" onClick={closeModal}>Cerrar</button>
+                        <button className="btn boton-cama" onClick={handleSave}>Guardar</button>
+                        <button className="btn boton-cama" onClick={closeModal}>Cerrar</button>
                     </div>
                 </div>
             </Modal>
