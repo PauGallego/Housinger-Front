@@ -62,7 +62,7 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
     };
 
     return (
-        <div className="pl-10 md:pl-0 lg:flex lg:ml-[200px] ajustar gap-20 propitario">
+        <div className="pl-10 md:pl-0 lg:flex lg:ml-[200px] ajustar gap-20 propitario mt-20 md:">
             <div>
                 <h2 className="font-bold text-lg mt-5">Normas de la casa</h2>
                 <div id="container">
