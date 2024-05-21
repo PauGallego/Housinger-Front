@@ -121,7 +121,8 @@ const { title, fondo } = Astro.props;
         <main class="bg-[white]">
             <slot />
         </main>
-
+        <footer>
+        </footer>
     </body>
 </html>
 <script>
@@ -259,6 +260,14 @@ const { title, fondo } = Astro.props;
         --star: #ffd910;
         --menu: #a5d7e8;
     }
+
+    footer {
+        background-color: var(--menu);
+        color: white;
+        text-align: center;
+        padding: 30px;
+    }
+
     body,
     html {
         font-family: "Karma", serif;

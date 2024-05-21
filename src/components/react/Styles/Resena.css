@@ -11,8 +11,12 @@
     background-color: #3f4e8f;
 }
 
-@media screen and (width: 1440px) {
+@media screen and (min-width: 1441px) {
     .ajustar-resena {
-        margin-left: 0px;
+        padding-left: 280px;
+    }
+
+    .ajustar-dejar-resena {
+        padding-left: 280px;
     }
 }

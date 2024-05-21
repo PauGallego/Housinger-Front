@@ -143,7 +143,7 @@ const ResenaComponent = ({ id }) => {
 
     return (
         <div>
-            <div className="lg:flex mt-10 lg:ml-[210px] lg:gap-[20%] ajustar-resena flex-wrap items-center ">
+            <div className="lg:flex mt-10 lg:gap-[20px] pl-10 flex-wrap lg:pl-0 ajustar-resena">
                 {showAll ? reviews.map(review => (
                     <div key={review.id}>
                         <div>
@@ -198,8 +198,8 @@ const ResenaComponent = ({ id }) => {
                 </div>
             )}
             {canReview && notAreadyReviewd && (
-                <div className="lg:ml-[210px] ajustar">
-                    <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={handleOpenModal}>Dejar Reseña</button>
+                <div className="pl-10 md:pl-0 ajustar-dejar-resena">
+                    <button className="botones-propiedad text-white p-2 rounded-[5px] w-[150px] mt-[20px]" onClick={handleOpenModal}>Dejar Reseña</button>
                 </div>
             )}
             <Modal open={showModal} onClose={handleCloseModal}>
