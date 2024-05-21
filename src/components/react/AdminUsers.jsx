@@ -238,8 +238,7 @@ const UserList = () => {
 
   return (
     <div>
-      <h1>User List</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+      <div className="flex flex-wrap gap-10 pl-[50px] md:pl-[200px] lg:w-[2050px]">
         {users.map(user => (
           <div
             key={user.id}
@@ -261,7 +260,7 @@ const UserList = () => {
             />
             <h2 style={{ fontSize: '16px', margin: '10px 0 5px' }}>{user.name}</h2>
             <p style={{ margin: 0 }}>{user.surname}</p>
-            <Button variant="contained" onClick={() => handleOpen(user)}>Ver Detalles</Button>
+            {/* <Button variant="contained" onClick={() => handleOpen(user)}>Ver Detalles</Button> */}
           </div>
         ))}
       </div>
@@ -293,7 +292,7 @@ const UserList = () => {
             <img
               src={`${API_BASE_URL}/v1/fileCustomer/download/${selectedUser.picture}`}
               alt={`${selectedUser.name} ${selectedUser.surname}`}
-              style={{ width: '100px', height: '100px', borderRadius: '50%', margin: '16px 0' }}
+              style={{ width: '100px', height: '100px', borderRadius: '50%', margin: '16px 0'}}
             />
              {/* Input para seleccionar un archivo de imagen */}
       <input type="file" id="fileInput" accept="image/*" />
@@ -360,6 +359,7 @@ const UserList = () => {
               />
             </FormGroup>
             <Button variant="contained" style={{ marginTop: '16px' }} onClick={handleModify}>Modificar</Button>
+            <br></br>
             <Button variant="contained" color="secondary" style={{ marginTop: '16px' }} onClick={handleDelete}>Eliminar usuario</Button>
           </Box>
         </Modal>

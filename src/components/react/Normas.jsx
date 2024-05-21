@@ -6,29 +6,26 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
     const [normasState, setNormasState] = useState(propsNormas || []);
     const [modalAbierto, setModalAbierto] = useState(false);
     const [seguridad, setSeguridad] = useState(propsSeguridad || []);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [userId2, setUserId2] = useState(null);
 
-    let isAdmin = localStorage.getItem("admin");
+    useEffect(() => {
+        setIsAdmin(localStorage.getItem("admin") == "true");
+
+        const userData = JSON.parse(localStorage.getItem('userData')) || {};
+        setUserId2(userData.userId || null);
+    }, []);
 
     useEffect(() => {
         setNormasState(propsNormas || []);
         setSeguridad(propsSeguridad || []);
     }, [propsNormas, propsSeguridad]);
 
-    let userData = JSON.parse(localStorage.getItem('userData'));
-
-    // Verifica si userData es null y asigna un array vacío en ese caso
-    if (userData === null) {
-        userData = [];
-    }
-    
-    const userId2 = userData.userId;
     useEffect(() => {
-        // Guardar las normas en localStorage
         localStorage.setItem('normas', JSON.stringify(normasState));
     }, [normasState]);
 
     useEffect(() => {
-        // Guardar la seguridad en localStorage
         localStorage.setItem('seguridad', JSON.stringify(seguridad));
     }, [seguridad]);
 
@@ -40,7 +37,6 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
         setModalAbierto(false);
     };
 
-    // Función para agregar una nueva norma
     const agregarNorma = () => {
         const normaInput = document.getElementById('nuevaNormaInput');
         const nuevaNorma = normaInput.value.trim();
@@ -50,14 +46,12 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
         }
     };
 
-    // Función para eliminar una norma
     const borrarNorma = (index) => {
         const newNormas = [...normasState];
         newNormas.splice(index, 1);
         setNormasState(newNormas);
     };
 
-    // Función para gestionar seguridad
     const toggleSeguridad = (item) => {
         if (userId === userId2 || isAdmin) {
             const updatedSeguridad = seguridad.includes(item)
@@ -75,13 +69,13 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
                     {normasState.map((norma, index) => (
                         <div key={index} className="normaContainer">
                             <input type="text" className="normaText ajustar" value={norma} readOnly />
-                            {userId == userId2 || isAdmin &&  (
+                            {(userId === userId2 || isAdmin) && (
                                 <button className="borrarNorma" onClick={() => borrarNorma(index)}>X</button>
                             )}
                         </div>
                     ))}
                 </div>
-                {userId == userId2 || isAdmin && (
+                {(userId === userId2 || isAdmin) && (
                     <>
                         <input type="text" id="nuevaNormaInput" className="normaText ajustar" placeholder="Escribe la norma" />
                         <button className="botonNorma" onClick={agregarNorma}>Añadir norma</button>
@@ -113,7 +107,6 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-
                     }}
                 >
                     <div className="modal-box bg-[white]">
