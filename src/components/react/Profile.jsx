@@ -199,7 +199,7 @@ function ProfileComponent() {
     return (
         <div>
             {userData !== null ? ( // Mostrar el div solo cuando userData no sea null
-                <div className='md:flex md:flex-col lg:flex-row lg:items-center lg:ml-[550px] ajustar'>
+                <div className='md:flex md:flex-col lg:flex-row lg:items-center lg:justify-center'>
                     <div className="relative flex justify-center lg:mt-10">
                         <img
                             src={`${API_BASE_URL}/v1/fileCustomer/download/${userData.picture}`}

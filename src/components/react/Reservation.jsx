@@ -63,7 +63,7 @@ const Propiedades = () => {
             .catch(error => console.error('Error fetching reservations:', error));
     }, [userId, token]);
     return (
-        <div className="ml-[50px] lg:ml-[550px] md:ml-[180px] ajustar">
+        <div className="md:flex md:flex-col lg:flex-row lg:items-center lg:justify-center md:pl-[0px] lg:pl-[]">
             <div className="mt-5 lg:flex md:flex md:flex-wrap md:gap-5 lg:gap-5 w-[80%]">
                 {reservations.map((reservation, index) => (
                     <div key={index} className="relative flex-col mb-10 relative" >

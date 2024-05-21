@@ -112,8 +112,8 @@ const MisPropiedades = () => {
     
                     return (
                         <div className="mt-10">
-                            <h2 className="md:ml-[180px] lg:ml-[300px] arreglar-texto font-bold text-xl text-center md:text-left lg:text-left">Mis propiedades</h2>
-                            <div className="ml-[50px] lg:ml-[300px] md:ml-[180px] arreglar-texto">
+                            <h2 className="md:pl-[180px] lg:pl-[250px] arreglar-texto font-bold text-xl pl-10 md:pl-[0px]">Mis propiedades</h2>
+                            <div className="md:flex md:flex-col lg:flex-row pl-10 md:pl-[0px] lg:pr-[350px] md:items-center md:justify-center lg:pr-[350px] lg:items-center lg:justify-center lg:pr-[350px]">
                                 <div className="mt-5 lg:flex md:flex md:flex-wrap gap-5">
                                 {propiedades.map((propiedad, index) => (
                                 <div className="flex-col mb-10 relative" key={index}>

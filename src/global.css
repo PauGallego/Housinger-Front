@@ -181,22 +181,9 @@ h3 {
         margin-left: 300px;
     }
 }
-@media screen and (min-width: 1041px) and (max-width: 1441px) {
+
+@media screen and (min-width: 1441px) {
     .arreglar-texto {
-        margin-left: 550px;
-    }
-}
-
-
-@media screen and (min-width: 1441px) and (min-height: 900px) {
-    .arreglar-texto {
-        margin-left: 550px;
-    }
-}
-
-
-@media screen and (width: 1440px) {
-    .arreglar-texto {
-        margin-left: 310px;
+        padding-left: 500px;
     }
 }
