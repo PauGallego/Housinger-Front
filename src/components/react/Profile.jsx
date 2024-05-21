@@ -211,7 +211,7 @@ function ProfileComponent() {
                         </button>
 
                     </div>
-                    <div className="flex flex-col md:ml-[180px] lg:ml-[100px]">
+                    <div className="flex justify-center	items-center flex-col md:ml-[180px]">
                         {/* INFORMACION */}
                         <div className="mt-10 ml-10 md:ml-0">
                             <h2 className="font-bold text-xl" id="nombre_apellido">{userData.name} {userData.surname}</h2>
