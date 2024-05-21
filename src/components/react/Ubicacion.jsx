@@ -129,7 +129,7 @@ const MapaLeafletComponent = ({ location, userId }) => {
             {puedeModificarDireccion ? (
                 <>
                 <div className='pl-10 md:pl-0 propitario'>
-                    <input type="text" id="inputDireccion" className="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px] propitario" placeholder="Dirección" />
+                    <input type="text" id="inputDireccion" className="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px] " placeholder="Dirección" />
                     <button id="btnBuscar" className="mt-5" onClick={buscarEnMapa}>Buscar y Modificar</button>
                     <br />
                 </div>

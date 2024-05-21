@@ -17,8 +17,8 @@
     border-radius: 5px;
 }
 
-@media screen and (width: 1440px) {
-    .ajustar {
-        margin-left: 0px;
+@media screen and (min-width: 1440px) {
+    .dirrecion {
+        margin-left: 280px;
     }
 }
