@@ -4,7 +4,7 @@ import Char from "../components/react/Char.jsx";
 import { API_BASE_URL } from '../astro.config.js';
 ---
 <Layout title="Housinger" fondo="blue">
-    <main style="height: 200vh">
+    <main style="height: auto, backgorund-color: white">
         <div class="fondo-menu ">
             <div class="flex gap-10 font-bold justify-center">
             </div>
@@ -133,8 +133,8 @@ import { API_BASE_URL } from '../astro.config.js';
         .bg-secondary {
         background-color: var(--gris) !important;
         }
-        body, html {
-            background-color: #ffff;
+        body, html,  main {
+            background-color: #ffff !important;
         }
         .ddd {
             display: flex;
