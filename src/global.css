@@ -99,7 +99,7 @@ h3 {
 }
 
 .boton-cerrar {
-    background-color: red;
+    background-color: rgb(247, 54, 54);
     color: white;
     padding: 5px;
     border-radius: 5px;
@@ -107,7 +107,7 @@ h3 {
 }
 
 .boton-rechazar {
-    background-color: red;
+    background-color: rgb(247, 54, 54);
     color: white;
     padding: 5px;
     border-radius: 5px;
@@ -164,7 +164,7 @@ h3 {
 }
 
 .boton-rechazar-intercambio {
-    background-color: red;
+    background-color: rgb(247, 54, 54);
     color: white;
     padding: 15px;
     width: 100px;

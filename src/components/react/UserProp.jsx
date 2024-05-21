@@ -804,21 +804,23 @@ const MyComponent = () => {
                     </div>
                     <div className="flex justify-center	align-items h-10 w-30 gap-5 ml-5 mt-[120px] md:mt-[140px] lg:mt-[120px] flex-wrap md:flex-row">
                     {puedeGuardar && (
-                            <button id='chatear' className="botones-propiedad-elimiar text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => openModal4()} >Eliminar</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px] h-10" onClick={updateProperty}>Guardar</button>
                         )}
 
                         {!puedeGuardar && (
-                            <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={() => chatear()} >Chat</button>
+                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]  h-10" onClick={reservar}>Reservar</button>
                         )}
-
-
-                        {puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={updateProperty}>Guardar</button>
+                    
+                    {puedeGuardar && (
+                            <button id='chatear' className="botones-propiedad-elimiar text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]  h-10" onClick={() => openModal4()} >Eliminar</button>
                         )}
 
                         {!puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]" onClick={reservar}>Reservar</button>
+                            <button id='chatear' className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[90px]  h-10" onClick={() => chatear()} >Chat</button>
                         )}
+
+
+                        
                         <br /><br />
                     </div>
                 </div>
