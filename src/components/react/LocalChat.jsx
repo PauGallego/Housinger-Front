@@ -90,10 +90,13 @@ const MyComponent = () => {
           </div>
         </div>
       ) : receiverId ? (
-        <Chatroom senderId={senderId} receiverId={receiverId} client="svelte:only" />
+        <div className='bg-[white] h-[100vh]'> 
+           <Chatroom senderId={senderId} receiverId={receiverId} client="svelte:only" />
+        </div>
+       
       ) : (
-        <div className='flex justify-center items-center'>
-          <div className='md:flex md:flex-col md:h-[500px] md:w-[500px] md:justify-center md:items-center lg:flex lg:flex-col lg:h-[500px] lg:w-[500px] lg:justify-center lg:items-center'>
+        <div className='flex justify-center items-center bg-[white] pb-[600px]'> 
+          <div className= ' md:flex md:flex-col md:h-[500px] md:w-[500px] md:justify-center md:items-center lg:flex lg:flex-col lg:h-[500px] lg:w-[500px] lg:justify-center lg:items-center'>
               <img className='ajustar-carga' src="../../cargar.gif" alt="Cargando..." />
               <p className='text-center mt-10 text-xl font-bold'>No hay chats previos...</p>
           </div>
