@@ -100,8 +100,8 @@ const MisPropiedades = () => {
                 <div className="mt-5 lg:flex md:flex md:flex-wrap gap-5">
                     {propiedades.map((propiedad, index) => (
                         <div className="flex-col mb-10 relative" key={index}>
-                            <button className="absolute top-0 right-0 z-10" onClick={() => handleModalOpen2(propiedad.propertyId)}>
-                                <Icon icon="flowbite:x-circle-solid" className="h-[25px] w-[25px] red text-[red]" />
+                            <button className="absolute top-0 right-0" onClick={() => handleModalOpen2(propiedad.propertyId)}>
+                                <Icon icon="flowbite:x-circle-solid" className="h-[25px] w-[25px]  text-[red]" />
                             </button>
                             <a href={API_BASE_URL2 + "/user_prop?id=" + propiedad.propertyId}>
                                 <img
@@ -109,7 +109,7 @@ const MisPropiedades = () => {
                                     src={propiedad.foto ? `${API_BASE_URL}/v1/fileCustomer/download/${propiedad.foto}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`}
                                     alt=""
                                 />
-                                <p>{propiedad.address}</p>
+                                <p className='w-[300px]'>{propiedad.address}</p>
                             </a>
                         </div>
                     ))}

@@ -238,7 +238,7 @@ const UserList = () => {
 
   return (
     <div>
-      <div className="flex flex-wrap gap-10 pl-[50px] md:pl-[200px] lg:w-[2050px]">
+      <div className="flex flex-wrap gap-10 pl-[50px] md:pl-[200px]">
         {users.map(user => (
           <div
             key={user.id}
