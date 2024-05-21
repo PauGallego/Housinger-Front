@@ -642,7 +642,7 @@ const MyComponent = () => {
             </dialog>
 
                 {/* Dirección */}
-                <div className="flex mt-5 ml-8 lg:mt-10 md:ml-[50px] lg:ml-[0px] contendor-direcion items-center">
+                <div className="pl-10 lg:pl-0 mt-10 flex items-center justify-start contendor-direcion">
                     <i className="icon-[ion--location-sharp] icon-blue h-7 w-7"></i>
                     <p className='font-bold "'>{propiedad.address} </p>
                 </div>
