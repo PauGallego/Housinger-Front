@@ -15,9 +15,7 @@ body, html {
    height: 300px;
 }
 
-.chat-room {
-    width: 1500px;
-}
+
 
 .sent-message {
     display: flex;
@@ -27,7 +25,8 @@ body, html {
     border-radius: 10px;
     padding: 10px;
     width: 300px;
-    margin-left: 800px;
+    margin-left: 45vw;
+
 }
 
 .sent-message .flex-container {
@@ -35,12 +34,11 @@ body, html {
 }
 
 .ajustar-texto {
-    max-width: 80%;
+    width: 250px;
     word-wrap: break-word;
 }
 
 .chat-input {
-    margin-bottom: 10px;
     position: absolute;
 }
 
@@ -78,7 +76,8 @@ body, html {
 
 .chat-container {
     display: flex;
-    gap: 5px;
+    gap: 0px;
+    
 }
 .conversation-buttons {
     color: white;
@@ -112,7 +111,7 @@ body, html {
 .chat-messages {
     height: 700px;
     overflow-y: scroll;
-    margin-bottom: 30px;
+    padding-bottom: 30px;
     scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: var(--primary) var(--secondary);
@@ -124,7 +123,7 @@ body, html {
     background-color: white;
     border-radius: 10px;
     padding: 10px;
-    width: 200px;
+    width: 300px;
 }
 
 .received-message .flex-container {
@@ -147,59 +146,67 @@ body, html {
     width: 0;
 }
 
-
-/* Para pantallas de 1440px (PC) y superior */
-@media screen and (max-width: 1440px) {
-    .chat-room {
-        margin-left: 0px;
-        width: 1100px;
-    }
-
-    .input-enviar {
-        width: 85%;
-    }
-
+@media screen and (min-width: 1200px) and (max-width: 1600px) {
     .sent-message {
-        margin-left: 550px;
+        margin-left:  40vw;
     }
 
-    .chat-input {
-        width: 910px;
-        top: 93vh;
-    }
 }
 
-/* Para tabletas (768px de ancho) */
-@media screen and (max-width: 768px) and (max-width: 1024px) {
+@media screen and (min-width: 1000px) and (max-width: 1200px) {
     .sent-message {
-        margin-left: 430px;
+        margin-left:  35vw;
     }
 
-    .input-enviar {
-        width: 80%;
-    }
-
-    .chat-messages{
-        margin-left: 0px;
-        width: 800px;
-    }
-
-    .chat-input {
-        width: 790px;
-        top: 140vh;
-        margin-top: 50px;
-    }
 }
 
-/* Para móviles (390px de ancho) */
+
+
+@media screen and (min-width: 767px) and (max-width: 1000px) {
+    .sent-message {
+        margin-left:  40vw;
+    }
+
+}
+
+
+
+
+/* Para móviles (menos de 768px de ancho) */
 @media screen and (max-width: 767px) {
-    .sent-message {
-        margin-left: 90px;
-    }
 
-    .chat-input {
-        width: 380px;
-        top: 90vh;
-        margin-left: 50px;
+    .sent-message {
+        margin-left:  50vw;
     }
 }
+
+/* Para móviles (menos de 768px de ancho) */
+@media screen and (max-width: 667px) {
+
+    .sent-message {
+        margin-left:  40vw;
+    }
+}
+
+@media screen and (max-width: 567px) {
+
+    .sent-message {
+        margin-left:  30vw;
+    }
+}
+
+@media screen and (max-width: 467px) {
+
+    .sent-message {
+        margin-left:  15vw;
+    }
+}
+
+@media screen and (max-width: 367px) {
+
+    .sent-message {
+        margin-left:  5vw;
+    }
+}
+
+

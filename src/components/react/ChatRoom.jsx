@@ -461,18 +461,18 @@ const ChatRoom = ({ senderId, receiverId }) => {
     };
 
     return (
-        <div className="chat-room bg-[#576cbc] lg:ml-[200px]  mb-[200px]">
+        <div className="chat-room  md:w-[80vw] m-auto  ">
             {userData.connected ? (
 
-                <div  id='chat-container' className="chat-container flex-col md:flex-col lg:flex-row gap-5 ">
-                    <div className="conversation-buttons flex flex-row lg:flex-col w-[100vw] lg:w-[17vw] flex-wrap">
+                <div  id='chat-container' className="chat-container w-[100vw] md:w-[80vw]   flex-col md:flex-col lg:flex-row gap-5 ">
+                    <div className="conversation-buttons flex flex-row lg:flex-col w-[100vw] md:w-[80vw] lg:w-[17vw] flex-wrap">
                         {receiverButtons}
                     </div>
 
-                    <div className="chat-messages flex flex-col lg:w-[70vw]" ref={chatContainerRef}>
-                        <div className="chat-header text-left" >
+                    <div className="chat-messages flex flex-col bg-[#576cbc]  w-[100vw] md:w-[80vw] lg:w-[70vw]" ref={chatContainerRef}>
+                        <div className="chat-header text-left " >
 
-                            <p className='text-white text-left'>Chat con {customerData.receiverName} {customerData.receiverSurname}</p>
+                            <p className='text-white  text-left'>Chat con {customerData.receiverName} {customerData.receiverSurname}</p>
 
                             <input type="hidden" id='iduser' value={customerData.receiverId} />
                         </div>
@@ -493,7 +493,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
                         ))}
                         <div className='mt-[60px] bp-[500px] md:mt-[100px] md:bm-[100px]'></div>
 
-                        <div className="chat-input flex justify-center items-center  w-[300px] md:w-[800px]  lg:w-[1200px] lg:top-[820px]">
+                        <div className="chat-input flex justify-center items-center w-[95vw] md:w-[78vw] lg:w-[62vw]  top-[850px] lg:top-[820px]">
                             <input className='w-[90%] h-[40px] rounded-[50px] input-enviar'
                                 type="text"
                                 value={userData.message}
