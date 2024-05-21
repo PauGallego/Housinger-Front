@@ -20,6 +20,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
     const [showModal, setShowModal] = useState(false);
     const [showModal2, setShowModal2] = useState(false);
     const [showModal3, setShowModal3] = useState(false);
+    const [showModal7, setShowModal7] = useState(false);
     const [propId, setPropId] = useState(false);
     const [propiedades, setPropiedades] = useState([]);
     const [userData, setUserData] = useState({
@@ -51,6 +52,14 @@ const ChatRoom = ({ senderId, receiverId }) => {
 
     const closeModal = () =>{
         setShowModal(false);
+    }
+
+    const openModal7 = (id) =>{
+        setShowModal7(true);
+    }
+
+    const closeModal7 = () =>{
+        setShowModal7(false);
     }
     
     const openModal2 = () =>{
@@ -168,6 +177,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
         if (userData.receiverId && userData.senderId && userData.connected) {
             fetchCustomerData();
         }
+        
     }, [userData.receiverId, userData.senderId, userData.connected]);
 
     useEffect(() => {
@@ -441,6 +451,15 @@ const ChatRoom = ({ senderId, receiverId }) => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
+
+    const params = new URLSearchParams(window.location.search);
+    const receiverParam = params.get('error');
+    if(receiverParam){
+        openModal7();
+        params.delete('error');
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+         window.history.replaceState({}, '', newUrl);
+    }
   }, []);
 
   // Scroll to the bottom of the chat container when privateChats change
@@ -561,8 +580,8 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 >
                   
                   <div className="modal-box bg-[white]">
-                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
-                            <p>Dia de entrada:</p>
+                        <h3 className="font-bold text-lg text-black">Dia de entrada:</h3>
+                            <p>Porfavor, selecciona las fechas deseadas</p>
                          <Calendar2 propid={propId} />
                        
                           <div className="modal-action flex  items-center">
@@ -585,14 +604,33 @@ const ChatRoom = ({ senderId, receiverId }) => {
                     }}
                 >
                     <div className="modal-box bg-[white]">
-                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
-                            <p>Dia de salida:</p>
+                        <h3 className="font-bold text-lg text-black">Dia de salida: </h3>
+                            <p>Porfavor, selecciona las fechas deseadas</p>
                          <Calendar3 propid={propId} />
                         
                          <div className="modal-action flex  items-center">
                         <p className='text-[red] text-center' id='errorDiaSalida'></p>
                             <button className="btn" onClick={prevModal}>Anterior</button>
                             <button className="btn" onClick={fianlizarReserva}>Reservar</button>
+                        </div>
+                    </div>
+                </Modal>
+                <Modal
+                    open={showModal7}
+                    onClose={closeModal7}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <div className="modal-box bg-[white]">
+                        <h3 className="font-bold text-lg text-black">No tienes permisos para ver eso</h3>
+                            <p>Las propuesta suele puede verla el usuario que la recibe</p>
+                 
+                         <div className="modal-action flex  items-center">
+    
+                            <button className="btn" onClick={closeModal7}>Cerrar</button>
                         </div>
                     </div>
                 </Modal>

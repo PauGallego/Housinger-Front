@@ -100,11 +100,8 @@ const fianlizarReserva = async () =>{
         
         if(userData.userId != data.receiverUserId ){
 
-            console.log("no es el usuario");
-            console.log(userData.userId);
-            console.log(data.receiverUserId);
 
-            window.location.href = `${API_BASE_URL2}/chat`;
+          window.location.href = `${API_BASE_URL2}/chat?error=true`;
 
         }else{  
 

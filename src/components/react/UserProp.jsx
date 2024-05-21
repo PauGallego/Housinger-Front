@@ -223,28 +223,36 @@ const MyComponent = () => {
             }
         }
     
+        const modalSuccess = document.getElementById('my_modal_15');
+
         try {
+            // Muestra el modal antes de hacer la solicitud
+            modalSuccess.showModal();
+            
             const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/uploadProperty/${propiedad.id}`, {
                 method: 'POST',
                 body: formData
             });
-    
+        
             if (!response.ok) {
                 throw new Error('Failed to upload images');
             }
-    
+        
             const data = await response.json();
-    
+        
             propiedad.fotos = data;
-    
+        
             setPropiedad(propiedad);
             setImagenCentral(propiedad.fotos[0]);
-    
-            closeModal2();
         } catch (error) {
-            // Manejar errores de red u otros errores
+      
             console.error('Error uploading images:', error);
+        } finally {
+  
+            modalSuccess.close();
+            closeModal2();
         }
+        
     };
     const chatear = () => {
 
@@ -605,8 +613,8 @@ const MyComponent = () => {
                     }}
                 >
                     <div className="modal-box bg-[white]">
-                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
-                            <p>Dia de entrada:</p>
+                        <h3 className="font-bold text-lg text-black">Dia de entrada:</h3>
+                            <p>Porfavor, selecciona las fechas deseadas</p>
                          <Calendar2 propid={propiedad.id} />
                        
                           <div className="modal-action flex  items-center">
@@ -628,8 +636,8 @@ const MyComponent = () => {
                     }}
                 >
                     <div className="modal-box bg-[white]">
-                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
-                            <p>Dia de salida:</p>
+                        <h3 className="font-bold text-lg text-black">Dia de salida:</h3>
+                            <p>Porfavor, selecciona las fechas deseadas</p>
                          <Calendar3 propid={propiedad.id} />
                         
                          <div className="modal-action flex  items-center">

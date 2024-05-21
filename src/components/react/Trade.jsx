@@ -175,7 +175,7 @@ const fianlizarReserva = async () =>{
         
         if(userData.userId != data.receiverUserId ){
 
-            window.location.href = '/';
+          window.location.href = `${API_BASE_URL2}/chat?error=true`;
         }else{  
 
             setProposerId(data.reservationUserId);
@@ -308,8 +308,8 @@ const fianlizarReserva = async () =>{
                 >
                   
                   <div className="modal-box bg-[white]">
-                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
-                            <p>Dia de entrada:</p>
+                        <h3 className="font-bold text-lg text-black">Dia de entrada:</h3>
+                            <p>Porfavor, selecciona las fechas deseadas</p>
                          <Calendar2 propid={propId} />
                        
                           <div className="modal-action flex  items-center">
@@ -332,8 +332,8 @@ const fianlizarReserva = async () =>{
                     }}
                 >
                     <div className="modal-box bg-[white]">
-                        <h3 className="font-bold text-lg text-black">Porfavor, selecciona las fechas deseadas</h3>
-                            <p>Dia de salida:</p>
+                        <h3 className="font-bold text-lg text-black">Dia de salida:</h3>
+                            <p>Porfavor, selecciona las fechas deseadas</p>
                          <Calendar3 propid={propId} />
                         
                          <div className="modal-action flex  items-center">

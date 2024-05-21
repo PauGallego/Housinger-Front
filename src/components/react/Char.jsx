@@ -43,7 +43,7 @@ const Char = ({ url }) => {
     useEffect(() => {
         const handleResize = () => {
             if (window.innerWidth < 790) {
-                setNumIcons(3);
+                setNumIcons(2);
             } else if (window.innerWidth < 1708) {
                 setNumIcons(6);
             } else {
@@ -93,7 +93,7 @@ const Char = ({ url }) => {
     
     return (
         <div>
-        <div className="flex justify-center lg:flex-wrap">
+        <div className="flex justify-center lg:flex-wrap w-[80vw] m-auto">
             {limitedData.map((char, index) => (
                 <button
                     key={char.id}

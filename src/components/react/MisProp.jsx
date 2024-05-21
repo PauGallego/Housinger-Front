@@ -126,7 +126,7 @@ const MisPropiedades = () => {
                                             src={propiedad.foto ? `${API_BASE_URL}/v1/fileCustomer/download/${propiedad.foto}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`}
                                             alt=""
                                         />
-                                        <p>{propiedad.address}</p>
+                                        <p className=' w-[250px]  md:w-[200px]  lg:w-[275px]'>{propiedad.address}</p>
                                     </a>
                                 </div>
                             ))}
