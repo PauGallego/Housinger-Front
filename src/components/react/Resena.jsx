@@ -34,7 +34,9 @@ const ResenaComponent = ({ id }) => {
                 }catch{
                     userId = null;
                 }
-    
+
+                console.log("User ID:", userId);
+
                 const response = await fetch(`${API_BASE_URL}/v1/review/isReviewable/${id}/${userId}`);
                 if (response.ok) {
                     setCanReview(true);
@@ -68,6 +70,7 @@ const ResenaComponent = ({ id }) => {
     const handleReviewChange = (e) => {
         const { name, value } = e.target;
         setNewReview({ ...newReview, [name]: value });
+        console.log("New Review:", newReview);
     };
 
     const handleSubmitReview = async () => {
@@ -88,7 +91,7 @@ const ResenaComponent = ({ id }) => {
                 stars: newReview.stars
             });
 
-            console.log(bodyText);
+            console.log("Body Text:", bodyText);
 
             const response = await fetch(`${API_BASE_URL}/v1/review/save`, {
                 method: 'POST',
@@ -136,10 +139,13 @@ const ResenaComponent = ({ id }) => {
         userId = null;
     }
 
+    console.log("User ID outside useEffect:", userId);
+
     const notAreadyReviewd = !reviews.some(review => review.reviewUserId === userId);
 
     let isAdmin = localStorage.getItem("admin");
 
+    console.log("isAdmin:", isAdmin);
 
     return (
         <div>
@@ -156,7 +162,10 @@ const ResenaComponent = ({ id }) => {
                                         <label>{`${review.name} ${review.surname} ${new Date(review.date).toLocaleDateString()}`}</label>
                                         <br />
                                         <Rating name={`rating-${review.id}`} value={review.stars} precision={0.5}  readOnly />
-                                        {review.isCurrentUserReview && (
+                                        {console.log("Review User ID:", review.reviewUserId)}
+                                        {console.log("User ID:", userId)}
+                                        {console.log("isAdmin:", isAdmin)}
+                                        {(review.reviewUserId == userId || isAdmin) && (
                                             <button className='text-[red]' onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
                                         )}
                                     </div>
@@ -179,7 +188,10 @@ const ResenaComponent = ({ id }) => {
                                         <label>{`${review.name} ${review.surname} ${new Date(review.date).toLocaleDateString()}`}</label>
                                         <br />
                                         <Rating name={`rating-${review.id}`} value={review.stars}  precision={0.5} readOnly />
-                                        {review.reviewUserId == userId  || isAdmin && (
+                                        {console.log("Review User ID:", review.reviewUserId)}
+                                        {console.log("User ID:", userId)}
+                                        {console.log("isAdmin:", isAdmin)}
+                                        {(review.reviewUserId == userId || isAdmin) && (
                                             <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
                                         )}
                                     </div>
@@ -226,9 +238,6 @@ const ResenaComponent = ({ id }) => {
             </Modal>
         </div>
     );
-    
-    
 };
 
 export default ResenaComponent;
-
