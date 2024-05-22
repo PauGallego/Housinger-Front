@@ -22,3 +22,9 @@
         margin-left: 280px;
     }
 }
+
+@media screen and (min-width: 1441px) {
+    .error-mensaje {
+        padding-left: 280px;
+    }
+}

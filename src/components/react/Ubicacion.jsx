@@ -51,7 +51,7 @@ const MapaLeafletComponent = ({ location, userId }) => {
 
 
                 } else {
-                    setMensajeError('La dirección no pudo ser encontrada. Por favor, inténtelo de nuevo.');
+                    setMensajeError('La dirección no pudo ser encontrada');
                 }
             })
             .catch(error => {
@@ -131,16 +131,14 @@ const MapaLeafletComponent = ({ location, userId }) => {
                 <div className='pl-10 md:pl-0'>
                  <div className='md:flex md:items-center md:gap-5'>
                     <input type="text" id="inputDireccion" className="ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px] " placeholder="Dirección" />
-                    <button id="btnBuscar" onClick={buscarEnMapa}>Buscar y Modificar</button>
+                    <button id="btnBuscar" className='mt-5 md:mt-0' onClick={buscarEnMapa}>Buscar y Modificar</button>
                  </div>
-                    
-                    <br />
                 </div>
                 </>
             ) : (
                 <p className='ajustar dirrecion lg:ml-[200px] w-[300px] lg:w-[500px] md:w-[400px]'>{location}</p>
             )}
-            <span id="mensaje" className="error-mensaje lg:ml-[200px]">{mensajeError}</span>
+            <span id="mensaje" className="error-mensaje pl-10 md:pl-0 ">{mensajeError}</span>
             <div id="map" className=" lg:w-[900px] mapa-ajustar mt-5 propitario"></div>
         </div>
     );
