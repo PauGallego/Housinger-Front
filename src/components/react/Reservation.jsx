@@ -63,34 +63,38 @@ const Propiedades = () => {
             .catch(error => console.error('Error fetching reservations:', error));
     }, [userId, token]);
     return (
-        <div className="md:pl-[180px] lg:pl-[250px] arreglar-texto pl-10 md:pl-[0px]">
-            <div className="mt-5 lg:flex md:flex md:flex-wrap md:gap-5 lg:gap-5 w-[80%]">
+        <div className="mt-10 flex flex-col items-start ml-[15vw] lg:ml-[25vw]">
+            <h2 className="font-bold text-xl">Mis reservas</h2>
+            <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {reservations.map((reservation, index) => (
-                    <div key={index} className="relative flex-col mb-10 relative" >
-                        <img
-                            className="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]"
-                            src={reservation.propertyPicture 
-                                    ? `${API_BASE_URL}/v1/fileCustomer/download/${reservation.propertyPicture}` 
-                                    : '/public/casa1.jpg'}
-                            alt=""
-                        />
-                         <button className="absolute top-0 right-6 " onClick={() => handleModalOpen2(reservation.id)}>
-                                    <Icon icon="flowbite:x-circle-solid" className="h-[25px] w-[25px] red text-[red]"  />
+                    <div className="flex flex-col items-center mb-10 relative" key={index}>
+                        <button className="absolute top-0 right-0 z-10" onClick={() => handleModalOpen2(reservation.id)}>
+                            <Icon icon="flowbite:x-circle-solid" className="h-5 w-5 text-red-500" />
                         </button>
-                        <div className="w-[260px] md:w-[200px] lg:w-[300px]">
-                            <p>{reservation.propertyAddress}</p>
-                            <p>Propietario: {reservation.receiverUserName} {reservation.receiverUserSurname}</p>
-                            <p>Reserva para los dias <br/> {new Date(reservation.dateStart).toLocaleDateString()} - {new Date(reservation.dateEnd).toLocaleDateString()}</p>
-                        
+                        <div className="relative">
+                            <img
+                                className="mb-5 max-h-48 w-[300px] rounded"
+                                src={reservation.propertyPicture 
+                                        ? `${API_BASE_URL}/v1/fileCustomer/download/${reservation.propertyPicture}` 
+                                        : '/public/casa1.jpg'}
+                                alt=""
+                            />
+                            <img
+                                className="absolute bottom-8 right-0 w-20 h-20 rounded-full mr-2 mb-2"
+                                src={`${API_BASE_URL}/v1/fileCustomer/download/${reservation.receiverPicture}`}
+                                alt=""
+                            />
                         </div>
-                        <img
-                            className="absolute -top-[-30%] left-[50%] lg:left-[70%] transform -translate-x-1/2 rounded-full w-[80px] h-[80px]"
-                            src={`${API_BASE_URL}/v1/fileCustomer/download/${reservation.receiverPicture}`}
-                            alt=""
-                        />
+                        <p className='w-[300px] text-center'>{reservation.propertyAddress}</p>
+                        <div className="flex items-center mt-2">
+                        <p className='w-[300px] text-center'>Propietario: {reservation.receiverUserName} {reservation.receiverUserSurname}</p>
+                        </div>
+                        <p className='w-[300px] text-center'>Reserva para los días <br/> {new Date(reservation.dateStart).toLocaleDateString()} - {new Date(reservation.dateEnd).toLocaleDateString()}</p>
                     </div>
                 ))}
             </div>
+
+    
             <Modal
                     open={openModal2}
                     onClose={handleModalClose2}
