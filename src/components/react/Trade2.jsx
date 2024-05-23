@@ -237,22 +237,22 @@ const fianlizarReserva = async () =>{
       ) : (
         <div className='flex justify-center items-center gap-10 flex-col'>
           <div className='lg:flex lg:flex-row justify-center items-center'>
-          <div className='text-[20px] contedor-propiedad1'>
+          <div className='text-[20px] contedor-propiedad1 h-[600px]'>
               <p className='blanco-propieda-intercambio'>{data.proposerName} {data.proposerSurname}</p>
-              <img  className="w-[200px]"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
+              <img  className="w-[200px] h-[200px] rounded-md"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
               <p className='blanco-propieda-intercambio'>Esta ineresado/a en la propiedad </p>
               <img  className="w-[200px] h-[200px] rounded-md"   src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
-              <p className='blanco-propieda-intercambio'>{data.propertyAddress}</p>
+              <p className='blanco-propieda-intercambio w-[300px]'>{data.propertyAddress}</p>
               <p className='blanco-propieda-intercambio'>Para las fechas</p>
-                <p className='blanco-propieda-intercambio'>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
+              <p className='blanco-propieda-intercambio'>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
           </div>
           <i class="icon-[mdi--home-switch-outline] ml-[120px] lg:ml-[0px] text-[100px]"></i>
           <div className='text-[20px] contedor-propiedad2'>
               <p className='blanco-propieda-intercambio'>{data2.proposerName} {data2.proposerSurname}</p>
-              <img  className="w-[200px]"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data2.proposerPicture}`}  alt="" />
+              <img  className="w-[200px] h-[200px] rounded-md"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data2.proposerPicture}`}  alt="" />
               <p className='blanco-propieda-intercambio'>Esta ineresado/a en la propiedad </p>
               <img  className="w-[200px] h-[200px] rounded-md"   src={data2.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data2.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
-              <p className='blanco-propieda-intercambio'>{data2.propertyAddress}</p>
+              <p className='blanco-propieda-intercambio w-[300px]'>{data2.propertyAddress}</p>
               <p className='blanco-propieda-intercambio'>Para las fechas</p>
                 <p className='blanco-propieda-intercambio'>{formatDate(data2.dateStart)} - {formatDate(data2.dateEnd)}</p>
           </div>

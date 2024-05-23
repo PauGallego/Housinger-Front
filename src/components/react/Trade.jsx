@@ -251,12 +251,12 @@ const fianlizarReserva = async () =>{
           <div className='flex flex-col md:flex-row gap-10 contendor-xd'>
               <div>
                 <p className='text-white'>{data.proposerName} {data.proposerSurname}</p>
-                <img  className=""  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
+                <img  className="w-[250px] h-[221px] rounded-[10px]"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
                 <p className='text-white'>Esta ineresado/a en la propiedad </p>
               </div>
-              <div>
+              <div className='mt-6'>
                 <img  className="w-[250px] h-[221px] rounded-[10px]"   src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
-                <p className='text-white'>{data.propertyAddress}</p>
+                <p className='text-white w-[250px]'>{data.propertyAddress}</p>
                 <p className='text-white'>Para las fechas</p>
                 <p className='text-white'>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
               </div>
