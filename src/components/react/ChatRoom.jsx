@@ -626,7 +626,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
                 >
                     <div className="modal-box bg-[white]">
                         <h3 className="font-bold text-lg text-black">No tienes permisos para ver eso</h3>
-                            <p>Las propuesta suele puede verla el usuario que la recibe</p>
+                            <p>Las propuesta solo puede verla el usuario que la recibe</p>
                  
                          <div className="modal-action flex  items-center">
     

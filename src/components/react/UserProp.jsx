@@ -681,7 +681,7 @@ const MyComponent = () => {
                             />
                         </div>
                         {/* Contenido de las imágenes derechas */}
-                        <div className="flex gap-5 md:ml-2 lg:ml-0 lg:flex-col lg:flex justify-center lg:items-center lg:flex-col">
+                        <div className="mr-5 flex gap-5 md:flex-col md:mr-0 md:gap-0">
                             {/* Mostrar las siguientes tres imágenes */}
                             {fotosCompletas.slice(2, 4).map((foto, index) => (
                                 <img
