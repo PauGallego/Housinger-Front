@@ -18,6 +18,7 @@ const UserList = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [dni, setDNI] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchUsers = async () => {
     const token = localStorage.getItem('authorization');
@@ -135,7 +136,7 @@ const UserList = () => {
 
         setUsers(updatedUsers);
 
-        closeModal();
+        handleClose();
     } catch (error) {
         // Manejar errores de red u otros errores
         console.error('Error uploading image:', error);
@@ -236,31 +237,37 @@ const UserList = () => {
     }
   };
 
+  const filteredUsers = users.filter(user =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.surname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.mail.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div>
-      <div className="flex flex-wrap gap-10 pl-[50px] md:pl-[200px]">
-        {users.map(user => (
+    <div className='pb-[50px]'>
+      <div className="flex justify-start ml-[10vw] mb-5">
+        <input
+          type="text"
+          placeholder="Buscar por nombre, apellido o email"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="border rounded-md p-2 w-full max-w-md"
+        />
+      </div>
+      <div className="flex flex-wrap justify-start gap-10 pl-[50px] md:pl-[200px]">
+        {filteredUsers.map(user => (
           <div
             key={user.id}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              border: '1px solid #ccc',
-              borderRadius: '8px',
-              padding: '16px',
-              width: '150px',
-            }}
+            className="flex flex-col items-center border border-gray-300 rounded-lg p-4 w-[200px] md:w-[250px]"
             onClick={() => handleOpen(user)}
           >
             <img
               src={`${API_BASE_URL}/v1/fileCustomer/download/${user.picture}`}
               alt={`${user.name} ${user.surname}`}
-              style={{ width: '100px', height: '100px', borderRadius: '50%' }}
+              className="w-24 h-24 rounded-full"
             />
-            <h2 style={{ fontSize: '16px', margin: '10px 0 5px' }}>{user.name}</h2>
-            <p style={{ margin: 0 }}>{user.surname}</p>
-            {/* <Button variant="contained" onClick={() => handleOpen(user)}>Ver Detalles</Button> */}
+            <h2 className="text-lg mt-2">{user.name}</h2>
+            <p className="text-sm">{user.surname}</p>
           </div>
         ))}
       </div>
@@ -278,7 +285,8 @@ const UserList = () => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: 400,
+              width: '80%',
+              maxWidth: '1000px',
               bgcolor: 'background.paper',
               border: '2px solid #000',
               boxShadow: 24,
@@ -289,77 +297,77 @@ const UserList = () => {
             <Typography id="user-modal-title" variant="h6" component="h2">
               Usuario: {selectedUser.name} {selectedUser.surname}
             </Typography>
-            <img
-              src={`${API_BASE_URL}/v1/fileCustomer/download/${selectedUser.picture}`}
-              alt={`${selectedUser.name} ${selectedUser.surname}`}
-              style={{ width: '100px', height: '100px', borderRadius: '50%', margin: '16px 0'}}
-            />
-             {/* Input para seleccionar un archivo de imagen */}
-      <input type="file" id="fileInput" accept="image/*" />
-      {/* Botón para subir la imagen */}
-      <Button variant="contained" color="primary" onClick={uploadImg}>Subir Imagen</Button>
-      
-            <TextField
-              label="Nombre"
-              value={name}
-              fullWidth
-              margin="normal"
-              onChange={(e) => setName(e.target.value)}
-            />
-            <TextField
-              label="Apellido"
-              value={surname}
-              fullWidth
-              margin="normal"
-              onChange={(e) => setSurname(e.target.value)}
-            />
-             <TextField
-              label="DNI"
-              fullWidth
-              margin="normal"
-              onChange={(e) => setDNI(e.target.value)}
-            />
-            <TextField
-              label="Email"
-              value={email}
-              fullWidth
-              margin="normal"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              label="Usuario"
-              value={username}
-              fullWidth
-              margin="normal"
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            <TextField
-              label="Password"
-              value={password}
-              fullWidth
-              margin="normal"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <FormGroup>
-              <FormControlLabel
-                control={<Checkbox name="usuario" checked={roles.usuario} onChange={handleRoleChange} />}
-                label="Usuario no premiun"
+            <div className="flex gap-4">
+              <img
+                src={`${API_BASE_URL}/v1/fileCustomer/download/${selectedUser.picture}`}
+                alt={`${selectedUser.name} ${selectedUser.surname}`}
+                className="w-24 h-24 rounded-full"
               />
-              <FormControlLabel
-                control={<Checkbox name="usuarioPremiun" checked={roles.usuarioPremiun} onChange={handleRoleChange} />}
-                label="Usuario Premiun"
-              />
-              <FormControlLabel
-                control={<Checkbox name="admin" checked={roles.admin} onChange={handleRoleChange} />}
-                label="Usuario admin"
-              />
-              <FormControlLabel
-                control={<Checkbox checked={enableAccount} onChange={handleEnableAccountChange} />}
-                label="Cuenta Activada"
-              />
-            </FormGroup>
+              <div className="flex flex-col gap-4 w-full">
+                <input type="file" id="fileInput" accept="image/*" />
+                <Button variant="contained" color="primary" onClick={uploadImg}>Subir Imagen</Button>
+                <TextField
+                  label="Nombre"
+                  value={name}
+                  fullWidth
+                  margin="normal"
+                  onChange={(e) => setName(e.target.value)}
+                />
+                <TextField
+                  label="Apellido"
+                  value={surname}
+                  fullWidth
+                  margin="normal"
+                  onChange={(e) => setSurname(e.target.value)}
+                />
+                <TextField
+                  label="DNI"
+                  fullWidth
+                  margin="normal"
+                  onChange={(e) => setDNI(e.target.value)}
+                />
+                <TextField
+                  label="Email"
+                  value={email}
+                  fullWidth
+                  margin="normal"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <TextField
+                  label="Usuario"
+                  value={username}
+                  fullWidth
+                  margin="normal"
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+                <TextField
+                  label="Password"
+                  value={password}
+                  fullWidth
+                  margin="normal"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox name="usuario" checked={roles.usuario} onChange={handleRoleChange} />}
+                    label="Usuario no premiun"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="usuarioPremiun" checked={roles.usuarioPremiun} onChange={handleRoleChange} />}
+                    label="Usuario Premiun"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox name="admin" checked={roles.admin} onChange={handleRoleChange} />}
+                    label="Usuario admin"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={enableAccount} onChange={handleEnableAccountChange} />}
+                    label="Cuenta Activada"
+                  />
+                </FormGroup>
+              </div>
+            </div>
             <Button variant="contained" style={{ marginTop: '16px' }} onClick={handleModify}>Modificar</Button>
-            <br></br>
             <Button variant="contained" color="secondary" style={{ marginTop: '16px' }} onClick={handleDelete}>Eliminar usuario</Button>
           </Box>
         </Modal>

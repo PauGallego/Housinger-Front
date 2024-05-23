@@ -11,10 +11,7 @@ const MisPropiedades = () => {
     const [direccion, setDireccion] = useState('');
     const [error, setError] = useState('');
     const [idProp, setIdProp] = useState('');
-
-
     
-
     const handleModalOpen = () => {
         setOpenModal(true);
     };
@@ -23,7 +20,6 @@ const MisPropiedades = () => {
         setOpenModal(false);
     };
 
-    
     const handleModalOpen2 = (id) => {
         setIdProp(id);
         setOpenModal2(true);
@@ -32,19 +28,14 @@ const MisPropiedades = () => {
     const handleModalClose2 = () => {
         setOpenModal2(false);
     };
-    
-    try{
+
+    try {
         let userId = JSON.parse(localStorage.getItem('userData')).userId;
-    }catch{
+    } catch {
         window.location.href = `${API_BASE_URL2}`;
     }
 
-
     useEffect(() => {
-
-      
-
-
         const fetchData = async () => {
             try {
                 const response = await fetch(`${API_BASE_URL}/v1/propertyUser/get/all`);
@@ -55,13 +46,11 @@ const MisPropiedades = () => {
 
                 if (isAdmin.ok) {
                     localStorage.setItem("admin", true);
-                }else{
+                } else {
                     window.location.href = `${API_BASE_URL2}`;
                 }
 
                 setIsLoading(false);
-
-
             } catch (error) {
                 console.error('Error fetching property data:', error);
             }
@@ -71,7 +60,6 @@ const MisPropiedades = () => {
     }, []);
 
     const borrarPropiedad = async (id) => {
-
         let token = localStorage.getItem('authorization');
         
         try {
@@ -80,59 +68,67 @@ const MisPropiedades = () => {
                 headers: {
                     'Authorization': 'Authentication ' + token,
                 }
-                
             });
 
-            if(response){
+            if (response) {
                 location.reload(true);
-  
             }
-           
-            
         } catch (error) {
             console.error('Error deleting property:', error);
         }
     }
-    
+
+    const filteredPropiedades = propiedades.filter(propiedad =>
+        propiedad.address.toLowerCase().includes(direccion.toLowerCase())
+    );
+
     return (
         <div className="mt-10">
-            <div className="flex pl-[50px] md:pl-[200px]">
-                <div className="mt-5 lg:flex md:flex md:flex-wrap gap-5">
-                    {propiedades.map((propiedad, index) => (
-                        <div className="flex-col mb-10 relative" key={index}>
-                            <button className="absolute top-0 right-0" onClick={() => handleModalOpen2(propiedad.propertyId)}>
-                                <Icon icon="flowbite:x-circle-solid" className="h-[25px] w-[25px]  text-[red]" />
+            <div className="flex justify-start ml-[10vw]  mb-5">
+                <input
+                    type="text"
+                    placeholder="Buscar por dirección"
+                    value={direccion}
+                    onChange={(e) => setDireccion(e.target.value)}
+                    className="border rounded-md p-2 w-full max-w-md"
+                />
+            </div>
+                <div className="flex flex-wrap justify-start pl-[50px] md:pl-[200px] gap-5">
+                    {filteredPropiedades.map((propiedad, index) => (
+                        <div className="relative mb-10" key={index}>
+                            <button className="absolute top-2 right-2" onClick={() => handleModalOpen2(propiedad.propertyId)}>
+                                <Icon icon="flowbite:x-circle-solid" className="h-6 w-6 text-red-600" />
                             </button>
                             <a href={API_BASE_URL2 + "/user_prop?id=" + propiedad.propertyId}>
                                 <img
-                                    className="mb-5 h-[200px] w-[250px] md:h-[200px] md:w-[200px] lg:h-[200px] lg:w-[275px] rounded-[10px]"
+                                    className="mb-3 h-52 w-full md:w-[300px] lg:w-[350px] rounded-md"
                                     src={propiedad.foto ? `${API_BASE_URL}/v1/fileCustomer/download/${propiedad.foto}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`}
                                     alt=""
                                 />
-                                <p className='w-[300px]'>{propiedad.address}</p>
+                                <p className="text-center w-full md:w-[300px] lg:w-[350px]">{propiedad.address}</p>
                             </a>
                         </div>
                     ))}
                 </div>
-                <Modal
-                    open={openModal2}
-                    onClose={handleModalClose2}
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">¿Estás seguro que quieres eliminar la propiedad?</h3>
-                        <p>Esta acción es irreversible</p>
-                        <div className="modal-action">
-                            <Button variant="contained" color="primary" onClick={() => borrarPropiedad(idProp)}>Borrar</Button>
-                            <Button variant="contained" onClick={handleModalClose2}>Cerrar</Button>
-                        </div>
+
+            <Modal
+                open={openModal2}
+                onClose={handleModalClose2}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <div className="bg-white p-5 rounded-md shadow-md">
+                    <h3 className="font-bold text-lg">¿Estás seguro que quieres eliminar la propiedad?</h3>
+                    <p>Esta acción es irreversible</p>
+                    <div className="flex justify-end mt-5">
+                        <Button variant="contained" color="primary" onClick={() => borrarPropiedad(idProp)}>Borrar</Button>
+                        <Button variant="contained" onClick={handleModalClose2} className="ml-2">Cerrar</Button>
                     </div>
-                </Modal>
-            </div>
+                </div>
+            </Modal>
         </div>
     );
 };
