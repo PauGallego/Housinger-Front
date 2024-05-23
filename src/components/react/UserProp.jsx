@@ -555,21 +555,31 @@ const MyComponent = () => {
     const deletebyProperty = async () => {
         let token = localStorage.getItem('authorization');
         try {
-            const response = await fetch(`${API_BASE_URL}/v1/property/trueDelete/${propiedad.id}`, {
+            const response = await fetch(`${API_BASE_URL}/v1/property/trueDelete/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': 'Authentication ' + token,
                 }
             });
-            const data = await response;
-            console.log(data);
-
-            window.location.href = API_BASE_URL2;
-
+    
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                console.log(errorMessage);
+                throw new Error(errorMessage || 'Error al borrar la propiedad');
+            }else{
+                window.location.href = API_BASE_URL2;
+            }
+    
+            
         } catch (error) {
-            console.error('Error deleting property:', error);
+            console.error('Error:', error);
+            
+            let p = document.getElementById("errorBorrar");
+            p.innerHTML = "Esta propiedad tiene una reserva que no ha finalizado o quedan menos de 3 días para que empiece, no es posible eliminarla.";
         }
     }
+
+    
 
 
     return (
@@ -595,6 +605,7 @@ const MyComponent = () => {
                     <div className="modal-box">
                         <h3 className="font-bold text-lg">¿Estas seguro que quieres eliminar la propiedad?</h3>
                         <p>Esta accion es irreversible</p>
+                        <p id='errorBorrar' ></p>
                         <div className="modal-action">
                             <button className="btn" onClick={() => deletebyProperty()}>Borrar</button>
                             <button className="btn" onClick={closeModal4}>Cerrar</button>

@@ -69,14 +69,23 @@ const MisPropiedades = () => {
                     'Authorization': 'Authentication ' + token,
                 }
             });
-
-            if (response) {
+    
+            if (!response.ok) {
+                const errorMessage = await response.text();
+                console.log(errorMessage);
+                throw new Error(errorMessage || 'Error al borrar la propiedad');
+            }else{
                 location.reload(true);
             }
+    
+            
         } catch (error) {
-            console.error('Error deleting property:', error);
+            console.error('Error:', error);
+            
+            let p = document.getElementById("errorBorrar");
+            p.innerHTML = "Esta propiedad tiene una reserva que no ha finalizado o quedan menos de 3 días para que empiece, no es posible eliminarla.";
         }
-    }
+    };
 
     const filteredPropiedades = propiedades.filter(propiedad =>
         propiedad.address.toLowerCase().includes(direccion.toLowerCase())
@@ -123,6 +132,7 @@ const MisPropiedades = () => {
                 <div className="bg-white p-5 rounded-md shadow-md">
                     <h3 className="font-bold text-lg">¿Estás seguro que quieres eliminar la propiedad?</h3>
                     <p>Esta acción es irreversible</p>
+                    <p id='errorBorrar' ></p>
                     <div className="flex justify-end mt-5">
                         <Button variant="contained" color="primary" onClick={() => borrarPropiedad(idProp)}>Borrar</Button>
                         <Button variant="contained" onClick={handleModalClose2} className="ml-2">Cerrar</Button>
