@@ -247,19 +247,23 @@ const fianlizarReserva = async () =>{
           </div>
         </div>
       ) : (
-        <div className='flex justify-center items-center'>
-          <div className='text-[20px]'>
-              <p>{data.proposerName} {data.proposerSurname}</p>
-              <img  className="w-[200px] h-[200px]"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
-              <p>Esta ineresado/a en la propiedad </p>
-              <img  className="w-[200px] h-[200px]"   src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
-              <p>{data.propertyAddress}</p>
-              <p>Para las fechas</p>
-              <p>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
-              <div className='flex gap-5'>
+        <div className=' flex flex-col items-center	justify-center gap-10 h-[auto] '>
+          <div className='flex flex-col md:flex-row gap-10 contendor-xd'>
+              <div>
+                <p className='text-white'>{data.proposerName} {data.proposerSurname}</p>
+                <img  className=""  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
+                <p className='text-white'>Esta ineresado/a en la propiedad </p>
+              </div>
+              <div>
+                <img  className="w-[250px] h-[221px] rounded-[10px]"   src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
+                <p className='text-white'>{data.propertyAddress}</p>
+                <p className='text-white'>Para las fechas</p>
+                <p className='text-white'>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
+              </div>
+          </div>
+          <div className='flex gap-5'>
                 <button className='boton-aceptar' onClick={openModal3}>Ver Propiedades</button>
                 <button className='boton-rechazar' onClick={openModal4}>Rechazar</button>
-              </div>
           </div>
         </div>
       )}
@@ -291,7 +295,7 @@ const fianlizarReserva = async () =>{
                         
                          <div className="modal-action flex  items-center">
                         <p className='text-[red] text-center' id='errorDiaSalida'></p>
-                            <button className="btn" onClick={closeModal3}>Cerrar</button>
+                            <button className="btn boton-modal" onClick={closeModal3}>Cerrar</button>
                         </div>
                     </div>
                 </Modal>
