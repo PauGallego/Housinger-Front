@@ -30,9 +30,7 @@ const MyComponent = () => {
     const [puedeGuardar, setPuedeGuardar] = useState(false); 
     const [allCharacteristics, setAllCharacteristics] = useState([]);
     const [modifiedCharacteristics, setModifiedCharacteristics] = useState([]);
-
-
-
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     useEffect(() => {
 
@@ -201,22 +199,22 @@ const MyComponent = () => {
     }
 
     const guardarImagenes = async () => {
+        setIsButtonDisabled(true);
         const formData = new FormData();
     
-        // Iterar sobre cada elemento en arrayFotosSubidas utilizando un bucle for tradicional
         for (let i = 0; i < arrayFotosSubidas.length; i++) {
             const file = arrayFotosSubidas[i];
             
             if (file) {
-                // Si hay una nueva imagen seleccionada, agregarla al FormData
+         
                 formData.append('files', file);
             } else if (propiedad.fotos[i]) {
-                // Si no hay una nueva imagen seleccionada pero ya hay una imagen existente en esa posición, mantenerla
+           
                 const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/download/${propiedad.fotos[i]}`);
                 const blob = await response.blob();
                 formData.append('files', blob, propiedad.fotos[i]);
             } else {
-                // Si no hay una nueva imagen seleccionada ni una imagen existente en esa posición, agregar la imagen predeterminada "casa1.jpg" al FormData
+       
                 const response = await fetch(`${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`);
                 const defaultImageBlob = await response.blob();
                 formData.append('files', defaultImageBlob, 'casa1.jpg');
@@ -253,6 +251,7 @@ const MyComponent = () => {
             closeModal2();
         }
         
+        setIsButtonDisabled(false);
     };
     const chatear = () => {
 
@@ -776,7 +775,7 @@ const MyComponent = () => {
                         </div>
                         <div className="flex justify-end">
                             <div className="modal-action mr-[20px]">
-                                <button className="btn" onClick={guardarImagenes}>Guardar</button>
+                                <button className="btn" onClick={guardarImagenes}  disabled={isButtonDisabled}>Guardar</button>
                             </div>
                             <div className="modal-action">
                                 <button className="btn" onClick={closeModal2}>Cerrar</button>
