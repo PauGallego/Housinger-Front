@@ -41,6 +41,12 @@ const MisPropiedades = () => {
                 const response = await fetch(`${API_BASE_URL}/v1/propertyUser/get/all`);
                 const data = await response.json();
                 setPropiedades(data);
+                let userId = "";
+                try {
+                     userId = JSON.parse(localStorage.getItem('userData')).userId;
+                } catch {
+                    window.location.href = `${API_BASE_URL2}`;
+                }
 
                 const isAdmin = await fetch(`${API_BASE_URL}/v1/user/admin/${userId}`);
 
