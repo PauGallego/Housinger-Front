@@ -286,26 +286,30 @@ const UserList = () => {
               left: '50%',
               transform: 'translate(-50%, -50%)',
               width: '80%',
+              height: '80%',
               maxWidth: '1000px',
               bgcolor: 'background.paper',
               border: '2px solid #000',
               boxShadow: 24,
               p: 4,
+              overflowY: 'auto', // Permite el desplazamiento vertical
+              overflowX: 'hidden',
             }}
           >
             <Button onClick={handleClose} style={{ position: 'absolute', top: 16, right: 16 }}>✕</Button>
             <Typography id="user-modal-title" variant="h6" component="h2">
               Usuario: {selectedUser.name} {selectedUser.surname}
             </Typography>
-            <div className="flex gap-4">
-              <img
+            <img
                 src={`${API_BASE_URL}/v1/fileCustomer/download/${selectedUser.picture}`}
                 alt={`${selectedUser.name} ${selectedUser.surname}`}
                 className="w-24 h-24 rounded-full"
               />
+            <div className="flex gap-4">
+              
               <div className="flex flex-col gap-4 w-full">
                 <input type="file" id="fileInput" accept="image/*" />
-                <Button variant="contained" color="primary" onClick={uploadImg}>Subir Imagen</Button>
+                <Button className='w-[320px]' variant="contained" color="primary" onClick={uploadImg}>Subir Imagen</Button>
                 <TextField
                   label="Nombre"
                   value={name}
@@ -367,8 +371,11 @@ const UserList = () => {
                 </FormGroup>
               </div>
             </div>
+            <div className='flex gap-5'>
             <Button variant="contained" style={{ marginTop: '16px' }} onClick={handleModify}>Modificar</Button>
             <Button variant="contained" color="secondary" style={{ marginTop: '16px' }} onClick={handleDelete}>Eliminar usuario</Button>
+            </div>
+           
           </Box>
         </Modal>
       )}
