@@ -192,12 +192,12 @@ const ResenaComponent = ({ id }) => {
                                         {console.log("User ID:", userId)}
                                         {console.log("isAdmin:", isAdmin)}
                                         {(review.reviewUserId == userId || isAdmin) && (
-                                            <button onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
+                                            <button className=' ml-10 botones-propiedad text-white p-2 rounded-[5px] w-20' onClick={() => handleDeleteReview(review.id)}>Eliminar</button>
                                         )}
                                     </div>
                                 </div>
                                 <div className="mt-5">
-                                    <p className="h-[100px] w-[300px]" readOnly>{review.description}</p>
+                                <p className="h-[100px] w-[300px] overflow-hidden overflow-ellipsis" readOnly>{review.description}</p>
                                 </div>
                             </div>
                         </div>
