@@ -844,14 +844,14 @@ const MyComponent = () => {
                         </div>
 
                 {/* CARACTERISTICAS */}
-                <div className="lg:flex lg:gap-20 md:gap-0 propitario">
+                <div className=" lg:flex lg:gap-20 md:gap-0 propitario">
         
                     <div className="lg:flex lg:items-center">
-                        <div className="pl-10 md:pl-0 lg:ml-[235px] contendor-caracteritica  lg:h-[400px] mt-20 lg:mt-10">
+                        <div className="pl-20 md:pl-0 lg:ml-[235px] contendor-caracteritica  lg:h-[400px] mt-20 lg:mt-10">
                         <h2 className="font-bold text-lg  texto-que-hay">¿Qué hay en la vivienda?</h2>
                             {/* Mostrar las seis primeras características */}
-                            <div className="flex  gap-7 flex-wrap mt-5 items-center  w-[250px]">
-                                {propiedad.characteristics.slice(0, 6).map((caracteristica, index) => (
+                            <div className="flex  gap-7 flex-wrap mt-5 items-center  w-[250px] text-black">
+                                {propiedad.characteristics.slice(0, 4).map((caracteristica, index) => (
                                     <div key={index} className="flex items-center">
                                         <div className='mr-[20px]'>
                                             <Icon icon={caracteristica.icon} className="h-[25px] w-[25px]" />
@@ -878,7 +878,7 @@ const MyComponent = () => {
                             }}>
                                 <div className="modal-box bg-[white] text-black">
                                     <h2 className = "font-bold text-xl"> Características</h2>
-                                    <div className="modal-content-container flex flex-wrap">
+                                    <div className="modal-content-container flex flex-col gap-5">
                                         {Object.keys(propiedad.characteristics.reduce((groups, caracteristica) => {
                                             const { grupo, ...rest } = caracteristica;
                                             if (!groups[grupo]) groups[grupo] = [];
@@ -904,7 +904,7 @@ const MyComponent = () => {
                                         ))}
                                     </div>
                                     <div className="modal-action">
-                                        <button className="btn" onClick={closeModal}>Cerrar</button>
+                                        <button className="btn boton-modal-cerrar" onClick={closeModal}>Cerrar</button>
                                     </div>
                                 </div>
                             </Modal>

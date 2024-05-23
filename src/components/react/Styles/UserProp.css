@@ -54,8 +54,9 @@ html {
 }
 
 .bed-input {
-    border: 1px solid var(--gris);
+    border: 2px solid var(--gris);
     border-radius: 5px;
+    padding: 1px;
 }
 
 .boton-cama {
@@ -98,6 +99,17 @@ html {
 .premiun-texto {
     color: var(--primary);
     font-size: 20px;
+}
+
+.boton-modal-cerrar {
+    background-color: white;
+    border: 1px solid var(--gris);
+    color: black;
+}
+
+.boton-modal-cerrar:hover {
+    background-color: var(--gris);
+    color: white;
 }
 
 

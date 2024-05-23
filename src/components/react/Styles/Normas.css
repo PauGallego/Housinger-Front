@@ -29,9 +29,9 @@
 }
 
 .normaText {
-    border: 1px solid #576cbc;
+    border: 2px solid #948e8e;
     border-radius: 5px;
-    padding: 5px;
+    padding: 1px;
     margin-right: 10px;
     flex-grow: 1;
     font-size: 16px;
