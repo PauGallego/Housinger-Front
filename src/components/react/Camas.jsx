@@ -91,7 +91,7 @@ const CamasComponent = ({ id, guardar }) => {
         <div className="contendor-camas mt-10 lg:ml-[230px]">
             <h2 className="font-bold text-lg texto-que-hay">¿Dónde dormimos?</h2>
             {camas.map(cama => (
-                <div key={cama.type} className="flex items-center justify-center gap-5">
+                <div key={cama.type} className="flex items-center gap-5">
                     <div className="mt-5 flex items-center justify-center gap-2">
                         <Icon icon={cama.icon} className="h-[25px] w-[25px] mr-[10px]" />
                         <label className="mt-2">{`${cama.number} ${cama.type}`}</label>
@@ -113,23 +113,25 @@ const CamasComponent = ({ id, guardar }) => {
                             {tiposCama.map(tipoCama => {
                                 const cantidad = camas.find(cama => cama.type === tipoCama.name)?.number || 0;
                                 return (
-                                    <div key={tipoCama.id} className={`bed ${selectedBed && selectedBed.type === tipoCama.name ? 'selected' : ''}`}>
-                                        <Icon icon={tipoCama.icon} className="h-[25px] w-[25px] mr-[10px]" />
-                                        <span>{` ${tipoCama.name}`}</span>
-                                        <input
-                                            className="ml-10 bed-input"
-                                            type="number"
-                                            value={numberOfBeds[tipoCama.name] || ''}
-                                            onChange={(e) => {
-                                                const newValue = parseInt(e.target.value);
-                                                setNumberOfBeds(prevState => ({
-                                                    ...prevState,
-                                                    [tipoCama.name]: isNaN(newValue) ? '' : newValue
-                                                }));
-                                            }}
-                              
-                                        />
-                                    </div>
+                                    <div key={tipoCama.id} className={`bed ${selectedBed && selectedBed.type === tipoCama.name ? 'selected' : ''} flex flex-col items-start`}>
+                        <div className="flex items-center mb-2">
+                            <Icon icon={tipoCama.icon} className=" h-[25px] w-[25px] mr-[10px]" />
+                            <span>{` ${tipoCama.name}`}</span>
+                        </div>
+                        <input
+                            className="mb-5 bed-input"
+                            type="number"
+                            value={numberOfBeds[tipoCama.name] || ''}
+                            onChange={(e) => {
+                                const newValue = parseInt(e.target.value);
+                                setNumberOfBeds(prevState => ({
+                                    ...prevState,
+                                    [tipoCama.name]: isNaN(newValue) ? '' : newValue
+                                }));
+                            }}
+                        />
+                    </div>
+
                                 );
                             })}
                         </div>
