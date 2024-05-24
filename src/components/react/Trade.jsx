@@ -366,8 +366,8 @@ const fianlizarReserva = async () =>{
                             <p>¿Deseas Rechazar la oferta?</p>              
                          <div className="modal-action flex  items-center">
                         <p className='text-[red] text-center' id='errorDiaSalida'></p>
-                            <button className="btn" onClick={closeModal4}>Cancelar</button>
-                            <button className="btn" onClick={ () => rechazar()}>Rechazar</button>
+                            <button className="btn boton-cama" onClick={closeModal4}>Cancelar</button>
+                            <button className="btn boton-cama" onClick={ () => rechazar()}>Rechazar</button>
                         </div>
                     </div>
                 </Modal>
