@@ -49,6 +49,15 @@ import { API_BASE_URL } from '../astro.config.js';
                             <i class="icon-[ph--magnifying-glass-bold] text-fuchsia-50 lg:w-[26px] lg:h-[25px]"></i>
                         </button>
                     </div>
+                    <dialog id="my_modal_error" class="modal">
+                        <div class="modal-box">
+                        
+                            <h3 class="font-bold text-lg">Error de Fechas</h3>
+                            <p id="error-message" class="mt-4"></p>
+                            <button class="botonBuscar text-white px-4 py-2 rounded-md mt-5" onclick="my_modal_error.close()">Cerrar</button>
+                        </div>
+                    </dialog>
+                    
                 </div>
             </div>
         </div>
@@ -57,69 +66,107 @@ import { API_BASE_URL } from '../astro.config.js';
         </div>
        
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const locationInput = document.getElementById('buscador-destino');
-            const startDateInput = document.getElementById('fecha-entrada');
-            const endDateInput = document.getElementById('fecha-salida');
-            const botonBuscar = document.getElementById('botonbuscar');
+ document.addEventListener('DOMContentLoaded', function() {
+    const locationInput = document.getElementById('buscador-destino');
+    const startDateInput = document.getElementById('fecha-entrada');
+    const endDateInput = document.getElementById('fecha-salida');
+    const botonBuscar = document.getElementById('botonbuscar');
 
-            const locationInput2 = document.getElementById('buscador-destino2');
-            const startDateInput2 = document.getElementById('fecha-entrada2');
-            const endDateInput2 = document.getElementById('fecha-salida2');
-            const botonBuscar2 = document.getElementById('botonBuscar2');
-            
-            botonBuscar.addEventListener('click', () => {
-                const destination = locationInput.value;
-                const startDate = startDateInput.value;
-                const endDate = endDateInput.value;
+    const locationInput2 = document.getElementById('buscador-destino2');
+    const startDateInput2 = document.getElementById('fecha-entrada2');
+    const endDateInput2 = document.getElementById('fecha-salida2');
+    const botonBuscar2 = document.getElementById('botonBuscar2');
 
-                const baseURL = window.location.href.split('?')[0];
-                const queryParams = new URLSearchParams();
-                queryParams.set('destination', destination);
-                queryParams.set('startDate', startDate);
-                queryParams.set('endDate', endDate);
-                const updatedURL = `${baseURL}?${queryParams.toString()}`;
+    const errorMessageElement = document.getElementById('error-message');
+    const errorModal = document.getElementById('my_modal_error');
 
-                window.history.pushState({ path: updatedURL }, '', updatedURL);
-                window.location.reload();
-            });
+    function showError(message) {
+        errorMessageElement.textContent = message;
+        errorModal.showModal();
+    }
 
-            botonBuscar2.addEventListener('click', () => {
-                const destination = locationInput2.value;
-                const startDate = startDateInput2.value;
-                const endDate = endDateInput2.value;
+    function validateDates(startDate, endDate) {
+        if (!startDate && !endDate) {
+            return true; // No hay fechas, la validación es exitosa
+        }
 
-                const baseURL = window.location.href.split('?')[0]; 
-                const queryParams = new URLSearchParams();
-                queryParams.set('destination', destination);
-                queryParams.set('startDate', startDate);
-                queryParams.set('endDate', endDate);
-                const updatedURL = `${baseURL}?${queryParams.toString()}`;
+        if (!startDate || !endDate) {
+            showError("Debes ingresar tanto la fecha de entrada como la fecha de salida.");
+            return false;
+        }
 
-                window.history.pushState({ path: updatedURL }, '', updatedURL);
-                window.location.reload();
-            });
-        });
+        const today = new Date();
+        const start = new Date(startDate);
+        const end = new Date(endDate);
 
-        //Si existen query parameters, los añadimos a los inputs
-        document.addEventListener('DOMContentLoaded', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const destination = urlParams.get('destination');
-            const startDate = urlParams.get('startDate');
-            const endDate = urlParams.get('endDate');
+        if (start <= today || end <= today) {
+            showError("Las fechas deben ser posteriores al día de hoy.");
+            return false;
+        }
 
-            if (destination) {
-                document.getElementById('buscador-destino').value = destination;
-            }
+        if (start >= end) {
+            showError("La fecha de entrada debe ser anterior a la fecha de salida.");
+            return false;
+        }
 
-            if (startDate) {
-                document.getElementById('fecha-entrada').value = startDate;
-            }
+        return true;
+    }
 
-            if (endDate) {
-                document.getElementById('fecha-salida').value = endDate;
-            }
-        });
+    function performSearch(destination, startDate, endDate) {
+        const baseURL = window.location.href.split('?')[0];
+        const queryParams = new URLSearchParams();
+        queryParams.set('destination', destination);
+        queryParams.set('startDate', startDate);
+        queryParams.set('endDate', endDate);
+        const updatedURL = `${baseURL}?${queryParams.toString()}`;
+
+        window.history.pushState({ path: updatedURL }, '', updatedURL);
+        window.location.reload();
+    }
+
+    botonBuscar.addEventListener('click', () => {
+        const destination = locationInput.value;
+        const startDate = startDateInput.value;
+        const endDate = endDateInput.value;
+
+        if (validateDates(startDate, endDate)) {
+            performSearch(destination, startDate, endDate);
+        }
+    });
+
+    botonBuscar2.addEventListener('click', () => {
+        const destination = locationInput2.value;
+        const startDate = startDateInput2.value;
+        const endDate = endDateInput2.value;
+
+        if (validateDates(startDate, endDate)) {
+            performSearch(destination, startDate, endDate);
+        }
+    });
+
+    // Si existen query parameters, los añadimos a los inputs
+    const urlParams = new URLSearchParams(window.location.search);
+    const destination = urlParams.get('destination');
+    const startDate = urlParams.get('startDate');
+    const endDate = urlParams.get('endDate');
+
+    if (destination) {
+        locationInput.value = destination;
+        locationInput2.value = destination;
+    }
+
+    if (startDate) {
+        startDateInput.value = startDate;
+        startDateInput2.value = startDate;
+    }
+
+    if (endDate) {
+        endDateInput.value = endDate;
+        endDateInput2.value = endDate;
+    }
+});
+
+
     </script>
     </main>
     <style>
