@@ -63,7 +63,7 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
 
     return (
         <div className="pl-10 md:pl-0 lg:mr-[200px] gap-20 propitario mt-20 flex flex-col lg:flex-row items-center lg:items-start">
-            <div className="w-full lg:w-auto">
+            <div className="w-full lg:w-auto items-center flex flex-col">
                 <h2 className="font-bold text-lg mt-5 text-center lg:text-left">Normas de la casa</h2>
                 <div id="container" className="flex flex-col items-center lg:items-start w-full">
                     {normasState.map((norma, index) => (
@@ -76,7 +76,7 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
                     ))}
                 </div>
                 {(userId === userId2 || isAdmin) && (
-                    <div className="flex flex-col items-start lg:items-start   mt-4 w-[230px]" >
+                    <div className="flex flex-col items-start lg:items-start mt-4 w-[230px] mr-[25px]" >
                         <input type="text" id="nuevaNormaInput" className="normaText ajustar text-center  lg:text-left w-full lg:w-auto" placeholder="Escribe la norma" />
                         <button className="botonNorma mt-5 w-[150px]">Añadir norma</button>
                     </div>
