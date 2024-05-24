@@ -115,24 +115,11 @@ html {
 
 
 /* MOBIL */
-@media screen and (min-width: 390px) {
+@media screen and (max-width: 389px) {
     .imagenes-pie {
-        padding-left: 30px;
+        width: auto; /* Ajuste automático del ancho */
     }
 }
-
-@media screen and (min-width: 391px) and (max-width: 468px) {
-    .imagenes-pie {
-        padding-left: 50px;
-    }
-}
-
-@media screen and (min-width: 468px) and (max-width: 768px) {
-    .imagenes-pie {
-        padding-left: 70px;
-    }
-}
-
 
 /* TABLET */
 @media screen and (width: 768px) {
@@ -142,7 +129,6 @@ html {
 }
 
 /* PC */
-
 @media screen and (min-width: 1441px) and (min-height: 900px) {
     .propitario {
         padding-left: 280px;
@@ -151,9 +137,10 @@ html {
     .mapa-ajustar {
         margin-left: 280px;
     }
+
     .contendor-direcion {
         padding-left: 230px;
-        
+
     }
 }
 

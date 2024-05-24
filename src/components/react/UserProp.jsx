@@ -674,7 +674,7 @@ const MyComponent = () => {
                             {fotosCompletas.slice(0, 2).map((foto, index) => (
                                 <img
                                 key={index}
-                                className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[204px] md:w-[215px] lg:h-[130px] lg:w-[195px]"
+                                className="mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[204px] md:w-[215px] lg:h-[130px] lg:w-[195px] object-cover object-center"
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                 alt={`imagen-propiedad-${index}`}
                                 onClick={() => handleImageClick(foto)}
@@ -692,12 +692,12 @@ const MyComponent = () => {
                             />
                         </div>
                         {/* Contenido de las imágenes derechas */}
-                        <div className="mr-5 flex gap-5 md:flex-col md:mr-0 md:gap-0">
+                        <div className="md:mr-2 lg:mr-0 flex  gap-5 lg:flex lg:justify-center lg:items-center lg:gap-2 lg:flex-col ">
                             {/* Mostrar las siguientes tres imágenes */}
                             {fotosCompletas.slice(2, 4).map((foto, index) => (
                                 <img
                                     key={index}
-                                    className="prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[204px] md:w-[215px] lg:h-[130px] lg:w-[195px]"
+                                    className="mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[204px] md:w-[215px] lg:h-[130px] lg:w-[195px] object-cover object-center"
                                     src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                     alt={`imagen-propiedad-${index + 3}`}
                                     onClick={() => handleImageClick(foto)}
@@ -707,13 +707,13 @@ const MyComponent = () => {
                         </div>
                     </div>
 
-                    {/* Imagen PIE */}
-                    <div className="imagenes-pie flex flex-wrap gap-5 lg:flex lg:justify-center lg:items-center lg:gap-[35px]  lg:flex-nowrap">
+                   {/* Imagen PIE */}
+                    <div className="imagenes-pie flex flex-wrap gap-5 justify-center items-center p-5 md:p-10 lg:gap-[35px]  lg:flex-nowrap lg:ml-10">
                         {/* Mostrar las imágenes restantes */}
                         {fotosCompletas.slice(4).map((foto, index) => (
                             <img
                                 key={index}
-                                className="lg:h-[130px] lg:w-[195px] prpiedad-foto-1 mt-10 rounded-[10px] h-[104px] w-[150px] md:h-[104px] md:h-[204px] md:w-[215px] lg:w-[195px]"
+                                className=" imagenes-pie rounded-[10px] h-[104px] w-[150px] md:h-[204px] md:h-[204px] md:w-[215px]  lg:h-[130px] lg:w-[195px] object-cover object-center"
                                 src={`${API_BASE_URL}/v1/fileCustomer/download/${foto}`}
                                 alt={`imagen-propiedad-${index + 6}`}
                                 onClick={() => handleImageClick(foto)}
@@ -721,6 +721,7 @@ const MyComponent = () => {
                             />
                         ))}
                     </div>
+
                 </div>
 
                 {puedeGuardar && (
@@ -858,7 +859,9 @@ const MyComponent = () => {
                 <div className=" lg:flex lg:gap-20 md:gap-0 propitario">
         
                     <div className="lg:flex lg:items-center">
-                        <div className="pl-20 md:pl-0 lg:ml-[235px] contendor-caracteritica  lg:h-[400px] mt-20 lg:mt-10">
+                        <div >
+                        <div className="flex itmes-center">
+                        <div>
                         <h2 className="font-bold text-lg  texto-que-hay">¿Qué hay en la vivienda?</h2>
                             {/* Mostrar las seis primeras características */}
                             <div className="flex  gap-7 flex-wrap mt-5 items-center  w-[250px] text-black">
@@ -881,6 +884,11 @@ const MyComponent = () => {
                             {puedeGuardar && (
                             <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={openModal3}>Modificar</button>
                             )}
+                        </div>
+                      
+
+                        </div>
+                        
                             
                             <Modal open={showModal} onClose={closeModal} sx={{
                                 display: 'flex',
