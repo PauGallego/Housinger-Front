@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button } from '@mui/material';
 import { Icon } from '@iconify/react';
 import { API_BASE_URL, API_BASE_URL2 } from '../../astro.config';
+import '../../global.css';
+
 
 const MisPropiedades = () => {
     const [propiedades, setPropiedades] = useState([]);
@@ -99,13 +101,13 @@ const MisPropiedades = () => {
 
     return (
         <div className="mt-10">
-            <div className="flex justify-start ml-[10vw]  mb-5">
+            <div className="flex justify-start ml-[10vw] mb-5 ">
                 <input
                     type="text"
                     placeholder="Buscar por dirección"
                     value={direccion}
                     onChange={(e) => setDireccion(e.target.value)}
-                    className="border rounded-md p-2 w-full max-w-md"
+                    className="border rounded-md p-2 w-full max-w-md  input-datos"
                 />
             </div>
                 <div className="flex flex-wrap justify-start pl-[50px] md:pl-[200px] gap-5">

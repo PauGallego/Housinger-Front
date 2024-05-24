@@ -602,13 +602,13 @@ const MyComponent = () => {
                         justifyContent: 'center',
                     }}
                 >
-                    <div className="modal-box">
+                    <div className="modal-box bg-white text-black">
                         <h3 className="font-bold text-lg">¿Estas seguro que quieres eliminar la propiedad?</h3>
                         <p>Esta accion es irreversible</p>
                         <p id='errorBorrar' ></p>
                         <div className="modal-action">
-                            <button className="btn" onClick={() => deletebyProperty()}>Borrar</button>
-                            <button className="btn" onClick={closeModal4}>Cerrar</button>
+                            <button className="btn boton-cama" onClick={() => deletebyProperty()}>Borrar</button>
+                            <button className="btn boton-cama" onClick={closeModal4}>Cerrar</button>
                         </div>
                     </div>
                 </Modal>
@@ -629,8 +629,8 @@ const MyComponent = () => {
                        
                           <div className="modal-action flex  items-center">
                              <p className='text-[red] text-center' id='errorDiaEntrada'></p>
-                            <button className="btn" onClick={closeModal5}>Cancelar</button>
-                            <button className="btn" onClick={nextModal}>Siguiente</button>
+                            <button className="btn boton-cama" onClick={closeModal5}>Cancelar</button>
+                            <button className="btn boton-cama" onClick={nextModal}>Siguiente</button>
                            
                         </div>
                        
@@ -652,8 +652,8 @@ const MyComponent = () => {
                         
                          <div className="modal-action flex  items-center">
                         <p className='text-[red] text-center' id='errorDiaSalida'></p>
-                            <button className="btn" onClick={prevModal}>Anterior</button>
-                            <button className="btn" onClick={reservarTrue}>Reservar</button>
+                            <button className="btn boton-cama" onClick={prevModal}>Anterior</button>
+                            <button className="btn boton-cama" onClick={reservarTrue}>Reservar</button>
                         </div>
                     </div>
                 </Modal>
@@ -735,15 +735,15 @@ const MyComponent = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                 }}>
-                    <div className="modal-box">
-                        <h2>Subir imágenes nuevas</h2>
+                    <div className="modal-box bg-[white] text-black">
+                        <h2 className='bolder text-xl'>Subir imágenes nuevas</h2>
                         <div className="modal-content-container flex flex-wrap">
                             {/* Fotos del lado izquierdo */}
                             <div className="group-section">
                                 <p>Lado Izquierdo</p>
                                 {[...Array(2)].map((_, index) => (
-                                    <div key={index} className="file-input-container">
-                                        <label htmlFor={`file-input-${index}`} className="file-label">Foto {index + 1}</label>
+                                    <div key={index} className="file-input-container m-5">
+                                        <label htmlFor={`file-input-${index}`} className="file-label mr-5">Foto {index + 1}</label>
                                         <input
                                             type="file"
                                             id={`file-input-${index}`}
@@ -757,8 +757,8 @@ const MyComponent = () => {
                             <div className="group-section">
                                 <p>Lado Derecho</p>
                                 {[...Array(2)].map((_, index) => (
-                                    <div key={index + 2} className="file-input-container">
-                                        <label htmlFor={`file-input-${index + 2}`} className="file-label">Foto {index + 3}</label>
+                                    <div key={index + 2} className="file-input-container m-5">
+                                        <label htmlFor={`file-input-${index + 2}`} className="file-label mr-5">Foto {index + 3}</label>
                                         <input
                                             type="file"
                                             id={`file-input-${index + 2}`}
@@ -772,8 +772,8 @@ const MyComponent = () => {
                             <div className="group-section">
                                 <p>Parte Inferior</p>
                                 {[...Array(4)].map((_, index) => (
-                                    <div key={index + 4} className="file-input-container">
-                                        <label htmlFor={`file-input-${index + 4}`} className="file-label">Foto {index + 5}</label>
+                                    <div key={index + 4} className="file-input-container m-5">
+                                        <label htmlFor={`file-input-${index + 4}`} className="file-label mr-5">Foto {index + 5}</label>
                                         <input
                                             type="file"
                                             id={`file-input-${index + 4}`}
@@ -784,12 +784,12 @@ const MyComponent = () => {
                                 ))}
                             </div>
                         </div>
-                        <div className="flex justify-end">
+                        <div className="flex justify-end ">
                             <div className="modal-action mr-[20px]">
-                                <button className="btn" onClick={guardarImagenes}  disabled={isButtonDisabled}>Guardar</button>
+                                <button className=" btn boton-cama" onClick={guardarImagenes}  disabled={isButtonDisabled}>Guardar </button>
                             </div>
                             <div className="modal-action">
-                                <button className="btn" onClick={closeModal2}>Cerrar</button>
+                                <button className="btn boton-cama" onClick={closeModal2}>Cerrar</button>
                             </div>
                         </div>
                     </div>
@@ -957,10 +957,10 @@ const MyComponent = () => {
                 </div>
                 <div className="flex justify-end">
                     <div className="modal-action mr-[20px]">
-                        <button className="btn" onClick={saveChanges}>Modificar</button>
+                        <button className="btn boton-cama" onClick={saveChanges}>Modificar</button>
                     </div>
                     <div className="modal-action">
-                        <button className="btn" onClick={closeModal3}>Cerrar</button>
+                        <button className="btn boton-cama" onClick={closeModal3}>Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -972,7 +972,7 @@ const MyComponent = () => {
                             <p className="py-4">La dirección ya está siendo utilizada.</p>
                             <div className="modal-action">
                             <form method="dialog">
-                                <button className="btn">Close</button>
+                                <button className="btn boton-cama">Cerrar</button>
                             </form>
                             </div>
                         </div>

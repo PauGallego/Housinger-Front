@@ -251,7 +251,7 @@ const UserList = () => {
           placeholder="Buscar por nombre, apellido o email"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border rounded-md p-2 w-full max-w-md"
+          className="border rounded-md p-2 w-full max-w-md  input-datos"
         />
       </div>
       <div className="flex flex-wrap justify-start gap-10 pl-[50px] md:pl-[200px]">
