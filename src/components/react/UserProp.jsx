@@ -584,9 +584,9 @@ const MyComponent = () => {
 
     return (
         <div>
-            <main className=" md:ml-[110px] lg:ml-[270px] md:mr-[100px] lg:mr-[270px]">
+            <main className=" md:ml-[110px] lg:ml-[270px] md:mr-[100px] lg:mr-[270px] ">
             <dialog id="my_modal_15" className="modal">
-            <div className="modal-box">
+            <div className="modal-box bg-[white] text-black">
                 <h3 className="font-bold text-lg">Cargando cambios...</h3>
                 <p className="py-4">Propiedad actualizada correctamente</p>
                 <div className="modal-action">
@@ -974,12 +974,12 @@ const MyComponent = () => {
         </Modal>
                         </div>
                         <dialog id="my_modal_20" className="modal">
-                        <div className="modal-box">
-                            <h3 className="font-bold text-lg">Error en la direcion</h3>
+                        <div className="modal-box bg-[white] text-black">
+                            <h3 className="font-bold text-lg">Error en la dirección</h3>
                             <p className="py-4">La dirección ya está siendo utilizada.</p>
                             <div className="modal-action">
                             <form method="dialog">
-                                <button className="btn boton-cama">Cerrar</button>
+                                <button className="btn boton-cama" onClick={ () => location.reload(true)}>Cerrar</button>
                             </form>
                             </div>
                         </div>

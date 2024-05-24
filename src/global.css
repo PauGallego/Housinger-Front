@@ -17,6 +17,17 @@ main {
     height: 57px;
 }
 
+.boton-cama {
+    background-color: white;
+    border: 1px solid var(--gris);
+    color: black;
+}
+
+.boton-cama:hover {
+    background-color: var(--gris);
+    color: white;
+}
+
 .loading-container {
     display: flex;
     justify-content: center;

@@ -78,7 +78,7 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
                 {(userId === userId2 || isAdmin) && (
                     <div className="flex flex-col items-start lg:items-start mt-4 w-[230px] mr-[25px]" >
                         <input type="text" id="nuevaNormaInput" className="normaText ajustar text-center  lg:text-left w-full lg:w-auto" placeholder="Escribe la norma" />
-                        <button className="botonNorma mt-5 w-[150px]">Añadir norma</button>
+                        <button className="botonNorma mt-5 w-[150px]" onClick={agregarNorma}>Añadir norma</button>
                     </div>
                 )}
             </div>

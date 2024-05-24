@@ -157,8 +157,8 @@ const MisPropiedades = () => {
                     <input type="text" placeholder="Dirección" value={direccion} onChange={(e) => setDireccion(e.target.value)} />
                     <p className="text-red">{error}</p>
                     <div className="modal-action">
-                        <button className="btn" onClick={nuevaPropiedad}>Crear</button>
-                        <button className="btn" onClick={handleModalClose}>Cerrar</button>
+                        <button className=" btn boton-cama " onClick={nuevaPropiedad}>Crear</button>
+                        <button className=" btn boton-cama" onClick={handleModalClose}>Cerrar</button>
                     </div>
                 </div>
             </Modal>
@@ -177,8 +177,8 @@ const MisPropiedades = () => {
                     <p>Esta acción es irreversible</p>
                     <p id='errorBorrar'></p>
                     <div className="modal-action">
-                        <button className="btn" onClick={() => borrarPropiedad(idProp)}>Borrar</button>
-                        <button className="btn" onClick={handleModalClose2}>Cerrar</button>
+                        <button className=" btn boton-cama" onClick={() => borrarPropiedad(idProp)}>Borrar</button>
+                        <button className=" btn boton-cama" onClick={handleModalClose2}>Cerrar</button>
                     </div>
                 </div>
             </Modal>

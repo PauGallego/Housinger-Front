@@ -76,7 +76,7 @@ const Propiedades = () => {
                                 className="mb-5 max-h-48 w-[300px] rounded"
                                 src={reservation.propertyPicture 
                                         ? `${API_BASE_URL}/v1/fileCustomer/download/${reservation.propertyPicture}` 
-                                        : '/public/casa1.jpg'}
+                                        : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`}
                                 alt=""
                             />
                             <img
@@ -109,8 +109,8 @@ const Propiedades = () => {
                         <p>Esta accion es irreversible</p>
                         <p id="errosmsg"></p>
                         <div className="modal-action">
-                            <button className="btn" onClick={() => cancelar()}>Cancelar</button>
-                            <button className="btn" onClick={handleModalClose2}>Cerrar</button>
+                            <button className="btn boton-cama" onClick={() => cancelar()}>Cancelar</button>
+                            <button className="btn boton-cama" onClick={handleModalClose2}>Cerrar</button>
                         </div>
                     </div>
                 </Modal>

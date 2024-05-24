@@ -318,8 +318,8 @@ const fianlizarReserva = async () =>{
                        
                           <div className="modal-action flex  items-center">
                              <p className='text-[red] text-center' id='errorDiaEntrada'></p>
-                            <button className="btn" onClick={closeModal}>Cancelar</button>
-                            <button className="btn" onClick={nextModal}>Siguiente</button>
+                            <button className="btn boton-cama" onClick={closeModal}>Cancelar</button>
+                            <button className="btn boton-cama" onClick={nextModal}>Siguiente</button>
                            
                         </div>
                        
@@ -342,8 +342,8 @@ const fianlizarReserva = async () =>{
                         
                          <div className="modal-action flex  items-center">
                         <p className='text-[red] text-center' id='errorDiaSalida'></p>
-                            <button className="btn" onClick={prevModal}>Anterior</button>
-                            <button className="btn" onClick={fianlizarReserva}>Reservar</button>
+                            <button className="btn boton-cama" onClick={prevModal}>Anterior</button>
+                            <button className="btn boton-cama" onClick={fianlizarReserva}>Reservar</button>
                         </div>
                     </div>
                 </Modal>
