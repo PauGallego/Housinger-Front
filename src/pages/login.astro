@@ -143,7 +143,7 @@ import { API_BASE_URL } from "../astro.config.js";
                         >Recuperar contraseña</button
                     >
                     <dialog id="my_modal_1" class="modal">
-                        <div class="modal-box">
+                        <div class="modal-box  bg-[white] text-black">
                             <h3 class="font-bold text-lg">Cambiar contraseña</h3>
                             <br>
                             <input type="text" class="datos-insertar" id="mailrecuperar" placeholder="Correo electronico" />
@@ -167,24 +167,24 @@ import { API_BASE_URL } from "../astro.config.js";
             </div>
         </div>
         <dialog id="my_modal_4" class="modal">
-            <div class="modal-box">
+            <div class="modal-box bg-[white] text-black">
                 <h3 class="font-bold text-lg">Error al inicar session</h3>
                 <p class="py-4">Usario o contraseña no son correctos</p>
                 <p class="py-4 text-sm">Recuerda que debes activar tu cuenta desde el correo indicando en el formulario de registro para el primer inicio de session</p>
                 <div class="modal-action">
                 <form method="dialog">
-                    <button class="btn">Close</button>
+                    <button  class="bg-[#576cbc] text-[20px] h-10 w-20 text-white rounded-md">Cerrar</button>
                 </form>
                 </div>
             </div>
         </dialog>
         <dialog id="my_modal_5" class="modal">
-            <div class="modal-box">
+            <div class="modal-box  bg-[white] text-black">
                 <h3 class="font-bold text-lg">Error en el correo</h3>
                 <p class="py-4">El correo no exite o esta en uso</p>
                 <div class="modal-action">
                 <form method="dialog">
-                    <button class="btn">Close</button>
+                    <button  class="bg-[#576cbc] text-[20px] h-10 w-20 text-white rounded-md">Cerrar</button>
                 </form>
                 </div>
             </div>
