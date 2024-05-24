@@ -211,6 +211,18 @@ const UserList = () => {
       console.error('No token found');
       return;
     }
+    let userId = "";
+    try {
+       userId = JSON.parse(localStorage.getItem('userData')).userId;
+  } catch {
+      window.location.href = `${API_BASE_URL2}`;
+  }
+
+    if(selectedUser.id == userId){
+      let errorBorrar = document.getElementById('errorBorrar');
+      errorBorrar.innerHTML = 'No puedes borrar tu propio usuario';
+      return;
+    }
 
     const url = `${API_BASE_URL}/v1/user/trueDelete/${selectedUser.id}`;
 
@@ -371,7 +383,9 @@ const UserList = () => {
                 </FormGroup>
               </div>
             </div>
+            <p id='errorBorrar' className='text-[red]'></p>
             <div className='flex gap-5'>
+              
             <Button variant="contained" style={{ marginTop: '16px' }} onClick={handleModify}>Modificar</Button>
             <Button variant="contained" color="secondary" style={{ marginTop: '16px' }} onClick={handleDelete}>Eliminar usuario</Button>
             </div>
