@@ -83,8 +83,8 @@ const NormasComponent = ({ normas: propsNormas, userId, seguridad: propsSegurida
                 )}
             </div>
     
-            <div className="w-full lg:w-auto flex flex-col items-center lg:items-start mt-10 lg:mt-0">
-                <h2 className="font-bold text-lg mt-5 text-center lg:text-left">Seguridad en el hogar</h2>
+            <div className=" flex flex-col items-center lg:items-start mt-10 lg:mt-0">
+                <h2 className="font-bold text-lg mt-5 text-center lg:text-left w-[200px]">Seguridad en el hogar</h2>
                 <div id="seguridadContainer" className="flex flex-col items-center lg:items-start w-full">
                     {[
                         { id: "alarma", label: "Alarma" },
