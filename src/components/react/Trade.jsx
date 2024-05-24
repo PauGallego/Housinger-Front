@@ -172,6 +172,11 @@ const fianlizarReserva = async () =>{
         
 
         const data = await response.json();
+
+        if(data.type == "confirmed" ){
+          window.location.href = `${API_BASE_URL2}/chat?error=true`;
+        }
+
         
         if(userData.userId != data.receiverUserId ){
 
