@@ -52,31 +52,10 @@ import { API_BASE_URL } from '../astro.config.js';
                 </div>
             </div>
         </div>
-        <div class="h-screen">
+        <div class="min-h-screen">
             <Char url={`${API_BASE_URL}/v1/characteristic/get/all`} client:only="svelte" />
         </div>
-        <footer class="mt-[50vh] md:mt-0" >
-            <div class="pb-5 flex justify-between items-center flex-col lg:flex-row lg:pl-[100px] md:ml-20 footer-arreglar">
-                        <div class="flex lg:pl-40">
-                            <img
-                                alt="Logo de Housinger"
-                                src=`${API_BASE_URL}/v1/fileCustomer/download/logo.png`
-                                class="h-[40px] lg:h-[42px] md:h-[52px] ml-2 mt-5"
-                            />
-                            <div
-                                class="pt-10 pl-2 cabecera-titulo lg:text-[15x]"
-                            >
-                                HOUSINGER
-                            </div>
-                        </div>
-                    <div class="flex items-center justify-center gap-2">
-                        <i class="icon-[solar--copyright-broken] mt-10" style="color: #576cbc;"></i>
-                        <p class="mt-10 text-[#576cbc] font-bold">housinger company</p> 
-                    </div>
-                    <p class="mt-10 text-[#576cbc] font-bold">Creado por: David Pardo y Pau Gallego</p>
-                    <div class="flex space-x-2 mt-10 lg:mr-20 md:mr-20 lg:pr-40"></div>
-            </div>
-        </footer>
+       
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const locationInput = document.getElementById('buscador-destino');
