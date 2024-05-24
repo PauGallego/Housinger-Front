@@ -364,10 +364,6 @@ const UserList = () => {
                 />
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox name="usuario" checked={roles.usuario} onChange={handleRoleChange} />}
-                    label="Usuario no premiun"
-                  />
-                  <FormControlLabel
                     control={<Checkbox name="usuarioPremiun" checked={roles.usuarioPremiun} onChange={handleRoleChange} />}
                     label="Usuario Premiun"
                   />
