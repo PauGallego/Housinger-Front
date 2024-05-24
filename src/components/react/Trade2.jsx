@@ -227,43 +227,42 @@ const fianlizarReserva = async () =>{
  
 
   return (
-    (
-      <div>
-        {isLoading ? (
-          <div className='flex justify-center items-center'>
-            <div className='md:flex md:flex-col md:h-[500px] md:w-[500px] md:justify-center md:items-center lg:flex lg:flex-col lg:h-[500px] lg:w-[500px] lg:justify-center lg:items-center'>
+    <div>
+      {isLoading ? (
+        <div className='flex justify-center items-center'>
+          <div className='md:flex md:flex-col md:h-[500px] md:w-[500px] md:justify-center md:items-center lg:flex lg:flex-col lg:h-[500px] lg:w-[500px] lg:justify-center lg:items-center'>
               <img className='ajustar-carga' src="../../cargar.gif" alt="Cargando..." />
-            </div>
           </div>
-        ) : (
-          <div className='flex justify-center items-center flex-col pb-[50px]'>
-            <div className='lg:flex lg:flex-row justify-center items-center'>
-              <div className='text-[20px] contenedor-propiedad1 h-[600px] mx-auto'>
-                <p className='blanco-propieda-intercambio'>{data.proposerName} {data.proposerSurname}</p>
-                <img className="w-[200px] h-[200px] rounded-md" src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`} alt="" />
-                <p className='blanco-propieda-intercambio'>Está interesado/a en la propiedad</p>
-                <img className="w-[200px] h-[200px] rounded-md" src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
-                <p className='blanco-propieda-intercambio w-[300px]'>{data.propertyAddress}</p>
-                <p className='blanco-propieda-intercambio'>Para las fechas</p>
-                <p className='blanco-propieda-intercambio'>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
-              </div>
-              <i className="icon-[mdi--home-switch-outline] ml-[120px] lg:ml-[0px] text-[100px]"></i>
-              <div className='text-[20px] contenedor-propiedad2 h-[600px] mx-auto'>
-                <p className='blanco-propieda-intercambio'>{data2.proposerName} {data2.proposerSurname}</p>
-                <img className="w-[200px] h-[200px] rounded-md" src={`${API_BASE_URL}/v1/fileCustomer/download/${data2.proposerPicture}`} alt="" />
-                <p className='blanco-propieda-intercambio'>Está interesado/a en la propiedad</p>
-                <img className="w-[200px] h-[200px] rounded-md" src={data2.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data2.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
-                <p className='blanco-propieda-intercambio w-[300px]'>{data2.propertyAddress}</p>
-                <p className='blanco-propieda-intercambio'>Para las fechas</p>
+        </div>
+      ) : (
+        <div className='flex justify-center items-center gap-10 flex-col pb-[50px]'>
+          <div className='lg:flex lg:flex-row justify-center items-center'>
+          <div className='text-[20px] contedor-propiedad1 h-[600px]'>
+              <p className='blanco-propieda-intercambio'>{data.proposerName} {data.proposerSurname}</p>
+              <img  className="w-[200px] h-[200px] rounded-md"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data.proposerPicture}`}  alt="" />
+              <p className='blanco-propieda-intercambio'>Esta ineresado/a en la propiedad </p>
+              <img  className="w-[200px] h-[200px] rounded-md"   src={data.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
+              <p className='blanco-propieda-intercambio w-[300px]'>{data.propertyAddress}</p>
+              <p className='blanco-propieda-intercambio'>Para las fechas</p>
+              <p className='blanco-propieda-intercambio'>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
+          </div>
+          <i class="icon-[mdi--home-switch-outline] ml-[120px] lg:ml-[0px] text-[100px]"></i>
+          <div className='text-[20px] contedor-propiedad2'>
+              <p className='blanco-propieda-intercambio'>{data2.proposerName} {data2.proposerSurname}</p>
+              <img  className="w-[200px] h-[200px] rounded-md"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data2.proposerPicture}`}  alt="" />
+              <p className='blanco-propieda-intercambio'>Esta ineresado/a en la propiedad </p>
+              <img  className="w-[200px] h-[200px] rounded-md"   src={data2.propertyPicture ? `${API_BASE_URL}/v1/fileCustomer/download/${data2.propertyPicture}` : `${API_BASE_URL}/v1/fileCustomer/download/casa1.jpg`} />
+              <p className='blanco-propieda-intercambio w-[300px]'>{data2.propertyAddress}</p>
+              <p className='blanco-propieda-intercambio'>Para las fechas</p>
                 <p className='blanco-propieda-intercambio'>{formatDate(data2.dateStart)} - {formatDate(data2.dateEnd)}</p>
-              </div>
-            </div>
-            <div className='flex gap-5'>
-              <button className='boton-aceptar-intercambio' onClick={() => aceptar()}>Aceptar</button>
-              <button className='boton-rechazar-intercambio' onClick={openModal4}>Rechazar</button>
-            </div>
           </div>
-        )}
+          </div>
+          <div className='flex gap-5'>
+            <button className='boton-aceptar-intercambio' onClick={ () => aceptar()}>Aceptar</button>
+            <button className='boton-rechazar-intercambio' onClick={ openModal4}>Rechazar</button>
+          </div>
+        </div>
+      )}
        <Modal
                     open={showModal4}
                     onClose={closeModal4}
