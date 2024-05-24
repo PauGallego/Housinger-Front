@@ -153,8 +153,8 @@ const ResenaComponent = ({ id }) => {
                 {showAll ? reviews.map(review => (
                     <div key={review.id}>
                         <div>
-                            <div>
-                                <div className="flex gap-5">
+                            <div className='flex flex-col items-center md:items-left'>
+                                <div className="flex gap-5 ">
                                     <div>
                                         <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src={`${API_BASE_URL}/v1/fileCustomer/download/${review.picture}`} alt="" />
                                     </div>
@@ -179,8 +179,8 @@ const ResenaComponent = ({ id }) => {
                 )) : reviews.slice(0, 4).map(review => (
                     <div key={review.id}>
                         <div>
-                            <div>
-                                <div className="flex gap-5">
+                            <div className='flex flex-col items-center md:items-left'>
+                                <div className="flex  gap-5">
                                     <div>
                                         <img className="imagen-optima h-[90px] w-[100px] rounded-[50%]" src={`${API_BASE_URL}/v1/fileCustomer/download/${review.picture}`} alt="" />
                                     </div>

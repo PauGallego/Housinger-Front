@@ -855,16 +855,15 @@ const MyComponent = () => {
                             </div>
                         </div>
 
-                {/* CARACTERISTICAS */}
-                <div className=" lg:flex lg:gap-20 md:gap-0 propitario">
-        
-                    <div className="lg:flex lg:items-center">
-                        <div >
-                        <div className="flex itmes-center">
+             {/* CARACTERISTICAS */}
+                <div className="lg:flex lg:gap-20 md:gap-0 propitario">
+
+                <div className="lg:flex lg:items-center">
+                    <div className="flex justify-center"> 
                         <div>
-                        <h2 className="font-bold text-lg  texto-que-hay">¿Qué hay en la vivienda?</h2>
+                            <h2 className="font-bold text-lg texto-que-hay  mt-[20px]">¿Qué hay en la vivienda?</h2> 
                             {/* Mostrar las seis primeras características */}
-                            <div className="flex  gap-7 flex-wrap mt-5 items-center  w-[250px] text-black">
+                            <div className="flex gap-7 flex-wrap mt-5 items-center w-[250px] text-black "> 
                                 {propiedad.characteristics.slice(0, 4).map((caracteristica, index) => (
                                     <div key={index} className="flex items-center">
                                         <div className='mr-[20px]'>
@@ -877,16 +876,16 @@ const MyComponent = () => {
                                 ))}
                             </div>
                             {/* Botón para abrir el modal */}
-                                
                             {!puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-40 md:w-40 lg:w-40 mt-[20px] " onClick={openModal}>Mostrar más</button>
+                                <div className="flex justify-center"> {/* Añadir div con justify-center */}
+                                    <button className="botones-propiedad text-white p-2 rounded-[5px] w-40 md:w-40 lg:w-40 mt-[20px]" onClick={openModal}>Mostrar más</button>
+                                </div>
                             )}
                             {puedeGuardar && (
-                            <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px]" onClick={openModal3}>Modificar</button>
+                                <div className="flex justify-center"> {/* Añadir div con justify-center */}
+                                    <button className="botones-propiedad text-white p-2 rounded-[5px] w-20 lg:w-40 md:w-[69px] mt-[20px] mt-[20px]" onClick={openModal3}>Modificar</button>
+                                </div>
                             )}
-                        </div>
-                      
-
                         </div>
                         
                             
@@ -1000,7 +999,7 @@ const MyComponent = () => {
                     <Camas id={propiedad.id} guardar={puedeGuardar} ></Camas>
                     {/* PREMIUM */}
                     {propiedad.premium ? (
-                        <div className="lg:ml-[190px] mt-10 lg:mt-[100px]">
+                        <div className="lg:ml-[190px] mt-10 lg:mt-[100px] mt-[100px] mb-[50px]">
                             <div className="flex flex-col items-center">
                                 <p className="text-center font-bold	premiun-texto">HOUNSINGER</p>
                                 <p className="text-center font-bold	premiun-texto">PREMIUM VERIFICADO</p>

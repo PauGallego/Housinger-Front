@@ -88,7 +88,8 @@ const CamasComponent = ({ id, guardar }) => {
     };
 
     return (
-        <div className="contendor-camas mt-10 pl-10 md:pl-0 lg:ml-[230px] text-black">
+        <div className='flex flex-col items-center'>
+            <div className="contendor-camas mt-10 md:pl-10 md:pl-0 lg:ml-[230px] text-black  ">
             <h2 className="font-bold text-lg texto-que-hay">¿Dónde dormimos?</h2>
             {camas.map(cama => (
                 <div key={cama.type} className="flex items-center gap-5">
@@ -143,6 +144,8 @@ const CamasComponent = ({ id, guardar }) => {
                 </div>
             </Modal>
         </div>
+        </div>
+        
     );
 };
 
