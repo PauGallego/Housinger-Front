@@ -114,6 +114,10 @@ const fianlizarReserva = async () =>{
 
         console.log(data);
 
+        if(data.type == "confirmed" ){
+          window.location.href = `${API_BASE_URL2}/chat?error=true`;
+        }
+
 
 
       if (id) {
@@ -144,6 +148,11 @@ const fianlizarReserva = async () =>{
 
 
         console.log(data);
+        
+        if(data.type == "confirmed" ){
+          window.location.href = `${API_BASE_URL2}/chat?error=true`;
+        }
+
 
         setData2(data);
 
