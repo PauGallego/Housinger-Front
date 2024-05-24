@@ -512,7 +512,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
                         ))}
                         <div className='mt-[60px] bp-[500px] md:mt-[100px] md:bm-[100px]'></div>
 
-                        <div className="chat-input flex justify-center items-center w-[95vw] md:w-[78vw] lg:w-[62vw]  top-[850px] lg:top-[820px]">
+                        <div className="chat-input flex justify-center items-center w-[95vw] md:w-[78vw] lg:w-[62vw]  top-[880px] lg:top-[820px]">
                             <input className='w-[90%] h-[40px] rounded-[50px] input-enviar'
                                 type="text"
                                 value={userData.message}
