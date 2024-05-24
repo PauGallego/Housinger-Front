@@ -247,7 +247,7 @@ const fianlizarReserva = async () =>{
           </div>
         </div>
       ) : (
-        <div className=' flex flex-col items-center	justify-center gap-10 h-[auto] '>
+        <div className=' flex flex-col items-center	justify-center gap-10 h-[auto] pb-[50px]'>
           <div className='flex flex-col md:flex-row gap-10 contendor-xd'>
               <div>
                 <p className='text-white'>{data.proposerName} {data.proposerSurname}</p>

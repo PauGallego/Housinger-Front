@@ -297,18 +297,17 @@ const UserList = () => {
               top: '50%',
               left: '50%',
               transform: 'translate(-50%, -50%)',
-              width: '80%',
+              width: '30%',
               height: '80%',
               maxWidth: '1000px',
               bgcolor: 'background.paper',
-              border: '2px solid #000',
               boxShadow: 24,
               p: 4,
-              overflowY: 'auto', // Permite el desplazamiento vertical
+              overflowY: 'auto',
               overflowX: 'hidden',
             }}
           >
-            <Button onClick={handleClose} style={{ position: 'absolute', top: 16, right: 16 }}>✕</Button>
+            <Button onClick={handleClose} style={{ position: 'absolute', top: 16, right: 16, color: "red" }}>✕</Button>
             <Typography id="user-modal-title" variant="h6" component="h2">
               Usuario: {selectedUser.name} {selectedUser.surname}
             </Typography>
@@ -385,9 +384,11 @@ const UserList = () => {
             </div>
             <p id='errorBorrar' className='text-[red]'></p>
             <div className='flex gap-5'>
-              
-            <Button variant="contained" style={{ marginTop: '16px' }} onClick={handleModify}>Modificar</Button>
-            <Button variant="contained" color="secondary" style={{ marginTop: '16px' }} onClick={handleDelete}>Eliminar usuario</Button>
+              <div className='flex justify-end items-end w-[100%] gap-7'>
+              <Button variant="contained" style={{ marginTop: '16px' }} onClick={handleModify}>Modificar</Button>
+            <Button variant="contained" style={{ marginTop: '16px' , backgroundColor: "red"}} onClick={handleDelete}>Eliminar usuario</Button>
+              </div>
+            
             </div>
            
           </Box>

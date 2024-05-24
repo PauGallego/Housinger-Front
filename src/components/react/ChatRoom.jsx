@@ -484,7 +484,7 @@ const ChatRoom = ({ senderId, receiverId }) => {
             {userData.connected ? (
 
                 <div  id='chat-container' className="chat-container w-[100vw] md:w-[80vw]   flex-col md:flex-col lg:flex-row gap-5 ">
-                    <div className="conversation-buttons flex flex-row lg:flex-col w-[100vw] md:w-[80vw] lg:w-[17vw] flex-wrap">
+                    <div className="conversation-buttons flex flex-row lg:flex-col w-[100vw] md:w-[80vw] lg:w-[17vw] flex-wrap min-h-[50px]">
                         {receiverButtons}
                     </div>
 
