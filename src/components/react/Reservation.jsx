@@ -18,11 +18,9 @@ const Propiedades = () => {
         setOpenModal2(true);
     };
 
-    const handleModalClose2 = (id) => {
+    const handleModalClose2 = () => {
         setOpenModal2(false);
     };
-
-    
 
     const cancelar = () => {
         fetch(`${API_BASE_URL}/v1/reservation/deleteTrue/${idReserv}`, {
@@ -49,8 +47,6 @@ const Propiedades = () => {
         });
     };
     
-
-    
     useEffect(() => {
         fetch(`${API_BASE_URL}/v1/reservation/getUser/${userId}`, {
             method: 'GET',
@@ -63,14 +59,21 @@ const Propiedades = () => {
             .then(data => setReservations(data))
             .catch(error => console.error('Error fetching reservations:', error));
     }, [userId, token]);
+
     return (
         <div className="mt-10 flex flex-col items-start ml-[15vw] lg:ml-[25vw]">
             <h2 className="font-bold text-xl">Mis reservas</h2>
             <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {reservations.map((reservation, index) => (
-                      <a href={API_BASE_URL2 + "/user_prop?id=" + reservation.reservationPropertyId}>
-                    <div className="flex flex-col items-center mb-10 relative" key={index}>
-                        <button className="absolute top-0 right-0 z-10" onClick={() => handleModalOpen2(reservation.id)}>
+                    <div 
+                        className="flex flex-col items-center mb-10 relative cursor-pointer" 
+                        key={index}
+                        onClick={() => window.location.href = `${API_BASE_URL2}/user_prop?id=${reservation.reservationPropertyId}`}
+                    >
+                        <button className="absolute top-0 right-0 z-10" onClick={(e) => {
+                            e.stopPropagation();
+                            handleModalOpen2(reservation.id);
+                        }}>
                             <Icon icon="flowbite:x-circle-solid" className="h-5 w-5 text-red-500" />
                         </button>
                         <div className="relative">
@@ -89,34 +92,32 @@ const Propiedades = () => {
                         </div>
                         <p className='w-[300px] text-center'>{reservation.propertyAddress}</p>
                         <div className="flex items-center mt-2">
-                        <p className='w-[300px] text-center'>Propietario: {reservation.receiverUserName} {reservation.receiverUserSurname}</p>
+                            <p className='w-[300px] text-center'>Propietario: {reservation.receiverUserName} {reservation.receiverUserSurname}</p>
                         </div>
                         <p className='w-[300px] text-center'>Reserva para los días <br/> {new Date(reservation.dateStart).toLocaleDateString()} - {new Date(reservation.dateEnd).toLocaleDateString()}</p>
                     </div>
-                    </a>
                 ))}
             </div>
 
-    
             <Modal
-                    open={openModal2}
-                    onClose={handleModalClose2}
-                    sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <div className="modal-box">
-                        <h3 className="font-bold text-lg">¿Estas seguro que quieres cancelar la reserva?</h3>
-                        <p>Esta accion es irreversible</p>
-                        <p id="errosmsg"></p>
-                        <div className="modal-action">
-                            <button className="btn boton-cama" onClick={() => cancelar()}>Cancelar</button>
-                            <button className="btn boton-cama" onClick={handleModalClose2}>Cerrar</button>
-                        </div>
+                open={openModal2}
+                onClose={handleModalClose2}
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <div className="modal-box">
+                    <h3 className="font-bold text-lg">¿Estas seguro que quieres cancelar la reserva?</h3>
+                    <p>Esta acción es irreversible</p>
+                    <p id="errosmsg"></p>
+                    <div className="modal-action">
+                        <button className="btn boton-cama" onClick={() => cancelar()}>Cancelar</button>
+                        <button className="btn boton-cama" onClick={handleModalClose2}>Cerrar</button>
                     </div>
-                </Modal>
+                </div>
+            </Modal>
         </div>
     );
 };
