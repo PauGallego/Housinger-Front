@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { API_BASE_URL } from '../../astro.config';
+import { API_BASE_URL2 } from '../../astro.config';
 import { Modal, Button, TextField } from '@mui/material';
 import { Icon } from '@iconify/react';
 
@@ -67,6 +68,7 @@ const Propiedades = () => {
             <h2 className="font-bold text-xl">Mis reservas</h2>
             <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {reservations.map((reservation, index) => (
+                      <a href={API_BASE_URL2 + "/user_prop?id=" + reservation.reservationPropertyId}>
                     <div className="flex flex-col items-center mb-10 relative" key={index}>
                         <button className="absolute top-0 right-0 z-10" onClick={() => handleModalOpen2(reservation.id)}>
                             <Icon icon="flowbite:x-circle-solid" className="h-5 w-5 text-red-500" />
@@ -91,6 +93,7 @@ const Propiedades = () => {
                         </div>
                         <p className='w-[300px] text-center'>Reserva para los días <br/> {new Date(reservation.dateStart).toLocaleDateString()} - {new Date(reservation.dateEnd).toLocaleDateString()}</p>
                     </div>
+                    </a>
                 ))}
             </div>
 
