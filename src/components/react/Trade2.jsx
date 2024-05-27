@@ -256,7 +256,7 @@ const fianlizarReserva = async () =>{
               <p className='blanco-propieda-intercambio'>{formatDate(data.dateStart)} - {formatDate(data.dateEnd)}</p>
           </div>
           <i class="icon-[mdi--home-switch-outline] ml-[120px] lg:ml-[0px] text-[100px]"></i>
-          <div className='text-[20px] contedor-propiedad2'>
+          <div className='text-[20px] contedor-propiedad2 '>
               <p className='blanco-propieda-intercambio'>{data2.proposerName} {data2.proposerSurname}</p>
               <img  className="w-[200px] h-[200px] rounded-md"  src={`${API_BASE_URL}/v1/fileCustomer/download/${data2.proposerPicture}`}  alt="" />
               <p className='blanco-propieda-intercambio'>Esta ineresado/a en la propiedad </p>
